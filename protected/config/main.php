@@ -81,6 +81,30 @@ return array(
             )
         ),
 
+        'hybridAuth'=>array(
+            'class'=>'ext.widgets.hybridAuth.CHybridAuth',
+            'enabled'=>true, // enable or disable this component
+            'config'=>array(
+                "base_url" => "http://shareroomyii1.com/hybridauth/endpoint",
+                "providers" => array(
+                    "Google" => array(
+                        "enabled" => true,
+                        "keys" => array("id" => "312670614441-jo8uppgn92bei4gp09edh2famb29sc65.apps.googleusercontent.com", "secret" => "zJtwH1FBEpDH6qAj5l670Rx7"),
+                    ),
+                    "Facebook" => array(
+                        "enabled" => true,
+                        "keys" => array("id" => "1621562994796845", "secret" => "1512c0e5b45d3e9c004ac18c1a20d831"),
+                    ),
+                    "Twitter" => array(
+                        "enabled" => false,
+                        "keys" => array("key" => "", "secret" => "")
+                    ),
+                ),
+                "debug_mode" => false,
+                "debug_file" => "",
+            ),
+        ),//end hybridAuth
+
 	),
 
 	// application-level parameters that can be accessed
