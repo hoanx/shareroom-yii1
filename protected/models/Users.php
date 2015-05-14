@@ -5,11 +5,11 @@
  *
  * The followings are the available columns in table 'tb_user':
  * @property integer $id
- * @property string $username
- * @property string $password
  * @property string $email
+ * @property string $password
  * @property string $first_name
  * @property string $last_name
+ * @property string $birthday
  * @property integer $gender
  * @property string $phone_number
  * @property string $address
@@ -37,13 +37,13 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, email, first_name, last_name, created, updated', 'required'),
+			array('password, email, first_name, last_name, created, updated', 'required'),
             array('email','email'),
 			array('gender, del_flg', 'numerical', 'integerOnly'=>true),
-			array('username, password, email, first_name, last_name, phone_number, address', 'length', 'max'=>255),
+			array('password, email, first_name, last_name, phone_number, address', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, email, first_name, last_name, gender, phone_number, address, created, updated, del_flg', 'safe', 'on'=>'search'),
+			array('id, birthday, password, email, first_name, last_name, gender, phone_number, address, created, updated, del_flg', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -136,5 +136,17 @@ class Users extends CActiveRecord
             self::GENDER_FEMALE => Yii::t('app','Female'),
         );
         return !empty($result[$id]) ? $result[$id] : $result;
+    }
+
+    /**
+     * Returns User model by its email
+     *
+     * @param string $email
+     * @access public
+     * @return User
+     */
+    public function findByEmail($email)
+    {
+        return self::model()->findByAttributes(array('email' => $email));
     }
 }

@@ -81,7 +81,7 @@ return array(
             )
         ),
 
-        'hybridAuth'=>array(
+        /*'hybridAuth'=>array(
             'class'=>'ext.widgets.hybridAuth.CHybridAuth',
             'enabled'=>true, // enable or disable this component
             'config'=>array(
@@ -103,7 +103,7 @@ return array(
                 "debug_mode" => false,
                 "debug_file" => "",
             ),
-        ),//end hybridAuth
+        ),//end hybridAuth*/
 
 	),
 

@@ -109,7 +109,9 @@ $action = Yii::app()->controller->action->id;
     <div class="modal-dialog modal-sm modal-vertical-centered">
         <div class="modal-content">
             <div class="modal-body">
-                Sign in
+                <div class="social-buttons">
+
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -123,7 +125,18 @@ $action = Yii::app()->controller->action->id;
     <div class="modal-dialog modal-sm modal-vertical-centered">
         <div class="modal-content">
             <div class="modal-body">
-                Sign up
+                <a href="https://www.facebook.com/v2.0/dialog/oauth?client_id=138566025676&amp;redirect_uri=https%3A%2F%2Fwww.airbnb.com%2Fauthenticate&amp;scope=email%2Cuser_birthday%2Cuser_likes%2Cuser_education_history%2Cuser_hometown%2Cuser_location%2Cuser_friends%2Cpublish_actions"
+                   class="fb-button fb-blue btn icon-btn btn-block row-space-1 btn-large btn-facebook">
+                    <span class="icon-container"><i class="fa fa-facebook"></i></span>
+                    <span class="text-container">Sign up with Facebook</span>
+                </a>
+
+
+                <a href="/oauth_connect?service=google&amp;from=google_signup"
+                   class="btn icon-btn btn-block row-space-1 btn-large btn-google">
+                    <span class="icon-container"><i class="fa fa-google-plus"></i></span>
+                    <span class="text-container">Sign up with Google</span>
+                </a>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

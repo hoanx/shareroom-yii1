@@ -4,11 +4,13 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<?php $this->widget('ext.widgets.hybridAuth.SocialLoginButtonWidget', array(
-    'enabled'=>Yii::app()->hybridAuth->enabled,
-    'providers'=>Yii::app()->hybridAuth->getAllowedProviders(),
-    'route'=>'/hybridauth/authenticate',
-)); ?>
+<?php //$this->widget('ext.widgets.hybridAuth.SocialLoginButtonWidget', array(
+//    'enabled'=>Yii::app()->hybridAuth->enabled,
+//    'providers'=>Yii::app()->hybridAuth->getAllowedProviders(),
+//    'route'=>'/hybridauth/authenticate',
+//)); ?>
+<?php $this->widget('ext.hoauth.widgets.HOAuth'); ?>
+
 
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
