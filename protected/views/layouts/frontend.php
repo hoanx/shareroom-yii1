@@ -110,13 +110,55 @@ $action = Yii::app()->controller->action->id;
     <div class="modal-dialog modal-sm modal-vertical-centered">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="social-buttons">
+                <div class="form">
+                    <?php $form=$this->beginWidget('CActiveForm', array(
+                        'id'=>'login-form',
+                        'enableClientValidation'=>true,
+                        'clientOptions'=>array(
+                            'validateOnSubmit'=>true,
+                        ),
+                    )); ?>
 
-                </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                            <?php echo $form->textField($this->loginFormModel,'username', array(
+                                'class'=>'form-control',
+                                'placeholder' => $this->loginFormModel->getAttributeLabel('username'),
+                                'autofocus' => 'autofocus'
+                            )); ?>
+                        </div>
+                        <?php echo $form->error($this->loginFormModel,'username', array('class'=>'help-block error-login')); ?>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+                            <?php echo $form->passwordField($this->loginFormModel,'password', array(
+                                'class'=>'form-control',
+                                'placeholder' => $this->loginFormModel->getAttributeLabel('password'),
+                                'autofocus' => 'autofocus'
+                            )); ?>
+                        </div>
+                        <?php echo $form->error($this->loginFormModel,'password', array('class'=>'help-block error-login')); ?>
+                    </div>
+
+
+
+                    <div class="row rememberMe">
+                        <?php echo $form->checkBox($this->loginFormModel,'rememberMe'); ?>
+                        <?php echo $form->label($this->loginFormModel,'rememberMe'); ?>
+                        <?php echo $form->error($this->loginFormModel,'rememberMe'); ?>
+                    </div>
+
+                    <div class="actions">
+                        <?php echo CHtml::submitButton(Yii::t("app", "Login"), array('class'=>'btn btn-success btn-block btn-submit')); ?>
+                    </div>
+
+                    <?php $this->endWidget(); ?>
+                </div><!-- form -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
             </div>
         </div>
     </div>
@@ -130,7 +172,7 @@ $action = Yii::app()->controller->action->id;
                     <a class="btn btn-block btn-social btn-md btn-facebook btn-social-custom"
                        href="javascript:void(0)">
                         <i class="fa fa-facebook"></i>
-                        Sign in with Facebook
+                        Sign up with Facebook
                     </a>
                 </div>
                 <div class="signup-or-separator">
@@ -185,14 +227,14 @@ $action = Yii::app()->controller->action->id;
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-danger btn-block">Submit</button>
+                        <button type="submit" class="btn btn-danger btn-block">Register</button>
                     </div>
 
                 </form>
 
             </div>
             <div class="modal-footer">
-
+                Already a member? <a href="javascript:void(0)" data-dismiss="modal" data-toggle="modal" data-target="#signin-modal">Login here</a>
             </div>
         </div>
     </div>
