@@ -192,6 +192,33 @@ label.error {
 
 @media screen and (min-width: 768px){
     .modal-dialog {
-        width: 350px;
+        width: 330px;
     }
+}
+
+a.btn-social-custom{
+    font-weight: bold;
+    text-align: center;
+}
+.signup-or-separator {
+    background: none;
+    height: 34px;
+    position: relative;
+    text-align: center;
+}
+.signup-or-separator .signup-or-separator--text {
+    background-color: #FFF;
+    display: inline-block;
+    margin: 0;
+    padding: 8px;
+}
+.signup-or-separator hr {
+    margin: -16px auto 10px auto;
+    width: 90%;
+}
+hr {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 0;
+    border-top: 1px solid #dce0e0;
 }

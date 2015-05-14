@@ -12,7 +12,8 @@
     $clientScript = Yii::app()->getClientScript();
     //CSS
     $clientScript->registerCssFile($baseUrl . '/css/bootstrap.css');
-    $clientScript->registerCssFile($baseUrl . '/css/font-awesome.css');
+    $clientScript->registerCssFile($baseUrl . '/css/font-awesome.min.css');
+    $clientScript->registerCssFile($baseUrl . '/css/bootstrap-social.css');
     $clientScript->registerCssFile($baseUrl . '/css/default/default.css');
     $clientScript->registerCssFile($baseUrl . '/css/nivo-slider.css');
     $clientScript->registerCssFile($baseUrl . '/css/frontend.css');
@@ -125,22 +126,73 @@ $action = Yii::app()->controller->action->id;
     <div class="modal-dialog modal-sm modal-vertical-centered">
         <div class="modal-content">
             <div class="modal-body">
-                <a href="https://www.facebook.com/v2.0/dialog/oauth?client_id=138566025676&amp;redirect_uri=https%3A%2F%2Fwww.airbnb.com%2Fauthenticate&amp;scope=email%2Cuser_birthday%2Cuser_likes%2Cuser_education_history%2Cuser_hometown%2Cuser_location%2Cuser_friends%2Cpublish_actions"
-                   class="fb-button fb-blue btn icon-btn btn-block row-space-1 btn-large btn-facebook">
-                    <span class="icon-container"><i class="fa fa-facebook"></i></span>
-                    <span class="text-container">Sign up with Facebook</span>
-                </a>
+                <div class="social-buttons">
+                    <a class="btn btn-block btn-social btn-md btn-facebook btn-social-custom"
+                       href="javascript:void(0)">
+                        <i class="fa fa-facebook"></i>
+                        Sign in with Facebook
+                    </a>
+                </div>
+                <div class="signup-or-separator">
+                    <h6 class="text signup-or-separator--text">or</h6>
+                    <hr>
+                </div>
+                <!-- Form Sign in-->
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="First name">
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Last name">
+                        </div>
+                    </div>
 
-                <a href="/oauth_connect?service=google&amp;from=google_signup"
-                   class="btn icon-btn btn-block row-space-1 btn-large btn-google">
-                    <span class="icon-container"><i class="fa fa-google-plus"></i></span>
-                    <span class="text-container">Sign up with Google</span>
-                </a>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-at"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-key"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-key"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Re-password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-danger btn-block">Submit</button>
+                    </div>
+
+                </form>
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
+
             </div>
         </div>
     </div>
