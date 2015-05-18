@@ -102,8 +102,10 @@ class SiteController extends Controller
 	/**
 	 * Displays the login page
 	 */
-	public function actionLogin()
+	public function actionSignIn()
 	{
+        $this->pageTitle = Yii::t('app', 'Sign In');
+
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -122,9 +124,17 @@ class SiteController extends Controller
 				$this->redirect(Yii::app()->user->returnUrl);
 		}
 		// display the login form
-		$this->render('login',array('model'=>$model));
+		$this->render('signin',array('model'=>$model));
 	}
 
+
+    /**
+     * Displays the sign up page
+     */
+    public function actionSignUp()
+    {
+        $this->render('signup');
+    }
 	/**
 	 * Logs out the current user and redirect to homepage.
 	 */

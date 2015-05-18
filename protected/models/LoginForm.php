@@ -36,7 +36,9 @@ class LoginForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'rememberMe'=>'Remember me next time',
+			'rememberMe'=> Yii::t('app', 'Nhớ tôi'),
+            'username' => Yii::t('app', 'Tài khoản'),
+            'password' => Yii::t('app', 'Mật khẩu'),
 		);
 	}
 

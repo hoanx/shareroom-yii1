@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 body{
-    font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: BerninoSansWeb,sans-serif;
     font-size: 14px;
 }
 h1 i, h2 i, h3 i, h4 i, h5 i {
@@ -14,8 +14,13 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
 	-webkit-transition: all 0.5s ease;
 }
 .navbar-custom {
+    position: absolute;
+    width: 100%;
+    z-index: 99999;
+    top: 0;
 	padding : 3px;
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 0;
 }
 .navbar-brand {
 	font-size : 27px;
@@ -73,44 +78,18 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
 .image-banner img {
 	min-height : 200px;
 }
-/* STYLE INDEX */
-.box {
-	box-sizing: border-box;
-}
-.box.emerald a{
-	background-color : #7bc1a1;
-}
-.box.blue a{
-	background-color : #abcbd6;
-}
-.box.gray a{
-	background-color : #aab0b0;
-}
-.box.turquoise a{
-	background-color : #45B8AC;
-}
-.box.yellow a{
-	background-color : #ffd006;
-}
-.box a {
-	padding: 40px 20px;
-	text-align: center;
-	display : block;
-	background-color : #ff6860;
-	margin-bottom: 20px;
-	color : white;
-}
-.box a:hover {
-	text-decoration: none;
-	opacity : 0.8;
-}
-
 footer {
     bottom: 0;
     margin-top: 30px;
-    background-color: #CCC;
     padding: 30px 30px 20px;
+    background-color: #f9f9f9;
+    border-top: 2px solid #2a6ebe;
 }
+footer ul li{
+    list-style: none;
+    margin-bottom: 6px;
+}
+
 /* STYLE MESSAGE BOX */
 .message-selected td {
 	background-color : #FFFFD8 !important;
@@ -211,6 +190,9 @@ a.btn-social-custom{
     display: inline-block;
     margin: 0;
     padding: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #82888a;
 }
 .signup-or-separator hr {
     margin: -16px auto 10px auto;
@@ -221,4 +203,111 @@ hr {
     margin-bottom: 15px;
     border: 0;
     border-top: 1px solid #dce0e0;
+}
+
+.login-container {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 40%;
+    margin: 50px auto;
+    background-color: #fff;
+}
+.btn-social>:first-child {
+    border-right: none;
+    width: 45px;
+}
+
+.error-login{
+    color: #B94A48;
+}
+
+/* enable absolute positioning */
+.inner-addon {
+    position: relative;
+}
+/* style glyph */
+.inner-addon .glyphicon,
+.inner-addon .fa{
+    position: absolute;
+    padding: 10px 15px;
+    pointer-events: none;
+}
+/* align glyph */
+.left-addon .glyphicon, .left-addon .fa  { left:  0px;}
+.right-addon .glyphicon, .right-addon .fa { right: 0px;}
+/* add padding  */
+.left-addon input  { padding-left:  38px; }
+.right-addon input { padding-right: 38px; }
+
+.line-gradient {
+    height: 1px;
+    background: #adadad;
+    background: -moz-linear-gradient(left, #f2f2f2 0%, #adadad 30%, #878787 50%, #adadad 70%, #f2f2f2 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#f2f2f2), color-stop(30%,#adadad), color-stop(50%,#878787), color-stop(70%,#adadad), color-stop(100%,#f2f2f2));
+    background: -webkit-linear-gradient(left, #f2f2f2 0%,#adadad 30%,#878787 50%,#adadad 70%,#f2f2f2 100%);
+    background: -o-linear-gradient(left, #f2f2f2 0%,#adadad 30%,#878787 50%,#adadad 70%,#f2f2f2 100%);
+    background: -ms-linear-gradient(left, #f2f2f2 0%,#adadad 30%,#878787 50%,#adadad 70%,#f2f2f2 100%);
+    background: linear-gradient(to right, #f2f2f2 0%,#adadad 30%,#878787 50%,#adadad 70%,#f2f2f2 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#f2f2f2',GradientType=1 );
+}
+
+/*Style home page*/
+.box{
+    margin-bottom: 15px;
+}
+.location {
+    margin-top: 25px
+}
+
+.box-location h3 {
+    text-align: center;
+    font-weight: bold;
+}
+
+.location-info {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 10px 0;
+}
+
+.location-info a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.location-info a img {
+    position: relative;
+    border-radius: 5px;
+}
+
+.location-info a:hover img {
+    opacity: 0.8
+}
+.location a .info-text{
+    position: absolute;
+    top: 43%;
+    text-align: center;
+    width: 100%;
+    padding-right: 20px;
+}
+
+.box-advantages{}
+.advantages-info{
+    text-align: center;
+    padding: 20px;
+}
+.advantages-info i {
+    font-size: 58px;
+    margin-bottom: 10px;
+}
+.advantages-info strong{
+    font-size: 18px;
+    line-height: 35px;
+
+}
+.advantages-info i:hover{
+    color: #398fd1;
 }

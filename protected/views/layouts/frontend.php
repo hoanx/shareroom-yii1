@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="language" content="en">
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
@@ -17,6 +18,7 @@
     $clientScript->registerCssFile($baseUrl . '/css/default/default.css');
     $clientScript->registerCssFile($baseUrl . '/css/nivo-slider.css');
     $clientScript->registerCssFile($baseUrl . '/css/frontend.css');
+    $clientScript->registerCssFile($baseUrl . '/css/responsive.css');
     //JS
     $clientScript->registerScriptFile($baseUrl . '/js/jquery-1.10.2.min.js');
     $clientScript->registerScriptFile($baseUrl . '/js/jquery.nivo.slider.js');
@@ -24,7 +26,7 @@
     ?>
 </head>
 <body>
-<header class="navbar navbar-inverse navbar-fixed-top">
+<header class="navbar navbar-inverse navbar-custom">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle pull-right" data-toggle="collapse"
                 data-target=".navbar-ex1-collapse">
@@ -40,17 +42,21 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
         <ul class="nav navbar-nav pull-right">
             <?php if (Yii::app()->user->isGuest) : ?>
-                <li><a href="#signup-modal" data-toggle="modal" data-target="#signup-modal"><?php echo Yii::t('app', 'Sign Up') ?></a></li>
-                <li><a href="#signup-modal" data-toggle="modal" data-target="#signin-modal"><?php echo Yii::t('app', 'Sign In') ?></a></li>
+                <!--<li><a href="#signup-modal" data-toggle="modal" data-target="#signup-modal"><?php /*echo Yii::t('app', 'Sign Up') */?></a></li>
+                <li><a href="#signup-modal" data-toggle="modal" data-target="#signin-modal"><?php /*echo Yii::t('app', 'Sign In') */?></a></li>-->
+
+                <li><?php echo CHtml::link(Yii::t('app', 'Đăng ký'), array('site/signup')) ?></a></li>
+                <li><?php echo CHtml::link(Yii::t('app', 'Đăng nhập'), array('site/signin')) ?></a></li>
             <?php else : ?>
                 <li>
                     <a href="#" class="dropdown-toggle"
                        data-toggle="dropdown"><?php echo Yii::app()->getModule('user')->user->username ?></a>
                     <ul class="dropdown-menu">
-                        <li><?php echo CHtml::link('<i class="fa fa-user"></i>  ' . Yii::t('app', 'My profile'), array('profile/index')) ?></li>
-                        <li><?php echo CHtml::link('<i class="fa fa-cog"></i>  ' . Yii::t('app', 'Change Password'), array('profile/newpass')) ?></li>
-                        <li><?php echo CHtml::link('<i class="fa fa-envelope"></i> My Message', array('message/index')) ?></li>
-                        <li><?php echo CHtml::link('<i class="fa fa-sign-out"></i> Logout', array('default/logout')) ?></li>
+                        <li><?php echo CHtml::link('<i class="fa fa-user"></i>  ' . Yii::t('app', 'Bảng hoạt động'), array('profile/index')) ?></li>
+                        <li><?php echo CHtml::link('<i class="fa fa-user"></i>  ' . Yii::t('app', 'Thông tin cá nhân'), array('profile/index')) ?></li>
+                        <li><?php echo CHtml::link('<i class="fa fa-cog"></i>  ' . Yii::t('app', 'Đổi mật khẩu'), array('profile/newpass')) ?></li>
+                        <li><?php echo CHtml::link('<i class="fa fa-envelope"></i> ' . Yii::t('app', 'Hộp thư'), array('message/index')) ?></li>
+                        <li><?php echo CHtml::link('<i class="fa fa-sign-out"></i> ' . Yii::t('app', 'Đăng xuất'), array('default/logout')) ?></li>
                     </ul>
                 </li>
             <?php endif; ?>
@@ -80,9 +86,9 @@ $action = Yii::app()->controller->action->id;
     </div>
 <?php endif; ?>
 <div class="container">
-    <div class="head-line">
-        <h2><?php echo $this->pageTitle ?></h2>
-    </div>
+    <!--<div class="head-line">
+        <h2><?php /*echo $this->pageTitle */?></h2>
+    </div>-->
     <?php if (Yii::app()->user->hasFlash('success')): ?>
         <div class="alert alert-success fade in">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -100,8 +106,19 @@ $action = Yii::app()->controller->action->id;
 
 <footer>
     <div class="container">
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>© 2013 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+        <div class="pull-right">
+            <a href="#">
+                <img src="<?php echo $baseUrl ?>/images/dangkybocongthuong.jpg">
+            </a>
+        </div>
+        <div>
+            <ul>
+                <li><a href="#"><?php echo(Yii::t('app', 'Giới thiệu shareroom')) ?></a></li>
+                <li><a href="#"><?php echo(Yii::t('app', 'Về chúng tôi')) ?></a></li>
+                <li><a href="#"><?php echo(Yii::t('app', 'Chính sách riêng tư')) ?></a></li>
+                <li><a href="#"><?php echo(Yii::t('app', 'Điều kiện & điều khoản')) ?></a></li>
+            </ul>
+        </div>
     </div>
 </footer>
 
@@ -264,14 +281,14 @@ $action = Yii::app()->controller->action->id;
             controlNav: false
         });
 
-        window.onscroll = function (oEvent) {
+        /*window.onscroll = function (oEvent) {
             var pos = jQuery('body').scrollTop();
-            if (pos > 20) {
+            if (pos > 400) {
                 jQuery('.navbar').addClass('navbar-custom');
             } else {
                 jQuery('.navbar').removeClass('navbar-custom');
             }
-        }
+        }*/
     });
 </script>
 </body>
