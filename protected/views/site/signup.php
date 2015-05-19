@@ -31,37 +31,36 @@
     <div class="form-group">
         <div class="inner-addon left-addon">
             <i class="fa fa-user fa-fw"></i>
-            <?php echo $form->textField($this->loginFormModel,'username', array(
-                'class'=>'form-control',
-                'placeholder' => $this->loginFormModel->getAttributeLabel('username'),
-                'autofocus' => 'autofocus'
-            )); ?>
+            <input type="text" class="form-control" placeholder="First name">
         </div>
-        <?php echo $form->error($this->loginFormModel,'username', array('class'=>'help-block error-login')); ?>
     </div>
 
     <div class="form-group">
         <div class="inner-addon left-addon">
-            <i class="fa fa-lock fa-fw"></i>
-            <?php echo $form->passwordField($this->loginFormModel,'password', array(
-                'class'=>'form-control',
-                'placeholder' => $this->loginFormModel->getAttributeLabel('password'),
-                'autofocus' => 'autofocus'
-            )); ?>
+            <i class="fa fa-user fa-fw"></i>
+            <input type="text" class="form-control" placeholder="Last name">
         </div>
-        <?php echo $form->error($this->loginFormModel,'password', array('class'=>'help-block error-login')); ?>
     </div>
 
     <div class="form-group">
         <div class="inner-addon left-addon">
-            <i class="fa fa-lock fa-fw"></i>
-            <?php echo $form->passwordField($this->loginFormModel,'password', array(
-                'class'=>'form-control',
-                'placeholder' => $this->loginFormModel->getAttributeLabel('password'),
-                'autofocus' => 'autofocus'
-            )); ?>
+            <i class="fa fa-at fa-fw"></i>
+            <input type="text" class="form-control" placeholder="Email">
         </div>
-        <?php echo $form->error($this->loginFormModel,'password', array('class'=>'help-block error-login')); ?>
+    </div>
+
+    <div class="form-group">
+        <div class="inner-addon left-addon">
+            <i class="fa fa-key fa-fw"></i>
+            <input type="text" class="form-control" placeholder="Password">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="inner-addon left-addon">
+            <i class="fa fa-key fa-fw"></i>
+            <input type="text" class="form-control" placeholder="Re-password">
+        </div>
     </div>
 
     <div class="actions">
@@ -69,4 +68,5 @@
     </div>
 
     <?php $this->endWidget(); ?>
+
 </div>

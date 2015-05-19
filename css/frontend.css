@@ -78,6 +78,8 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
 .slider-wrapper{
     position: relative;
 }
+
+/*STYLE SEARCH BOX*/
 .box-search{
     position: absolute;
     bottom: 20px;
@@ -92,9 +94,12 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
     padding: 10px 0 70px;
 }
 .box-search .frm-search{
-    padding: 10px 5px;
+    padding: 10px 5px 0;
     border-radius: 5px;
     background-color: rgba(0,0,0,0.2);
+}
+.frm-search .form-group{
+    margin-bottom: 10px;
 }
 .frm-search i.fa-map-marker{
     font-size: 22px;
@@ -104,7 +109,7 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
     font-size: 18px;
     padding: 10px 15px;
 }
-
+/*END STYLE SEARCH BOX*/
 .head-line {
 	border-bottom : 1px dotted #e4e9f0;
 	margin-bottom : 20px;
@@ -128,11 +133,32 @@ footer {
     background-color: #f9f9f9;
     border-top: 2px solid #2a6ebe;
 }
+footer ul{
+    padding-left: 0;
+    margin-bottom: 20px;
+}
 footer ul li{
     list-style: none;
     margin-bottom: 6px;
 }
+footer h5 {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
 
+#bottom-bar{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border-radius:4px 0 0 4px;
+    background-color: #2a6ebe;
+    color: #ffffff;
+    padding: 3px 10px;
+}
+#bottom-bar a{
+    color: #ffffff;
+}
 /* STYLE MESSAGE BOX */
 .message-selected td {
 	background-color : #FFFFD8 !important;

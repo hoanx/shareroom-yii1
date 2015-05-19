@@ -104,7 +104,7 @@ class SiteController extends Controller
 	 */
 	public function actionSignIn()
 	{
-        $this->pageTitle = Yii::t('app', 'Sign In');
+        $this->pageTitle = Yii::t('app', 'Đăng nhập');
 
 		$model=new LoginForm;
 
@@ -133,6 +133,7 @@ class SiteController extends Controller
      */
     public function actionSignUp()
     {
+        $this->pageTitle = Yii::t('app', 'Đăng ký');
         $this->render('signup');
     }
 	/**

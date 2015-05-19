@@ -18,53 +18,53 @@ $this->pageTitle = Yii::app()->name;
     <div class="line-gradient">&nbsp;</div>
 
     <div class="row location">
-        <div class="col-sm-4 location-info">
+        <div class="col-xs-6 col-sm-4 location-info">
             <a href="#">
-                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/singapore.jpg" alt="Hà Nội" class="img-responsive">
+                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/hanoi.jpg" alt="Hà Nội" class="img-responsive img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Hà Nội')) ?></div>
             </a>
         </div>
-        <div class="col-sm-4 location-info">
+        <div class="col-xs-6 col-sm-4 location-info">
             <a href="#">
-                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/hong-kong.jpg" alt="Quảng Ninh" class="img-responsive">
+                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/quangninh.jpg" alt="Quảng Ninh" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Quảng Ninh')) ?></div>
             </a>
         </div>
-        <div class="col-sm-4 location-info">
+        <div class="col-xs-6 col-sm-4 location-info">
             <a href="#">
-                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/sydney.jpg" alt="Sapa" class="img-responsive">
+                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/sapa.jpg" alt="Sapa" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Sapa')) ?></div>
             </a>
         </div>
-        <div class="col-sm-6 location-info">
+        <div class="col-xs-6 col-sm-6 location-info">
             <a href="#">
-                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/tokyo.jpg" alt="Đà Nẵng" class="img-responsive">
+                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/da-nang.jpg" alt="Đà Nẵng" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Đà Nẵng')) ?></div>
             </a>
 
         </div>
-        <div class="col-sm-6 location-info">
+        <div class="col-xs-6 col-sm-6 location-info">
             <a href="#">
-                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/taipei.jpg" alt="Nha Trang" class="img-responsive">
+                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/nha-trang.jpg" alt="Nha Trang" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Nha Trang')) ?></div>
             </a>
         </div>
-        <div class="col-sm-4 location-info">
+        <div class="col-xs-6 col-sm-4 location-info">
             <a href="#">
-                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/phuket.jpg" alt="Thành Phố Hồ Chí Minh"
+                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/tphcm.jpg" alt="Thành Phố Hồ Chí Minh"
                              class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'TPHCM')) ?></div>
             </a>
         </div>
-        <div class="col-sm-4 location-info">
+        <div class="col-xs-6 col-sm-4 location-info">
             <a href="#">
-                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/bali.jpg" alt="Hội An" class="img-responsive">
+                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/hoi-an.jpg" alt="Hội An" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Hội An')) ?></div>
             </a>
         </div>
-        <div class="col-sm-4 location-info">
+        <div class="col-xs-6 col-sm-4 location-info">
             <a href="#">
-                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/seoul.jpg" alt="Phú Quốc" class="img-responsive">
+                <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/phu-quoc.jpg" alt="Phú Quốc" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Phú Quốc')) ?></div>
             </a>
         </div>
