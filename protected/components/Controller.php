@@ -32,6 +32,7 @@ class Controller extends CController
      */
     protected function beforeAction($action)
     {
+
         $arrControllerAccessGuest = array('site');
         if(in_array($action->controller->id, $arrControllerAccessGuest) && Yii::app()->user->isGuest){
             $this->loginFormModel=new LoginForm;
@@ -54,5 +55,13 @@ class Controller extends CController
         }
 
         return parent::beforeAction($action);
+    }
+
+    protected function afterRender($view, &$output) {
+        parent::afterRender($view,$output);
+        //Yii::app()->facebook->addJsCallback($js); // use this if you are registering any additional $js code you want to run on init()
+        Yii::app()->facebook->initJs($output); // this initializes the Facebook JS SDK on all pages
+        Yii::app()->facebook->renderOGMetaTags(); // this renders the OG tags
+        return true;
     }
 }

@@ -13,6 +13,9 @@
  * @property integer $gender
  * @property string $phone_number
  * @property string $address
+ * @property string $profile_picture
+ * @property string $google_id
+ * @property string $facebook_id
  * @property string $created
  * @property string $updated
  * @property integer $del_flg
@@ -21,6 +24,8 @@ class Users extends CActiveRecord
 {
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
+
+    public $re_password;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -37,13 +42,17 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('password, email, first_name, last_name, created, updated', 'required'),
+			array('password, email, first_name, last_name', 'required'),
+			array('re_password', 'required', 'on'=>'register'),
+            array('password', 'length', 'min'=>8),
+            array('re_password', 'compare', 'compareAttribute'=>'password', 'on'=>'register'),
             array('email','email'),
+            array('email','unique'),
 			array('gender, del_flg', 'numerical', 'integerOnly'=>true),
 			array('password, email, first_name, last_name, phone_number, address', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, birthday, password, email, first_name, last_name, gender, phone_number, address, created, updated, del_flg', 'safe', 'on'=>'search'),
+			array('id, birthday, password, email, first_name, last_name, gender, phone_number, address, profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,12 +76,15 @@ class Users extends CActiveRecord
 			'id' => Yii::t('app', 'ID'),
 			'username' => Yii::t('app', 'Tài khoản'),
 			'password' => Yii::t('app', 'Mật khẩu'),
+			're_password' => Yii::t('app', 'Nhập lại mật khẩu'),
 			'email' => Yii::t('app', 'Email'),
 			'first_name' => Yii::t('app', 'Tên'),
 			'last_name' => Yii::t('app', 'Họ'),
 			'gender' => Yii::t('app', 'Giới tính'),
 			'phone_number' => Yii::t('app', 'Số điện thoại'),
 			'address' => Yii::t('app', 'Địa chỉ'),
+			'google_id' => Yii::t('app', 'google_id'),
+			'facebook_id' => Yii::t('app', 'facebook_id'),
 			'created' => Yii::t('app', 'Created'),
 			'updated' => Yii::t('app', 'Updated'),
 			'del_flg' => Yii::t('app', 'Del Flg'),
@@ -106,6 +118,9 @@ class Users extends CActiveRecord
 		$criteria->compare('gender',$this->gender);
 		$criteria->compare('phone_number',$this->phone_number,true);
 		$criteria->compare('address',$this->address,true);
+		$criteria->compare('address',$this->address,true);
+		$criteria->compare('google_id',$this->google_id,true);
+		$criteria->compare('facebook_id',$this->facebook_id,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->compare('del_flg',$this->del_flg);
@@ -125,6 +140,21 @@ class Users extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function beforeSave() {
+        if(empty($this->birthday)) $this->birthday = null;
+        if($this->getScenario()=='register'){
+            // encrypt password
+            $this->password = self::encrypt($this->password);
+        }
+
+        $now = new CDbExpression('NOW()');
+        if ($this->isNewRecord){
+            $this->created = $now;
+        }
+        $this->updated = $now;
+        return parent::beforeSave();
+    }
 
     /**
      * @param null $id id gender
@@ -148,5 +178,16 @@ class Users extends CActiveRecord
     public function findByEmail($email)
     {
         return self::model()->findByAttributes(array('email' => $email));
+    }
+
+    /**
+     * return encrypt password user
+     *
+     * @param string $string
+     * @return string
+     */
+    public static function encrypt($string="")
+    {
+        return md5($string);
     }
 }

@@ -51,13 +51,13 @@
             <?php else : ?>
                 <li>
                     <a href="#" class="dropdown-toggle"
-                       data-toggle="dropdown"><?php echo Yii::app()->getModule('user')->user->username ?></a>
+                       data-toggle="dropdown"><?php echo Yii::app()->user->last_name . ' ' . Yii::app()->user->first_name ?></a>
                     <ul class="dropdown-menu">
                         <li><?php echo CHtml::link('<i class="fa fa-user"></i>  ' . Yii::t('app', 'Bảng hoạt động'), array('profile/index')) ?></li>
                         <li><?php echo CHtml::link('<i class="fa fa-user"></i>  ' . Yii::t('app', 'Thông tin cá nhân'), array('profile/index')) ?></li>
                         <li><?php echo CHtml::link('<i class="fa fa-cog"></i>  ' . Yii::t('app', 'Đổi mật khẩu'), array('profile/newpass')) ?></li>
                         <li><?php echo CHtml::link('<i class="fa fa-envelope"></i> ' . Yii::t('app', 'Hộp thư'), array('message/index')) ?></li>
-                        <li><?php echo CHtml::link('<i class="fa fa-sign-out"></i> ' . Yii::t('app', 'Đăng xuất'), array('default/logout')) ?></li>
+                        <li><?php echo CHtml::link('<i class="fa fa-sign-out"></i> ' . Yii::t('app', 'Đăng xuất'), array('site/logout')) ?></li>
                     </ul>
                 </li>
             <?php endif; ?>
@@ -146,6 +146,12 @@ $action = Yii::app()->controller->action->id;
     <?php endif; ?>
 
     <?php echo $content; ?>
+
+    <?php /* $this->widget('\YiiFacebook\Plugins\LikeButton', array(
+        'href' => $baseUrl, // if omitted Facebook will use the OG meta tag
+        'show_faces'=>true,
+        'share' => true
+    )); */?>
 </div>
 
 <footer>
@@ -188,7 +194,6 @@ $action = Yii::app()->controller->action->id;
                 </div>
             </div>
         </div>
-
     </div>
 </footer>
 <div id="bottom-bar">

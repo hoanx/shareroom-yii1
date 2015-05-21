@@ -106,6 +106,15 @@ class SiteController extends Controller
 	{
         $this->pageTitle = Yii::t('app', 'Đăng nhập');
 
+        // Debug
+        if(isset($_GET['code']) && $_GET['code']){
+            $signedRequest = Yii::app()->facebook->getSignedRequest();
+            Common::debug($signedRequest);
+//            $signedRequestData = Yii::app()->facebook->getSignedRequestData();
+//            Common::debug($signedRequestData);
+            Common::debugdie($_REQUEST);
+        }
+
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -134,7 +143,28 @@ class SiteController extends Controller
     public function actionSignUp()
     {
         $this->pageTitle = Yii::t('app', 'Đăng ký');
-        $this->render('signup');
+
+        $usersModel = new Users('register');
+        if(isset($_POST['Users']))
+        {
+            $usersModel->attributes=$_POST['Users'];
+            $password = $usersModel->password;
+            if($usersModel->save()){
+                //Set login
+                $_identity = new UserIdentity($usersModel->email, $password);
+                $_identity->id = $usersModel->id;
+                $_identity->setState('id', $usersModel->id);
+                $_identity->setState('email', $usersModel->email);
+                $_identity->setState('first_name', $usersModel->first_name);
+                $_identity->setState('last_name', $usersModel->last_name);
+                Yii::app()->user->login($_identity, 0);
+                $this->redirect(Yii::app()->user->returnUrl);
+            }
+        }
+
+        $this->render('signup', array(
+            'usersModel' => $usersModel
+        ));
     }
 	/**
 	 * Logs out the current user and redirect to homepage.
