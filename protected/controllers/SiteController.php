@@ -33,10 +33,14 @@ class SiteController extends Controller
 
     public function beforeAction($action){
         $arrAction = array('signin', 'signup');
-        if(in_array($action->id, $arrAction) && Yii::app()->user->isGuest){
+        if(in_array($action->id, $arrAction)){
 
-            $this->_initFacebookSDK();
-//            $this->_initGPlusSDK();
+            if(Yii::app()->user->isGuest){
+                $this->_initFacebookSDK();
+                $this->_initGPlusSDK();
+            }else{
+                $this->redirect(Yii::app()->user->returnUrl);
+            }
         }
 
         return parent::beforeAction($action);
@@ -139,12 +143,12 @@ class SiteController extends Controller
             $email = $this->userInfoFacebook['email'];
             $user_exists = Users::findByEmail($email);
             if($user_exists){
-                $this->_login($usersModel, Constant::DEFAULT_PASSWORD);
+                $this->_login($user_exists, Constant::DEFAULT_PASSWORD);
             }else{
                 $userFacebookModel = new Users();
                 $userFacebookModel->attributes=$this->userInfoFacebook;
-                $userFacebookModel->save(false);
-                $this->_login($usersModel, $userFacebookModel->password);
+                $userFacebookModel->save();
+                $this->_login($userFacebookModel, $userFacebookModel->password);
             }
         }
 

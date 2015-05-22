@@ -49,9 +49,10 @@ class Users extends CActiveRecord
             array('email','email'),
             array('email','unique'),
 			array('gender, del_flg', 'numerical', 'integerOnly'=>true),
-			array('password, email, first_name, last_name, phone_number, address', 'length', 'max'=>255),
+			array('password, email, first_name, last_name, phone_number, address, google_id, facebook_id', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
+			array('id, birthday, password, email, first_name, last_name, gender, phone_number, address, profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe'),
 			array('id, birthday, password, email, first_name, last_name, gender, phone_number, address, profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe', 'on'=>'search'),
 		);
 	}

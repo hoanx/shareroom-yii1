@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-05-22 20:10:06
+Date: 2015-05-22 20:22:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -49,14 +49,14 @@ CREATE TABLE `tb_users` (
   `gender` tinyint(4) DEFAULT '0',
   `phone_number` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `profile_picture` varchar(255) DEFAULT NULL,
+  `profile_picture` text,
   `google_id` varchar(255) DEFAULT NULL,
   `facebook_id` varchar(255) DEFAULT NULL,
   `created` datetime NOT NULL,
   `updated` datetime NOT NULL,
   `del_flg` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_users
