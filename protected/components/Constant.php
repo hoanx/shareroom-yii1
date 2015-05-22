@@ -6,6 +6,7 @@ class Constant {
     const DEL_FALSE = 0;
     
     const PREFIX_ENCRYPT = 'keyencrypt-';
+    const DEFAULT_PASSWORD = 'shareroom.vn';
 
     static function deleteFlag($status = null) {
         $base = array(

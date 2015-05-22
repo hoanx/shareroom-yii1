@@ -144,8 +144,10 @@ class Users extends CActiveRecord
     public function beforeSave() {
         if(empty($this->birthday)) $this->birthday = null;
         if($this->getScenario()=='register'){
-            // encrypt password
-            $this->password = self::encrypt($this->password);
+            if($this->password!=Constant::DEFAULT_PASSWORD){
+                // encrypt password
+                $this->password = self::encrypt($this->password);
+            }
         }
 
         $now = new CDbExpression('NOW()');
@@ -175,9 +177,9 @@ class Users extends CActiveRecord
      * @access public
      * @return User
      */
-    public function findByEmail($email)
+    public static function findByEmail($email)
     {
-        return self::model()->findByAttributes(array('email' => $email));
+        return self::model()->findByAttributes(array('email' => $email, 'del_flg'=>0));
     }
 
     /**

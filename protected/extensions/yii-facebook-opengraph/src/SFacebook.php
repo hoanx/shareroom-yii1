@@ -504,11 +504,9 @@ class SFacebook extends \CApplicationComponent
 
             // if no session
             if (!$this->_session) {
-
                 // try to get session from redirect login
                 $helper = new \Facebook\FacebookRedirectLoginHelper($this->redirectUrl);
                 $this->_session = $helper->getSessionFromRedirect();
-                die('xxx');
             }
 
             // if no session

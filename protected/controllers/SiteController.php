@@ -1,7 +1,17 @@
 <?php
 
+use Facebook\FacebookSession;
+use Facebook\FacebookRequest;
+use Facebook\FacebookRedirectLoginHelper;
+use Facebook\GraphUser;
+
 class SiteController extends Controller
 {
+    public $loginFacebookUrl;
+    public $loginGplusUrl;
+
+    public $userInfoFacebook = null;
+    public $userInfoGPlus = null;
 	/**
 	 * Declares class-based actions.
 	 */
@@ -18,35 +28,19 @@ class SiteController extends Controller
 			'page'=>array(
 				'class'=>'CViewAction',
 			),
-
-            /*'oauth' => array(
-                // the list of additional properties of this action is below
-                'class'=>'ext.hoauth.HOAuthAction',
-                // Yii alias for your user's model, or simply class name, when it already on yii's import path
-                // default value of this property is: User
-                'model' => 'Users',
-                // map model attributes to attributes of user's social profile
-                // model attribute => profile attribute
-                // the list of avaible attributes is below
-                'attributes' => array(
-                    'email' => 'email',
-                    'first_name' => 'firstName',
-                    'last_name' => 'lastName',
-                    'gender' => 'genderShort',
-                    'birthday' => 'birthDate',
-                    // you can also specify additional values,
-                    // that will be applied to your model (eg. account activation status)
-//                    'acc_status' => 1,
-                ),
-            ),
-            // this is an admin action that will help you to configure HybridAuth
-            // (you must delete this action, when you'll be ready with configuration, or
-            // specify rules for admin role. User shouldn't have access to this action!)
-            'oauthadmin' => array(
-                'class'=>'ext.hoauth.HOAuthAdminAction',
-            ),*/
 		);
 	}
+
+    public function beforeAction($action){
+        $arrAction = array('signin', 'signup');
+        if(in_array($action->id, $arrAction) && Yii::app()->user->isGuest){
+
+            $this->_initFacebookSDK();
+//            $this->_initGPlusSDK();
+        }
+
+        return parent::beforeAction($action);
+    }
 
 	/**
 	 * This is the default 'index' action that is invoked
@@ -105,18 +99,7 @@ class SiteController extends Controller
 	public function actionSignIn()
 	{
         $this->pageTitle = Yii::t('app', 'Đăng nhập');
-
-        // Debug
-        if(isset($_GET['code']) && $_GET['code']){
-            $signedRequest = Yii::app()->facebook->getSignedRequest();
-            Common::debug($signedRequest);
-//            $signedRequestData = Yii::app()->facebook->getSignedRequestData();
-//            Common::debug($signedRequestData);
-            Common::debugdie($_REQUEST);
-        }
-
 		$model=new LoginForm;
-
 		// if it is ajax validation request
 		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
 		{
@@ -150,15 +133,18 @@ class SiteController extends Controller
             $usersModel->attributes=$_POST['Users'];
             $password = $usersModel->password;
             if($usersModel->save()){
-                //Set login
-                $_identity = new UserIdentity($usersModel->email, $password);
-                $_identity->id = $usersModel->id;
-                $_identity->setState('id', $usersModel->id);
-                $_identity->setState('email', $usersModel->email);
-                $_identity->setState('first_name', $usersModel->first_name);
-                $_identity->setState('last_name', $usersModel->last_name);
-                Yii::app()->user->login($_identity, 0);
-                $this->redirect(Yii::app()->user->returnUrl);
+                $this->_login($usersModel, $password);
+            }
+        }elseif(!is_null($this->userInfoFacebook)){
+            $email = $this->userInfoFacebook['email'];
+            $user_exists = Users::findByEmail($email);
+            if($user_exists){
+                $this->_login($usersModel, Constant::DEFAULT_PASSWORD);
+            }else{
+                $userFacebookModel = new Users();
+                $userFacebookModel->attributes=$this->userInfoFacebook;
+                $userFacebookModel->save(false);
+                $this->_login($usersModel, $userFacebookModel->password);
             }
         }
 
@@ -174,4 +160,106 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+    protected function _initFacebookSDK(){
+        $app_id = Yii::app()->facebook->appId;
+        $app_secret = Yii::app()->facebook->secret;
+        FacebookSession::setDefaultApplication($app_id, $app_secret);
+        $refirect_url = Yii::app()->createAbsoluteUrl('site/signup');
+        $helper = new FacebookRedirectLoginHelper($refirect_url);
+        try {
+            unset( $_SESSION['access_token_facebook'] );
+            if ( isset( $_SESSION['access_token_facebook'] ) ) {
+                // Check if an access token has already been set.
+                $session = new FacebookSession( $_SESSION['access_token_facebook'] );
+            } else {
+
+                // Get access token from the code parameter in the URL.
+                $session = $helper->getSessionFromRedirect();
+            }
+        } catch( FacebookRequestException $ex ) {
+            // When Facebook returns an error.
+            throw $ex;
+        } catch( \Exception $ex ) {
+            // When validation fails or other local issues.
+            throw $ex;
+        }
+
+        // If successfully login
+        if ( isset( $session ) ) {
+            // Retrieve & store the access token in a session.
+            $_SESSION['access_token_facebook'] = $session->getToken();
+            // Retrieve User’s Profile Information
+            $requestProfile = ( new FacebookRequest( $session, 'GET', '/me' ) )->execute();
+            $userProfile = $requestProfile->getGraphObject(GraphUser::className())->asArray();
+
+            // Get User’s Profile Picture
+            $requestPicture = ( new FacebookRequest( $session, 'GET', '/me/picture?type=large&redirect=false' ) )->execute();
+            $userPicture = $requestPicture->getGraphObject(GraphUser::className())->asArray();
+
+            $gender = 0;
+            if($userProfile['gender']=='male') $gender = Users::GENDER_MALE;
+            if($userProfile['gender']=='female') $gender = Users::GENDER_FEMALE;
+
+            $this->userInfoFacebook = array(
+                'facebook_id' => $userProfile['id'],
+                'email' => $userProfile['email'],
+                'birthday' => $userProfile['birthday'] ? date('Y-m-d', strtotime($userProfile['birthday'])) : null,
+                'first_name' => $userProfile['first_name'],
+                'last_name' => $userProfile['last_name'],
+                'profile_picture' => $userPicture['url'],
+                'gender' => $gender,
+                'password' => Constant::DEFAULT_PASSWORD,
+            );
+
+        }else{
+            $permissions = array(
+                'email',
+                'user_location',
+                'user_birthday'
+            );
+            $this->loginFacebookUrl = $helper->getLoginUrl($permissions);
+        }
+
+
+    }
+
+
+    protected function _initGPlusSDK(){
+        $client_id = Yii::app()->google->clientId;
+        $client_secret = Yii::app()->google->clientSecret;
+        $redirect_uri = Yii::app()->createAbsoluteUrl('site/signup');
+
+        $client = new Google_Client();
+        $client->setClientId($client_id);
+        $client->setClientSecret($client_secret);
+        $client->setRedirectUri($redirect_uri);
+        $scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login';
+        $client->addScope($scope);
+
+        $this->loginGplusUrl = $client->createAuthUrl();
+//        $oauth2 = new Google_Service_OAuth2($client);
+//        $userInfo = $oauth2->userInfo;
+
+
+
+    }
+
+    /**
+     * Set login after signup
+     *
+     * @param object $usersModel
+     * @param string $password
+     */
+    protected function _login($usersModel, $password){
+        //Set login
+        $_identity = new UserIdentity($usersModel->email, $password);
+        $_identity->id = $usersModel->id;
+        $_identity->setState('id', $usersModel->id);
+        $_identity->setState('email', $usersModel->email);
+        $_identity->setState('first_name', $usersModel->first_name);
+        $_identity->setState('last_name', $usersModel->last_name);
+        Yii::app()->user->login($_identity, 0);
+        $this->redirect(Yii::app()->user->returnUrl);
+    }
 }

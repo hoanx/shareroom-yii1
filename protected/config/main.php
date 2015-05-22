@@ -1,11 +1,12 @@
 <?php
-set_time_limit(0);
+define('SESSION_TIME_OUT', 1800);
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-Yii::setPathOfAlias('YiiFacebook', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'extensions' . DIRECTORY_SEPARATOR . 'yii-facebook-opengraph' . DIRECTORY_SEPARATOR . 'src');
+//Yii::setPathOfAlias('YiiFacebook', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'extensions' . DIRECTORY_SEPARATOR . 'yii-facebook-opengraph' . DIRECTORY_SEPARATOR . 'src');
+//Yii::setPathOfAlias('YiiGoogleApi', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'extensions' . DIRECTORY_SEPARATOR . 'google-api-php-client');
 //Yii::setPathOfAlias('Facebook', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'extensions' . DIRECTORY_SEPARATOR . 'yii-facebook-opengraph' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR.'facebook'.DIRECTORY_SEPARATOR.'php-sdk-v4'.DIRECTORY_SEPARATOR.'src');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
@@ -19,6 +20,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
         'application.extensions.yii-facebook-opengraph.*',
+//        'application.extensions.yii-google-api-php-client.*',
 //        'ext.*'
 	),
 
@@ -52,7 +54,7 @@ return array(
             //'hideFlashCallback'=>null, // JS SDK - A function that is called whenever it is necessary to hide Adobe Flash objects on a page.
             //'html5'=>true,  // use html5 Social Plugins instead ofolder XFBML
             //'defaultScope'=>array(), // default Facebook Login permissions to request
-            'redirectUrl'=>null, // default Facebook post-Login redirect URL
+            //'redirectUrl'=>null, // default Facebook post-Login redirect URL
             //'expiredSessionCallback'=>null, // PHP callable method to run if expired Facebook session is detected
             //'userFbidAttribute'=>null, // if using SFacebookAuthBehavior, declare Facebook ID attribute on user model here
             //'accountLinkUrl'=>null, // if using SFacebookAuthBehavior, declare link to user account page here
@@ -62,20 +64,18 @@ return array(
             //'og:image'=>'URL_TO_WEBSITE_LOGO',
             //),
         ),
-        'GoogleApis' => array(
-            'class' => 'ext.GoogleApis.GoogleApis',
-
+        'google' => array(
+            'class' => 'ext.yii-google-api-php-client.YiiGoogleApi',
             // See http://code.google.com/p/google-api-php-client/wiki/OAuth2
-            'clientId' => '312670614441-jo8uppgn92bei4gp09edh2famb29sc65.apps.googleusercontent.com',
-            'clientSecret' => 'zJtwH1FBEpDH6qAj5l670Rx7',
-            'redirectUri' => 'http://shareroomyii1.com/oauth2callback',
+            'clientId' => '312670614441-4kgsas398idcfnif8hh2ghp4uqbvghno.apps.googleusercontent.com',
+            'clientSecret' => 'ImFosF9-WFwysf4OPbTfcauu',
             // // This is the API key for 'Simple API Access'
             'developerKey' => '',
         ),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
-			'returnUrl'=>'profile/index',
+			'returnUrl'=>'/profile/index',
 		),
 
 		// uncomment the following to enable URLs in path-format
@@ -121,6 +121,11 @@ return array(
                 'jquery.ba-bbq.js' => false,
 //                 'jquery.yiigridview.js' => false,
             )
+        ),
+
+        'session' => array(
+            'class' => 'CDbHttpSession',
+            'timeout' => SESSION_TIME_OUT,
         ),
 
         /*'hybridAuth'=>array(

@@ -6,17 +6,18 @@
 ?>
 
 <?php
-$loginUrl = Yii::app()->facebook->getLoginUrl(Yii::app()->createAbsoluteUrl('site/signin'));
+$loginFacebookUrl = $this->loginFacebookUrl;
+$loginGplusUrl = $this->loginGplusUrl;
 ?>
 <div id="signup-form">
     <h2><?php echo $this->pageTitle ?></h2>
     <div class="line-gradient">&nbsp;</div>
     <div class="login-container">
         <div class="social-buttons">
-            <?php echo CHtml::link('<i class="fa fa-facebook"></i>  ' . Yii::t('app', 'Đăng ký bằng Facebook'), $loginUrl, array(
+            <?php echo CHtml::link('<i class="fa fa-facebook"></i>  ' . Yii::t('app', 'Đăng ký bằng Facebook'), $loginFacebookUrl, array(
                 'class' => 'btn btn-block btn-social btn-md btn-facebook btn-social-custom'
             )) ?>
-            <?php echo CHtml::link('<i class="fa fa-google-plus"></i>  ' . Yii::t('app', 'Đăng ký bằng Google'), 'javascript:void(0)', array(
+            <?php echo CHtml::link('<i class="fa fa-google-plus"></i>  ' . Yii::t('app', 'Đăng ký bằng Google'), $loginGplusUrl, array(
                 'class' => 'btn btn-block btn-social btn-md btn-google btn-social-custom'
             )) ?>
         </div>

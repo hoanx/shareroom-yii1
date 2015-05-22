@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-05-13 17:26:29
+Date: 2015-05-22 20:10:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,19 +41,22 @@ INSERT INTO `tb_admin` VALUES ('1', 'admin', 'cb7dae101850facf7f612731de40b82f',
 DROP TABLE IF EXISTS `tb_users`;
 CREATE TABLE `tb_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
-  `gender` tinyint(4) NOT NULL DEFAULT '0',
+  `birthday` date DEFAULT NULL,
+  `gender` tinyint(4) DEFAULT '0',
   `phone_number` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
+  `profile_picture` varchar(255) DEFAULT NULL,
+  `google_id` varchar(255) DEFAULT NULL,
+  `facebook_id` varchar(255) DEFAULT NULL,
   `created` datetime NOT NULL,
   `updated` datetime NOT NULL,
   `del_flg` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_users
