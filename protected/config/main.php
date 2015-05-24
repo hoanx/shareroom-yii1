@@ -1,13 +1,10 @@
 <?php
-define('SESSION_TIME_OUT', 1800);
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-//Yii::setPathOfAlias('YiiFacebook', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'extensions' . DIRECTORY_SEPARATOR . 'yii-facebook-opengraph' . DIRECTORY_SEPARATOR . 'src');
-//Yii::setPathOfAlias('YiiGoogleApi', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'extensions' . DIRECTORY_SEPARATOR . 'google-api-php-client');
-//Yii::setPathOfAlias('Facebook', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'extensions' . DIRECTORY_SEPARATOR . 'yii-facebook-opengraph' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR.'facebook'.DIRECTORY_SEPARATOR.'php-sdk-v4'.DIRECTORY_SEPARATOR.'src');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Share Room',
@@ -20,7 +17,6 @@ return array(
 		'application.models.*',
 		'application.components.*',
         'application.extensions.yii-facebook-opengraph.*',
-//        'application.extensions.yii-google-api-php-client.*',
 //        'ext.*'
 	),
 
@@ -119,40 +115,8 @@ return array(
                 'jquery.js'=>false,  //disable default implementation of jquery
                 'jquery.min.js'=>false,  //desable any others default implementation
                 'jquery.ba-bbq.js' => false,
-//                 'jquery.yiigridview.js' => false,
             )
         ),
-
-        'session' => array(
-            'class' => 'CDbHttpSession',
-            'timeout' => SESSION_TIME_OUT,
-        ),
-
-        /*'hybridAuth'=>array(
-            'class'=>'ext.widgets.hybridAuth.CHybridAuth',
-            'enabled'=>true, // enable or disable this component
-            'config'=>array(
-                "base_url" => "http://shareroomyii1.com/hybridauth/endpoint",
-                "providers" => array(
-                    "Google" => array(
-                        "enabled" => true,
-                        "keys" => array("id" => "312670614441-jo8uppgn92bei4gp09edh2famb29sc65.apps.googleusercontent.com", "secret" => "zJtwH1FBEpDH6qAj5l670Rx7"),
-                    ),
-                    "Facebook" => array(
-                        "enabled" => true,
-                        "keys" => array("id" => "1621562994796845", "secret" => "1512c0e5b45d3e9c004ac18c1a20d831"),
-                    ),
-                    "Twitter" => array(
-                        "enabled" => false,
-                        "keys" => array("key" => "", "secret" => "")
-                    ),
-                ),
-                "debug_mode" => false,
-                "debug_file" => "",
-            ),
-        ),//end hybridAuth*/
-
-
 	),
 
 	// application-level parameters that can be accessed

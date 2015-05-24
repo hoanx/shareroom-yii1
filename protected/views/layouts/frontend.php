@@ -26,7 +26,7 @@
     ?>
 </head>
 <body>
-<header class="navbar navbar-inverse navbar-custom">
+<header class="navbar navbar-custom">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle pull-right" data-toggle="collapse"
                 data-target=".navbar-ex1-collapse">
@@ -42,16 +42,13 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
         <ul class="nav navbar-nav pull-right">
             <?php if (Yii::app()->user->isGuest) : ?>
-                <!--<li><a href="#signup-modal" data-toggle="modal" data-target="#signup-modal"><?php /*echo Yii::t('app', 'Sign Up') */?></a></li>
-                <li><a href="#signup-modal" data-toggle="modal" data-target="#signin-modal"><?php /*echo Yii::t('app', 'Sign In') */?></a></li>-->
-
-                <li><?php echo CHtml::link(Yii::t('app', 'Đăng ký'), array('site/signup')) ?></a></li>
-                <li><?php echo CHtml::link(Yii::t('app', 'Đăng nhập'), array('site/signin')) ?></a></li>
-                <li><?php echo CHtml::link(Yii::t('app', 'Đăng tin cho thuê'), array('/'), array('class'=>'btn btn-primary')) ?></a></li>
+                <li><?php echo CHtml::link(Yii::t('app', 'Đăng ký'), array('site/signup')) ?></li>
+                <li><?php echo CHtml::link(Yii::t('app', 'Đăng nhập'), array('site/signin')) ?></li>
+                <li><?php echo CHtml::link(Yii::t('app', 'Đăng tin cho thuê'), array('/'), array('class' => 'btn btn-primary')) ?></li>
             <?php else : ?>
                 <li>
                     <a href="#" class="dropdown-toggle"
-                       data-toggle="dropdown"><?php echo Yii::app()->user->last_name . ' ' . Yii::app()->user->first_name ?></a>
+                       data-toggle="dropdown"><?php echo Yii::t('app', 'Xin Chào'). ', ' . Yii::app()->user->first_name ?> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><?php echo CHtml::link('<i class="fa fa-user"></i>  ' . Yii::t('app', 'Bảng hoạt động'), array('profile/index')) ?></li>
                         <li><?php echo CHtml::link('<i class="fa fa-user"></i>  ' . Yii::t('app', 'Thông tin cá nhân'), array('profile/index')) ?></li>
@@ -60,6 +57,8 @@
                         <li><?php echo CHtml::link('<i class="fa fa-sign-out"></i> ' . Yii::t('app', 'Đăng xuất'), array('site/logout')) ?></li>
                     </ul>
                 </li>
+                <li><?php echo CHtml::link('<i class="fa fa-envelope-o"></i>', array('message/index')) ?></li>
+                <li><?php echo CHtml::link(Yii::t('app', 'Đăng tin cho thuê'), array('rooms/news'), array('class' => 'btn btn-primary')) ?></li>
             <?php endif; ?>
         </ul>
     </div>
@@ -82,13 +81,15 @@ $action = Yii::app()->controller->action->id;
         </div>
         <div class="box-search">
             <div class="container">
-                <h2><?php echo(Yii::t('app', 'Đặt phòng du lịch với giá tốt nhất'))?></h2>
+                <h2><?php echo(Yii::t('app', 'Đặt phòng du lịch với giá tốt nhất')) ?></h2>
+
                 <form class="frm-search row">
                     <div class="col-sm-12 col-md-4">
                         <div class="form-group">
                             <div class="inner-addon left-addon">
                                 <i class="fa fa-map-marker"></i>
-                                <input type="text" class="form-control" placeholder="<?php echo(Yii::t('app', 'Điểm đến của bạn')) ?>">
+                                <input type="text" class="form-control"
+                                       placeholder="<?php echo(Yii::t('app', 'Điểm đến của bạn')) ?>">
                             </div>
                         </div>
                     </div>
@@ -96,7 +97,8 @@ $action = Yii::app()->controller->action->id;
                         <div class="form-group">
                             <div class="inner-addon left-addon">
                                 <i class="fa fa-calendar"></i>
-                                <input type="text" class="form-control" placeholder="<?= Yii::t('app', 'Nhận phòng') ?>">
+                                <input type="text" class="form-control"
+                                       placeholder="<?= Yii::t('app', 'Nhận phòng') ?>">
                             </div>
                         </div>
                     </div>
@@ -117,7 +119,8 @@ $action = Yii::app()->controller->action->id;
                         </div>
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-2">
-                        <button id="search-button" class="btn btn-primary btn-block" type="submit"><?= Yii::t('app', 'Tìm kiếm') ?></button>
+                        <button id="search-button" class="btn btn-primary btn-block"
+                                type="submit"><?= Yii::t('app', 'Tìm kiếm') ?></button>
                     </div>
 
                 </form>
@@ -131,7 +134,7 @@ $action = Yii::app()->controller->action->id;
 <?php endif; ?>
 <div class="container">
     <!--<div class="head-line">
-        <h2><?php /*echo $this->pageTitle */?></h2>
+        <h2><?php /*echo $this->pageTitle */ ?></h2>
     </div>-->
     <?php if (Yii::app()->user->hasFlash('success')): ?>
         <div class="alert alert-success fade in">
@@ -151,191 +154,11 @@ $action = Yii::app()->controller->action->id;
         'href' => $baseUrl, // if omitted Facebook will use the OG meta tag
         'show_faces'=>true,
         'share' => true
-    )); */?>
+    )); */
+    ?>
 </div>
 
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="fb-page" data-href="https://www.facebook.com/FacebookDevelopers" data-hide-cover="false"
-                     data-show-facepile="true" data-show-posts="false">
-                    <div class="fb-xfbml-parse-ignore">
-                        <blockquote cite="https://www.facebook.com/FacebookDevelopers"><a
-                                href="https://www.facebook.com/FacebookDevelopers">Facebook Developers</a></blockquote>
-                    </div>
-                </div>
-                <div id="fb-root"></div>
-                <script>(function (d, s, id) {
-                        var js, fjs = d.getElementsByTagName(s)[0];
-                        if (d.getElementById(id)) return;
-                        js = d.createElement(s);
-                        js.id = id;
-                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1621562994796845";
-                        fjs.parentNode.insertBefore(js, fjs);
-                    }(document, 'script', 'facebook-jssdk'));</script>
-            </div>
-            <div class="col-md-4">
-                <h5><?= Yii::t('app', 'Thông tin công ty') ?></h5>
-                <ul>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Giới thiệu shareroom')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Về chúng tôi')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Chính sách riêng tư')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Điều kiện & điều khoản')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Liên hệ')) ?></a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5><?= Yii::t('app', 'Được chứng nhận') ?></h5>
-                <div class="col-xs-6">
-                    <a href="#">
-                        <img src="<?php echo $baseUrl ?>/images/dangkybocongthuong.jpg" class="img-responsive">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<div id="bottom-bar">
-    <?php echo Yii::t('app', 'Hỗ trợ : 0963.117.951 / <a href="mailto:sales@shareroom.vn">sales@shareroom.vn</a>') ?>
-</div>
-
-<?php /* if(Yii::app()->user->isGuest) : ?>
-<div class="modal fade signin-modal" id="signin-modal" tabindex="-1" role="dialog" aria-labelledby="signin-modal" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-vertical-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="form">
-                    <?php $form=$this->beginWidget('CActiveForm', array(
-                        'id'=>'login-form',
-                        'enableClientValidation'=>true,
-                        'clientOptions'=>array(
-                            'validateOnSubmit'=>true,
-                        ),
-                    )); ?>
-
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                            <?php echo $form->textField($this->loginFormModel,'username', array(
-                                'class'=>'form-control',
-                                'placeholder' => $this->loginFormModel->getAttributeLabel('username'),
-                                'autofocus' => 'autofocus'
-                            )); ?>
-                        </div>
-                        <?php echo $form->error($this->loginFormModel,'username', array('class'=>'help-block error-login')); ?>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-                            <?php echo $form->passwordField($this->loginFormModel,'password', array(
-                                'class'=>'form-control',
-                                'placeholder' => $this->loginFormModel->getAttributeLabel('password'),
-                                'autofocus' => 'autofocus'
-                            )); ?>
-                        </div>
-                        <?php echo $form->error($this->loginFormModel,'password', array('class'=>'help-block error-login')); ?>
-                    </div>
-
-
-
-                    <div class="row rememberMe">
-                        <?php echo $form->checkBox($this->loginFormModel,'rememberMe'); ?>
-                        <?php echo $form->label($this->loginFormModel,'rememberMe'); ?>
-                        <?php echo $form->error($this->loginFormModel,'rememberMe'); ?>
-                    </div>
-
-                    <div class="actions">
-                        <?php echo CHtml::submitButton(Yii::t("app", "Login"), array('class'=>'btn btn-success btn-block btn-submit')); ?>
-                    </div>
-
-                    <?php $this->endWidget(); ?>
-                </div><!-- form -->
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade signup-modal" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signup-modal" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-vertical-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="social-buttons">
-                    <a class="btn btn-block btn-social btn-md btn-facebook btn-social-custom"
-                       href="javascript:void(0)">
-                        <i class="fa fa-facebook"></i>
-                        Sign up with Facebook
-                    </a>
-                </div>
-                <div class="signup-or-separator">
-                    <h6 class="text signup-or-separator--text">or</h6>
-                    <hr>
-                </div>
-                <!-- Form Sign in-->
-                <form>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-user"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="First name">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-user"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Last name">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-at"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Email">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-key"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Password">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-key"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Re-password">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-danger btn-block">Register</button>
-                    </div>
-
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                Already a member? <a href="javascript:void(0)" data-dismiss="modal" data-toggle="modal" data-target="#signin-modal">Login here</a>
-            </div>
-        </div>
-    </div>
-</div>
-<?php endif; */ ?>
-
+<?php echo $this->renderPartial('//layouts/_footer', array('baseUrl' => $baseUrl)); ?>
 <!-- JS  -->
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
 <!--[if lt IE 10]>
@@ -360,13 +183,13 @@ $action = Yii::app()->controller->action->id;
         });
 
         /*window.onscroll = function (oEvent) {
-            var pos = jQuery('body').scrollTop();
-            if (pos > 400) {
-                jQuery('.navbar').addClass('navbar-custom');
-            } else {
-                jQuery('.navbar').removeClass('navbar-custom');
-            }
-        }*/
+         var pos = jQuery('body').scrollTop();
+         if (pos > 400) {
+         jQuery('.navbar').addClass('navbar-custom');
+         } else {
+         jQuery('.navbar').removeClass('navbar-custom');
+         }
+         }*/
     });
 </script>
 </body>

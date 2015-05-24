@@ -7,6 +7,8 @@ use Facebook\GraphUser;
 
 class SiteController extends Controller
 {
+    public $layout='//layouts/frontend';
+
     public $loginFacebookUrl;
     public $loginGplusUrl;
 
@@ -37,7 +39,9 @@ class SiteController extends Controller
 
             if(Yii::app()->user->isGuest){
                 $this->_initFacebookSDK();
-                $this->_initGPlusSDK();
+                if(is_null($this->userInfoFacebook)){
+                    $this->_initGPlusSDK();
+                }
             }else{
                 $this->redirect(Yii::app()->user->returnUrl);
             }
@@ -150,6 +154,17 @@ class SiteController extends Controller
                 $userFacebookModel->save();
                 $this->_login($userFacebookModel, $userFacebookModel->password);
             }
+        }elseif(!is_null($this->userInfoGPlus)){
+            $email = $this->userInfoGPlus['email'];
+            $user_exists = Users::findByEmail($email);
+            if($user_exists){
+                $this->_login($user_exists, Constant::DEFAULT_PASSWORD);
+            }else{
+                $userGoogleModel = new Users();
+                $userGoogleModel->attributes=$this->userInfoGPlus;
+                $userGoogleModel->save();
+                $this->_login($userGoogleModel, $userGoogleModel->password);
+            }
         }
 
         $this->render('signup', array(
@@ -169,7 +184,7 @@ class SiteController extends Controller
         $app_id = Yii::app()->facebook->appId;
         $app_secret = Yii::app()->facebook->secret;
         FacebookSession::setDefaultApplication($app_id, $app_secret);
-        $refirect_url = Yii::app()->createAbsoluteUrl('site/signup');
+        $refirect_url = Yii::app()->createAbsoluteUrl('site/signup', array('facebook_code'=>1));
         $helper = new FacebookRedirectLoginHelper($refirect_url);
         try {
             unset( $_SESSION['access_token_facebook'] );
@@ -238,15 +253,30 @@ class SiteController extends Controller
         $client->setClientId($client_id);
         $client->setClientSecret($client_secret);
         $client->setRedirectUri($redirect_uri);
-        $scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login';
+        $scope = array(Google_Service_Oauth2::USERINFO_EMAIL, Google_Service_Oauth2::USERINFO_PROFILE);
         $client->addScope($scope);
 
+        if (isset($_GET['code'])) {
+            $client->authenticate($_GET['code']);
+
+            $oauth = new Google_Service_Oauth2($client);
+            $userInfo = $oauth->userinfo->get();
+
+            $gender = 0;
+            if($userInfo->getGender()=='male') $gender = Users::GENDER_MALE;
+            if($userInfo->getGender()=='female') $gender = Users::GENDER_FEMALE;
+
+            $this->userInfoGPlus = array(
+                'google_id' => $userInfo->id,
+                'email' => $userInfo->email,
+                'first_name' => $userInfo->familyName,
+                'last_name' => $userInfo->givenName,
+                'profile_picture' => $userInfo->picture,
+                'gender' => $gender,
+                'password' => Constant::DEFAULT_PASSWORD,
+            );
+        }
         $this->loginGplusUrl = $client->createAuthUrl();
-//        $oauth2 = new Google_Service_OAuth2($client);
-//        $userInfo = $oauth2->userInfo;
-
-
-
     }
 
     /**

@@ -67,14 +67,16 @@ $loginGplusUrl = $this->loginGplusUrl;
 
 
 
-        <div class="rememberMe form-group">
-            <?php echo $form->checkBox($model,'rememberMe'); ?>
-            <?php echo $form->label($model,'rememberMe'); ?>
-            <?php echo $form->error($model,'rememberMe'); ?>
+        <div class="form-group link-forgotpass">
+            <?php echo CHtml::link(Yii::t('app', 'Quên mật khẩu?'), array('site/forgotpass')) ?>
         </div>
 
-        <div class="actions">
+        <div class="form-group actions">
             <?php echo CHtml::submitButton(Yii::t("app", "Đăng nhập"), array('class'=>'btn btn-success btn-block btn-submit')); ?>
+        </div>
+
+        <div class="form-group">
+            Không có tài khoản? <?php echo CHtml::link('Đăng ký tại đây', array('site/signup')) ?>
         </div>
 
         <?php $this->endWidget(); ?>

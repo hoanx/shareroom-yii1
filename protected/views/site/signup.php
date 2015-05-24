@@ -127,8 +127,14 @@ $loginGplusUrl = $this->loginGplusUrl;
     </div>
  */ ?>
 
-        <div class="actions">
+        <div class="form-group actions">
             <?php echo CHtml::submitButton(Yii::t("app", "Đăng ký"), array('class'=>'btn btn-success btn-block btn-submit')); ?>
+        </div>
+
+        <div class="form-group text-center">
+            <p>
+                Chọn đăng ký là bạn đã đồng ý với điều khoản và dịch vụ của shareroom.vn
+            </p>
         </div>
 
         <?php $this->endWidget(); ?>

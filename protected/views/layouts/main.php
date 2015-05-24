@@ -2,58 +2,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="language" content="en">
+    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection">
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print">
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection">
-	<![endif]-->
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css">
-
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <?php
+    $baseUrl = Yii::app()->baseUrl;
+    $clientScript = Yii::app()->getClientScript();
+    //CSS
+    $clientScript->registerCssFile($baseUrl . '/css/bootstrap.css');
+    $clientScript->registerCssFile($baseUrl . '/css/font-awesome.min.css');
+    $clientScript->registerCssFile($baseUrl . '/css/bootstrap-social.css');
+    $clientScript->registerCssFile($baseUrl . '/css/default/default.css');
+    $clientScript->registerCssFile($baseUrl . '/css/nivo-slider.css');
+    $clientScript->registerCssFile($baseUrl . '/css/frontend.css');
+    $clientScript->registerCssFile($baseUrl . '/css/responsive.css');
+    //JS
+    $clientScript->registerScriptFile($baseUrl . '/js/jquery-1.10.2.min.js');
+    $clientScript->registerScriptFile($baseUrl . '/js/jquery.nivo.slider.js');
+    $clientScript->registerScriptFile($baseUrl . '/js/bootstrap.min.js');
+    ?>
 </head>
-
 <body>
+<header class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle pull-right" data-toggle="collapse"
+                    data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+                <img src="<?php echo $baseUrl ?>/images/logo.png" alt="Logo">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
+            <ul class="nav navbar-nav pull-right">
+                <?php if (Yii::app()->user->isGuest) : ?>
+                    <li><?php echo CHtml::link(Yii::t('app', 'Đăng ký'), array('site/signup')) ?></li>
+                    <li><?php echo CHtml::link(Yii::t('app', 'Đăng nhập'), array('site/signin')) ?></li>
+                    <li><?php echo CHtml::link(Yii::t('app', 'Đăng tin cho thuê'), array('/'), array('class'=>'btn btn-primary')) ?></li>
+                <?php else : ?>
+                    <li class="right-line">
+                        <a href="#" class="dropdown-toggle menu-link"
+                           data-toggle="dropdown"><?php echo Yii::t('app', 'Xin Chào'). ', ' . Yii::app()->user->first_name ?> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><?php echo CHtml::link('<i class="fa fa-user"></i>  ' . Yii::t('app', 'Bảng hoạt động'), array('profile/index')) ?></li>
+                            <li><?php echo CHtml::link('<i class="fa fa-user"></i>  ' . Yii::t('app', 'Thông tin cá nhân'), array('profile/index')) ?></li>
+                            <li><?php echo CHtml::link('<i class="fa fa-cog"></i>  ' . Yii::t('app', 'Đổi mật khẩu'), array('profile/newpass')) ?></li>
+                            <li><?php echo CHtml::link('<i class="fa fa-envelope"></i> ' . Yii::t('app', 'Hộp thư'), array('message/index')) ?></li>
+                            <li><?php echo CHtml::link('<i class="fa fa-sign-out"></i> ' . Yii::t('app', 'Đăng xuất'), array('site/logout')) ?></li>
+                        </ul>
+                    </li>
+                    <li class="right-line mail-link"><?php echo CHtml::link('<i class="fa fa-envelope-o"></i>', array('message/index'), array('class'=>'menu-link')) ?></li>
+                    <li><?php echo CHtml::link(Yii::t('app', 'Đăng tin cho thuê'), array('rooms/new'), array('class'=>'btn btn-primary')) ?></li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </div>
+</header>
 
-<div class="container" id="page">
+<div class="container">
+    <?php if (Yii::app()->user->hasFlash('success')): ?>
+        <div class="alert alert-success fade in">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo Yii::app()->user->getFlash('success'); ?>
+        </div>
+    <?php elseif (Yii::app()->user->hasFlash('error')): ?>
+        <div class="alert alert-danger fade in">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo Yii::app()->user->getFlash('error'); ?>
+        </div>
+    <?php endif; ?>
 
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
+    <?php echo $content; ?>
+</div>
 
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
-	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
+<?php echo $this->renderPartial('//layouts/_footer', array('baseUrl' => $baseUrl)); ?>
 
-	<?php echo $content; ?>
 
-	<div class="clear"></div>
+<!-- JS  -->
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+<!--[if lt IE 10]>
+<script type="text/javascript" src="<?php echo Yii::app()->baseUrl.'/js/html5shiv.js'?>"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->baseUrl.'/js/jquery.placeholder.min.js'?>"></script>
+<script type="text/javascript">
+    $(function () {
+        $('input, textarea').placeholder();
+    });
+</script>
+<![endif]-->
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
-
-</div><!-- page -->
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.noConflict();
+    });
+</script>
 </body>
 </html>

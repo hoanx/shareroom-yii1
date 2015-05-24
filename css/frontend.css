@@ -1,6 +1,10 @@
 @CHARSET "UTF-8";
+/*@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700&subset=latin,vietnamese);*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,800,300&subset=latin,vietnamese);
 body{
-    font-family: BerninoSansWeb,sans-serif;
+    /*font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;*/
+    /*font-family: 'Lato', sans-serif;*/
+    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
 }
 h1 i, h2 i, h3 i, h4 i, h5 i {
@@ -26,16 +30,24 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
 	font-size : 27px;
 	color : #fff !important;
 }
-.navbar-inverse .navbar-nav > li > a.btn:hover{
+.navbar-custom ul.navbar-nav li a {
+    color : #fff;
+    opacity: 1;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+.navbar-custom ul.navbar-nav li a.btn:hover{
     background-color: #286090;
     text-decoration: none;
 }
-.navbar-inverse .navbar-nav > li > a:hover{
+.navbar-custom ul.navbar-nav li a:hover{
     text-decoration: underline;
 }
-.navbar-inverse .navbar-nav > .active > a,
-.navbar-inverse .navbar-nav > .active > a:hover,
-.navbar-inverse .navbar-nav > .active > a:focus {
+.navbar-custom ul.navbar-nav .active a,
+.navbar-custom ul.navbar-nav .active a:hover,
+.navbar-custom ul.navbar-nav .active a:focus {
 	background-color: rgba(0, 0, 0, 0.3);
 }
 .navbar-inverse .navbar-toggle {
@@ -47,17 +59,55 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
 .navbar-toggle .icon-bar {
 	background-color: #fff;
 }
-.navbar-nav li a {
-	color : #fff !important;
-	opacity: 1;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    margin-top: 9px;
-    margin-bottom: 9px;
-}
+
 .navbar-nav .dropdown-menu li a {
 	color : #000 !important;
 }
+
+.navbar-main {
+    padding: 3px;
+    background-color: #ffffff;
+    border-radius: 0;
+    border-bottom: 1px solid #2a6ebe;
+}
+.navbar-main ul.navbar-nav{
+    margin: 10px 0;
+    height: 30px;
+}
+.navbar-main ul.navbar-nav li{
+    height: 30px;
+
+}
+
+.navbar-main ul.navbar-nav li a{
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 4px;
+}
+.navbar-main ul.navbar-nav li.right-line{
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+.navbar-main ul.navbar-nav li.mail-link{
+    font-size: 18px;
+}
+.navbar-main ul.navbar-nav li a.menu-link{
+    color: #666666;
+    outline: none;
+    border: solid 1px transparent;
+}
+.navbar-main ul.navbar-nav li a.menu-link:hover{
+    color: #666666;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: solid 1px #dedede;
+}
+.navbar-main ul.navbar-nav li a.btn-primary:hover{
+    background-color: #56a8ea;
+    bored-color: #337ab7;
+}
+.dropdown-menu{
+    top: 43px;
+}
+
 .theme-default .nivoSlider img {
     position:absolute;
     top:0px;
@@ -382,4 +432,8 @@ hr {
 }
 .advantages-info i:hover{
     color: #398fd1;
+}
+
+.text-center{
+    text-align: center;
 }
