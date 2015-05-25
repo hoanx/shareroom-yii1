@@ -33,22 +33,26 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
 .navbar-custom ul.navbar-nav li a {
     color : #fff;
     opacity: 1;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    margin-top: 9px;
-    margin-bottom: 9px;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: solid 1px transparent;
 }
-.navbar-custom ul.navbar-nav li a.btn:hover{
-    background-color: #286090;
-    text-decoration: none;
-}
+.navbar-custom ul.navbar-nav li.open a,
+.navbar-custom ul.navbar-nav li.open a:hover,
+.navbar-custom ul.navbar-nav li.open a:focus,
 .navbar-custom ul.navbar-nav li a:hover{
-    text-decoration: underline;
+    background-color: transparent;
+    border: solid 1px #ffffff;
+    border-radius: 4px;
 }
 .navbar-custom ul.navbar-nav .active a,
 .navbar-custom ul.navbar-nav .active a:hover,
 .navbar-custom ul.navbar-nav .active a:focus {
 	background-color: rgba(0, 0, 0, 0.3);
+}
+.navbar-custom ul.navbar-nav li a.btn:hover{
+    background-color: #56a8ea;
+    text-decoration: none;
 }
 .navbar-inverse .navbar-toggle {
 	border : 1px solid #fff !important;
@@ -56,21 +60,26 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
 .navbar-inverse .navbar-toggle:hover {
 	background-color: rgba(0, 0, 0, 0.3);
 }
+
 .navbar-toggle .icon-bar {
 	background-color: #fff;
 }
-
+.navbar-nav .dropdown-menu{
+    top: 42px;
+}
 .navbar-nav .dropdown-menu li a {
 	color : #000 !important;
 }
-
+.navbar-nav .dropdown-menu li a:hover {
+    color : #398fd1 !important;
+}
 .navbar-main {
     padding: 3px;
     background-color: #ffffff;
     border-radius: 0;
     border-bottom: 1px solid #2a6ebe;
 }
-.navbar-main ul.navbar-nav{
+ul.navbar-nav{
     margin: 10px 0;
     height: 30px;
 }
@@ -104,7 +113,7 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
     background-color: #56a8ea;
     bored-color: #337ab7;
 }
-.dropdown-menu{
+.navbar-main .dropdown-menu{
     top: 43px;
 }
 
@@ -436,4 +445,66 @@ hr {
 
 .text-center{
     text-align: center;
+}
+/*======== STYLE PROFILR PAGE ==========*/
+.profile-menu{
+    margin: 0 0 20px;
+    padding: 15px;
+    border: 1px solid #c3c3c3;
+    border-radius: 5px;
+    box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
+}
+.profile-menu ul{
+    display: block;
+    margin-bottom: 0;
+    padding-left: 10px;
+}
+
+.profile-menu ul li{
+    display: inline-block;
+    margin-right: 10px;
+}
+.profile-menu ul li a{
+    font-weight: bold;
+}
+
+.profile-box{
+    border: 1px solid #c3c3c3;
+    border-radius: 5px;
+    box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
+    margin: 5px 0 10px;
+}
+.profile-box .picture{
+    margin: 10px;
+    padding: 2px;
+    border: solid 1px #c6c6c6;
+}
+.profile-box .box-header span{
+    font-size: 16px;
+    font-weight: bold;
+}
+.profile-name{
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+.profile-name span{
+    font-size: 16px;
+    font-weight: bold;
+}
+.clearfix{
+    clear: both;
+}
+.message-index{
+    text-align: center;
+}
+.profile-index{
+    border: solid 1px #ddd;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    padding: 15px;
 }

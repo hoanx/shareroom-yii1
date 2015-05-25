@@ -8,6 +8,8 @@ class Constant {
     const PREFIX_ENCRYPT = 'keyencrypt-';
     const DEFAULT_PASSWORD = 'shareroom.vn';
 
+    const PATH_PROFILE_PICTURE = '/uploads/users_profile/';
+
     static function deleteFlag($status = null) {
         $base = array(
             '' => Yii::t('app', ''),

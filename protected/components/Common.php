@@ -2,6 +2,39 @@
 
 class Common
 {
+
+    /**
+     * Download profile picture from url
+     *
+     * @param null $img_url
+     * @param null $path_save
+     * @return bool
+     */
+    public static function download_profile_picture($img_url = null, $path_save = null)
+    {
+        if(is_null($img_url) || is_null($path_save)){
+            return false;
+        }
+
+        $ch = curl_init ($img_url);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+        curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $rawdata=curl_exec($ch);
+        curl_close ($ch);
+
+        /*Remove old file*/
+        if(file_exists($path_save)){
+            unlink($path_save);
+        }
+
+        $fp = fopen($path_save,'x');
+        fwrite($fp, $rawdata);
+        fclose($fp);
+    }
     /**
      * Debug
      * @author Tucq
