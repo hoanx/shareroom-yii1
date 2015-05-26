@@ -2,7 +2,6 @@
 
 class Common
 {
-
     /**
      * Download profile picture from url
      *
@@ -12,29 +11,30 @@ class Common
      */
     public static function download_profile_picture($img_url = null, $path_save = null)
     {
-        if(is_null($img_url) || is_null($path_save)){
+        if (is_null($img_url) || is_null($path_save)) {
             return false;
         }
 
-        $ch = curl_init ($img_url);
+        $ch = curl_init($img_url);
         curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
-        curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, 0);
+//        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        $rawdata=curl_exec($ch);
-        curl_close ($ch);
+        $rawdata = curl_exec($ch);
+        curl_close($ch);
 
         /*Remove old file*/
-        if(file_exists($path_save)){
+        if (file_exists($path_save)) {
             unlink($path_save);
         }
 
-        $fp = fopen($path_save,'x');
+        $fp = fopen($path_save, 'w');
         fwrite($fp, $rawdata);
         fclose($fp);
     }
+
     /**
      * Debug
      * @author Tucq

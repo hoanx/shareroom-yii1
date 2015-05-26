@@ -28,9 +28,6 @@ class ProfileController extends Controller
         $pathProfilePicture =  Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . Constant::PATH_PROFILE_PICTURE.md5($user_id);
         Common::download_profile_picture($usersModel->profile_picture, $pathProfilePicture);
 
-        $picture = file_get_contents($pathProfilePicture);
-        echo $picture;
-
         $this->render('dashboard', array(
             'usersModel' => $usersModel,
         ));
@@ -42,7 +39,31 @@ class ProfileController extends Controller
     }
     public function actionMy_Booking()
     {
-
         $this->render('my_booking');
+    }
+
+    public function actionProfilePicture($id = null){
+        if(is_null($id)){
+            $id = md5(Yii::app()->user->id);
+        }
+        $pathProfilePicture =  Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . Constant::PATH_PROFILE_PICTURE.$id;
+
+        // send the right headers
+//        header("Content-Type: image/jpg");
+//        header("Content-Length: " . filesize($pathProfilePicture));
+
+        if(file_exists($pathProfilePicture)){
+            // open the file in a binary mode
+//            $fp = fopen($pathProfilePicture, 'rb');
+//            fpassthru($fp);
+            echo imagedestroy($pathProfilePicture);
+
+        }else{
+
+            $pathProfilePicture = Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . Constant::PATH_PROFILE_PICTURE.'default_avatar.jpg';
+            echo file_get_contents($pathProfilePicture);
+        }
+
+        Yii::app()->end();
     }
 }

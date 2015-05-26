@@ -7,14 +7,14 @@
 echo $this->renderPartial('_menu_profile');
 ?>
 <div class="prifile-main row">
-    <div class="col-sm-3">
+    <div class="col-md-3 col-sm-4">
         <div class="profile-box profile-picture">
             <div class="picture">
                 <img src="/images/default_avatar.jpg" class="img-responsive">
             </div>
             <div class="profile-name">
-                <span>Hòa Nguyễn</span><br>
-                <a href="#">Chỉnh sửa trang cá nhân</a>
+                <span><?php echo $usersModel->first_name.' '.$usersModel->last_name ?></span><br>
+                <?php echo CHtml::link(Yii::t('app', 'Chỉnh sửa trang cá nhân'), array('profile/edit')) ?>
             </div>
 
         </div>
@@ -30,7 +30,7 @@ echo $this->renderPartial('_menu_profile');
             </div>
         </div>
     </div>
-    <div class="col-sm-9">
+    <div class="col-md-9 col-sm-8">
         <div class="panel panel-default profile-box message-box">
             <div class="panel-heading box-header">
                 <span><?php echo(Yii::t('app', 'Tin nhắn')) ?></span>
@@ -39,7 +39,7 @@ echo $this->renderPartial('_menu_profile');
                 Không có tin nhắn nào
                 <p class="clearfix"></p>
                 <div class="pull-right">
-                    <a href="#" class="btn btn-primary"><?php echo(Yii::t('app', 'Đi đến hộp tin nhắn')) ?></a>
+                    <?php echo CHtml::link(Yii::t('app', 'Đi đến hộp tin nhắn'), array('message/index'), array('class'=>'btn btn-primary')) ?>
                 </div>
             </div>
         </div>
