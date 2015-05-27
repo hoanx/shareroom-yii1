@@ -152,6 +152,12 @@ class SiteController extends Controller
                 $userFacebookModel = new Users();
                 $userFacebookModel->attributes=$this->userInfoFacebook;
                 $userFacebookModel->save();
+                if($userFacebookModel->profile_picture){
+                    //download profile picture
+                    $user_id = $userFacebookModel->id;
+                    $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.md5($user_id);
+                    Common::download_profile_picture($usersModel->profile_picture, $pathProfilePicture);
+                }
                 $this->_login($userFacebookModel, $userFacebookModel->password);
             }
         }elseif(!is_null($this->userInfoGPlus)){
@@ -163,6 +169,12 @@ class SiteController extends Controller
                 $userGoogleModel = new Users();
                 $userGoogleModel->attributes=$this->userInfoGPlus;
                 $userGoogleModel->save();
+                if($userGoogleModel->profile_picture){
+                    //download profile picture
+                    $user_id = $userGoogleModel->id;
+                    $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.md5($user_id);
+                    Common::download_profile_picture($usersModel->profile_picture, $pathProfilePicture);
+                }
                 $this->_login($userGoogleModel, $userGoogleModel->password);
             }
         }

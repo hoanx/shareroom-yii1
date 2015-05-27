@@ -40,10 +40,6 @@ class ProfileController extends Controller
         $user_id = Yii::app()->user->id;
         $usersModel = Users::model()->findByPk($user_id);
 
-        //download profile picture
-//        $pathProfilePicture =  Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . Constant::PATH_PROFILE_PICTURE.md5($user_id);
-//        Common::download_profile_picture($usersModel->profile_picture, $pathProfilePicture);
-
         $this->render('dashboard', array(
             'usersModel' => $usersModel,
         ));
@@ -69,25 +65,17 @@ class ProfileController extends Controller
         $this->render('changepass');
     }
 
-    public function actionProfilePicture($id = null){
+    public function actionImage($id = null){
         if(is_null($id)){
-            $id = md5(Yii::app()->user->id);
+            $picture_name = md5(Yii::app()->user->id);
         }
-        $pathProfilePicture =  Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . Constant::PATH_PROFILE_PICTURE.$id;
-
-        // send the right headers
-//        header("Content-Type: image/jpg");
-//        header("Content-Length: " . filesize($pathProfilePicture));
+        $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.$picture_name;
+        header("Content-Type: image/jpg");
 
         if(file_exists($pathProfilePicture)){
-            // open the file in a binary mode
-//            $fp = fopen($pathProfilePicture, 'rb');
-//            fpassthru($fp);
-            echo imagedestroy($pathProfilePicture);
-
+            echo file_get_contents($pathProfilePicture);
         }else{
-
-            $pathProfilePicture = Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . Constant::PATH_PROFILE_PICTURE.'default_avatar.jpg';
+            $pathProfilePicture = Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.'default_avatar.jpg';
             echo file_get_contents($pathProfilePicture);
         }
 

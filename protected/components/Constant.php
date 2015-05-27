@@ -10,6 +10,8 @@ class Constant {
 
     const PATH_PROFILE_PICTURE = '/uploads/users_profile/';
 
+    const GUEST_MAX = 16;
+
     static function deleteFlag($status = null) {
         $base = array(
             '' => Yii::t('app', ''),
@@ -17,6 +19,14 @@ class Constant {
             self::DEL_TRUE=> Yii::t('app', 'Deleted')
         );
         return !empty($base[$status]) ? $base[$status] : $base;
+    }
+
+    static function listGuests($idGuests = null){
+        for($i=1; $i <= self::GUEST_MAX; $i++){
+            $base[$i] = Yii::t('app', '{number} Khách', array('{number}'=>$i));
+        }
+
+        return !empty($base[$idGuests]) ? $base[$idGuests] : $base;
     }
     
 

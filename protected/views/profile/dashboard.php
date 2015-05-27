@@ -10,7 +10,7 @@ echo $this->renderPartial('_menu_profile');
     <div class="col-md-3 col-sm-4">
         <div class="profile-box profile-picture">
             <div class="picture">
-                <img src="/images/default_avatar.jpg" class="img-responsive">
+                <img src="<?php echo Yii::app()->createUrl('profile/image')?>" class="img-responsive">
             </div>
             <div class="profile-name">
                 <span><?php echo $usersModel->first_name.' '.$usersModel->last_name ?></span><br>
