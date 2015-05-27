@@ -32,10 +32,10 @@ $action_name = Yii::app()->controller->action->id;
             <li><?php echo CHtml::link(Yii::t('app', 'Đặt chỗ của tôi'), array('profile/my_booking'), array('class' => 'btn btn-info')) ?></li>
         <?php endif; ?>
 
-        <?php if ($controller_name == 'profile' && $action_name == 'index'): ?>
-            <li><?php echo CHtml::link(Yii::t('app', 'Tài khoản của tôi'), array('profile/index'), array('class' => 'btn btn-info active')) ?></li>
+        <?php if ($controller_name == 'profile' && $action_name == 'edit'): ?>
+            <li><?php echo CHtml::link(Yii::t('app', 'Tài khoản của tôi'), array('profile/edit'), array('class' => 'btn btn-info active')) ?></li>
         <?php else: ?>
-            <li><?php echo CHtml::link(Yii::t('app', 'Tài khoản của tôi'), array('profile/index'), array('class' => 'btn btn-info')) ?></li>
+            <li><?php echo CHtml::link(Yii::t('app', 'Tài khoản của tôi'), array('profile/edit'), array('class' => 'btn btn-info')) ?></li>
         <?php endif; ?>
     </ul>
 </div>

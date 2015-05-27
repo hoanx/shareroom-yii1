@@ -516,3 +516,11 @@ hr {
 .profile-link ul li{
     margin-bottom: 8px;
 }
+.profile-edit ul.profile-tabs li a{
+    border: 1px solid #ddd;
+}
+.profile-edit .profile-tabs .active a{
+    border-color: #1f5985;
+    background: #398fd1;
+    color: #fff;
+}

@@ -19,6 +19,17 @@ class ProfileController extends Controller
         $this->render('index');
     }
 
+    public function actionEdit()
+    {
+        $user_id = Yii::app()->user->id;
+        $usersModel = Users::model()->findByPk($user_id);
+
+
+        $this->render('edit', array(
+            'usersModel' => $usersModel,
+        ));
+    }
+
     public function actionDashboard()
     {
         $user_id = Yii::app()->user->id;

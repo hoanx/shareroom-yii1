@@ -71,7 +71,7 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
-			'returnUrl'=>'/profile/index',
+			'returnUrl'=>'/profile/dashboard',
 		),
 
 		// uncomment the following to enable URLs in path-format
