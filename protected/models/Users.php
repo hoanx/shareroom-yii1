@@ -12,6 +12,7 @@
  * @property string $birthday
  * @property integer $gender
  * @property string $phone_number
+ * @property string $description
  * @property string $address
  * @property string $profile_picture
  * @property string $google_id
@@ -52,8 +53,8 @@ class Users extends CActiveRecord
 			array('password, email, first_name, last_name, phone_number, address, google_id, facebook_id', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, birthday, password, email, first_name, last_name, gender, phone_number, address, profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe'),
-			array('id, birthday, password, email, first_name, last_name, gender, phone_number, address, profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe', 'on'=>'search'),
+			array('id, birthday, password, email, first_name, last_name, gender, phone_number, description, address, profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe'),
+			array('id, birthday, password, email, first_name, last_name, gender, phone_number, description, address, profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,7 +83,9 @@ class Users extends CActiveRecord
 			'first_name' => Yii::t('app', 'Tên'),
 			'last_name' => Yii::t('app', 'Họ'),
 			'gender' => Yii::t('app', 'Giới tính'),
+			'birthday' => Yii::t('app', 'Ngày sinh'),
 			'phone_number' => Yii::t('app', 'Số điện thoại'),
+			'description' => Yii::t('app', 'Mô tả về bạn'),
 			'address' => Yii::t('app', 'Địa chỉ'),
 			'google_id' => Yii::t('app', 'google_id'),
 			'facebook_id' => Yii::t('app', 'facebook_id'),
@@ -118,7 +121,6 @@ class Users extends CActiveRecord
 		$criteria->compare('last_name',$this->last_name,true);
 		$criteria->compare('gender',$this->gender);
 		$criteria->compare('phone_number',$this->phone_number,true);
-		$criteria->compare('address',$this->address,true);
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('google_id',$this->google_id,true);
 		$criteria->compare('facebook_id',$this->facebook_id,true);
@@ -165,8 +167,9 @@ class Users extends CActiveRecord
      */
     public static function gender($id = null) {
         $result = array(
-            self::GENDER_MALE => Yii::t('app','Male'),
-            self::GENDER_FEMALE => Yii::t('app','Female'),
+            0 => Yii::t('app','--Chọn giới tính--'),
+            self::GENDER_MALE => Yii::t('app','Nam'),
+            self::GENDER_FEMALE => Yii::t('app','Nữ'),
         );
         return !empty($result[$id]) ? $result[$id] : $result;
     }
