@@ -13,15 +13,15 @@ class ProfileController extends Controller
 
         return parent::beforeAction($action);
     }
-    public function actionIndex()
+    /*public function actionIndex()
     {
         $this->actionEdit();
-    }
+    }*/
 
     public function actionEdit()
     {
         $user_id = Yii::app()->user->id;
-        $usersModel = Users::model()->findByPk($user_id);
+        $usersModel = Users::model()->findByPk($user_id, 'del_flg = 0');
 
         if(isset($_POST['Users']) && $dataPost = $_POST['Users']){
             $usersModel->attributes = $dataPost;
@@ -38,7 +38,7 @@ class ProfileController extends Controller
     public function actionDashboard()
     {
         $user_id = Yii::app()->user->id;
-        $usersModel = Users::model()->findByPk($user_id);
+        $usersModel = Users::model()->findByPk($user_id, 'del_flg = 0');
 
         $this->render('dashboard', array(
             'usersModel' => $usersModel,
@@ -59,10 +59,36 @@ class ProfileController extends Controller
 
         $this->render('picture');
     }
-    public function actionChangePass()
+
+    public function actionBankinfo()
     {
 
-        $this->render('changepass');
+        $this->render('bankinfo');
+    }
+    public function actionChangePass()
+    {
+        $user_id = Yii::app()->user->id;
+        $changePassModel = new ChangePassword();
+        $usersModel = Users::model()->findByPk($user_id, 'del_flg = 0');
+
+        if (isset($_POST['ChangePassword']) && $data = $_POST['ChangePassword']) {
+            $changePassModel->password = $usersModel->password;
+            $changePassModel->attributes = $data;
+
+            if ($changePassModel->validate()) {
+                $usersModel->password = $changePassModel->new_pass;
+                if ($usersModel->save(false)) {
+                    Yii::app()->user->setFlash('success', Yii::t('app', 'Đổi mật khẩu thành công!'));
+                }
+            }else{
+                $changePassModel->current_pass = $data['current_pass'];
+            }
+        }
+
+        $this->render('changepass', array(
+            'usersModel' => $usersModel,
+            'changePassModel' => $changePassModel
+        ));
     }
 
     public function actionImage($id = null){

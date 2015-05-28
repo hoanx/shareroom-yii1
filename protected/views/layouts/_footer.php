@@ -9,20 +9,20 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                <div class="fb-page" data-href="https://www.facebook.com/FacebookDevelopers" data-hide-cover="false"
+                <div class="fb-page" data-href="https://www.facebook.com/shareroom.vn" data-hide-cover="false"
                      data-show-facepile="true" data-show-posts="false">
                     <div class="fb-xfbml-parse-ignore">
-                        <blockquote cite="https://www.facebook.com/FacebookDevelopers"><a
-                                href="https://www.facebook.com/FacebookDevelopers">Facebook Developers</a></blockquote>
+                        <blockquote cite="https://www.facebook.com/shareroom.vn"><a
+                                href="https://www.facebook.com/shareroom.vn">Chia Sẻ Phòng - Shareroom.vn</a>
+                        </blockquote>
                     </div>
                 </div>
                 <div id="fb-root"></div>
-                <script>(function (d, s, id) {
+                <script>(function(d, s, id) {
                         var js, fjs = d.getElementsByTagName(s)[0];
                         if (d.getElementById(id)) return;
-                        js = d.createElement(s);
-                        js.id = id;
-                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1621562994796845";
+                        js = d.createElement(s); js.id = id;
+                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=660895930691237";
                         fjs.parentNode.insertBefore(js, fjs);
                     }(document, 'script', 'facebook-jssdk'));</script>
             </div>

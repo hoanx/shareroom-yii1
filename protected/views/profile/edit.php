@@ -9,11 +9,7 @@ echo $this->renderPartial('_menu_profile');
 <div class="profile-edit">
 
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs profile-tabs">
-        <li class="active"><?php echo CHtml::link(Yii::t('app', 'Thông tin chi tiết'), array('profile/edit')) ?></li>
-        <li><?php echo CHtml::link(Yii::t('app', 'Hình ảnh'), array('profile/picture')) ?></li>
-        <li><?php echo CHtml::link(Yii::t('app', 'Đổi mật khẩu'), array('profile/changepass')) ?></li>
-    </ul>
+    <?php echo $this->renderPartial('_menu_profile_detail'); ?>
 
     <!-- Tab panes -->
     <div class="profile-index">

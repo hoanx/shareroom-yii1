@@ -66,6 +66,7 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'users_bank' => array(self::HAS_ONE, 'UsersBank', 'user_id'),
 		);
 	}
 
