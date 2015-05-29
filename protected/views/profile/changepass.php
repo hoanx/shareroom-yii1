@@ -46,8 +46,11 @@ echo $this->renderPartial('_menu_profile');
                         <?php echo $form->error($changePassModel,'re_new_pass'); ?>
                     </div>
                 </div>
-                <div class="form-actions">
-                    <?php echo CHtml::htmlButton(Yii::t('admin', 'Change'), array('type' => 'submit', 'class' => 'btn btn-primary btn-submit'))?>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;</div>
+                    <div class="col-sm-5">
+                        <?php echo CHtml::htmlButton(Yii::t('admin', 'Change'), array('type' => 'submit', 'class' => 'btn btn-success btn-lg btn-submit'))?>
+                    </div>
                 </div>
             </div>
         </div>

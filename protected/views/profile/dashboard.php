@@ -10,7 +10,9 @@ echo $this->renderPartial('_menu_profile');
     <div class="col-md-3 col-sm-4">
         <div class="profile-box profile-picture">
             <div class="picture">
-                <img src="<?php echo Yii::app()->createUrl('profile/image')?>" class="img-responsive">
+                <a href="<?php echo $this->createUrl('profile/show', array('id'=>$usersModel->id)) ?>" target="_blank">
+                    <img src="<?php echo Yii::app()->createUrl('profile/image')?>" class="img-responsive">
+                </a>
             </div>
             <div class="profile-name">
                 <span><?php echo $usersModel->first_name.' '.$usersModel->last_name ?></span><br>
@@ -39,7 +41,7 @@ echo $this->renderPartial('_menu_profile');
                 Không có tin nhắn nào
                 <p class="clearfix"></p>
                 <div class="pull-right">
-                    <?php echo CHtml::link(Yii::t('app', 'Đi đến hộp tin nhắn'), array('message/index'), array('class'=>'btn btn-primary')) ?>
+                    <?php echo CHtml::link(Yii::t('app', 'Đi đến hộp tin nhắn'), array('message/inbox'), array('class'=>'btn btn-primary')) ?>
                 </div>
             </div>
         </div>

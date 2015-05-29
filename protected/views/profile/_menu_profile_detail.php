@@ -27,7 +27,7 @@ $action_name = Yii::app()->controller->action->id;
     <?php endif; ?>
 
     <?php if ($controller_name == 'profile' && $action_name == 'changepass'): ?>
-        <li class="active"><?php echo CHtml::link(Yii::t('app', 'Đổi mật khẩu'), array('profile/changepass')) ?></li>
+        <li class="active"><?php echo CHtml::link(Yii::t('app', 'Thiết lập'), array('profile/changepass')) ?></li>
     <?php else: ?>
         <li><?php echo CHtml::link(Yii::t('app', 'Đổi mật khẩu'), array('profile/changepass')) ?></li>
     <?php endif; ?>

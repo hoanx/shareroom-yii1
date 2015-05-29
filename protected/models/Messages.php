@@ -21,6 +21,8 @@
  */
 class Messages extends CActiveRecord
 {
+    const MESSAGE_DEFAULT = 0;
+    const MESSAGE_BOOKING = 1;
 	/**
 	 * @return string the associated database table name
 	 */

@@ -16,39 +16,54 @@ echo $this->renderPartial('_menu_profile');
         <?php $form=$this->beginWidget('CActiveForm'); ?>
         <div class="panel panel-default profile-box profile-info">
             <div class="panel-heading box-header">
-                <span><?php echo(Yii::t('app', 'Thông tin ngân hàng')) ?></span>
+                <span><?php echo(Yii::t('app', 'Cách thức nhận thanh toán')) ?></span>
             </div>
             <div class="panel-body">
-                <!--<div class="form-group row">
-                    <?php /*echo $form->labelEx($changePassModel,'current_pass', array('class'=>'col-sm-2 control-label')); */?>
+                <h5><?php echo Yii::t('app', 'Phương thức thanh toán mặc đinh : chuyển khoản ngân hàng') ?></h5>
+                <br>
+                <div class="form-group row">
+                    <?php echo $form->labelEx($userBankModel,'bank_number', array('class'=>'col-sm-2 control-label')); ?>
                     <div class="col-sm-5">
-                        <?php /*echo $form->passwordField($changePassModel,'current_pass', array('class'=>'form-control')); */?>
+                        <?php echo $form->textField($userBankModel,'bank_number', array('class'=>'form-control')); ?>
                     </div>
                     <div class="col-sm-5 alert-error-form">
-                        <?php /*echo $form->error($changePassModel,'current_pass'); */?>
+                        <?php echo $form->error($userBankModel,'bank_number'); ?>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <?php /*echo $form->labelEx($changePassModel,'new_pass', array('class'=>'col-sm-2 control-label')); */?>
+                    <?php echo $form->labelEx($userBankModel,'bank_name', array('class'=>'col-sm-2 control-label')); ?>
                     <div class="col-sm-5">
-                        <?php /*echo $form->passwordField($changePassModel,'new_pass', array('class'=>'form-control')); */?>
+                        <?php echo $form->textField($userBankModel,'bank_name', array('class'=>'form-control')); ?>
                     </div>
                     <div class="col-sm-5 alert-error-form">
-                        <?php /*echo $form->error($changePassModel,'new_pass'); */?>
+                        <?php echo $form->error($userBankModel,'bank_name'); ?>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <?php /*echo $form->labelEx($changePassModel,'re_new_pass', array('class'=>'col-sm-2 control-label')); */?>
+                    <?php echo $form->labelEx($userBankModel,'bank_branch', array('class'=>'col-sm-2 control-label')); ?>
                     <div class="col-sm-5">
-                        <?php /*echo $form->passwordField($changePassModel,'re_new_pass', array('class'=>'form-control')); */?>
+                        <?php echo $form->textField($userBankModel,'bank_branch', array('class'=>'form-control')); ?>
                     </div>
                     <div class="col-sm-5 alert-error-form">
-                        <?php /*echo $form->error($changePassModel,'re_new_pass'); */?>
+                        <?php echo $form->error($userBankModel,'bank_branch'); ?>
                     </div>
                 </div>
-                <div class="form-actions">
-                    <?php /*echo CHtml::htmlButton(Yii::t('admin', 'Change'), array('type' => 'submit', 'class' => 'btn btn-primary btn-submit'))*/?>
-                </div>-->
+                <div class="form-group row">
+                    <?php echo $form->labelEx($userBankModel,'bank_holder_name', array('class'=>'col-sm-2 control-label')); ?>
+                    <div class="col-sm-5">
+                        <?php echo $form->textField($userBankModel,'bank_holder_name', array('class'=>'form-control')); ?>
+                    </div>
+                    <div class="col-sm-5 alert-error-form">
+                        <?php echo $form->error($userBankModel,'bank_holder_name'); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">&nbsp;</div>
+                    <div class="col-sm-5">
+                        <?php echo CHtml::htmlButton(Yii::t('app', 'Lưu lại'), array('type' => 'submit', 'class' => 'btn btn-success btn-lg btn-submit'))?>
+                    </div>
+
+                </div>
             </div>
         </div>
         <?php $this->endWidget(); ?>
