@@ -49,7 +49,7 @@ echo $this->renderPartial('_menu_profile');
                 <div class="row">
                     <div class="col-sm-2">&nbsp;</div>
                     <div class="col-sm-5">
-                        <?php echo CHtml::htmlButton(Yii::t('admin', 'Change'), array('type' => 'submit', 'class' => 'btn btn-success btn-lg btn-submit'))?>
+                        <?php echo CHtml::htmlButton(Yii::t('admin', 'Thay đổi'), array('type' => 'submit', 'class' => 'btn btn-success btn-lg btn-submit'))?>
                     </div>
                 </div>
             </div>

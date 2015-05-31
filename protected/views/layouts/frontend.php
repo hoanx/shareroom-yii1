@@ -53,11 +53,11 @@
                         <li><?php echo CHtml::link('<i class="fa fa-user"></i>  ' . Yii::t('app', 'Bảng hoạt động'), array('profile/dashboard')) ?></li>
                         <li><?php echo CHtml::link('<i class="fa fa-user"></i>  ' . Yii::t('app', 'Thông tin cá nhân'), array('profile/edit')) ?></li>
                         <li><?php echo CHtml::link('<i class="fa fa-cog"></i>  ' . Yii::t('app', 'Thiết lập'), array('profile/changepass')) ?></li>
-                        <li><?php echo CHtml::link('<i class="fa fa-envelope"></i> ' . Yii::t('app', 'Hộp thư'), array('message/index')) ?></li>
+                        <li><?php echo CHtml::link('<i class="fa fa-envelope"></i> ' . Yii::t('app', 'Hộp thư'), array('message/inbox')) ?></li>
                         <li><?php echo CHtml::link('<i class="fa fa-sign-out"></i> ' . Yii::t('app', 'Đăng xuất'), array('site/logout')) ?></li>
                     </ul>
                 </li>
-                <li><?php echo CHtml::link('<i class="fa fa-envelope-o"></i>', array('message/index')) ?></li>
+                <li><?php echo CHtml::link('<i class="fa fa-envelope-o"></i>', array('message/inbox')) ?></li>
                 <li><?php echo CHtml::link(Yii::t('app', 'Đăng tin cho thuê'), array('rooms/news'), array('class' => 'btn btn-primary')) ?></li>
             <?php endif; ?>
         </ul>

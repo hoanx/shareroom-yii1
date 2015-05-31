@@ -529,3 +529,23 @@ hr {
 .delete-picker {
     cursor: pointer;
 }
+.profile-picture-detail{
+    position: relative;
+    margin: 15px;
+    padding: 8px;
+    border: solid 1px #c3c3c3;
+}
+.remove-picture{
+    background: url("../images/remove.png");
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 21px;
+    height: 21px;
+}
+.upload-picture{
+    margin: 15px;
+    padding: 8px;
+    border: solid 1px #c3c3c3;
+
+}
