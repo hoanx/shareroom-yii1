@@ -78,6 +78,7 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
     background-color: #ffffff;
     border-radius: 0;
     border-bottom: 1px solid #2a6ebe;
+    margin-bottom: 0;
 }
 ul.navbar-nav{
     margin: 10px 0;
@@ -169,6 +170,14 @@ ul.navbar-nav{
     padding: 10px 15px;
 }
 /*END STYLE SEARCH BOX*/
+
+/*=======Style main content==========*/
+.main-content{
+    padding-top: 40px;
+    padding-bottom: 50px;
+    background-color: #f4f4f4;
+}
+/*=======END Style main content==========*/
 .head-line {
 	border-bottom : 1px dotted #e4e9f0;
 	margin-bottom : 20px;
@@ -187,7 +196,7 @@ ul.navbar-nav{
 }
 footer {
     bottom: 0;
-    margin-top: 30px;
+    margin-top: 0;
     padding: 30px 30px 20px;
     background-color: #f9f9f9;
     border-top: 2px solid #2a6ebe;
@@ -456,6 +465,7 @@ hr {
     box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
     -webkit-box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
     -moz-box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
+    background-color: #ffffff;
 }
 .profile-menu ul{
     display: block;
@@ -479,6 +489,7 @@ hr {
     -webkit-box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
     -moz-box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
     margin: 5px 0 10px;
+    background-color: #FFFFFF;
 }
 .profile-box .picture{
     margin: 10px;
