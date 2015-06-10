@@ -128,7 +128,10 @@ class ProfileController extends Controller
     public function actionImage($id = null){
         if(is_null($id)){
             $picture_name = md5(Yii::app()->user->id);
+        }else{
+            $picture_name = md5($id);
         }
+
         $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.$picture_name;
         header("Content-Type: image/jpg");
 
@@ -140,5 +143,20 @@ class ProfileController extends Controller
         }
 
         Yii::app()->end();
+    }
+
+    public function actionRemoveimage($id = null){
+        if(is_null($id)){
+            $picture_name = md5(Yii::app()->user->id);
+        }else{
+            $picture_name = md5($id);
+        }
+        $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.$picture_name;
+
+        if(file_exists($pathProfilePicture)){
+            unlink($pathProfilePicture);
+        }
+
+        $this->redirect(array('profile/picture'));
     }
 }

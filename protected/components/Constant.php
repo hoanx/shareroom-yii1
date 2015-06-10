@@ -28,6 +28,21 @@ class Constant {
 
         return !empty($base[$idGuests]) ? $base[$idGuests] : $base;
     }
+
+    /**
+     * check exists profile picture by md5 user id
+     *
+     * @param null $user_id_encode
+     * @return bool
+     */
+    public static function checkProfilePicture($user_id_encode = null){
+        if(is_null($user_id_encode)) return false;
+
+        $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.$user_id_encode;
+
+        return file_exists($pathProfilePicture);
+
+    }
     
 
 }

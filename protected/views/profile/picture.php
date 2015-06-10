@@ -28,10 +28,12 @@ echo $this->renderPartial('_menu_profile');
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="profile-picture-detail">
+                        <div class="profile-picture-detail tcenter">
                             <?php //@todo: check profile picture exits ?>
-                            <img src="<?php echo Yii::app()->createUrl('profile/image')?>" class="img-responsive">
-                            <a class="remove-picture" href=""></a>
+                            <img src="<?php echo Yii::app()->createUrl('profile/image')?>" class="img-responsive vmid">
+                            <?php if(Constant::checkProfilePicture(md5(Yii::app()->user->id))): ?>
+                            <a class="remove-picture" href="<?php echo $this->createUrl('profile/removeimage') ?>"></a>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -51,12 +53,6 @@ echo $this->renderPartial('_menu_profile');
 <?php Yii::app()->clientScript->beginScript('custom-script'); ?>
     <script type="text/javascript">
         jQuery(document).ready(function() {
-            jQuery("a.remove-picture").keyup(function(e) {
-                if(e.keyCode == 46) {
-                    jQuery.datepicker._clearDate(this);
-                }
-            });
-
             jQuery("a.remove-picture").click(function() {
                 if(confirm('<?php echo Yii::t('app', 'Bạn có muốn xóa hình ảnh này không'); ?>')){
                     return true;

@@ -41,7 +41,7 @@ echo $this->renderPartial('_menu_profile');
                 Không có tin nhắn nào
                 <p class="clearfix"></p>
                 <div class="pull-right">
-                    <?php echo CHtml::link(Yii::t('app', 'Đi đến hộp tin nhắn'), array('message/inbox'), array('class'=>'btn btn-primary')) ?>
+                    <?php echo CHtml::link(Yii::t('app', 'Đi đến hộp tin nhắn'), array('message/inbox '), array('class'=>'btn btn-primary')) ?>
                 </div>
             </div>
         </div>

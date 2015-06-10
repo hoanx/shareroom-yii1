@@ -549,3 +549,9 @@ hr {
     border: solid 1px #c3c3c3;
 
 }
+.vmid{
+    vertical-align: middle;
+}
+.tcenter{
+    text-align: center;
+}
