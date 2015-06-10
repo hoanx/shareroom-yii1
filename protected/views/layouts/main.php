@@ -18,6 +18,7 @@
     $clientScript->registerCssFile($baseUrl . '/css/default/default.css');
     $clientScript->registerCssFile($baseUrl . '/css/nivo-slider.css');
     $clientScript->registerCssFile($baseUrl . '/css/frontend.css');
+    $clientScript->registerCssFile($baseUrl . '/css/style-room.css');
     $clientScript->registerCssFile($baseUrl . '/css/responsive.css');
     //JS
     $clientScript->registerScriptFile($baseUrl . '/js/jquery-1.10.2.min.js');
@@ -65,23 +66,23 @@
         </div>
     </div>
 </header>
+<div class="main-content">
+    <div class="container">
+        <?php if (Yii::app()->user->hasFlash('success')): ?>
+            <div class="alert alert-success fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <?php echo Yii::app()->user->getFlash('success'); ?>
+            </div>
+        <?php elseif (Yii::app()->user->hasFlash('error')): ?>
+            <div class="alert alert-danger fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <?php echo Yii::app()->user->getFlash('error'); ?>
+            </div>
+        <?php endif; ?>
 
-<div class="container">
-    <?php if (Yii::app()->user->hasFlash('success')): ?>
-        <div class="alert alert-success fade in">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <?php echo Yii::app()->user->getFlash('success'); ?>
-        </div>
-    <?php elseif (Yii::app()->user->hasFlash('error')): ?>
-        <div class="alert alert-danger fade in">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <?php echo Yii::app()->user->getFlash('error'); ?>
-        </div>
-    <?php endif; ?>
-
-    <?php echo $content; ?>
+        <?php echo $content; ?>
+    </div>
 </div>
-
 <?php echo $this->renderPartial('//layouts/_footer', array('baseUrl' => $baseUrl)); ?>
 
 
