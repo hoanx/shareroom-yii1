@@ -10,9 +10,14 @@ class RoomsController extends Controller
 
     }
 
-    public function actionNew(){
-        $this->render('new', array(
 
+    public function actionNew(){
+        $this->setPageTitle(Yii::t('app', 'Đăng tin cho thuê'));
+
+        $model = new RoomAddress();
+
+        $this->render('new', array(
+            'model' => $model,
         ));
 
     }

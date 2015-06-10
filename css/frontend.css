@@ -394,7 +394,7 @@ hr {
 }
 
 /*Style home page*/
-.box{
+.box-margin-bottom{
     margin-bottom: 15px;
 }
 .location {
@@ -482,7 +482,7 @@ hr {
     font-weight: bold;
 }
 
-.profile-box{
+.profile-box, .box{
     border: 1px solid #c3c3c3;
     border-radius: 5px;
     box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
@@ -566,3 +566,4 @@ hr {
 .tcenter{
     text-align: center;
 }
+
