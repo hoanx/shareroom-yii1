@@ -308,4 +308,10 @@ class SiteController extends Controller
         Yii::app()->user->login($_identity, 0);
         $this->redirect(Yii::app()->user->returnUrl);
     }
+
+
+    public function actionGeocodingapi(){
+        $this->render('geocodingapi');
+
+    }
 }
