@@ -12,7 +12,6 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
 }
 .navbar {
 	padding : 10px;
-	background-color: rgba(0, 0, 0, 0.3);
 	border : none;
 	transition: all 0.5s ease;
 	-webkit-transition: all 0.5s ease;
@@ -23,7 +22,6 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
     z-index: 99999;
     top: 0;
 	padding : 3px;
-	background-color: rgba(0, 0, 0, 0.6);
     border-radius: 0;
 }
 .navbar-brand {
@@ -81,7 +79,7 @@ h1 i, h2 i, h3 i, h4 i, h5 i {
     margin-bottom: 0;
 }
 ul.navbar-nav{
-    margin: 10px 0;
+    margin: 20px 0;
     height: 30px;
 }
 .navbar-main ul.navbar-nav li{
@@ -151,7 +149,7 @@ ul.navbar-nav{
     color: #FFFFFF;
     font-weight: bold;
     font-size: 44px;
-    padding: 10px 0 70px;
+    padding: 10px 0 160px;
 }
 .box-search .frm-search{
     padding: 10px 5px 0;
@@ -162,11 +160,11 @@ ul.navbar-nav{
     margin-bottom: 10px;
 }
 .frm-search i.fa-map-marker{
-    font-size: 22px;
-    padding: 5px 15px;
+    font-size: 24px;
+  	padding: 10px 15px;
 }
 .frm-search i.fa-calender{
-    font-size: 18px;
+    font-size: 24px;
     padding: 10px 15px;
 }
 /*END STYLE SEARCH BOX*/
@@ -198,8 +196,9 @@ footer {
     bottom: 0;
     margin-top: 0;
     padding: 30px 30px 20px;
-    background-color: #f9f9f9;
-    border-top: 2px solid #2a6ebe;
+    background-color: #2b2d2e;
+    border-top: 5px solid #2a6ebe;
+    color: #fff;
 }
 footer ul{
     padding-left: 0;
@@ -368,7 +367,7 @@ hr {
 .inner-addon .glyphicon,
 .inner-addon .fa{
     position: absolute;
-    padding: 10px 15px;
+    padding: 15px 15px;
     pointer-events: none;
 }
 /* align glyph */
@@ -401,9 +400,10 @@ hr {
     margin-top: 25px
 }
 
-.box-location h3 {
+.box-location h2 {
     text-align: center;
-    font-weight: bold;
+	margin-bottom: 40px;
+	margin-top: 40px;
 }
 
 .location-info {
@@ -415,13 +415,14 @@ hr {
 .location-info a {
     text-decoration: none;
     color: #ffffff;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: bold;
 }
 
 .location-info a img {
     position: relative;
     border-radius: 5px;
+    height: 350px;
 }
 
 .location-info a:hover img {
@@ -438,7 +439,8 @@ hr {
 .box-advantages{}
 .advantages-info{
     text-align: center;
-    padding: 20px;
+    padding: 40px;
+    margin: 10px 0;
 }
 .advantages-info i {
     font-size: 58px;
@@ -567,3 +569,6 @@ hr {
     text-align: center;
 }
 
+.slider-caption {
+	
+}
