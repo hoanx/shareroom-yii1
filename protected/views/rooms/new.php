@@ -31,7 +31,7 @@ echo $this->renderPartial('_step_create_room', array(
                         <?php echo $form->hiddenField($model,'lat', array('id' => 'lat')); ?>
                         <?php echo $form->hiddenField($model,'long', array('id' => 'lng')); ?>
                     </div>
-                    <div class="ol-sm-offset-2 col-sm-10 alert-error-form">
+                    <div class="col-sm-offset-2 col-sm-10 alert-error-form">
                         <?php echo $form->error($model,'address_detail'); ?>
                     </div>
                 </div>
@@ -43,7 +43,7 @@ echo $this->renderPartial('_step_create_room', array(
                     <div class="col-sm-8">
                         <?php echo $form->textField($model,'address', array('class'=>'form-control', 'id' => 'route')); ?>
                     </div>
-                    <div class="ol-sm-offset-4 col-sm-8 alert-error-form">
+                    <div class="col-sm-offset-4 col-sm-8 alert-error-form">
                         <?php echo $form->error($model,'address'); ?>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ echo $this->renderPartial('_step_create_room', array(
                     <div class="col-sm-8">
                         <?php echo $form->textField($model,'district', array('class'=>'form-control', 'id' => 'locality')); ?>
                     </div>
-                    <div class="ol-sm-offset-4 col-sm-8 alert-error-form">
+                    <div class="col-sm-offset-4 col-sm-8 alert-error-form">
                         <?php echo $form->error($model,'district'); ?>
                     </div>
                 </div>
@@ -63,7 +63,7 @@ echo $this->renderPartial('_step_create_room', array(
                     <div class="col-sm-8">
                         <?php echo $form->textField($model,'city', array('class'=>'form-control', 'id' => 'administrative_area_level_1')); ?>
                     </div>
-                    <div class="ol-sm-offset-4 col-sm-8 alert-error-form">
+                    <div class="col-sm-offset-4 col-sm-8 alert-error-form">
                         <?php echo $form->error($model,'city'); ?>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ echo $this->renderPartial('_step_create_room', array(
                 <div class="col-sm-8 col-md-5">
                     <?php echo $form->textField($model,'name', array('class'=>'form-control')); ?>
                 </div>
-                <div class="ol-sm-offset-4 col-sm-8 col-md-5 alert-error-form">
+                <div class="col-sm-offset-4 col-md-offset-2 col-sm-8 col-md-5 alert-error-form">
                     <?php echo $form->error($model,'name'); ?>
                 </div>
             </div>
@@ -106,7 +106,7 @@ echo $this->renderPartial('_step_create_room', array(
                 <div class="col-sm-4 col-md-5">
                     <?php echo $form->textArea($model,'description', array('class'=>'form-control', 'row'=>8)); ?>
                 </div>
-                <div class="ol-sm-offset-4 col-sm-8 col-md-5 alert-error-form">
+                <div class="col-sm-offset-4 col-md-offset-2 col-sm-8 col-md-5 alert-error-form">
                     <?php echo $form->error($model,'description'); ?>
                 </div>
             </div>
@@ -119,7 +119,7 @@ echo $this->renderPartial('_step_create_room', array(
                         'separator' => '',
                     )); ?>
                 </div>
-                <div class="ol-sm-offset-4 ol-md-offset-2 col-sm-8 col-md-10 alert-error-form">
+                <div class="col-sm-offset-4 col-md-offset-2 col-sm-8 col-md-5 alert-error-form">
                     <?php echo $form->error($model,'room_type'); ?>
                 </div>
             </div>
@@ -129,7 +129,7 @@ echo $this->renderPartial('_step_create_room', array(
                 <div class="col-sm-8 col-md-5">
                     <?php echo $form->dropdownList($model,'accommodates', Constant::listGuests(), array('class'=>'form-control')); ?>
                 </div>
-                <div class="ol-sm-offset-4 col-sm-8 col-md-5 alert-error-form">
+                <div class="col-sm-offset-4 col-md-offset-2 col-sm-8 col-md-5 alert-error-form">
                     <?php echo $form->error($model,'accommodates'); ?>
                 </div>
             </div>
@@ -139,7 +139,7 @@ echo $this->renderPartial('_step_create_room', array(
                 <div class="col-sm-8 col-md-5">
                     <?php echo $form->dropdownList($model,'bedrooms', Constant::listBedRooms(), array('class'=>'form-control')); ?>
                 </div>
-                <div class="ol-sm-offset-4 col-sm-8 col-md-5 alert-error-form">
+                <div class="col-sm-offset-4 col-md-offset-2 col-sm-8 col-md-5 alert-error-form">
                     <?php echo $form->error($model,'bedrooms'); ?>
                 </div>
             </div>
@@ -149,7 +149,7 @@ echo $this->renderPartial('_step_create_room', array(
                 <div class="col-sm-8 col-md-5">
                     <?php echo $form->dropdownList($model,'beds', Constant::listBeds(), array('class'=>'form-control')); ?>
                 </div>
-                <div class="ol-sm-offset-4 col-sm-8 col-md-5 alert-error-form">
+                <div class="col-sm-offset-4 col-md-offset-2 col-sm-8 col-md-5 alert-error-form">
                     <?php echo $form->error($model,'beds'); ?>
                 </div>
             </div>
@@ -160,7 +160,7 @@ echo $this->renderPartial('_step_create_room', array(
                     <?php echo $form->textField($model,'room_size', array('class'=>'form-control')); ?>
                     <span class="input-group-addon" id="basic-addon2">m2</span>
                 </div>
-                <div class="ol-sm-offset-4 col-sm-8 col-md-5 alert-error-form">
+                <div class="col-sm-offset-4 col-md-offset-2 col-sm-8 col-md-5 alert-error-form">
                     <?php echo $form->error($model,'room_size'); ?>
                 </div>
             </div>
@@ -195,10 +195,27 @@ echo $this->renderPartial('_step_create_room', array(
             <h4><i class="fa fa-lock"></i><?php echo Yii::t('app', 'Thông tin được bảo mật') ?></h4>
         </div>
         <div class="panel-body">
-            <div class="col-md-8">
-
+            <div class="col-md-6">
+                <div class="form-group">
+                    <?php echo $form->labelEx($user,'email', array('class'=>'col-sm-4 control-label label-left')); ?>
+                    <div class="col-sm-8">
+                        <?php echo $form->textField($user,'email', array('class'=>'form-control')); ?>
+                    </div>
+                    <div class="col-sm-offset-4 col-sm-8 alert-error-form">
+                        <?php echo $form->error($user, 'email'); ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php echo $form->labelEx($user,'phone_number', array('class'=>'col-sm-4 control-label label-left')); ?>
+                    <div class="col-sm-8">
+                        <?php echo $form->textField($user,'phone_number', array('class'=>'form-control')); ?>
+                    </div>
+                    <div class="col-sm-offset-4 col-sm-8 alert-error-form">
+                        <?php echo $form->error($user, 'phone_number'); ?>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-md-offset-2">
                 <div class="text-note">
                     <i class="fa fa-lock"></i>
                     <span>

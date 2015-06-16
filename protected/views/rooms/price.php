@@ -47,7 +47,7 @@ echo $this->renderPartial('_step_create_room', array(
             <div class="col-sm-8 col-md-3">
                 <?php echo $form->textField($model, 'price', array('class' => 'form-control')); ?>
             </div>
-            <div class="ol-sm-offset-4 col-sm-8 col-md-7 alert-error-form">
+            <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-7 alert-error-form">
                 <?php echo $form->error($model, 'price'); ?>
             </div>
         </div>
@@ -72,7 +72,7 @@ echo $this->renderPartial('_step_create_room', array(
             <div class="col-md-7 hint">
                 Du khách sẽ được báo giá này cho bất kỳ đợt đặt phòng nào từ 7 đêm trở lên
             </div>
-            <div class="ol-sm-offset-4 col-sm-8 ol-md-offset-2 col-md-5 alert-error-form">
+            <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'weekly'); ?>
             </div>
         </div>
@@ -85,7 +85,7 @@ echo $this->renderPartial('_step_create_room', array(
             <div class="col-md-7 hint">
                 Khách sẽ được báo giá này cho bất kỳ đặt chỗ từ 28 đêm trở lên
             </div>
-            <div class="ol-sm-offset-4 col-sm-8 ol-md-offset-2 col-md-5 alert-error-form">
+            <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'monthly'); ?>
             </div>
         </div>
@@ -111,7 +111,7 @@ echo $this->renderPartial('_step_create_room', array(
             <div class="col-md-7">
                 Du khách sẽ được báo giá này cho bất kỳ đợt đặt phòng nào từ 7 đêm trở lên
             </div>
-            <div class="ol-sm-offset-4 col-sm-8 ol-md-offset-2 col-md-5 alert-error-form">
+            <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'additional_guests'); ?>
             </div>
         </div>
@@ -124,7 +124,7 @@ echo $this->renderPartial('_step_create_room', array(
             <div class="col-md-7">
                 Khách sẽ được báo giá này cho bất kỳ đặt chỗ từ 28 đêm trở lên
             </div>
-            <div class="ol-sm-offset-4 col-sm-8 ol-md-offset-2 col-md-5 alert-error-form">
+            <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'cleaning_fees'); ?>
             </div>
         </div>
@@ -141,7 +141,7 @@ echo $this->renderPartial('_step_create_room', array(
             <div class="col-sm-8 col-md-8">
                 <?php echo $form->dropdownList($model, 'cancellation', Constant::getCancellation(), array('class' => 'form-control')); ?>
             </div>
-            <div class="ol-sm-offset-4 col-sm-8 ol-md-offset-2 col-md-8 alert-error-form">
+            <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-8 alert-error-form">
                 <?php echo $form->error($model, 'cancellation'); ?>
             </div>
         </div>
@@ -151,7 +151,7 @@ echo $this->renderPartial('_step_create_room', array(
             <div class="col-sm-4 col-md-5">
                 <?php echo $form->textArea($model,'house_rules', array('class'=>'form-control ftextarea', 'row'=>15)); ?>
             </div>
-            <div class="ol-sm-offset-4 col-sm-8 col-md-5 alert-error-form">
+            <div class="col-sm-offset-4 col-sm-8 col-md-5 alert-error-form">
                 <?php echo $form->error($model,'house_rules'); ?>
             </div>
         </div>
@@ -163,7 +163,7 @@ echo $this->renderPartial('_step_create_room', array(
             </div>
             <div class="col-md-7">
             </div>
-            <div class="ol-sm-offset-4 col-sm-8 ol-md-offset-2 col-md-5 alert-error-form">
+            <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'min_nights'); ?>
             </div>
         </div>
@@ -175,7 +175,7 @@ echo $this->renderPartial('_step_create_room', array(
             </div>
             <div class="col-md-7">
             </div>
-            <div class="ol-sm-offset-4 col-sm-8 ol-md-offset-2 col-md-5 alert-error-form">
+            <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'max_nights'); ?>
             </div>
         </div>
@@ -188,7 +188,7 @@ echo $this->renderPartial('_step_create_room', array(
             </div>
             <div class="col-md-7">
             </div>
-            <div class="ol-sm-offset-4 col-sm-8 ol-md-offset-2 col-md-5 alert-error-form">
+            <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'check_in'); ?>
             </div>
         </div>
@@ -200,7 +200,7 @@ echo $this->renderPartial('_step_create_room', array(
             </div>
             <div class="col-md-7">
             </div>
-            <div class="ol-sm-offset-4 col-sm-8 ol-md-offset-2 col-md-5 alert-error-form">
+            <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'check_out'); ?>
             </div>
         </div>
@@ -209,6 +209,11 @@ echo $this->renderPartial('_step_create_room', array(
         
 <div class="form-group form-actions">
     <div class="pull-right">
+        <?php 
+            echo CHtml::link('<i class="fa fa-play fa-rotate-180"></i>&nbsp;&nbsp;' . Yii::t('app', 'Quay lại'), array('rooms/new', 'id' => $model->room_address_id), array(
+                 'class' => 'btn btn-success btn-lg'       
+            ));
+        ?>
         <button type="submit" class="btn btn-success btn-lg"><?php echo(Yii::t('app', 'Tiếp theo')) ?>&nbsp;&nbsp;<i class="fa fa-play"></i></button>
     </div>
     <div class="clearfix"></div>

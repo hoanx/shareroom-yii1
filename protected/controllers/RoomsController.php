@@ -6,42 +6,54 @@
 
 class RoomsController extends Controller
 {
+    protected function beforeAction($event) {
+        if(!Yii::app()->user->id) {
+            $this->redirect(Yii::app()->homeUrl);
+        }
+        
+        return true;
+    }
+    
     public function actionIndex(){
 
     }
 
 
-    public function actionNew() {
+    public function actionNew($id = null) {
         $this->setPageTitle(Yii::t('app', 'Đăng tin cho thuê'));
         
-        if(Yii::app()->user->id) {
-            $this->redirect(Yii::app()->homeUrl);
+        $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0));
+        if($model) {
+            $model->room_type = unserialize($model->room_type);
+            $model->amenities = unserialize($model->amenities);
+        } else {
+            $model = new RoomAddress();
         }
-
-        $model = new RoomAddress();
         
-        if(isset($_POST['RoomAddress'])) {
+        $user = Users::model()->findByAttributes(array('id' => Yii::app()->user->id, 'del_flg' => 0));
+        
+        if(isset($_POST['RoomAddress'], $_POST['Users'])) {
             $model->attributes  = $_POST['RoomAddress'];
             $model->user_id = Yii::app()->user->id;
             
-            if($model->validate()) {
+            $user->attributes =  $_POST['Users'];
+            
+            if($model->validate() && $user->validate()) {
                 $model->save();
+                $user->save();
                 $this->redirect(array('rooms/price' , 'id' => $model->id));
             } 
         }
 
         $this->render('new', array(
             'model' => $model,
+            'user' => $user
         ));
 
     }
 
     public function actionPrice($id = null) {
         $this->setPageTitle(Yii::t('app', 'Đăng tin cho thuê'));
-        
-        if(!Yii::app()->user->id) {
-            $this->redirect(Yii::app()->homeUrl);
-        }
         
         $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0));
         
