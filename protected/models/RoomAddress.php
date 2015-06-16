@@ -147,5 +147,13 @@ class RoomAddress extends CActiveRecord
 		return parent::model($className);
 	}
 
+    public function beforeSave() {
+        $now = new CDbExpression('NOW()');
+        if ($this->isNewRecord){
+            $this->created = $now;
+        }
+        $this->updated = $now;
+        return parent::beforeSave();
+    }
 
 }

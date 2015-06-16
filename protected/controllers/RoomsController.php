@@ -21,4 +21,20 @@ class RoomsController extends Controller
         ));
 
     }
+
+    public function actionPrice($id = null)
+    {
+        $model=new RoomPrice;
+
+        if(isset($_POST['RoomPrice']))
+        {
+            $model->attributes=$_POST['RoomPrice'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                return;
+            }
+        }
+        $this->render('price',array('model'=>$model));
+    }
 }

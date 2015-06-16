@@ -1,10 +1,10 @@
-<?php 
+<?php
 class Constant {
     const PAGE_SIZE = 50;
 
     const DEL_TRUE = 1;
     const DEL_FALSE = 0;
-    
+
     const PREFIX_ENCRYPT = 'keyencrypt-';
     const DEFAULT_PASSWORD = 'shareroom.vn';
 
@@ -35,6 +35,13 @@ class Constant {
     const ROOM_TYPE_ENTIRE_HOME = 'entire_home'; // Toan bo nha
     const ROOM_TYPE_PRIVATE_ROOM = 'private_room'; // Phong rieng
     const ROOM_TYPE_SHARE_ROOM = 'share_room'; // Phong chia se
+
+    const CANCELLATION_FLEXIBILITY = 1;
+    const CANCELLATION_MEDIUM = 2;
+    const CANCELLATION_STRICT = 3;
+
+    const MIN_NIGHTS = 30;
+    const MAX_NIGHTS = 180;
 
 
     static function deleteFlag($status = null) {
@@ -124,6 +131,46 @@ class Constant {
 
         return !empty($base[$value]) ? $base[$value] : $base;
     }
-    
+
+    public static function getCancellation($type = null){
+        $base = array(
+            self::CANCELLATION_FLEXIBILITY => Yii::t('app', 'Linh hoạt: Trả 100%, trừ phí dịch vụ nếu hủy ít nhất 1 ngày trước ngày đến'),
+            self::CANCELLATION_MEDIUM => Yii::t('app', 'Trung bình: Trả 100%, trừ phí dịch vụ nếu hủy ít nhất 5 ngày trước ngày đến'),
+            self::CANCELLATION_STRICT => Yii::t('app', 'Nghiêm ngặt: Trả 50%, trừ phí dịch vụ nếu hủy ít nhất 1 tuần trước ngày đến'),
+        );
+
+        return !empty($base[$type]) ? $base[$type] : $base;
+    }
+
+    public static function getMinNights($value = null){
+        for($i=1; $i <= self::MIN_NIGHTS; $i++){
+            $base[$i] = $i;
+        }
+
+        return !empty($base[$value]) ? $base[$value] : $base;
+    }
+
+    public static function getMaxNights($value = null){
+        for($i=1; $i <= self::MAX_NIGHTS; $i++){
+            $base[$i] = $i;
+        }
+
+        return !empty($base[$value]) ? $base[$value] : $base;
+    }
+
+    public static function getTimeCheck($value = null){
+        for($i=0; $i < 24; $i++){
+            $base[$i] = Yii::t('app', '{number}:00', array('{number}'=>$i));
+            /*if($i < 12){
+                $base[$i] = Yii::t('app', '{number} AM', array('{number}'=>$i));
+            }else{
+
+            }*/
+
+        }
+
+        return !empty($base[$value]) ? $base[$value] : $base;
+
+    }
 
 }
