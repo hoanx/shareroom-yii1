@@ -13,7 +13,7 @@ $this->pageTitle = Yii::app()->name;
 <?php //$this->widget('ext.hoauth.widgets.HOAuth'); ?>
 
 <div class="box-margin-bottom box-location">
-    <h3><?php echo Yii::t('app', 'Địa điểm phổ biến') ?></h3>
+    <h2><?php echo Yii::t('app', 'Địa điểm phổ biến') ?></h2>
 
     <div class="line-gradient">&nbsp;</div>
 

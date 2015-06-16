@@ -70,25 +70,23 @@ $action = Yii::app()->controller->action->id;
 <?php if ($controller == "site" && $action == "index") : ?>
     <div class="slider-wrapper theme-default">
         <div id="slider" class="nivoSlider">
-            <img src="<?php echo $baseUrl ?>/images/slides/toystory.jpg"
-                 data-thumb="<?php echo $baseUrl ?>/images/slides/toystory.jpg" alt=""/>
-            <img src="<?php echo $baseUrl ?>/images/slides/walle.jpg"
-                 data-thumb="<?php echo $baseUrl ?>/images/slides/walle.jpg" alt="" data-transition="slideInLeft"/>
-            <img src="<?php echo $baseUrl ?>/images/slides/nemo.jpg"
-                 data-thumb="<?php echo $baseUrl ?>/images/slides/nemo.jpg" alt=""/>
-            <img src="<?php echo $baseUrl ?>/images/slides/up.jpg"
-                 data-thumb="<?php echo $baseUrl ?>/images/slides/up.jpg" alt=""/>
+            <img src="<?php echo $baseUrl ?>/images/slides/city.jpg"
+                 data-thumb="<?php echo $baseUrl ?>/images/slides/city.jpg" alt=""/>
+            <img src="<?php echo $baseUrl ?>/images/slides/home.jpg"
+                 data-thumb="<?php echo $baseUrl ?>/images/slides/home.jpg" alt="" data-transition="slideInLeft"/>
+            <img src="<?php echo $baseUrl ?>/images/slides/sleep.jpg"
+                 data-thumb="<?php echo $baseUrl ?>/images/slides/sleep.jpg" alt=""/>
         </div>
         <div class="box-search">
             <div class="container">
-                <h2><?php echo(Yii::t('app', 'Đặt phòng du lịch với giá tốt nhất')) ?></h2>
+                <h2 class="slider-caption"><?php echo(Yii::t('app', 'Đặt phòng du lịch với giá tốt nhất')) ?></h2>
 
                 <form class="frm-search row">
                     <div class="col-sm-12 col-md-4">
                         <div class="form-group">
                             <div class="inner-addon left-addon">
                                 <i class="fa fa-map-marker"></i>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control input-lg"
                                        placeholder="<?php echo(Yii::t('app', 'Điểm đến của bạn')) ?>">
                             </div>
                         </div>
@@ -97,7 +95,7 @@ $action = Yii::app()->controller->action->id;
                         <div class="form-group">
                             <div class="inner-addon left-addon">
                                 <i class="fa fa-calendar"></i>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control input-lg"
                                        placeholder="<?= Yii::t('app', 'Nhận phòng') ?>">
                             </div>
                         </div>
@@ -106,7 +104,7 @@ $action = Yii::app()->controller->action->id;
                         <div class="form-group">
                             <div class="inner-addon left-addon">
                                 <i class="fa fa-calendar"></i>
-                                <input type="text" class="form-control" placeholder="<?= Yii::t('app', 'Trả phòng') ?>">
+                                <input type="text" class="form-control input-lg" placeholder="<?= Yii::t('app', 'Trả phòng') ?>">
                             </div>
                         </div>
                     </div>
@@ -114,12 +112,12 @@ $action = Yii::app()->controller->action->id;
                         <div class="form-group">
                             <div class="inner-addon left-addon">
                                 <i class="fa fa-users"></i>
-                                <input type="text" class="form-control" placeholder="<?= Yii::t('app', 'Khách') ?>">
+                                <input type="text" class="form-control input-lg" placeholder="<?= Yii::t('app', 'Khách') ?>">
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-2">
-                        <button id="search-button" class="btn btn-primary btn-block"
+                        <button id="search-button" class="btn btn-primary btn-block btn-lg"
                                 type="submit"><?= Yii::t('app', 'Tìm kiếm') ?></button>
                     </div>
 
@@ -179,7 +177,8 @@ $action = Yii::app()->controller->action->id;
 <script type="text/javascript">
     jQuery(document).ready(function () {
         jQuery('#slider').nivoSlider({
-            controlNav: false
+            controlNav: false,
+            directionNav: false
         });
 
         /*window.onscroll = function (oEvent) {
