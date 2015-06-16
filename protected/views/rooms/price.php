@@ -9,6 +9,10 @@ echo $this->renderPartial('_step_create_room', array(
 ?>
 
 <div class="box box-new-room box-price-room">
+    <div class="short-description">
+        <h3>Đăng tin cho thuê</h3>
+        <p>Shareroom.vn giúp bạn tăng thu nhập bằng cách cho thuê nhà/phòng mà bạn không cần dùng đến</p>
+    </div>
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'room-price-price-form',
     // Please note: When you enable ajax validation, make sure the corresponding
@@ -200,10 +204,15 @@ echo $this->renderPartial('_step_create_room', array(
                 <?php echo $form->error($model, 'check_out'); ?>
             </div>
         </div>
-
     </div>
 </div>
-
+        
+<div class="form-group form-actions">
+    <div class="pull-right">
+        <button type="submit" class="btn btn-success btn-lg"><?php echo(Yii::t('app', 'Tiếp theo')) ?>&nbsp;&nbsp;<i class="fa fa-play"></i></button>
+    </div>
+    <div class="clearfix"></div>
+</div>
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->

@@ -321,6 +321,7 @@ a.btn-social-custom{
     height: 34px;
     position: relative;
     text-align: center;
+    margin: 10px 0;
 }
 .signup-or-separator .signup-or-separator--text {
     background-color: #FFF;
@@ -569,6 +570,11 @@ hr {
     text-align: center;
 }
 
-.slider-caption {
-	
+#map-canvas-new-room {
+	width: 100%;
+	height: 300px;
+}
+
+.text-note {
+	text-align: justify;
 }

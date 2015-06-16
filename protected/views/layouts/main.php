@@ -24,7 +24,7 @@
     $clientScript->registerScriptFile($baseUrl . '/js/jquery-1.10.2.min.js');
     $clientScript->registerScriptFile($baseUrl . '/js/jquery.nivo.slider.js');
     $clientScript->registerScriptFile($baseUrl . '/js/bootstrap.min.js');
-    $clientScript->registerScriptFile('https://maps.googleapis.com/maps/api/js?v=3.exp&language=vi&signed_in=true');
+    $clientScript->registerScriptFile('https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places');
 
     $clientScript->registerScriptFile($baseUrl . '/js/geocodingapi.js');
 

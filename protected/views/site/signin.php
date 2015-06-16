@@ -21,10 +21,10 @@ $loginGplusUrl = $this->loginGplusUrl;
                 Sign in with Facebook
             </a>-->
             <?php echo CHtml::link('<i class="fa fa-facebook"></i>  ' . Yii::t('app', 'Đăng nhập bằng Facebook'), $loginFacebookUrl, array(
-                'class' => 'btn btn-block btn-social btn-md btn-facebook btn-social-custom'
+                'class' => 'btn btn-block btn-social btn-md btn-facebook btn-social-custom btn-lg'
             )) ?>
             <?php echo CHtml::link('<i class="fa fa-google-plus"></i>  ' . Yii::t('app', 'Đăng nhập bằng Google'), $loginGplusUrl, array(
-                'class' => 'btn btn-block btn-social btn-md btn-google btn-social-custom'
+                'class' => 'btn btn-block btn-social btn-md btn-google btn-social-custom btn-lg'
             )) ?>
         </div>
         <div class="signup-or-separator">
@@ -45,7 +45,7 @@ $loginGplusUrl = $this->loginGplusUrl;
             <div class="inner-addon left-addon">
                 <i class="fa fa-at fa-fw"></i>
                 <?php echo $form->textField($model,'email', array(
-                    'class'=>'form-control',
+                    'class'=>'form-control input-lg',
                     'placeholder' => $model->getAttributeLabel('email'),
                     'autofocus' => 'autofocus'
                 )); ?>
@@ -57,7 +57,7 @@ $loginGplusUrl = $this->loginGplusUrl;
             <div class="inner-addon left-addon">
                 <i class="fa fa-lock fa-fw"></i>
                 <?php echo $form->passwordField($model,'password', array(
-                    'class'=>'form-control',
+                    'class'=>'form-control input-lg',
                     'placeholder' => $model->getAttributeLabel('password'),
                     'autofocus' => 'autofocus'
                 )); ?>
@@ -66,15 +66,12 @@ $loginGplusUrl = $this->loginGplusUrl;
         </div>
 
 
-
+        <div class="form-group actions">
+            <?php echo CHtml::submitButton(Yii::t("app", "Đăng nhập"), array('class'=>'btn btn-success btn-block btn-submit btn-lg')); ?>
+        </div>
         <div class="form-group link-forgotpass">
             <?php echo CHtml::link(Yii::t('app', 'Quên mật khẩu?'), array('site/forgotpass')) ?>
         </div>
-
-        <div class="form-group actions">
-            <?php echo CHtml::submitButton(Yii::t("app", "Đăng nhập"), array('class'=>'btn btn-success btn-block btn-submit')); ?>
-        </div>
-
         <div class="form-group">
             Không có tài khoản? <?php echo CHtml::link('Đăng ký tại đây', array('site/signup')) ?>
         </div>

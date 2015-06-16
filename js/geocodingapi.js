@@ -5,9 +5,15 @@
 
 var geocoder;
 var map;
+var autocomplete;
 var default_center = new google.maps.LatLng(21.027689, 105.852274); // center map in Ha Noi
-var marker;
 var infowindow;
+var marker;
+var componentForm = {
+	locality : 'long_name',
+	administrative_area_level_1 : 'long_name',
+};
+
 function initialize() {
     geocoder = new google.maps.Geocoder();
     var mapOptions = {
@@ -15,10 +21,69 @@ function initialize() {
         center: default_center
     }
     map = new google.maps.Map(document.getElementById('map-canvas-new-room'), mapOptions);
+    
+    infowindow = new google.maps.InfoWindow();
+    
+    if(document.getElementById('lat').value && document.getElementById('lng').value) {
+    	marker = new google.maps.Marker({
+        	position: new google.maps.LatLng(document.getElementById('lat').value, document.getElementById('lng').value),
+            map : map,
+        	anchorPoint : new google.maps.Point(0, -29)
+        });
+    	
+    	marker.setMap(map);
+    } else {
+    	marker = new google.maps.Marker({
+            map : map,
+        	anchorPoint : new google.maps.Point(0, -29)
+        });
+    }
+    
 
     google.maps.event.addListener(map, 'click', function(e) {
         placeMarker(e.latLng, map);
     });
+    
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete')));
+    google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);
+}
+
+function onPlaceChanged() {
+	infowindow.close();
+    marker.setVisible(false);
+    
+	var place = autocomplete.getPlace();
+	if (place.geometry) {
+		map.setCenter(place.geometry.location);
+		map.setZoom(17);
+		
+		marker.setIcon(({
+			url : place.icon,
+			size : new google.maps.Size(71, 71),
+			origin : new google.maps.Point(0, 0),
+			anchor : new google.maps.Point(17, 34),
+			scaledSize : new google.maps.Size(35, 35)
+		}));
+		marker.setPosition(place.geometry.location);
+		marker.setVisible(true);
+
+		var address = '';
+		if (place.address_components) {
+			address = [
+					(place.address_components[0]
+							&& place.address_components[0].short_name || ''),
+					(place.address_components[1]
+							&& place.address_components[1].short_name || ''),
+					(place.address_components[2]
+							&& place.address_components[2].short_name || '') ]
+					.join(' ');
+		}
+
+		infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+		infowindow.open(map, marker);
+		
+		setAddress(document.getElementById('autocomplete').value, marker);
+	}
 }
 
 
@@ -26,7 +91,7 @@ function placeMarker(position, map) {
     if(marker) marker.setMap(null);
 
     map.setCenter(position);
-    map.setZoom(14);
+    map.setZoom(17);
     marker = new google.maps.Marker({
         draggable: true,
         position: position,
@@ -170,14 +235,35 @@ function showInfoWindow(marker){
 }
 
 function setAddress(formatted_address, marker){
-    document.getElementById('RoomAddress_address_detail').value =  formatted_address;
+    document.getElementById('autocomplete').value =  formatted_address;
+    var place = autocomplete.getPlace();
+    
+    console.log(place.geometry.location);
+    
+    for ( var component in componentForm) {
+		document.getElementById(component).value = '';
+		document.getElementById(component).disabled = false;
+	}
 
+
+    if(place.address_components) {
+    	// Get each component of the address from the place details
+    	// and fill the corresponding field on the form.
+    	for ( var i = 0; i < place.address_components.length; i++) {
+    		var addressType = place.address_components[i].types[0];
+    		if (componentForm[addressType]) {
+    			var val = place.address_components[i][componentForm[addressType]];
+    			document.getElementById(addressType).value = val;
+    		}
+    	}
+    }
+	
     var arrAddress = formatted_address.split(",");
-    var countAddress = arrAddress.length
+    var countAddress = arrAddress.length;
     var city = arrAddress[countAddress-2];
     var district = arrAddress[countAddress-3];
-    var address = formatted_address.replace(district + ',', "");
-    console.log(address);
-    console.log(district);
-    console.log(city);
+    
+    document.getElementById('route').value =  arrAddress[0];
+    document.getElementById('lat').value =  place.geometry.location.lat();
+    document.getElementById('lng').value =  place.geometry.location.lng();
 }

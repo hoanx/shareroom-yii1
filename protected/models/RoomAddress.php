@@ -45,8 +45,8 @@ class RoomAddress extends CActiveRecord
 			array('user_id, address_detail, address, district, city, lat, long, name, description, accommodates, bedrooms, beds, room_size', 'required'),
 			array('user_id, accommodates, bedrooms, beds, room_size, del_flg', 'numerical', 'integerOnly'=>true),
 			array('lat, long', 'numerical'),
-			array('address_detail, address, district, city, name, description, room_type, amenities', 'length', 'max'=>255),
-			array('created, updated', 'safe'),
+			array('address_detail, address, district, city, name, description', 'length', 'max'=>255),
+			array('created, updated, room_type, amenities', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, address_detail, address, district, city, lat, long, name, description, room_type, accommodates, bedrooms, beds, room_size, amenities, created, updated, del_flg', 'safe', 'on'=>'search'),
@@ -142,13 +142,22 @@ class RoomAddress extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return RoomAddress the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
-		return parent::model($className);
+	    return parent::model($className);
 	}
-
+	
     public function beforeSave() {
         $now = new CDbExpression('NOW()');
+        
+        if(is_array($this->room_type)) {
+            $this->room_type = serialize($this->room_type);
+        }
+        
+        if(is_array($this->amenities)) {
+            $this->amenities = serialize($this->amenities);
+        }
+        
         if ($this->isNewRecord){
             $this->created = $now;
         }

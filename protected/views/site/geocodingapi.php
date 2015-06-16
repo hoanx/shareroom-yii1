@@ -33,7 +33,7 @@ $baseUrl = Yii::app()->baseUrl;
         <input id="address" type="textbox" value="Tràng thi">
         <input type="button" value="Geocode" onclick="showMarkerAddress(document.getElementById('address').value)">
     </div>
-    <div id="map-canvas"></div>
+    <div id="map-canvas-new-room"></div>
 </div>
 
 
