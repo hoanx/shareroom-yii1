@@ -7,7 +7,7 @@ use Facebook\GraphUser;
 
 class SiteController extends Controller
 {
-    public $layout='//layouts/frontend';
+    public $layout='//layouts/home';
 
     public $loginFacebookUrl;
     public $loginGplusUrl;

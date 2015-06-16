@@ -114,3 +114,10 @@
 .box-new-room .form-actions{
     margin: 0;
 }
+
+#map-canvas-new-room{
+    width: 100%;
+    height: 300px;
+    margin: 0px;
+    padding: 0px
+}

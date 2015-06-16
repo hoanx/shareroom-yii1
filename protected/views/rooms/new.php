@@ -75,6 +75,9 @@ echo $this->renderPartial('_step_create_room', array(
                 </div>
             </div>
             <div class="col-md-6">
+                <div id="map-canvas-new-room">
+
+                </div>
             </div>
         </div>
 
@@ -213,3 +216,11 @@ echo $this->renderPartial('_step_create_room', array(
 
     <?php $this->endWidget(); ?>
 </div>
+
+<?php Yii::app()->clientScript->beginScript('custom-script'); ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            initialize();
+        });
+    </script>
+<?php Yii::app()->clientScript->endScript();?>

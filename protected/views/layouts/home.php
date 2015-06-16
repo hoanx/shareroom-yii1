@@ -58,7 +58,7 @@
                     </ul>
                 </li>
                 <li><?php echo CHtml::link('<i class="fa fa-envelope-o"></i>', array('message/inbox')) ?></li>
-                <li><?php echo CHtml::link(Yii::t('app', 'Đăng tin cho thuê'), array('rooms/news'), array('class' => 'btn btn-primary')) ?></li>
+                <li><?php echo CHtml::link(Yii::t('app', 'Đăng tin cho thuê'), array('rooms/new'), array('class' => 'btn btn-primary')) ?></li>
             <?php endif; ?>
         </ul>
     </div>
