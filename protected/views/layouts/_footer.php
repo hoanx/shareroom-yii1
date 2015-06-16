@@ -9,6 +9,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
+                <?php /* 
                 <div class="fb-page" data-href="https://www.facebook.com/shareroom.vn" data-hide-cover="false"
                      data-show-facepile="true" data-show-posts="false">
                     <div class="fb-xfbml-parse-ignore">
@@ -25,6 +26,8 @@
                         js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=660895930691237";
                         fjs.parentNode.insertBefore(js, fjs);
                     }(document, 'script', 'facebook-jssdk'));</script>
+                    
+               */ ?>
             </div>
             <div class="col-sm-4">
                 <h5><?= Yii::t('app', 'Thông tin công ty') ?></h5>
