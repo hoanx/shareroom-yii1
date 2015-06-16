@@ -11,7 +11,7 @@
  Target Server Version : 50624
  File Encoding         : utf-8
 
- Date: 06/12/2015 00:09:55 AM
+ Date: 06/16/2015 10:40:02 AM
 */
 
 SET NAMES utf8;
@@ -31,6 +31,13 @@ CREATE TABLE `tb_admin` (
   `del_flg` tinyint(2) DEFAULT '0' COMMENT '0: activated, 1: deleted',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `tb_admin`
+-- ----------------------------
+BEGIN;
+INSERT INTO `tb_admin` VALUES ('1', 'admin', 'cb7dae101850facf7f612731de40b82f', 'admin@admin.vn', '2015-05-13 14:35:51', '2015-05-13 14:35:54', '0');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `tb_messages`
@@ -141,6 +148,13 @@ CREATE TABLE `tb_users` (
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `tb_users`
+-- ----------------------------
+BEGIN;
+INSERT INTO `tb_users` VALUES ('1', 'xuanhoa_1201@yahoo.com', 'shareroom.vn', 'Hòa', 'Trà Đá', '1989-01-12', '1', null, null, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/s200x200/1470006_806118269435131_1527776481786918463_n.jpg?oh=502c80cdf4a1ec0c8d57c7dc2c9cb9e8&oe=55FA815C&__gda__=1443322675_f1f89e4f915631177371a68ee6a14e61', null, '892770294103261', '2015-05-22 22:35:52', '2015-05-22 22:35:52', '0', ''), ('2', 'xuanhoapro@gmail.com', 'shareroom.vn', 'Xuân Hòa', 'Nguyễn', null, '1', null, null, 'https://lh3.googleusercontent.com/-6SBTZCxzv6M/AAAAAAAAAAI/AAAAAAAAAH8/RGKA045KRLw/photo.jpg', '109417562987108464186', null, '2015-05-22 23:49:15', '2015-05-22 23:49:15', '0', '');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `tb_users_bank`
