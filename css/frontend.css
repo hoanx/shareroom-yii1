@@ -669,3 +669,32 @@ ul.orange-list li{
     font-weight: bold;
 }
 
+.box-image {
+	padding: 6px;
+	border: 1px solid #ddd;
+}
+.box-image img {
+	width: 100%;
+	height: 150px;
+}
+.box-image .title {
+	margin-top: 10px;
+}
+.box-image .city {
+	font-size: 12px;
+}
+.box-image .price {
+	color: #398fd1;
+	font-weight: bold;
+}
+
+.complete-title span {
+	font-size: 20px;
+}
+.complete-title i {
+	margin-right: 10px;
+}
+.complete-content {
+	margin-left: 45px;
+	margin-top: 10px;
+}
