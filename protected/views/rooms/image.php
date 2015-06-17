@@ -43,6 +43,22 @@ echo $this->renderPartial('_step_create_room', array(
 			</div>
 		</div>
     </div>
+    
+    <div class="form-group form-actions">
+        <div class="pull-right">
+            <?php 
+                echo CHtml::link('<i class="fa fa-play fa-rotate-180"></i>&nbsp;&nbsp;' . Yii::t('app', 'Quay lại'), array('rooms/price', 'id' => $room->id), array(
+                     'class' => 'btn btn-success btn-lg'       
+                ));
+            ?>
+            <?php 
+                echo CHtml::link(Yii::t('app', 'Tiếp theo') . '&nbsp;&nbsp;<i class="fa fa-play"></i>', array('rooms/complete', 'id' => $room->id), array(
+                     'class' => 'btn btn-success btn-lg'       
+                ));
+            ?>
+        </div>
+        <div class="clearfix"></div>
+    </div>
 </div>
 
 <?php Yii::app()->clientScript->beginScript('custom-script'); ?>

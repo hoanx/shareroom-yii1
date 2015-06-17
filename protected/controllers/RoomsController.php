@@ -94,6 +94,21 @@ class RoomsController extends Controller
         $this->render('image', array('room' => $room, 'images' => $images));
     }
     
+    public function actionComplete($id = null) {
+        $this->setPageTitle(Yii::t('app', 'Đăng tin cho thuê'));
+    
+        $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
+    
+        if(!$room || $room->user_id != Yii::app()->user->id) {
+            Yii::app()->user->setFlash('error', 'Permission denied.');
+            $this->redirect(Yii::app()->homeUrl);
+        }
+    
+        $image = RoomImages::model()->findByAttributes(array('room_address_id' => $id, 'del_flg' => 0));
+        
+        $this->render('complete', array('room' => $room, 'image' => $image));
+    }
+    
     public function actionUpload() {
         $count = RoomImages::model()->count("room_address_id = :room_address_id AND del_flg = :del_flg", array("room_address_id" => $_POST['id'], ':del_flg' => 0));
         
