@@ -585,10 +585,28 @@ hr {
 #preview-image {
 	width: 90%;
 	margin: 30px auto 0;
+	text-align: center;
 }
 
 #preview-image img {
 	width: 100%;
 	height: 150px;
 	margin-top: 20px;
+	position: relative;
+}
+
+#preview-image .col-md-2:hover img {
+    opacity: 0.5;
+}
+
+#preview-image .col-md-2:hover .delete {
+	display: inline;
+}
+
+#preview-image .delete {
+	position: absolute;
+    top: 50%;
+    margin-left: -0.5em;
+    display: none;
+    color: #fff;
 }

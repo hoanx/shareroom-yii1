@@ -89,13 +89,13 @@ class RoomsController extends Controller
             $this->redirect(Yii::app()->homeUrl);
         }
         
-        $images = RoomImages::model()->findAllByAttributes(array('room_address_id' => $id));
+        $images = RoomImages::model()->findAllByAttributes(array('room_address_id' => $id, 'del_flg' => 0));
         
         $this->render('image', array('room' => $room, 'images' => $images));
     }
     
     public function actionUpload() {
-        $count = RoomImages::model()->count("room_address_id=:room_address_id", array("room_address_id" => $_POST['id']));
+        $count = RoomImages::model()->count("room_address_id = :room_address_id AND del_flg = :del_flg", array("room_address_id" => $_POST['id'], ':del_flg' => 0));
         
         if($count > 6) {
             echo json_encode(array('name' => ''));
@@ -118,7 +118,22 @@ class RoomsController extends Controller
                 $model->save();
             }
             
-            echo json_encode(array('name' => $newFileName));
+            $return = '<div class="col-md-2 col-sm-4"><img src="' . Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $newFileName . '" />
+                        <a class="delete" href="' . Yii::app()->createUrl("rooms/deleteImage", array('id' => $model->id)) . '" ><i class="fa fa-times fa-2x"></i></a>
+                        </div>';
+            
+            echo json_encode(array('name' => $return));
         }
+    }
+    
+    public function actionDeleteImage($id = null) {
+        $image = RoomImages::model()->findByAttributes(array('id' => $id, 'del_flg' => 0));
+        $image->del_flg = Constant::DEL_TRUE;
+        
+        if($image->save()) {
+            unlink($tmpImageFolder = $_SERVER['DOCUMENT_ROOT'] . Constant::PATH_UPLOAD_PICTURE . $image->image_name);
+        }
+        
+        echo '1';
     }
 }

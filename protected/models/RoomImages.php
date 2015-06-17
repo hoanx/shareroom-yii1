@@ -31,7 +31,7 @@ class RoomImages extends CActiveRecord
 			array('room_address_id, image_name', 'required'),
 			array('room_address_id', 'numerical', 'integerOnly'=>true),
 			array('image_name', 'length', 'max'=>255),
-			array('created, updated', 'safe'),
+			array('created, updated, del_flg', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, room_address_id, image_name, created, updated', 'safe', 'on'=>'search'),

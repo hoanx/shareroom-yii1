@@ -34,6 +34,7 @@ echo $this->renderPartial('_step_create_room', array(
 	            ?>
 	                <div class="col-md-2 col-sm-4">
 	                    <?php echo CHtml::image(Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $image->image_name) ?>
+	                    <a class="delete" href="<?php echo Yii::app()->createUrl("rooms/deleteImage", array('id' => $image->id)) ?>" ><i class="fa fa-times fa-2x"></i></a>
 	                </div>
 			    <?php             
 			            endforeach;
@@ -58,13 +59,23 @@ echo $this->renderPartial('_step_create_room', array(
             	uploadFile();
             });
 
+            jQuery(document).on('click', '.delete', function(e){
+            	e.preventDefault();
+            	var parent = jQuery(this).parent();
+            	jQuery.ajax({
+            		  url: jQuery(this).attr('href'),
+        		}).done(function(data) {
+            		parent.hide();
+        		});
+            });
+
             function uploadFile() {
             	jQuery("#upload").ajaxSubmit({
                     dataType: 'json',
                     success: function(data, statusText, xhr, wrapper){
                     	jQuery('#input-file').val('');
                     	if(data.name) {
-                    		jQuery('#preview-image').append('<div class="col-md-2 col-sm-4"><img src="' + src + data.name + '" /></div>');
+                    		jQuery('#preview-image').append(data.name);
                     	}
                     }
                 });
