@@ -22,7 +22,7 @@ class RoomsController extends Controller
     public function actionNew($id = null) {
         $this->setPageTitle(Yii::t('app', 'Đăng tin cho thuê'));
         
-        $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0));
+        $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
         if($model) {
             $model->room_type = unserialize($model->room_type);
             $model->amenities = unserialize($model->amenities);
@@ -55,7 +55,7 @@ class RoomsController extends Controller
     public function actionPrice($id = null) {
         $this->setPageTitle(Yii::t('app', 'Đăng tin cho thuê'));
         
-        $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0));
+        $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
         
         if(!$room || $room->user_id != Yii::app()->user->id) {
             Yii::app()->user->setFlash('error', 'Permission denied.');
@@ -77,5 +77,48 @@ class RoomsController extends Controller
             }
         }
         $this->render('price',array('model'=>$model));
+    }
+    
+    public function actionImage($id = null) {
+        $this->setPageTitle(Yii::t('app', 'Đăng tin cho thuê'));
+        
+        $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
+        
+        if(!$room || $room->user_id != Yii::app()->user->id) {
+            Yii::app()->user->setFlash('error', 'Permission denied.');
+            $this->redirect(Yii::app()->homeUrl);
+        }
+        
+        $images = RoomImages::model()->findAllByAttributes(array('room_address_id' => $id));
+        
+        $this->render('image', array('room' => $room, 'images' => $images));
+    }
+    
+    public function actionUpload() {
+        $count = RoomImages::model()->count("room_address_id=:room_address_id", array("room_address_id" => $_POST['id']));
+        
+        if($count > 6) {
+            echo json_encode(array('name' => ''));
+        } else {
+            $tmpImageFolder = $_SERVER['DOCUMENT_ROOT'] . Constant::PATH_UPLOAD_PICTURE;
+            
+            $ext = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
+            $newFileName = microtime(true).'.'.$ext;
+            
+            $source = $_FILES['file']['tmp_name'];
+            $dest = $tmpImageFolder.'/'.$newFileName;
+            
+            if(move_uploaded_file($source, $dest)) {
+                $room = RoomAddress::model()->findByAttributes(array('id' => $_POST['id'], 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
+            
+                $model = new RoomImages();
+                $model->room_address_id = $room->id;
+                $model->image_name = $newFileName;
+            
+                $model->save();
+            }
+            
+            echo json_encode(array('name' => $newFileName));
+        }
     }
 }

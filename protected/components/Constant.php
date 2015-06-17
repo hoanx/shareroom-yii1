@@ -9,6 +9,7 @@ class Constant {
     const DEFAULT_PASSWORD = 'shareroom.vn';
 
     const PATH_PROFILE_PICTURE = '/uploads/users_profile/';
+    const PATH_UPLOAD_PICTURE = '/uploads/rooms/';
 
     const GUEST_MAX = 16;
 
