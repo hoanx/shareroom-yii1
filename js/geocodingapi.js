@@ -179,7 +179,7 @@ function showInfoWindow(marker){
                 });
                 infowindow.open(map, marker);
 
-                setAddress(results[0].formatted_address, marker);
+                setMakerAddress(results[0].formatted_address, marker);
 
                 /*var address = "", city = "", state = "", zip = "", country = "", formattedAddress = "";
                 var lat;
@@ -235,16 +235,12 @@ function showInfoWindow(marker){
 }
 
 function setAddress(formatted_address, marker){
-    document.getElementById('autocomplete').value =  formatted_address;
     var place = autocomplete.getPlace();
-    
-    console.log(place.geometry.location);
     
     for ( var component in componentForm) {
 		document.getElementById(component).value = '';
 		document.getElementById(component).disabled = false;
 	}
-
 
     if(place.address_components) {
     	// Get each component of the address from the place details
@@ -266,4 +262,44 @@ function setAddress(formatted_address, marker){
     document.getElementById('route').value =  arrAddress[0];
     document.getElementById('lat').value =  place.geometry.location.lat();
     document.getElementById('lng').value =  place.geometry.location.lng();
+}
+
+function setMakerAddress(formatted_address, marker) {
+	document.getElementById('autocomplete').value =  formatted_address;
+	
+	geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+	    if (status == google.maps.GeocoderStatus.OK) {
+			if (results[1]) {
+				for ( var component in componentForm) {
+					document.getElementById(component).value = '';
+					document.getElementById(component).disabled = false;
+				}
+
+			    if(results[1].address_components) {
+			    	// Get each component of the address from the place details
+			    	// and fill the corresponding field on the form.
+			    	for ( var i = 0; i < results[1].address_components.length; i++) {
+			    		var addressType = results[1].address_components[i].types[0];
+			    		if (componentForm[addressType]) {
+			    			var val = results[1].address_components[i][componentForm[addressType]];
+			    			document.getElementById(addressType).value = val;
+			    		}
+			    	}
+			    }
+			} else {
+				alert('No results found');
+			}
+		} else {
+			alert('Geocoder failed due to: ' + status);
+		}
+	});
+	
+	var arrAddress = formatted_address.split(",");
+    var countAddress = arrAddress.length;
+    var city = arrAddress[countAddress-2];
+    var district = arrAddress[countAddress-3];
+    
+    document.getElementById('route').value =  arrAddress[0];
+    document.getElementById('lat').value =  marker.getPosition().lat();
+    document.getElementById('lng').value =  marker.getPosition().lng();
 }
