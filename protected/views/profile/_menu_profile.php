@@ -20,10 +20,10 @@ $action_name = Yii::app()->controller->action->id;
             <li><?php echo CHtml::link(Yii::t('app', 'Hộp tin nhắn'), array('message/inbox'), array('class' => 'btn btn-info')) ?></li>
         <?php endif; ?>
 
-        <?php if ($controller_name == 'profile' && $action_name == 'my_room'): ?>
-            <li><?php echo CHtml::link(Yii::t('app', 'Bài đăng của tôi'), array('profile/my_room'), array('class' => 'btn btn-info active')) ?></li>
+        <?php if ($controller_name == 'spaces' && $action_name == 'index'): ?>
+            <li><?php echo CHtml::link(Yii::t('app', 'Bài đăng của tôi'), array('spaces/index'), array('class' => 'btn btn-info active')) ?></li>
         <?php else: ?>
-            <li><?php echo CHtml::link(Yii::t('app', 'Bài đăng của tôi'), array('profile/my_room'), array('class' => 'btn btn-info')) ?></li>
+            <li><?php echo CHtml::link(Yii::t('app', 'Bài đăng của tôi'), array('spaces/index'), array('class' => 'btn btn-info')) ?></li>
         <?php endif; ?>
 
         <?php if ($controller_name == 'profile' && $action_name == 'my_booking'): ?>

@@ -61,6 +61,8 @@ class RoomAddress extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'Users' => array(self::BELONGS_TO, 'Users', 'user_id'),
+            'RoomPrice' => array(self::HAS_ONE, 'RoomPrice', 'room_address_id'),
 
 		);
 	}
@@ -163,6 +165,23 @@ class RoomAddress extends CActiveRecord
         }
         $this->updated = $now;
         return parent::beforeSave();
+    }
+
+    /**
+     * Get list room by user id
+     *
+     * @param null $user_id
+     * @return bool|static[]
+     */
+    public static function getRoomByUserId($user_id = null){
+        if(is_null($user_id)) return false;
+
+        $criteria = new CDbCriteria();
+        $criteria->with = array('RoomPrice', 'Users');
+        $criteria->compare('t.del_flg', Constant::DEL_FALSE);
+        $criteria->compare('Users.id', $user_id);
+
+        return self::model()->findAll($criteria);
     }
 
 }

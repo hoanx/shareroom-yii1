@@ -1,5 +1,5 @@
 <?php
-
+define("ENCRYPTION_KEY", "!@#$%^&*");
 class Common
 {
     /**
@@ -1019,24 +1019,6 @@ class Common
 
     }
 
-    public static function encrypt($string = '')
-    {
-        if (empty($string)) return false;
-
-        return base64_encode(Constant::PREFIX_ENCRYPT . $string);
-    }
-
-    public static function decrypt($string = '')
-    {
-        if (empty($string)) return false;
-
-        $result = base64_decode($string);
-        if (str_replace(Constant::PREFIX_ENCRYPT, '', $result)) {
-            return str_replace(Constant::PREFIX_ENCRYPT, '', $result);
-        }
-        return false;
-    }
-
     public static function log($message = null, $filename = '')
     {
         if (is_null($message) and !$message)
@@ -1052,6 +1034,29 @@ class Common
             fwrite($fp, sprintf("%s %s\n", date('H:i:s'), print_r($message, true)));
             fclose($fp);
         }
+    }
+
+    /**
+     * Returns an encrypted & utf8-encoded
+     */
+    public static function encrypt($pure_string) {
+        $encryption_key = ENCRYPTION_KEY;
+        $iv_size = mcrypt_get_iv_size(MCRYPT_BLOWFISH, MCRYPT_MODE_ECB);
+        $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+        $encrypted_string = mcrypt_encrypt(MCRYPT_BLOWFISH, $encryption_key, utf8_encode($pure_string), MCRYPT_MODE_ECB, $iv);
+        return base64_encode($encrypted_string);
+    }
+
+    /**
+     * Returns decrypted original string
+     */
+    public static function decrypt($encrypted_string) {
+        $encryption_key = ENCRYPTION_KEY;
+        $encrypted_string = base64_decode($encrypted_string);
+        $iv_size = mcrypt_get_iv_size(MCRYPT_BLOWFISH, MCRYPT_MODE_ECB);
+        $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+        $decrypted_string = mcrypt_decrypt(MCRYPT_BLOWFISH, $encryption_key, $encrypted_string, MCRYPT_MODE_ECB, $iv);
+        return $decrypted_string;
     }
 
 }

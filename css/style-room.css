@@ -114,14 +114,13 @@
 .box-new-room .form-actions{
     margin: 0;
 }
-<<<<<<< HEAD
 
 #map-canvas-new-room{
     width: 100%;
     height: 300px;
     margin: 0px;
     padding: 0px
-=======
+}
 .box-price-room{
     padding-top: 25px;
 }
@@ -139,5 +138,4 @@
     height: 120px;
     resize: none;
     vertical-align: top;
->>>>>>> 61aa66835e612ffa61206f4f7dbe7ce36012e1b5
 }
