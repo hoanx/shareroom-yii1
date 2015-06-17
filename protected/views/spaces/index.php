@@ -29,13 +29,25 @@ echo $this->renderPartial('//profile/_menu_profile');
                                 'options' => array(
                                     //'yearRange' => date('Y-m-d').':' .date('Y-m-d', strtotime('+1 years')),
                                     'numberOfMonths'=>3,
+                                    'autoSize'=>true,
                                     'minDate'=>0,
                                     'maxDate'=>"+1Y",
                                     'dateFormat' => 'yy-mm-dd',
-//                                    'maxDate' => 'js:new Date()',
+//                                    'beforeShowDay' => 'js:function(date){return true;}',
                                 ),
                             )
                         ); ?>
+
+                        <div class="btn-control pull-right">
+                            <?php echo CHtml::link(Yii::t('app', 'Chỉnh sửa bài đăng'),
+                                array(
+                                    'spaces/editlisting',
+                                    'id' => ($data->id),
+                                ),
+                                array(
+                                    'class' => 'btn btn-default btn-url'
+                                )); ?>
+                        </div>
                     </div>
                 </div>
 

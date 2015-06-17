@@ -523,6 +523,7 @@ hr {
     border-top: none;
     border-radius: 0 0 5px 5px;
     padding: 15px;
+    background-color: #FFFFFF;
 }
 .profile-link ul{
     list-style-type: none;
@@ -533,6 +534,8 @@ hr {
 }
 .profile-edit ul.profile-tabs li a{
     border: 1px solid #ddd;
+    font-weight: bold;
+    background-color: #FFFFFF;
 }
 .profile-edit .profile-tabs .active a,
 .profile-edit .profile-tabs .active a:hover{
@@ -610,3 +613,59 @@ hr {
     display: none;
     color: #fff;
 }
+
+.policies{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+ul.orange-list li{
+    margin-bottom: 10px;
+}
+
+/*----STYLE SPACES - QUAN LY BAI DANG----*/
+.spaces-index{
+    padding: 20px 30px;
+}
+.spaces-index .item{
+    margin: 10px auto;
+    border: 2px solid #c3c3c3;
+    border-radius: 5px;
+    padding: 0;
+    background-color: #eee;
+
+}
+.spaces-index .item .spaces-info{
+
+    padding: 10px;
+}
+.spaces-index .item .calendar-detail{
+    padding: 10px;
+    background-color: #FFFFFF;
+}
+.btn-control{
+    margin: 15px 0;
+}
+.btn-url{
+    font-weight: bold;
+}
+.btn-url:hover{
+    background-color: #FFFFFF;
+    color: #398fd1;
+}
+
+/*============ Override style datepicker ============*/
+.ui-datepicker{
+    width: auto !important;
+}
+.ui-datepicker table{
+    font-size: 12px;
+    font-weight: bold;
+}
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default{
+    border: 1px solid #FFFFFF;
+    background: none;
+    font-weight: bold;
+}
+

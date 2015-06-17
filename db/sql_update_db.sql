@@ -1,0 +1,1 @@
+ALTER TABLE `tb_room_address` ADD COLUMN `status_flg`  tinyint(1) NULL DEFAULT 0 AFTER `amenities`;

@@ -37,4 +37,35 @@ class SpacesController extends Controller
 //            'user' => $user
         ));
     }
+
+    public function actionEditlisting($id=null){
+        if(is_null($id)) $this->redirect(array('index'));
+
+        $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
+
+        $this->render('editlisting', array(
+            'model' => $model,
+        ));
+    }
+
+    public function actionPricing($id=null){
+        if(is_null($id)) $this->redirect(array('index'));
+
+        $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
+
+        $this->render('pricing', array(
+            'model' => $model,
+        ));
+    }
+
+    public function actionPhotos($id=null){
+        if(is_null($id)) $this->redirect(array('index'));
+
+        $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
+
+        $this->render('photos', array(
+            'model' => $model,
+        ));
+    }
+
 }
