@@ -43,6 +43,22 @@ class SpacesController extends Controller
 
         $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
 
+        if($model) {
+            $model->room_type = unserialize($model->room_type);
+            $model->amenities = unserialize($model->amenities);
+        }
+
+        if(isset($_POST['RoomAddress'])) {
+            $model->attributes  = $_POST['RoomAddress'];
+            $model->user_id = Yii::app()->user->id;
+
+
+            if($model->validate()) {
+                $model->save();
+                //$this->redirect(array('rooms/price' , 'id' => $model->id));
+            }
+        }
+
         $this->render('editlisting', array(
             'model' => $model,
         ));
@@ -51,11 +67,30 @@ class SpacesController extends Controller
     public function actionPricing($id=null){
         if(is_null($id)) $this->redirect(array('index'));
 
-        $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
+        $this->setPageTitle(Yii::t('app', 'Đăng tin cho thuê'));
 
-        $this->render('pricing', array(
-            'model' => $model,
-        ));
+        $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
+
+        if(!$room || $room->user_id != Yii::app()->user->id) {
+            Yii::app()->user->setFlash('error', 'Permission denied.');
+            $this->redirect(Yii::app()->homeUrl);
+        }
+
+        $model = RoomPrice::model()->findByAttributes(array('room_address_id' => $id));
+        if(!$model) {
+            $model = new RoomPrice;
+        }
+
+        if(isset($_POST['RoomPrice'])) {
+            $model->attributes=$_POST['RoomPrice'];
+            $model->room_address_id = $id;
+
+            if($model->validate()) {
+                $model->save();
+                //$this->redirect(array('rooms/image' , 'id' => $model->id));
+            }
+        }
+        $this->render('pricing',array('model'=>$model));
     }
 
     public function actionPhotos($id=null){
