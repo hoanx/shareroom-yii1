@@ -92,7 +92,6 @@
                 <?php echo $form->textField($model, 'additional_guests', array('class' => 'form-control')); ?>
             </div>
             <div class="col-md-7">
-                Du khách sẽ được báo giá này cho bất kỳ đợt đặt phòng nào từ 7 đêm trở lên
             </div>
             <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'additional_guests'); ?>
@@ -105,7 +104,6 @@
                 <?php echo $form->textField($model, 'cleaning_fees', array('class' => 'form-control')); ?>
             </div>
             <div class="col-md-7">
-                Khách sẽ được báo giá này cho bất kỳ đặt chỗ từ 28 đêm trở lên
             </div>
             <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'cleaning_fees'); ?>
