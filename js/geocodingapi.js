@@ -15,9 +15,13 @@ var componentForm = {
 };
 
 function initialize() {
+	if(document.getElementById('lat').value && document.getElementById('lng').value) {
+		default_center = new google.maps.LatLng(document.getElementById('lat').value, document.getElementById('lng').value);
+	}
+	
     geocoder = new google.maps.Geocoder();
     var mapOptions = {
-        zoom: 10,
+        zoom: 17,
         center: default_center
     }
     map = new google.maps.Map(document.getElementById('map-canvas-new-room'), mapOptions);

@@ -108,9 +108,6 @@ echo $this->renderPartial('_step_create_room', array(
             <div class="col-sm-8 col-md-3">
                 <?php echo $form->textField($model, 'additional_guests', array('class' => 'form-control')); ?>
             </div>
-            <div class="col-md-7">
-                Du khách sẽ được báo giá này cho bất kỳ đợt đặt phòng nào từ 7 đêm trở lên
-            </div>
             <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'additional_guests'); ?>
             </div>
@@ -120,9 +117,6 @@ echo $this->renderPartial('_step_create_room', array(
             <?php echo $form->labelEx($model, 'cleaning_fees', array('class' => 'col-sm-4 col-md-2 control-label label-left')); ?>
             <div class="col-sm-8 col-md-3">
                 <?php echo $form->textField($model, 'cleaning_fees', array('class' => 'form-control')); ?>
-            </div>
-            <div class="col-md-7">
-                Khách sẽ được báo giá này cho bất kỳ đặt chỗ từ 28 đêm trở lên
             </div>
             <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'cleaning_fees'); ?>

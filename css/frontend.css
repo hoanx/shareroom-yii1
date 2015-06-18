@@ -702,3 +702,26 @@ ul.orange-list li{
 	margin-left: 45px;
 	margin-top: 10px;
 }
+.nivoSlider {
+	height: 400px !important;
+}
+.nivoSlider img {
+	height: 400px !important;
+}
+
+.room-extra {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.room-extra  .col-sm-2 {
+	text-align: center;
+	color: #797979;
+}
+.room-extra i {
+	font-size: 24px;
+}
+.room-desc h4 { 
+	margin-top: 20px;
+	font-weight: bold;
+}

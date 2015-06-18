@@ -57,7 +57,7 @@ class RoomsController extends Controller
         
         $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
         
-        if(!$room || $room->user_id != Yii::app()->user->id) {
+        if(!$room) {
             Yii::app()->user->setFlash('error', 'Permission denied.');
             $this->redirect(Yii::app()->homeUrl);
         }
@@ -84,7 +84,7 @@ class RoomsController extends Controller
         
         $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
         
-        if(!$room || $room->user_id != Yii::app()->user->id) {
+        if(!$room) {
             Yii::app()->user->setFlash('error', 'Permission denied.');
             $this->redirect(Yii::app()->homeUrl);
         }
@@ -99,7 +99,7 @@ class RoomsController extends Controller
     
         $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
     
-        if(!$room || $room->user_id != Yii::app()->user->id) {
+        if(!$room) {
             Yii::app()->user->setFlash('error', 'Permission denied.');
             $this->redirect(Yii::app()->homeUrl);
         }
@@ -107,6 +107,26 @@ class RoomsController extends Controller
         $image = RoomImages::model()->findByAttributes(array('room_address_id' => $id, 'del_flg' => 0));
         
         $this->render('complete', array('room' => $room, 'image' => $image));
+    }
+    
+    public function actionView($id = null) {
+        $this->setPageTitle(Yii::t('app', 'Xem địa điểm'));
+    
+        $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0));
+    
+        if(!$room) {
+            Yii::app()->user->setFlash('error', 'Invalid record.');
+            $this->redirect(Yii::app()->homeUrl);
+        }
+        
+        $room->amenities = unserialize($room->amenities);
+        
+        $this->breadcrumbs = array(
+            $room->city => '',
+            $room->district => '',
+        );
+        
+        $this->render('view', array('room' => $room));
     }
     
     public function actionUpload() {

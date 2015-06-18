@@ -63,6 +63,7 @@ class RoomAddress extends CActiveRecord
 		return array(
             'Users' => array(self::BELONGS_TO, 'Users', 'user_id'),
             'RoomPrice' => array(self::HAS_ONE, 'RoomPrice', 'room_address_id'),
+	        'RoomImages' => array(self::HAS_MANY, 'RoomImages', 'room_address_id', 'condition'=> "RoomImages.del_flg = 0"),
 
 		);
 	}
@@ -184,4 +185,39 @@ class RoomAddress extends CActiveRecord
         return self::model()->findAll($criteria);
     }
 
+    public static function getRoomType($room_type = null, $title = false) {
+        $room_type = unserialize($room_type);
+        
+        if(is_array($room_type)) {
+            if($title) {
+                foreach($room_type as $v) {
+                    $result[] = Constant::getRoomType($v);
+                }
+                
+                return $result;
+            } else {
+                return $room_type;                
+            }
+        }
+        
+        return array();
+    }
+    
+    public static function iconRoomType($room_type) {
+        switch ($room_type) {
+            case Constant::ROOM_TYPE_ENTIRE_HOME:
+                echo '<i class="fa fa-building"></i><br>' . Yii::t('app', 'Cả căn hộ');
+                break;
+            case Constant::ROOM_TYPE_PRIVATE_ROOM:
+                echo '<i class="fa fa-user-secret"></i><br>' . Yii::t('app', 'Phòng riêng');
+                break;
+            case Constant::ROOM_TYPE_SHARE_ROOM:
+                echo '<i class="fa fa-share-alt"></i><br>' . Yii::t('app', 'Phòng chia sẻ');
+                break;
+            default:
+                echo '';
+                break;
+        }
+    }
+    
 }
