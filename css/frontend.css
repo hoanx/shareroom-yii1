@@ -673,6 +673,13 @@ ul.orange-list li{
     font-weight: bold;
 }
 
+.ui-datepicker table .requested a {
+    background-color: #ffb584 !important;
+    background-image :none !important;
+    /*color: #ffffff !important;*/
+}
+/*======== end style datepicker==============*/
+
 .box-image {
 	padding: 6px;
 	border: 1px solid #ddd;
@@ -725,3 +732,10 @@ ul.orange-list li{
 	margin-top: 20px;
 	font-weight: bold;
 }
+.spaces-image-room{
+    margin: 10px;
+    padding: 3px;
+    border: solid 1px #c6c6c6;
+    background-color: #FFFFFF;
+}
+

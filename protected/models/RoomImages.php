@@ -120,7 +120,12 @@ class RoomImages extends CActiveRecord
             'del_flg' => 0
         ));
 
-        Common::debug($imageModel->image_name);
-
+        if($imageModel && $imageModel->image_name){
+            $pathFileImage =  Yii::app()->basePath . '/..' . Constant::PATH_UPLOAD_PICTURE . $imageModel->image_name;
+            if(file_exists($pathFileImage)){
+                return Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $imageModel->image_name;
+            }
+        }
+        return Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . 'no-image.jpg';
     }
 }
