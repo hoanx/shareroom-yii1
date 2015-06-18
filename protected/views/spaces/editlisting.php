@@ -11,7 +11,7 @@ echo $this->renderPartial('_step_edit_room', array(
 ));
 ?>
 
-<div class="box box-new-room">
+<div class="box box-new-room box-price-room">
 
     <?php $form=$this->beginWidget('CActiveForm', array(
         'htmlOptions' => array(
