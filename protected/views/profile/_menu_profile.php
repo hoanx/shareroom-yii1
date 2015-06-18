@@ -20,7 +20,7 @@ $action_name = Yii::app()->controller->action->id;
             <li><?php echo CHtml::link(Yii::t('app', 'Hộp tin nhắn'), array('message/inbox'), array('class' => 'btn btn-info')) ?></li>
         <?php endif; ?>
 
-        <?php if ($controller_name == 'spaces' && $action_name == 'index'): ?>
+        <?php if ($controller_name == 'spaces' && $action_name == 'index' || $controller_name=='spaces'): ?>
             <li><?php echo CHtml::link(Yii::t('app', 'Bài đăng của tôi'), array('spaces/index'), array('class' => 'btn btn-info active')) ?></li>
         <?php else: ?>
             <li><?php echo CHtml::link(Yii::t('app', 'Bài đăng của tôi'), array('spaces/index'), array('class' => 'btn btn-info')) ?></li>
@@ -38,4 +38,17 @@ $action_name = Yii::app()->controller->action->id;
             <li><?php echo CHtml::link(Yii::t('app', 'Tài khoản của tôi'), array('profile/edit'), array('class' => 'btn btn-info')) ?></li>
         <?php endif; ?>
     </ul>
+
+    <?php if($controller_name=='spaces' && !in_array($action_name, array('index', 'reservations', 'policies'))): ?>
+    <hr>
+    <ul class="sub-link">
+        <li><?php echo CHtml::link(Yii::t('app', 'Quản lý bài đăng'), array('spaces/index')) ?></li>
+        <li><?php echo CHtml::link(Yii::t('app', 'Yêu cầu đặt chỗ'), array('spaces/reservations')) ?></li>
+        <li><?php echo CHtml::link(Yii::t('app', 'Chính sách'), array('spaces/policies')) ?></li>
+    </ul>
+
+
+
+
+    <?php endif; ?>
 </div>

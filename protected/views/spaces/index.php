@@ -18,6 +18,7 @@ echo $this->renderPartial('//profile/_menu_profile');
                 <div class="item-<?php echo($data->id) ?> item row">
                     <div class="col-md-2 spaces-info">
                         this is an image
+                        <?php RoomImages::getImageByRoomaddress($data->id) ?>
                     </div>
                     <div class="col-md-10 calendar-detail">
                         <?php $this->widget('zii.widgets.jui.CJuiDatePicker',

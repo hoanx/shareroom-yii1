@@ -3,6 +3,8 @@
  * Created by ACV.HoaNX.
  * Date: 6/17/15
  */
+
+echo $this->renderPartial('//profile/_menu_profile');
 echo $this->renderPartial('_step_edit_room', array(
     'step' => 3,
     'model' => $model,
@@ -37,7 +39,7 @@ echo $this->renderPartial('_step_edit_room', array(
 
     <div class="form-group form-actions">
         <div class="pull-right">
-            <button type="submit" class="btn btn-success btn-lg"><?php echo(Yii::t('app', 'Lưu lại')) ?>&nbsp;&nbsp;<i class="fa fa-play"></i></button>
+            <button type="submit" class="btn btn-success btn-lg"><?php echo(Yii::t('app', 'Lưu lại')) ?></button>
         </div>
     </div>
 

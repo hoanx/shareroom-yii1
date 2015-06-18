@@ -462,7 +462,7 @@ hr {
 /*======== STYLE PROFILR PAGE ==========*/
 .profile-menu{
     margin: 0 0 20px;
-    padding: 15px 15px 0;
+    padding: 0;
     border: 1px solid #c3c3c3;
     border-radius: 5px;
     box-shadow: 0 0 0.3em rgba(0,0,0,0.2);
@@ -471,18 +471,22 @@ hr {
     background-color: #ffffff;
 }
 .profile-menu ul{
-    display: block;
-    margin-bottom: 0;
-    padding-left: 10px;
+    margin: 20px 15px;
+    padding: 0;
 }
 
 .profile-menu ul li{
     display: inline-block;
     margin-right: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 0;
 }
 .profile-menu ul li a{
     font-weight: bold;
+}
+
+.profile-menu ul.sub-link{
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .profile-box, .box{

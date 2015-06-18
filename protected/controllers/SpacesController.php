@@ -19,6 +19,7 @@ class SpacesController extends Controller
 
         $user_id = Yii::app()->user->id;
         $listRoomModel = RoomAddress::getRoomByUserId($user_id);
+        
 
         $this->render('index', array(
             'listRoomModel' => $listRoomModel,
@@ -26,15 +27,12 @@ class SpacesController extends Controller
     }
 
     public function actionReservations(){
+
         $this->render('reservations', array(
-//            'model' => $model,
-//            'user' => $user
         ));
     }
     public function actionPolicies(){
         $this->render('policies', array(
-//            'model' => $model,
-//            'user' => $user
         ));
     }
 
@@ -42,11 +40,6 @@ class SpacesController extends Controller
         if(is_null($id)) $this->redirect(array('index'));
 
         $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
-
-        if($model) {
-            $model->room_type = unserialize($model->room_type);
-            $model->amenities = unserialize($model->amenities);
-        }
 
         if(isset($_POST['RoomAddress'])) {
             $model->attributes  = $_POST['RoomAddress'];
@@ -57,6 +50,11 @@ class SpacesController extends Controller
                 $model->save();
                 //$this->redirect(array('rooms/price' , 'id' => $model->id));
             }
+        }
+
+        if($model) {
+            $model->room_type = unserialize($model->room_type);
+            $model->amenities = unserialize($model->amenities);
         }
 
         $this->render('editlisting', array(
@@ -96,11 +94,17 @@ class SpacesController extends Controller
     public function actionPhotos($id=null){
         if(is_null($id)) $this->redirect(array('index'));
 
-        $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
+        $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
 
-        $this->render('photos', array(
-            'model' => $model,
-        ));
+        if(!$room || $room->user_id != Yii::app()->user->id) {
+            Yii::app()->user->setFlash('error', 'Permission denied.');
+            $this->redirect(Yii::app()->homeUrl);
+        }
+
+        $images = RoomImages::model()->findAllByAttributes(array('room_address_id' => $id, 'del_flg' => 0));
+
+        $this->render('photos', array('room' => $room, 'images' => $images));
+
     }
 
 }

@@ -111,4 +111,16 @@ class RoomImages extends CActiveRecord
 	    $this->updated = $now;
 	    return parent::beforeSave();
 	}
+
+    public static function getImageByRoomaddress($room_address_id = null){
+        if(is_null($room_address_id)) return false;
+
+        $imageModel = RoomImages::model()->findByAttributes(array(
+            'room_address_id' => $room_address_id,
+            'del_flg' => 0
+        ));
+
+        Common::debug($imageModel->image_name);
+
+    }
 }
