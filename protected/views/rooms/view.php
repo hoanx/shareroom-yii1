@@ -119,16 +119,32 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <h3><?php echo number_format($room->RoomPrice->price) . ' VND' ?></h3>
-            <h5>Giá trung bình theo đêm</h5>
-            <div class="row">
-                <div class="col-md-5"><label>Nhận phòng</label><input type="text" class="form-control"></div>
-                <div class="col-md-5"><label>Trả phòng</label><input type="text" class="form-control"></div>
-                <div class="col-md-2"><label>Khách</label><select class="form-control"></select></div>
+        <div class="col-sm-4" id="room-checkin">
+            <div class="more-width">
+                <h3><?php echo number_format($room->RoomPrice->price) . ' VND' ?><span>Giá trung bình theo đêm</span></h3>
+                <div class="checkin-content">
+                    <div class="row">
+                        <div class="col-lg-5"><label>Nhận phòng</label><input type="text" class="form-control"></div>
+                        <div class="col-lg-5"><label>Trả phòng</label><input type="text" class="form-control"></div>
+                        <div class="col-lg-2"><label>Khách</label><select class="form-control"></select></div>
+                    </div>
+                    <div style="margin-top: 20px"><button class="btn btn-danger btn-lg btn-block">Đặt chỗ</button></div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-4">
+                            <?php if(!empty($room->Users->profile_picture)) : ?>
+                                <?php echo CHtml::image($room->Users->profile_picture, '', array('class' => 'img-responsive')) ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-md-8">
+                            <h5><?php echo $room->Users->first_name ?></h5>
+                            <div><?php echo "Là thành viên từ " . date('m/Y' , strtotime($room->Users->created))?></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <div><?php echo "Chia sẻ bài đăng này" ?></div>
+                    </div>
+                </div>
             </div>
-            <div style="margin-top: 20px"><button class="btn btn-success btn-lg btn-block">Đặt chỗ</button></div>
-            
         </div>
     </div>            
 </div>
@@ -140,6 +156,26 @@
                 controlNav: false,
                 directionNav: false
             });
+
+        	jQuery(function() {
+        	    var $sidebar   = jQuery("#room-checkin .more-width"), 
+        	        $window    = jQuery(window),
+        	        offset     = $sidebar.offset(),
+        	        topPadding = 15;
+
+        	    $window.scroll(function() {
+        	        if ($window.scrollTop() > offset.top) {
+        	            $sidebar.stop().animate({
+        	                marginTop: $window.scrollTop() - offset.top + topPadding
+        	            });
+        	        } else {
+        	            $sidebar.stop().animate({
+        	                marginTop: 0
+        	            });
+        	        }
+        	    });
+        	    
+        	});
             
             var mapOptions = {
                 zoom: 17,
@@ -151,6 +187,14 @@
             marker = new google.maps.Marker({
             	position: new google.maps.LatLng(<?php echo $room->lat ?>, <?php echo $room->long ?>),
                 map : map,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 50,
+                    strokeWeight: 1,
+                    strokeColor: '#398fd1',
+                    fillColor: '#398fd1',
+                    fillOpacity: 0.4,
+                },
             	anchorPoint : new google.maps.Point(0, -29)
             });
         	
