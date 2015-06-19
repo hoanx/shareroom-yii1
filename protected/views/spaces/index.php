@@ -6,37 +6,78 @@
 
 echo $this->renderPartial('//profile/_menu_profile');
 ?>
+
+<?php Yii::app()->clientScript->beginScript('custom-script'); ?>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $.fn.bootstrapSwitch.defaults.onText = 'Hiện';
+        $.fn.bootstrapSwitch.defaults.offText = 'Ẩn';
+    });
+</script>
+<?php Yii::app()->clientScript->endScript(); ?>
+
 <div class="profile-edit spaces-edit">
     <!-- Nav tabs -->
     <?php echo $this->renderPartial('_menu_spaces'); ?>
 
-    <?php Yii::app()->clientScript->beginScript('custom-script'); ?>
-    <script type="text/javascript">
-        // An array of dates
-        var eventDates = {};
-        eventDates[ new Date( '06/28/2015' )] = new Date( '06/28/2015' );
-        eventDates[ new Date( '07/15/2015' )] = new Date( '07/15/2015' );
-        eventDates[ new Date( '07/22/2015' )] = new Date( '07/22/2015' );
-        eventDates[ new Date( '08/05/2015' )] = new Date( '08/05/2015' );
-    </script>
-    <?php Yii::app()->clientScript->endScript(); ?>
     <!-- Tab panes -->
     <div class="profile-index spaces-index">
         <?php if ($listRoomModel): ?>
             <?php foreach ($listRoomModel as $data): ?>
+
+                <?php Yii::app()->clientScript->beginScript('custom-script-'.$data->id); ?>
+                <script type="text/javascript">
+                    // An array of dates
+                    var eventDates_<?php echo($data->id) ?> = {};
+                    eventDates_<?php echo($data->id) ?>[ new Date( '06/28/2015' )] = new Date( '06/28/2015' );
+                    eventDates_<?php echo($data->id) ?>[ new Date( '07/15/2015' )] = new Date( '07/15/2015' );
+                    eventDates_<?php echo($data->id) ?>[ new Date( '07/22/2015' )] = new Date( '07/22/2015' );
+                    eventDates_<?php echo($data->id) ?>[ new Date( '08/05/2015' )] = new Date( '08/05/2015' );
+
+                    jQuery(document).ready(function () {
+                        jQuery("[name='status_room_<?php echo($data->id) ?>']").bootstrapSwitch();
+                        jQuery('input[name="status_room_<?php echo($data->id) ?>"]').on('switchChange.bootstrapSwitch', function(event, state) {
+                            console.log($(this).val()); // DOM element
+                            console.log(event); // jQuery event
+                            console.log(state); // true | false
+
+                            jQuery.ajax({
+                                type: "POST",
+                                url: '<?php echo(Yii::app()->createAbsoluteUrl('rooms/updatestatus')) ?>',
+                                data: '',
+                                dataType: 'json',
+                                success: function(){
+
+                                }
+
+                            });
+
+                        });
+                    });
+                </script>
+                <?php Yii::app()->clientScript->endScript(); ?>
+
                 <div class="item-<?php echo($data->id) ?> item row">
                     <div class="col-md-2 spaces-info">
                         <div class="spaces-image-room">
                             <img src="<?php echo RoomImages::getImageByRoomaddress($data->id)?>" class="img-responsive"
                                  alt="<?php echo $data->name ?>">
                         </div>
+                        <div class="change-status">
+                            <input type="checkbox" value="<?php echo $data->id ?>" name="status_room_<?php echo($data->id) ?>"
+                                <?php echo $data->status_flg ? 'checked' : '' ?>>
+                        </div>
+                        <b>
+                            Giá theo đêm<br>
+                            <?php echo number_format($data->RoomPrice->price) ?> VND
+                        </b>
 
                     </div>
                     <div class="col-md-10 calendar-detail">
 
                         <?php $this->widget('zii.widgets.jui.CJuiDatePicker',
                             array(
-                                'name' => 'inline_datepicker',
+                                'name' => 'inline_datepicker_'.$data->id,
                                 'language' => 'vi',
                                 'flat' => true, // tells the widget to show the calendar inline
                                 //'showAnim'=>'slide',//'slide','fold','slideDown','fadeIn','blind','bounce','clip','drop'
@@ -48,8 +89,7 @@ echo $this->renderPartial('//profile/_menu_profile');
                                     'maxDate' => "+1Y",
                                     'dateFormat' => 'yy-mm-dd',
                                     'beforeShowDay' => 'js:function( date ) {
-                                        console.log(eventDates);
-                                        var highlight = eventDates[date];
+                                        var highlight = eventDates_'.$data->id.'[date];
                                         if( highlight ) {
                                              return [true, "requested"];
                                         } else {
@@ -81,7 +121,3 @@ echo $this->renderPartial('//profile/_menu_profile');
     </div>
 
 </div>
-
-
-
-

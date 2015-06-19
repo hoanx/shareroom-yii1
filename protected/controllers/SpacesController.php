@@ -19,7 +19,7 @@ class SpacesController extends Controller
 
         $user_id = Yii::app()->user->id;
         $listRoomModel = RoomAddress::getRoomByUserId($user_id);
-        
+
 
         $this->render('index', array(
             'listRoomModel' => $listRoomModel,

@@ -1,26 +1,28 @@
 <?php
+
 /**
  * Created by ACV.HoaNX.
  * Date: 5/21/15
  */
-
 class ProfileController extends Controller
 {
-    public function beforeAction($action){
-        if(Yii::app()->user->isGuest){
+    public function beforeAction($action)
+    {
+        if (Yii::app()->user->isGuest) {
             $this->redirect(array('site/signin'));
         }
 
         return parent::beforeAction($action);
     }
+
     public function actionShow($id = null)
     {
-        if(is_null($id)){
+        if (is_null($id)) {
             $this->redirect('/');
         }
 
         $usersModel = Users::model()->findByPk($id, 'del_flg = 0');
-        if(!$usersModel) {
+        if (!$usersModel) {
             $this->redirect('/');
         }
 
@@ -35,9 +37,9 @@ class ProfileController extends Controller
         $user_id = Yii::app()->user->id;
         $usersModel = Users::model()->findByPk($user_id, 'del_flg = 0');
 
-        if(isset($_POST['Users']) && $dataPost = $_POST['Users']){
+        if (isset($_POST['Users']) && $dataPost = $_POST['Users']) {
             $usersModel->attributes = $dataPost;
-            if($usersModel->save()){
+            if ($usersModel->save()) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Cập nhật thông tin thành công!'));
             }
         }
@@ -57,12 +59,14 @@ class ProfileController extends Controller
             'usersModel' => $usersModel,
         ));
     }
+
     public function actionMy_Room()
     {
         $this->setPageTitle(Yii::t('app', 'Bài đăng của tôi'));
 
         $this->render('my_room');
     }
+
     public function actionMy_Booking()
     {
         $this->setPageTitle(Yii::t('app', 'Đặt chỗ của tôi'));
@@ -83,13 +87,13 @@ class ProfileController extends Controller
         $criteria->compare('user_id', Yii::app()->user->id);
         $criteria->compare('del_flg', Constant::DEL_FALSE);
         $userBankModel = UsersBank::model()->find($criteria);
-        if(!$userBankModel){
+        if (!$userBankModel) {
             $userBankModel = new UsersBank();
         }
 
-        if(isset($_POST['UsersBank']) && $dataPost=$_POST['UsersBank']){
+        if (isset($_POST['UsersBank']) && $dataPost = $_POST['UsersBank']) {
             $userBankModel->attributes = $dataPost;
-            if($userBankModel->save()){
+            if ($userBankModel->save()) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Cập nhật thông tin ngân hàng thành công!'));
             }
         }
@@ -98,6 +102,7 @@ class ProfileController extends Controller
             'userBankModel' => $userBankModel
         ));
     }
+
     public function actionChangePass()
     {
         $this->setPageTitle(Yii::t('app', 'Thiết lập tài khoản'));
@@ -114,7 +119,7 @@ class ProfileController extends Controller
                 if ($usersModel->save(false)) {
                     Yii::app()->user->setFlash('success', Yii::t('app', 'Đổi mật khẩu thành công!'));
                 }
-            }else{
+            } else {
                 $changePassModel->current_pass = $data['current_pass'];
             }
         }
@@ -125,38 +130,62 @@ class ProfileController extends Controller
         ));
     }
 
-    public function actionImage($id = null){
-        if(is_null($id)){
+    public function actionImage($id = null)
+    {
+        if (is_null($id)) {
             $picture_name = md5(Yii::app()->user->id);
-        }else{
+        } else {
             $picture_name = md5($id);
         }
 
-        $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.$picture_name;
+        $pathProfilePicture = Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE . $picture_name;
         header("Content-Type: image/jpg");
 
-        if(file_exists($pathProfilePicture)){
+        if (file_exists($pathProfilePicture)) {
             echo file_get_contents($pathProfilePicture);
-        }else{
-            $pathProfilePicture = Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.'default_avatar.jpg';
+        } else {
+            $pathProfilePicture = Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE . 'default_avatar.jpg';
             echo file_get_contents($pathProfilePicture);
         }
 
         Yii::app()->end();
     }
 
-    public function actionRemoveimage($id = null){
-        if(is_null($id)){
+    public function actionRemoveimage($id = null)
+    {
+        if (is_null($id)) {
             $picture_name = md5(Yii::app()->user->id);
-        }else{
+        } else {
             $picture_name = md5($id);
         }
-        $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.$picture_name;
+        $pathProfilePicture = Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE . $picture_name;
 
-        if(file_exists($pathProfilePicture)){
+        if (file_exists($pathProfilePicture)) {
             unlink($pathProfilePicture);
         }
 
         $this->redirect(array('profile/picture'));
+    }
+
+    public function actionUpload()
+    {
+        $user_id = Yii::app()->user->id;
+        $pathProfilePicture = Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE . md5($user_id);
+
+        $ext = strtolower(pathinfo($_FILES['avatar-file']['name'], PATHINFO_EXTENSION));
+
+        if(in_array($ext, array('png', 'jpg', 'jpeg'))){
+            $source = $_FILES['avatar-file']['tmp_name'];
+            $dest = $pathProfilePicture;
+            if (!move_uploaded_file($source, $dest)) {
+                Yii::app()->user->setFlash('error', Yii::t('app', 'Tải lên hình ảnh thất bại. Vui lòng thử lại!'));
+            }
+        }else{
+            Yii::app()->user->setFlash('error', Yii::t('app', 'Hãy chọn các ảnh có định dạng png, jpg hoặc jpeg.'));
+        }
+
+        $this->redirect(array('profile/picture'));
+
+
     }
 }

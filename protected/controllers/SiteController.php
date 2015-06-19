@@ -156,7 +156,7 @@ class SiteController extends Controller
                     //download profile picture
                     $user_id = $userFacebookModel->id;
                     $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.md5($user_id);
-                    Common::download_profile_picture($usersModel->profile_picture, $pathProfilePicture);
+                    Common::download_profile_picture($userFacebookModel->profile_picture, $pathProfilePicture);
                 }
                 $this->_login($userFacebookModel, $userFacebookModel->password);
             }
@@ -173,7 +173,7 @@ class SiteController extends Controller
                     //download profile picture
                     $user_id = $userGoogleModel->id;
                     $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.md5($user_id);
-                    Common::download_profile_picture($usersModel->profile_picture, $pathProfilePicture);
+                    Common::download_profile_picture($userGoogleModel->profile_picture, $pathProfilePicture);
                 }
                 $this->_login($userGoogleModel, $userGoogleModel->password);
             }

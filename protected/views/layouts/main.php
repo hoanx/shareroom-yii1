@@ -15,6 +15,7 @@
     $clientScript->registerCssFile($baseUrl . '/css/bootstrap.css');
     $clientScript->registerCssFile($baseUrl . '/css/font-awesome.min.css');
     $clientScript->registerCssFile($baseUrl . '/css/bootstrap-social.css');
+    $clientScript->registerCssFile($baseUrl . '/css/bootstrap-switch.min.css');
     $clientScript->registerCssFile($baseUrl . '/css/default/default.css');
     $clientScript->registerCssFile($baseUrl . '/css/nivo-slider.css');
     $clientScript->registerCssFile($baseUrl . '/css/frontend.css');
@@ -25,6 +26,7 @@
     $clientScript->registerScriptFile($baseUrl . '/js/jquery.form.min.js');
     $clientScript->registerScriptFile($baseUrl . '/js/jquery.nivo.slider.js');
     $clientScript->registerScriptFile($baseUrl . '/js/bootstrap.min.js');
+    $clientScript->registerScriptFile($baseUrl . '/js/bootstrap-switch.min.js');
     $clientScript->registerScriptFile('https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places');
 
     $clientScript->registerScriptFile($baseUrl . '/js/geocodingapi.js');

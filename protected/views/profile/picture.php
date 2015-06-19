@@ -13,14 +13,6 @@ echo $this->renderPartial('_menu_profile');
 
     <!-- Tab panes -->
     <div class="profile-index">
-        <?php $form=$this->beginWidget('CActiveForm', array(
-            'id'=>'profile-edit-form',
-//            'class'=>'form-horizontal profile-edit-form',
-//            'enableClientValidation'=>true,
-//            'clientOptions'=>array(
-//                'validateOnSubmit'=>true,
-//            ),
-        )); ?>
         <div class="panel panel-default profile-box profile-info">
             <div class="panel-heading box-header">
                 <span><?php echo(Yii::t('app', 'Hình ảnh cá nhân')) ?></span>
@@ -37,7 +29,18 @@ echo $this->renderPartial('_menu_profile');
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="upload-picture">
+                        <div id="upload-picture" class="upload-picture" style="height: 100%;">
+
+                            <form id="frm_avatar_upload" action="<?php echo Yii::app()->createUrl("profile/upload") ?>" method="post"
+                                  enctype="multipart/form-data">
+                                <label for="avatar-file" id="label-upload">
+                                <p class="text-center"><i class="fa fa-camera-retro fa-5x"></i></p>
+                                <p class="text-center">Upload hình ảnh ở đây</p>
+                                <p class="text-center">Ảnh không được nặng quá 4MB với kích thước chuẩn là 400pixels x 400 pixels</p>
+
+                                <input id="avatar-file" name="avatar-file" type="file" value="" style="display: none;"/>
+                                </label>
+                            </form>
 
                         </div>
                     </div>
@@ -45,7 +48,6 @@ echo $this->renderPartial('_menu_profile');
                 </div>
             </div>
         </div>
-        <?php $this->endWidget(); ?>
     </div>
 
 </div>
@@ -61,6 +63,16 @@ echo $this->renderPartial('_menu_profile');
                 }
             });
 
+            jQuery(document).on('change', '#avatar-file', function () {
+                var ext = $('#avatar-file').val().split('.').pop().toLowerCase();
+                if (jQuery.inArray(ext, ['png', 'jpg', 'jpeg']) == -1) {
+                    alert('Hãy chọn các ảnh có định dạng png, jpg hoặc jpeg.');
+                    return false;
+                }
+
+                jQuery('form#frm_avatar_upload').submit();
+                console.log('form');
+            });
 
         });
     </script>

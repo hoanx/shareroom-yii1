@@ -567,8 +567,11 @@ hr {
 .upload-picture{
     margin: 15px;
     padding: 8px;
-    border: solid 1px #c3c3c3;
+    /*border: solid 1px #c3c3c3;*/
 
+}
+#label-upload{
+    cursor: pointer;
 }
 .vmid{
     vertical-align: middle;
@@ -639,8 +642,11 @@ ul.orange-list li{
 
 }
 .spaces-index .item .spaces-info{
-
+    text-align: center;
     padding: 10px;
+}
+.spaces-index .item .spaces-info .change-status{
+    margin-bottom: 10px;
 }
 .spaces-index .item .calendar-detail{
     padding: 10px;
