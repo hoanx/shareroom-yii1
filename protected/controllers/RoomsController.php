@@ -184,14 +184,31 @@ class RoomsController extends Controller
         $criteriaRoom->compare('del_flg', Constant::DEL_FALSE);
         $criteriaRoom->compare('user_id', $user_id);
         $roomAddModel = RoomAddress::model()->findByPk($room_address_id, $criteriaRoom);
+        $roomAddModel->scenario = 'enable_status';
 
         if($roomAddModel){
             if($status_flg=='true')
                 $roomAddModel->status_flg = RoomAddress::STATUS_ENABLE;
             else
                 $roomAddModel->status_flg = RoomAddress::STATUS_DISABLE;
-            $roomAddModel->save(false);
-            $result['hasSuccess'] = 1;
+
+            if($roomAddModel->validate()){
+                $roomAddModel->save(false);
+                $result['hasSuccess'] = 1;
+            }else{
+                $result['hasError'] = 1;
+                $errorsThisModel = '<b>'.Yii::t('app', 'Danh sách của bạn chưa hoạt động. Vui lòng hoàn tất các yêu cầu sau để kích hoạt!').'</b>';
+                $errorsThisModel .= '<ul>';
+                foreach($roomAddModel->getErrors() as $key => $errors){
+                    foreach($errors as $errAtr){
+                        $errorsThisModel .= CHtml::tag('li', array(), $errAtr);
+                    }
+                }
+                $errorsThisModel .= '</ul>';
+
+                $result['ErrorMsg'] = $errorsThisModel;
+            }
+
         }else{
             $result['hasError'] = 1;
             $result['ErrorMsg'] = Yii::t('app', 'Bài đăng không tồn tại.');

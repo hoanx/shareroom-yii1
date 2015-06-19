@@ -44,6 +44,10 @@ class Constant {
     const MIN_NIGHTS = 30;
     const MAX_NIGHTS = 180;
 
+    const MIN_IMAGE_ROOM = 6;
+    const MIN_LEN_ROOM_NAME = 20;
+    const MIN_LEN_ROOM_DESCRIPTION = 400;
+
 
     static function deleteFlag($status = null) {
         $base = array(

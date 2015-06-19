@@ -312,6 +312,12 @@ form .alert-error-form{
     }
 }
 
+@media screen and (min-width: 992px){
+    .modal-dialog {
+        width: 500px;
+    }
+}
+
 a.btn-social-custom{
     font-weight: bold;
     text-align: center;
@@ -771,4 +777,13 @@ ul.orange-list li{
 	}
 }
 
+#modal-error .modal-title{
+    font-weight: bold;
+    color: #c9302c;
+}
 
+.modal-vertical-centered {
+    transform: translate(0, 25%) !important;
+    -ms-transform: translate(0, 25%) !important; /* IE 9 */
+    -webkit-transform: translate(0, 25%) !important; /* Safari and Chrome */
+}

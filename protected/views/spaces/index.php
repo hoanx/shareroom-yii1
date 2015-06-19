@@ -37,16 +37,18 @@ echo $this->renderPartial('//profile/_menu_profile');
                     jQuery(document).ready(function () {
                         jQuery("[name='status_room_<?php echo($data->id) ?>']").bootstrapSwitch();
                         jQuery('input[name="status_room_<?php echo($data->id) ?>"]').on('switchChange.bootstrapSwitch', function(event, state) {
-                            console.log($(this).val()); // DOM element
-                            console.log(event); // jQuery event
-                            console.log(state); // true | false
-
                             jQuery.ajax({
                                 type: "POST",
                                 url: '<?php echo(Yii::app()->createAbsoluteUrl('rooms/updatestatus')) ?>',
                                 data: {"room_address_id": $(this).val(), "status_fld": state},
                                 dataType: 'json',
                                 success: function(response){
+                                    if(response.hasError){
+                                        jQuery('#modal-error-msg').html(response.ErrorMsg);
+                                        $('input[name="status_room_<?php echo($data->id) ?>"]').bootstrapSwitch('toggleState', true);
+                                        $('#modal-error').modal('show');
+                                    }
+
                                     console.log(response);
                                 }
 
@@ -96,7 +98,6 @@ echo $this->renderPartial('//profile/_menu_profile');
                                              return [true, ""];
                                         }
                                      }',
-//                                    'beforeShowDay' => 'js:function(date){return true;}',
                                 ),
                             )
                         ); ?>
@@ -120,4 +121,18 @@ echo $this->renderPartial('//profile/_menu_profile');
         <?php endif; ?>
     </div>
 
+</div>
+
+<div class="modal fade modal-vertical-centered " id="modal-error" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Lỗi</h4>
+            </div>
+            <div id="modal-error-msg" class="modal-body">
+
+            </div>
+        </div>
+    </div>
 </div>

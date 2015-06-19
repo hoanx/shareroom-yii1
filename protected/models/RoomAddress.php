@@ -55,8 +55,55 @@ class RoomAddress extends CActiveRecord
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, address_detail, address, district, city, lat, long, name, description, room_type,
 			    accommodates, bedrooms, beds, room_size, amenities, created, updated, del_flg, status_flg', 'safe', 'on'=>'search'),
+
+            array('status_flg', 'validateEnable', 'on'=>'enable_status'),
 		);
 	}
+
+    /**
+     * required on enable status
+     *
+     * @param $attribute_name
+     * @param $params
+     * @return bool
+     */
+    public function validateEnable($attribute_name, $params)
+    {
+        $checkErr = false;
+        if ($this->$attribute_name) {
+            $countImg = RoomImages::model()->count("room_address_id = :room_address_id AND del_flg = :del_flg",
+                array(
+                    "room_address_id" => $this->id,
+                    ':del_flg' => Constant::DEL_FALSE
+                ));
+
+            if($countImg < Constant::MIN_IMAGE_ROOM){
+                $checkErr = true;
+                $this->addError($attribute_name,
+                    Yii::t('app', 'Bạn cần phải tải lên ít nhất {so_anh} ảnh để kích hoạt danh sách của mình.',
+                        array('{so_anh}'=>Constant::MIN_IMAGE_ROOM)));
+            }
+
+            if(strlen($this->name) < Constant::MIN_LEN_ROOM_NAME){
+                $checkErr = true;
+                $this->addError('name',
+                    Yii::t('app', 'Tiêu đề danh sách của bạn nên chứa ít nhất {len_room_name} ký tự.',
+                        array('{len_room_name}'=>Constant::MIN_LEN_ROOM_NAME)));
+            }
+
+            if(strlen($this->description) < Constant::MIN_LEN_ROOM_DESCRIPTION){
+                $checkErr = true;
+                $this->addError('description',
+                    Yii::t('app', 'Mô tả danh sách của bạn nên chứa ít nhất {len_room_description} ký tự.',
+                        array('{len_room_description}'=>Constant::MIN_LEN_ROOM_DESCRIPTION)));
+            }
+
+            if($checkErr){
+                return false;
+            }
+        }
+        return true;
+    }
 
 	/**
 	 * @return array relational rules.
