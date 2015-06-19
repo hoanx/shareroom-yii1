@@ -44,10 +44,10 @@ echo $this->renderPartial('//profile/_menu_profile');
                             jQuery.ajax({
                                 type: "POST",
                                 url: '<?php echo(Yii::app()->createAbsoluteUrl('rooms/updatestatus')) ?>',
-                                data: '',
+                                data: {"room_address_id": $(this).val(), "status_fld": state},
                                 dataType: 'json',
-                                success: function(){
-
+                                success: function(response){
+                                    console.log(response);
                                 }
 
                             });

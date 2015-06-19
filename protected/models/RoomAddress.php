@@ -20,12 +20,15 @@
  * @property integer $beds
  * @property integer $room_size
  * @property string $amenities
+ * @property integer $status_flg
  * @property string $created
  * @property string $updated
  * @property integer $del_flg
  */
 class RoomAddress extends CActiveRecord
 {
+    const STATUS_ENABLE = 1;
+    const STATUS_DISABLE = 0;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -42,14 +45,16 @@ class RoomAddress extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, address_detail, address, district, city, lat, long, name, description, accommodates, bedrooms, beds, room_size', 'required'),
+			array('user_id, address_detail, address, district, city, lat, long, name, description, accommodates,
+			    bedrooms, beds, room_size', 'required'),
 			array('user_id, accommodates, bedrooms, beds, room_size, del_flg', 'numerical', 'integerOnly'=>true),
 			array('lat, long', 'numerical'),
 			array('address_detail, address, district, city, name, description', 'length', 'max'=>255),
-			array('created, updated, room_type, amenities', 'safe'),
+			array('created, updated, room_type, amenities, status_flg', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, address_detail, address, district, city, lat, long, name, description, room_type, accommodates, bedrooms, beds, room_size, amenities, created, updated, del_flg', 'safe', 'on'=>'search'),
+			array('id, user_id, address_detail, address, district, city, lat, long, name, description, room_type,
+			    accommodates, bedrooms, beds, room_size, amenities, created, updated, del_flg, status_flg', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -90,6 +95,7 @@ class RoomAddress extends CActiveRecord
 			'beds' => Yii::t('app', 'Giường'),
 			'room_size' => Yii::t('app', 'Diện tích'),
 			'amenities' => Yii::t('app', 'Tiện nghi'),
+			'status_flg' => Yii::t('app', 'Trạng thái'),
 			'created' => 'Created',
 			'updated' => 'Updated',
 			'del_flg' => 'Del Flg',

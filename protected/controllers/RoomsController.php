@@ -171,4 +171,33 @@ class RoomsController extends Controller
         
         echo '1';
     }
+
+    /**
+     * Request ajax change status room address
+     */
+    public function actionUpdatestatus() {
+        $result = array();
+        $room_address_id = $_POST['room_address_id'];
+        $status_flg = $_POST['status_fld'];
+        $user_id = Yii::app()->user->id;
+        $criteriaRoom = new CDbCriteria();
+        $criteriaRoom->compare('del_flg', Constant::DEL_FALSE);
+        $criteriaRoom->compare('user_id', $user_id);
+        $roomAddModel = RoomAddress::model()->findByPk($room_address_id, $criteriaRoom);
+
+        if($roomAddModel){
+            if($status_flg=='true')
+                $roomAddModel->status_flg = RoomAddress::STATUS_ENABLE;
+            else
+                $roomAddModel->status_flg = RoomAddress::STATUS_DISABLE;
+            $roomAddModel->save(false);
+            $result['hasSuccess'] = 1;
+        }else{
+            $result['hasError'] = 1;
+            $result['ErrorMsg'] = Yii::t('app', 'Bài đăng không tồn tại.');
+
+        }
+        echo(json_encode($result));
+        Yii::app()->end();
+    }
 }
