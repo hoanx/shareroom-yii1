@@ -23,6 +23,7 @@
     $clientScript->registerScriptFile($baseUrl . '/js/jquery-1.10.2.min.js');
     $clientScript->registerScriptFile($baseUrl . '/js/jquery.nivo.slider.js');
     $clientScript->registerScriptFile($baseUrl . '/js/bootstrap.min.js');
+    $clientScript->registerScriptFile('https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places');
     ?>
 </head>
 <body>
@@ -78,50 +79,52 @@ $action = Yii::app()->controller->action->id;
                  data-thumb="<?php echo $baseUrl ?>/images/slides/sleep.jpg" alt=""/>
         </div>
         <div class="box-search">
-            <div class="container">
-                <h2 class="slider-caption"><?php echo(Yii::t('app', 'Đặt phòng du lịch với giá tốt nhất')) ?></h2>
-
-                <form class="frm-search row">
-                    <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                            <div class="inner-addon left-addon">
-                                <i class="fa fa-map-marker"></i>
-                                <input type="text" class="form-control input-lg"
-                                       placeholder="<?php echo(Yii::t('app', 'Điểm đến của bạn')) ?>">
+            <h2 class="slider-caption"><?php echo(Yii::t('app', 'Đặt phòng du lịch với giá tốt nhất')) ?></h2>
+            <div class="search-container">
+                <div class="container">
+                    <form class="frm-search row" action="<?php echo Yii::app()->createUrl("rooms/index")  ?>">
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="fa fa-map-marker"></i>
+                                    <input type="text" class="form-control input-lg" id="place-desc" name="place" placeholder="<?php echo(Yii::t('app', 'Điểm đến của bạn')) ?>">
+                                    <input type="hidden" id="place-lat" name="lat" >
+                                    <input type="hidden" id="place-long" name="long" >
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 col-md-2">
-                        <div class="form-group">
-                            <div class="inner-addon left-addon">
-                                <i class="fa fa-calendar"></i>
-                                <input type="text" class="form-control input-lg"
-                                       placeholder="<?= Yii::t('app', 'Nhận phòng') ?>">
+                        <div class="col-xs-6 col-sm-3 col-md-2">
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="fa fa-calendar"></i>
+                                    <input type="text" class="form-control input-lg"
+                                           placeholder="<?= Yii::t('app', 'Nhận phòng') ?>">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 col-md-2">
-                        <div class="form-group">
-                            <div class="inner-addon left-addon">
-                                <i class="fa fa-calendar"></i>
-                                <input type="text" class="form-control input-lg" placeholder="<?= Yii::t('app', 'Trả phòng') ?>">
+                        <div class="col-xs-6 col-sm-3 col-md-2">
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="fa fa-calendar"></i>
+                                    <input type="text" class="form-control input-lg" placeholder="<?= Yii::t('app', 'Trả phòng') ?>">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 col-md-2">
-                        <div class="form-group">
-                            <div class="inner-addon left-addon">
-                                <i class="fa fa-users"></i>
-                                <input type="text" class="form-control input-lg" placeholder="<?= Yii::t('app', 'Khách') ?>">
+                        <div class="col-xs-6 col-sm-3 col-md-2">
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="fa fa-users"></i>
+                                    <input type="text" class="form-control input-lg" placeholder="<?= Yii::t('app', 'Khách') ?>">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 col-md-2">
-                        <button id="search-button" class="btn btn-primary btn-block btn-lg"
-                                type="submit"><?= Yii::t('app', 'Tìm kiếm') ?></button>
-                    </div>
-
-                </form>
+                        <div class="col-xs-6 col-sm-3 col-md-2">
+                            <button id="search-button" class="btn btn-primary btn-block btn-lg"
+                                    type="submit"><?= Yii::t('app', 'Tìm kiếm') ?></button>
+                        </div>
+    
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -189,6 +192,23 @@ $action = Yii::app()->controller->action->id;
          jQuery('.navbar').removeClass('navbar-custom');
          }
          }*/
+
+         initialize();
+         
+         var autocompleteSearch;
+         
+         function initialize() {
+        	    autocompleteSearch = new google.maps.places.Autocomplete((document.getElementById('place-desc')),{ types: ['geocode'] });
+        	    google.maps.event.addListener(autocompleteSearch, 'place_changed', searchPlaceChanged);
+    	}
+
+         function searchPlaceChanged() {
+        		var place = autocompleteSearch.getPlace();
+        		if (place.geometry) {
+        			document.getElementById('place-lat').value =  place.geometry.location.lat();
+        		    document.getElementById('place-long').value =  place.geometry.location.lng();
+        		}
+        	}
     });
 </script>
 </body>

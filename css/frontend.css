@@ -140,7 +140,7 @@ ul.navbar-nav{
 /*STYLE SEARCH BOX*/
 .box-search{
     position: absolute;
-    bottom: 20px;
+    bottom: 0px;
     width: 100%;
     text-align: center;
     z-index: 9998;
@@ -151,10 +151,17 @@ ul.navbar-nav{
     font-size: 44px;
     padding: 10px 0 160px;
 }
+@media (max-width: 992px) {
+    .box-search h2{
+	    padding: 10px 0 80px;
+	}
+}
+.box-search .search-container {
+    background-color: rgba(0,0,0,0.6);
+}
 .box-search .frm-search{
-    padding: 10px 5px 0;
+	padding: 20px 5px 10px;
     border-radius: 5px;
-    background-color: rgba(0,0,0,0.2);
 }
 .frm-search .form-group{
     margin-bottom: 10px;
@@ -430,6 +437,17 @@ hr {
     position: relative;
     border-radius: 5px;
     height: 350px;
+}
+
+@media (max-width: 980px) {
+	.location-info a img {
+	    height: 220px;
+	}
+}
+@media (max-width: 768px) {
+	.location-info a img {
+	    height: 220px;
+	}
 }
 
 .location-info a:hover img {
@@ -721,10 +739,10 @@ ul.orange-list li{
 	margin-left: 45px;
 	margin-top: 10px;
 }
-.nivoSlider {
+#room-info .nivoSlider {
 	height: 400px !important;
 }
-.nivoSlider img {
+#room-info .nivoSlider img {
 	height: 400px !important;
 }
 
@@ -789,6 +807,16 @@ ul.orange-list li{
 	}
 }
 
+.pac-container {
+	z-index: 9999;
+}
+.pac-item {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.pac-container:after {
+	display: none !important;
+}
 #modal-error .modal-title{
     font-weight: bold;
     color: #c9302c;

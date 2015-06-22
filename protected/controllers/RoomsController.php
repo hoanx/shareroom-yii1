@@ -7,7 +7,7 @@
 class RoomsController extends Controller
 {
     protected function beforeAction($action) {
-        if($action->id == 'view') {
+        if($action->id == 'view' || $action->id == 'index') {
             return parent::beforeAction($action);
         }
         
@@ -19,7 +19,15 @@ class RoomsController extends Controller
     }
     
     public function actionIndex(){
-
+        var_dump($_POST);
+        var_dump($_GET);
+        die;
+//         $model = new RoomAddress('search');
+        
+//         $this->render('index', array(
+//             'model' => $model,
+//             'user' => $user
+//         ));
     }
 
 

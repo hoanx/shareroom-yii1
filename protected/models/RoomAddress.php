@@ -49,8 +49,8 @@ class RoomAddress extends CActiveRecord
 			    bedrooms, beds, room_size', 'required'),
 			array('user_id, accommodates, bedrooms, beds, room_size, del_flg', 'numerical', 'integerOnly'=>true),
 			array('lat, long', 'numerical'),
-			array('address_detail, address, district, city, name, description', 'length', 'max'=>255),
-			array('created, updated, room_type, amenities, status_flg', 'safe'),
+			array('address_detail, address, district, city, name', 'length', 'max'=>255),
+			array('description, created, updated, room_type, amenities, status_flg', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, address_detail, address, district, city, lat, long, name, description, room_type,

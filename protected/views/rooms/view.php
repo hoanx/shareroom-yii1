@@ -203,7 +203,8 @@
         	});
             
             var mapOptions = {
-                zoom: 17,
+                zoom: 15,
+                scrollwheel: false,
                 center:  new google.maps.LatLng(<?php echo $room->lat ?>, <?php echo $room->long ?>)
             };
             
