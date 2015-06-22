@@ -6,12 +6,16 @@
 
 class RoomsController extends Controller
 {
-    protected function beforeAction($event) {
+    protected function beforeAction($action) {
+        if($action->id == 'view') {
+            return parent::beforeAction($action);
+        }
+        
         if(!Yii::app()->user->id) {
             $this->redirect(Yii::app()->homeUrl);
         }
         
-        return true;
+        return parent::beforeAction($action);
     }
     
     public function actionIndex(){

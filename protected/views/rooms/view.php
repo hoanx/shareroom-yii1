@@ -119,7 +119,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4" id="room-checkin">
+        <div class="col-sm-4 hidden-xs" id="room-checkin">
             <div class="more-width">
                 <h3><?php echo number_format($room->RoomPrice->price) . ' VND' ?><span>Giá trung bình theo đêm</span></h3>
                 <div class="checkin-content">
@@ -130,12 +130,12 @@
                     </div>
                     <div style="margin-top: 20px"><button class="btn btn-danger btn-lg btn-block">Đặt chỗ</button></div>
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-6">
                             <?php if(!empty($room->Users->profile_picture)) : ?>
-                                <?php echo CHtml::image($room->Users->profile_picture, '', array('class' => 'img-responsive')) ?>
+                                <?php echo CHtml::image($room->Users->profile_picture, '', array('class' => 'img-responsive image-user')) ?>
                             <?php endif; ?>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8 col-sm-6">
                             <h5><?php echo $room->Users->first_name ?></h5>
                             <div><?php echo "Là thành viên từ " . date('m/Y' , strtotime($room->Users->created))?></div>
                         </div>
@@ -147,6 +147,31 @@
             </div>
         </div>
     </div>            
+</div>
+<div class="row visible-xs modal-booked">
+<button class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#myModal">Đặt chỗ</button>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Đặt chỗ</h4>
+			</div>
+			<div class="modal-body">
+			    <div class="col-lg-5"><label>Nhận phòng</label><input type="text" class="form-control"></div>
+                <div class="col-lg-5"><label>Trả phòng</label><input type="text" class="form-control"></div>
+                <div class="col-lg-2"><label>Khách</label><select class="form-control"></select></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng lại</button>
+				<button type="button" class="btn btn-primary">Đặt chỗ</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <?php Yii::app()->clientScript->beginScript('custom-script'); ?>
