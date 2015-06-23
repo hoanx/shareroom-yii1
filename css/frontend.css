@@ -202,7 +202,7 @@ ul.navbar-nav{
 footer {
     bottom: 0;
     margin-top: 0;
-    padding: 30px 30px 20px;
+    padding: 30px 0px 20px;
     background-color: #2b2d2e;
     border-top: 5px solid #2a6ebe;
     color: #fff;
@@ -799,9 +799,17 @@ ul.orange-list li{
 	z-index: 100;
 	width: 100%;
 }
-@media (min-width: 1200px) {
+@media (min-width: 1368px) {
     .more-width {
 		width: 450px;
+		background-color: #fff;
+		border: solid 1px #c6c6c6;
+	}
+}
+
+@media (min-width: 1200px) {
+    .more-width {
+		width: 400px;
 		background-color: #fff;
 		border: solid 1px #c6c6c6;
 	}
