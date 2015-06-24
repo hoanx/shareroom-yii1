@@ -88,7 +88,7 @@ echo $this->renderPartial('//profile/_menu_profile');
                                     'numberOfMonths' => 3,
                                     'autoSize' => true,
                                     'minDate' => 0,
-                                    'maxDate' => "+1Y",
+                                    'yearRange'=>'1900:+1',
                                     'dateFormat' => 'yy-mm-dd',
                                     'beforeShowDay' => 'js:function( date ) {
                                         var highlight = eventDates_'.$data->id.'[date];

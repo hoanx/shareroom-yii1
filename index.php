@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/yiiCore/framework/yii.php';
 $config=dirname(__FILE__).'/protected/config/main.php';

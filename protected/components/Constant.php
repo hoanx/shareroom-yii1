@@ -48,6 +48,8 @@ class Constant {
     const MIN_LEN_ROOM_NAME = 20;
     const MIN_LEN_ROOM_DESCRIPTION = 400;
 
+    const DATE_FORMAT = 'dd/mm/yyyy';
+
 
     static function deleteFlag($status = null) {
         $base = array(

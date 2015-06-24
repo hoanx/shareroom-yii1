@@ -137,8 +137,37 @@ class RoomsController extends Controller
             $room->city => '',
             $room->district => '',
         );
-        
-        $this->render('view', array('room' => $room));
+
+        if(Yii::app()->user->hasState('paymentData')){
+            Yii::app()->user->__unset('paymentData');
+        }
+
+        $paymentForm = new PaymentForm();
+        $paymentForm->room_address_id = $room->id;
+
+        if(isset($_POST['PaymentForm']) && $_POST['PaymentForm']){
+            $paymentForm->attributes = $_POST['PaymentForm'];
+            if($paymentForm->validate()){
+                Yii::app()->user->setState('paymentData', $paymentForm->attributes);
+                $this->redirect(array('payments/book', 'id'=>$paymentForm->room_address_id));
+            }
+
+        }
+
+        $listGuest = array();
+        for($i=1; $i <= $room->accommodates; $i++){
+            if(Constant::GUEST_MAX==$i){
+                $listGuest[$i] = $i.'+';
+            }else{
+                $listGuest[$i] = $i;
+            }
+        }
+
+        $this->render('view', array(
+            'room' => $room,
+            'paymentForm' => $paymentForm,
+            'listGuest' => $listGuest,
+        ));
     }
     
     public function actionUpload() {
