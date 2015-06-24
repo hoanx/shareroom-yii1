@@ -852,3 +852,20 @@ ul.orange-list li{
     padding-left: 10px;
     padding-right: 2px;
 }
+/*----Style payment page-------*/
+.payment-page{
+    margin: 0;
+}
+.payment-page .panel-body{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.payment-page .billing-summary{
+    line-height: 26px;
+}
+.payment-page .billing-summary.total{
+    font-weight: bold;
+}
+h3.section-title{
+    margin-bottom: 20px;
+}

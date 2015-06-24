@@ -17,62 +17,129 @@
 
             <div class="panel-body">
                 <div class="room-name">
-                    <h4><?php echo $roomModel->name; ?></h4>
+                    <h3><?php echo $roomModel->name; ?></h3>
                 </div>
                 <div class="hidden-sm room-address">
                     <p><?php echo $roomModel->address_detail; ?></p>
                 </div>
                 <hr>
 
-                <table class="table">
-                    <tr>
-                        <th>Ngày đến</th>
-                        <td><?php echo(date('l jS \of F Y', strtotime($paymentData['checkin']))) ?></td>
-                    </tr>
-                    <tr>
-                        <th>Ngày đi</th>
-                        <td><?php echo(date('l jS \of F Y', strtotime($paymentData['checkout']))) ?></td>
-                    </tr>
-                    <tr>
-                        <th>Số khách</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>Hủy bỏ</th>
-                        <td></td>
-                    </tr>
-                </table>
+                <div class="row billing-summary">
+                    <div class="col-xs-7">Ngày đến</div>
+                    <div class="col-xs-5">
+                        <?php echo($paymentData['checkin']) ?>
+                        <span class="info"><?php echo $roomModel->RoomPrice->check_in ?></span>
+                    </div>
+
+                </div>
+                <div class="row billing-summary">
+
+
+                    <div class="col-xs-7">Ngày đi</div>
+                    <div class="col-xs-5">
+                        <?php echo($paymentData['checkout']) ?>
+                        <span class="info"><?php echo $roomModel->RoomPrice->check_out ?></span>
+                    </div>
+                </div>
+                <div class="row billing-summary">
+
+                    <div class="col-xs-7">Số khách</div>
+                    <div class="col-xs-5">
+                        <?php echo($paymentData['number_of_guests']) ?>
+                    </div>
+                </div>
+                <div class="row billing-summary">
+
+                    <div class="col-xs-7">Hủy bỏ</div>
+                    <div class="col-xs-5">
+                        <?php echo CHtml::link(Constant::getCancellationShort($roomModel->RoomPrice->cancellation),
+                            array(
+                                'site/cancellation_policies',
+                            ),
+                            array(
+                                'target'=>'_blank'
+                            )
+                        ) ?>
+                    </div>
+                </div>
+                <hr class="clearfix">
+                <div class="row billing-summary">
+                    <div
+                        class="col-xs-7"><?php echo number_format($roomModel->RoomPrice->price) . 'VND x ' . $paymentData['number_night'] ?></div>
+                    <div class="col-xs-5"><?php echo number_format($paymentData['price_night']) ?> VND</div>
+                </div>
+
+                <div class="row billing-summary">
+                    <div class="col-xs-7">Phí dọn dẹp</div>
+                    <div class="col-xs-5"><?php echo number_format($paymentData['cleaning_fees']) ?> VND</div>
+                </div>
+
+                <hr class="clearfix">
+
+                <div class="row billing-summary total">
+                    <div class="col-xs-7">Tổng</div>
+                    <div class="col-xs-5"><?php echo number_format($paymentData['total_amount']) ?> VND</div>
+                </div>
+
+                <?php /*
+                <hr>
+
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <td>
+                                <?php echo($paymentData['checkin']) ?>
+                                <span class="info"><?php echo $roomModel->RoomPrice->check_in ?></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Ngày đi</th>
+                            <td>
+                                <?php echo($paymentData['checkout']) ?>
+                                <span class="info"><?php echo $roomModel->RoomPrice->check_out ?></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Số khách</th>
+                            <td><?php echo($paymentData['number_of_guests']) ?></td>
+                        </tr>
+                        <tr>
+                            <th>Hủy bỏ</th>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
 
                 <hr>
 
-                <table class="reso-info-table">
-                    <tr>
-                        <td>Cancellation Policy</td>
-                        <td>
-                            <a href="https://www.airbnb.com/home/cancellation_policies#strict"
-                               class="cancel-policy-link" target="_blank">Strict</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>House Rules</td>
-                        <td>
-                            <a href="#house-rules-modal" class="house-rules-link">Read policy</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Nights
-                        </td>
-                        <td>
-                            1
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th><?php echo $roomModel->RoomPrice->price.' x '.$paymentData['number_night'] ?></th>
+                            <td><?php echo number_format($paymentData['price_night']) ?> VND</td>
+                        </tr>
+                        <tr>
+                            <th>Phí dọn dẹp</th>
+                            <td><?php echo number_format($paymentData['cleaning_fees']) ?> VND</td>
+                        </tr>
+                    </table>
+                </div>
 
                 <hr>
 
-                <section id="billing-summary" class="billing-summary">
+                <div class="table-responsive">
+                    <table class="table table-total">
+                        <tr>
+                            <th>Tổng</th>
+                            <td><?php echo number_format($paymentData['total_amount']) ?> VND</td>
+                        </tr>
+                    </table>
+                </div>
+
+
+                <!--<section id="billing-summary" class="billing-summary">
                     <table id="billing-table" class="reso-info-table billing-table">
                         <tr class="base-price">
                             <td class="name">₫1417325 x 1 night
@@ -104,28 +171,80 @@
 
                         </tbody>
                     </table>
-                </section>
-
+                </section>-->
+*/
+                ?>
             </div>
         </div>
 
     </div>
     <!--  Cold left  -->
     <div class="col-md-7 col-md-pull-5 col-lg-pull-4">
+        <?php $form=$this->beginWidget('CActiveForm', array(
+            'id'=>'payment-booking-form',
+//            'class'=>'form-horizontal profile-edit-form',
+//            'enableClientValidation'=>true,
+//            'clientOptions'=>array(
+//                'validateOnSubmit'=>true,
+//            ),
+        )); ?>
         <section id="user-info">
-            <h2 class="section-title">Xác nhận thông tin đặt phòng</h2>
+            <h3 class="section-title">Xác nhận thông tin đặt phòng</h3>
 
-            <div class="info">
-                Họ và tên: .......................<br>
-                Địa chỉ: .........................<br>
-                Email: ...........................<br>
-                SĐT: .............................<br>
+            <div class="form-group row">
+                <?php echo $form->labelEx($usersModel,'first_name', array('class'=>'col-sm-3 control-label')); ?>
+                <div class="col-sm-6">
+                    <?php echo $form->textField($usersModel,'first_name', array('class'=>'form-control')); ?>
+                </div>
+                <div class="col-sm-5 alert-error-form">
+                    <?php echo $form->error($usersModel,'first_name'); ?>
+                </div>
+            </div>
+            <div class="form-group row">
+                <?php echo $form->labelEx($usersModel,'last_name', array('class'=>'col-sm-3 control-label')); ?>
+                <div class="col-sm-6">
+                    <?php echo $form->textField($usersModel,'last_name', array('class'=>'form-control')); ?>
+                </div>
+                <div class="col-sm-5 alert-error-form">
+                    <?php echo $form->error($usersModel,'last_name'); ?>
+                </div>
+            </div>
+            <div class="form-group row">
+                <?php echo $form->labelEx($usersModel,'address', array('class'=>'col-sm-3 control-label')); ?>
+                <div class="col-sm-6">
+                    <?php echo $form->textField($usersModel,'address', array('class'=>'form-control')); ?>
+                </div>
+                <div class="col-sm-5 alert-error-form">
+                    <?php echo $form->error($usersModel,'address'); ?>
+                </div>
+            </div>
+            <div class="form-group row">
+                <?php echo $form->labelEx($usersModel,'email', array('class'=>'col-sm-3 control-label')); ?>
+                <div class="col-sm-6">
+                    <?php echo $form->textField($usersModel,'email', array('class'=>'form-control')); ?>
+                </div>
+                <div class="col-sm-5 alert-error-form">
+                    <?php echo $form->error($usersModel,'email'); ?>
+                </div>
+            </div>
+            <div class="form-group row">
+                <?php echo $form->labelEx($usersModel,'phone_number', array('class'=>'col-sm-3 control-label')); ?>
+                <div class="col-sm-6">
+                    <?php echo $form->textField($usersModel,'phone_number', array('class'=>'form-control')); ?>
+                </div>
+                <div class="col-sm-5 alert-error-form">
+                    <?php echo $form->error($usersModel,'phone_number'); ?>
+                </div>
             </div>
         </section>
 
         <section id="payment">
-            <h2 class="section-title">Chọn hình thức thanh toán</h2>
+            <h3 class="section-title">Chọn hình thức thanh toán</h3>
+
+            
         </section>
+
+        <?php $this->endWidget(); ?>
     </div>
 
 </div>

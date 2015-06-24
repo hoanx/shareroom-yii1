@@ -1059,4 +1059,13 @@ class Common
         return $decrypted_string;
     }
 
+    public static function getRangeDate($start_date, $end_date){
+        $timeDiff = abs(strtotime($end_date) - strtotime($start_date));
+
+        $numberDays = $timeDiff/86400;  // 86400 seconds in one day
+
+        // and you might want to convert to integer
+        return intval($numberDays);
+    }
+
 }

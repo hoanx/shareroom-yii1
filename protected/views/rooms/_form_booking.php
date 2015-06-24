@@ -7,7 +7,7 @@
         'attribute' => 'checkin',
         'options' => array(
             'minDate' => 0,
-            'dateFormat' => 'dd/mm/yy',
+            'dateFormat' => 'dd-mm-yy',
         ),
         'htmlOptions' => array(
             'class'=>'form-control date-picker ui-datepicker-target',
@@ -26,7 +26,7 @@
         'attribute' => 'checkout',
         'options' => array(
             'minDate' => 0,
-            'dateFormat' => 'dd/mm/yy',
+            'dateFormat' => 'dd-mm-yy',
         ),
         'htmlOptions' => array(
             'class'=>'form-control date-picker ui-datepicker-target',
