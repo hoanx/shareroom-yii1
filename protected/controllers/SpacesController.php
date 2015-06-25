@@ -27,8 +27,22 @@ class SpacesController extends Controller
     }
 
     public function actionReservations(){
+        $listRoomIds = array();
+        $user_id = Yii::app()->user->id;
+        $listRoomModel = RoomAddress::getRoomByUserId($user_id);
+        if($listRoomModel){
+            foreach($listRoomModel as $room){
+                $listRoomIds[] = $room->id;
+            }
+
+            $criteria = new CDbCriteria();
+            $criteria->compare('del_flg', Constant::DEL_FALSE);
+            $criteria->addInCondition('room_address_id', $listRoomIds);
+            $reservationsModel = Booking::model()->findAll($criteria);
+        }
 
         $this->render('reservations', array(
+            'reservationsModel' => isset($reservationsModel) ? $reservationsModel : array(),
         ));
     }
     public function actionPolicies(){
