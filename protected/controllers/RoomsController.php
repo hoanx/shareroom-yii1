@@ -173,16 +173,15 @@ class RoomsController extends Controller
             $room->district => '',
         );
 
-        if(Yii::app()->user->hasState('paymentData')){
-            Yii::app()->user->__unset('paymentData');
-        }
-
         $paymentForm = new PaymentForm();
         $paymentForm->room_address_id = $room->id;
 
         if(isset($_POST['PaymentForm']) && $_POST['PaymentForm']){
             $paymentForm->attributes = $_POST['PaymentForm'];
             if($paymentForm->validate()){
+                if(Yii::app()->user->hasState('paymentData')){
+                    Yii::app()->user->__unset('paymentData');
+                }
                 Yii::app()->user->setState('paymentData', $paymentForm->attributes);
                 $this->redirect(array('payments/book', 'id'=>$paymentForm->room_address_id));
             }
