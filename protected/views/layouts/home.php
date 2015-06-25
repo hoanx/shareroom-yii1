@@ -82,7 +82,7 @@ $action = Yii::app()->controller->action->id;
             <h2 class="slider-caption"><?php echo(Yii::t('app', 'Đặt phòng du lịch với giá tốt nhất')) ?></h2>
             <div class="search-container">
                 <div class="container">
-                    <form class="frm-search row" action="<?php echo Yii::app()->createUrl("rooms/index")  ?>">
+                    <form class="frm-search row" action="<?php echo Yii::app()->createUrl("rooms/index")  ?>" id="form-search">
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group">
                                 <div class="inner-addon left-addon">
@@ -194,6 +194,14 @@ $action = Yii::app()->controller->action->id;
          }*/
 
          initialize();
+
+         jQuery('#form-search').on("keyup keypress", function(e) {
+        	  var code = e.keyCode || e.which; 
+        	  if (code  == 13) {               
+        	    e.preventDefault();
+        	    return false;
+        	  }
+	    });
          
          var autocompleteSearch;
          

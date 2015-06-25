@@ -1,5 +1,5 @@
 <div>
-    <form class="frm-search row" action="<?php echo Yii::app()->createUrl("rooms/index")  ?>">
+    <form class="frm-search row" action="<?php echo Yii::app()->createUrl("rooms/index")  ?>" id="form-search">
         <div class="col-sm-12 col-md-4">
             <div class="form-group">
                 <div class="inner-addon left-addon">
@@ -118,6 +118,14 @@
         	    });
         	    setGetParameter('room_type', room_type.join());
         	});
+
+            jQuery('#form-search').on("keyup keypress", function(e) {
+              	  var code = e.keyCode || e.which; 
+              	  if (code  == 13) {               
+              	    e.preventDefault();
+              	    return false;
+              	  }
+            });
         	
         	var autocompleteSearch;
        	    autocompleteSearch = new google.maps.places.Autocomplete((document.getElementById('place-desc')),{ types: ['geocode'] });
