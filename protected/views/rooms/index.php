@@ -1,46 +1,5 @@
 <div>
-    <form class="frm-search row" action="<?php echo Yii::app()->createUrl("rooms/index")  ?>" id="form-search">
-        <div class="col-sm-12 col-md-4">
-            <div class="form-group">
-                <div class="inner-addon left-addon">
-                    <i class="fa fa-map-marker"></i>
-                    <input type="text" class="form-control input-lg" id="place-desc" name="place" placeholder="<?php echo(Yii::t('app', 'Điểm đến của bạn')) ?>">
-                    <input type="hidden" id="place-lat" name="lat" >
-                    <input type="hidden" id="place-long" name="long" >
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-3 col-md-2">
-            <div class="form-group">
-                <div class="inner-addon left-addon">
-                    <i class="fa fa-calendar"></i>
-                    <input type="text" class="form-control input-lg"
-                           placeholder="<?= Yii::t('app', 'Nhận phòng') ?>">
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-3 col-md-2">
-            <div class="form-group">
-                <div class="inner-addon left-addon">
-                    <i class="fa fa-calendar"></i>
-                    <input type="text" class="form-control input-lg" placeholder="<?= Yii::t('app', 'Trả phòng') ?>">
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-3 col-md-2">
-            <div class="form-group">
-                <div class="inner-addon left-addon">
-                    <i class="fa fa-users"></i>
-                    <input type="text" class="form-control input-lg" placeholder="<?= Yii::t('app', 'Khách') ?>">
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-3 col-md-2">
-            <button id="search-button" class="btn btn-primary btn-block btn-lg"
-                    type="submit"><?= Yii::t('app', 'Tìm kiếm') ?></button>
-        </div>
-
-    </form>
+    <?php echo $this->renderPartial('//layouts/_form_search', array());?>
 </div>
 <hr>
 <div class="row">
@@ -54,10 +13,18 @@
 		</div>
         <hr>
         <div class="row">
-        <?php $location = array(); ?>
+        <?php 
+            $location = array();
+            $minprice = 20000;
+            $maxprice = 5000000;
+        ?>
         <?php foreach($model as $room) : ?>
             <?php if($room->distance > 10) break; ?>
             <?php 
+                if($minprice == 0) {
+                    $minprice =  $room->RoomPrice->price;
+                }
+                
                 $content = CHtml::link($room->name, array('rooms/view', 'id' => $room->id), array('class' => 'marker-link'));
                 $content .= '<div>' . number_format($room->RoomPrice->price) . 'VND</div>';
             ?>
@@ -101,8 +68,65 @@
 				<label class="btn btn-info <?php echo RoomAddress::checkRoomtype('private_room') ?>"> <input type="checkbox" autocomplete="off" value="private_room" name="room_type" <?php echo RoomAddress::checkRoomtype('private_room', true) ?>> <i class="fa fa-user-secret"></i><br>Phòng riêng</label> 
 				<label class="btn btn-info <?php echo RoomAddress::checkRoomtype('share_room') ?>"> <input type="checkbox"autocomplete="off" value="share_room" name="room_type" <?php echo RoomAddress::checkRoomtype('share_room', true) ?>> <i class="fa fa-share-alt"></i><br>Phòng chia sẻ</label>
 			</div>
-        </div>
-
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><?php echo Yii::t('app', 'Diện tích') ?></h3>
+				</div>
+				<div class="panel-body">
+	    		    <div class="row">
+        			    <div class="col-md-6">
+        			        <label><?php echo Yii::t('app', 'Phòng ngủ') ?></label>
+        			        <?php echo CHtml::dropDownList('bedrooms', isset($_GET['bedrooms']) ? $_GET['bedrooms'] : null, Constant::listBedRooms(), array('id' => 'bedrooms', 'class' => 'form-control', 'empty' => Yii::t('app', 'Bất kỳ')))?>
+        			    </div>
+        			    <div class="col-md-6">
+        			        <label><?php echo Yii::t('app', 'Giường') ?></label>
+        			        <?php echo CHtml::dropDownList('beds', isset($_GET['beds']) ? $_GET['beds'] : null, Constant::listBeds(), array('id' => 'beds','class' => 'form-control', 'empty' => Yii::t('app', 'Bất kỳ')))?>
+        			    </div>
+        			</div>
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><?php echo Yii::t('app', 'Giá') ?></h3>
+				</div>
+				<div class="panel-body">
+	    		    <div class="row">
+        			    <div class="col-md-12">
+        			        <?php 
+            			        if(isset($_GET['price']) && $_GET['price']) {
+            			            $price = explode(",", $_GET['price']);
+            			        } else {
+            			            $price = array($minprice, $maxprice);
+            			        }
+        			        ?>
+        			        <input type="text" id="range" value="" name="range" />
+        			    </div>
+        			</div>
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><?php echo Yii::t('app', 'Tiện nghi') ?></h3>
+				</div>
+				<div class="panel-body">
+	    		    <div class="row">
+        			    <?php 
+        			        if(isset($_GET['amenities']) && $_GET['amenities']) {
+        			            $amenities = explode(",", $_GET['amenities']);
+        			        } else {
+        			            $amenities = '';
+        			        }
+        			        echo CHtml::checkBoxList('amenities', $amenities, Constant::getAmenities(), array(
+                                'template'=>'<div class="col-md-6"><div class="checkbox">{beginLabel}{input}{labelTitle}{endLabel}</div></div>',
+                                'separator' => '',
+                            )); 
+        			    ?>
+        			</div>
+				</div>
+			</div>
+		</div>
     </div>
 </div>
 
@@ -118,6 +142,39 @@
         	    });
         	    setGetParameter('room_type', room_type.join());
         	});
+
+        	jQuery("input[name='amenities[]']").change(function() {
+            	var amenities = [];
+        	    jQuery("input[name='amenities[]']").each(function () {
+            	    if(this.checked) {
+            	    	amenities.push(jQuery(this).val());
+            	    }
+        	    });
+        	    setGetParameter('amenities', amenities.join());
+        	});
+
+        	jQuery("#bedrooms").change(function() {
+        	    setGetParameter('bedrooms', jQuery(this).val());
+        	});
+
+        	jQuery("#beds").change(function() {
+        	    setGetParameter('beds', jQuery(this).val());
+        	});
+
+    		jQuery("#range").ionRangeSlider({
+                min: <?php echo $minprice ?>,
+                max: <?php echo $maxprice ?>,
+        	    from: <?php echo $price[0] ?>,
+        	    to: <?php echo $price[1] ?>,
+                type: 'double',
+                step: <?php echo(($maxprice - $minprice)/ 10); ?>,
+                postfix: " VND",
+                onFinish: function (data) {
+                    var price = data.from + ',' + data.to;
+                    setGetParameter('price', price);
+                },
+            });
+
 
             jQuery('#form-search').on("keyup keypress", function(e) {
               	  var code = e.keyCode || e.which; 

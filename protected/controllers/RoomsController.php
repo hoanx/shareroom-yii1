@@ -33,6 +33,23 @@ class RoomsController extends Controller
             
             $criteria->condition = 't.del_flg = :del_flg';
             
+            if(isset($data['bedrooms']) && $data['bedrooms']) {
+                $criteria->condition .= ' AND t.bedrooms = ' . $data['bedrooms'];
+            }
+            
+            if(isset($data['beds']) && $data['beds']) {
+                $criteria->condition .= ' AND t.beds = ' . $data['beds'];
+            }
+            
+            if(isset($data['accommodates']) && $data['accommodates']) {
+                $criteria->condition .= ' AND t.accommodates >= ' . $data['accommodates'];
+            }
+            
+            if(isset($data['price']) && $data['price']) {
+                $prices = explode(",", $data['price']);
+                $criteria->condition .= ' AND roomprice.price >= ' . $prices[0] . ' AND roomprice.price <= ' . $prices[1];
+            }
+            
             if(isset($data['room_type']) && $data['room_type']) {
                 $types = explode(",", $data['room_type']);
                 $query_parts = array();
@@ -42,8 +59,21 @@ class RoomsController extends Controller
                 
                 $string = implode(' OR t.room_type LIKE ', $query_parts);
                 
-                $criteria->condition .= ' AND t.room_type LIKE ' . $string;
+                $criteria->condition .= ' AND (t.room_type LIKE ' . $string . ') ';
             }
+            
+            if(isset($data['amenities']) && $data['amenities']) {
+                $amenities = explode(",", $data['amenities']);
+                $query_parts = array();
+                foreach($amenities as $amenitie) {
+                    $query_parts[] = "'%".mysql_real_escape_string($amenitie)."%'";
+                }
+            
+                $string = implode(' OR t.amenities LIKE ', $query_parts);
+            
+                $criteria->condition .= ' AND (t.amenities LIKE ' . $string  . ') ';
+            }
+
             
             $criteria->params = array(
                 ':del_flg' => Constant::DEL_FALSE,
