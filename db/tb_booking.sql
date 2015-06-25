@@ -32,7 +32,7 @@ CREATE TABLE `tb_booking` (
   `discount` float DEFAULT NULL,
   `total_amount` int(11) NOT NULL,
   `payment_method` varchar(255) NOT NULL,
-  `status_flg` tinyint(2) NOT NULL DEFAULT '0' COMMENT '0: pending; 1: Da thanh toan : 2 thanh toan loi; 3: refund',
+  `status_flg` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1: chua thanh toan; 2: Da thanh toan : 3 thanh toan loi; 4: huy bo',
   `invoice_date` datetime DEFAULT NULL,
   `refund_date` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
