@@ -688,26 +688,29 @@ ul.orange-list li{
 }
 
 /*============ Override style datepicker ============*/
-.ui-datepicker{
+
+.spaces-index .ui-datepicker{
     width: auto !important;
 }
-.ui-datepicker table{
+.spaces-index .ui-datepicker table{
     font-size: 12px;
     font-weight: bold;
 }
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default{
+.spaces-index .ui-state-default,
+.spaces-index .ui-widget-content .ui-state-default,
+.spaces-index .ui-widget-header .ui-state-default{
     border: 1px solid #FFFFFF;
     background: none;
     font-weight: bold;
 }
 
-.ui-datepicker table .requested a {
+.spaces-index .ui-datepicker table .requested a {
     background-color: #ffb584 !important;
     background-image :none !important;
     /*color: #ffffff !important;*/
 }
+
+
 /*======== end style datepicker==============*/
 
 .box-image {
@@ -895,4 +898,33 @@ ul.orange-list li{
 .search-form  .btn-group label i {
 	font-size: 32px;
 	margin-bottom: 5px;
+}
+/*------Style form booking------*/
+.form-booking .frm-checkin,
+.form-booking .frm-checkout,
+.form-booking .frm-guest{
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+.form-booking .frm-guest select{
+    padding-left: 10px;
+    padding-right: 2px;
+}
+/*----Style payment page-------*/
+.payment-page{
+    margin: 0;
+}
+.payment-page .panel-body{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.payment-page .billing-summary{
+    line-height: 26px;
+}
+.payment-page .billing-summary.total{
+    font-weight: bold;
+}
+h3.section-title{
+    margin-bottom: 20px;
 }

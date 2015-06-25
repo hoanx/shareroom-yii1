@@ -310,8 +310,8 @@ class SiteController extends Controller
     }
 
 
-    public function actionGeocodingapi(){
-        $this->render('geocodingapi');
+    public function actionCancellation_policies(){
+        $this->render('cancellation');
 
     }
 }

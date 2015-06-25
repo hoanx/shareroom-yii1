@@ -123,12 +123,24 @@
             <div class="more-width">
                 <h3><?php echo number_format($room->RoomPrice->price) . ' VND' ?><span>Giá trung bình theo đêm</span></h3>
                 <div class="checkin-content">
+                    <?php $form=$this->beginWidget('CActiveForm', array(
+                        'htmlOptions' => array(
+                            'class' => 'form-horizontal form-booking'
+                        ),
+
+                    )); ?>
                     <div class="row">
-                        <div class="col-lg-5"><label>Nhận phòng</label><input type="text" class="form-control"></div>
-                        <div class="col-lg-5"><label>Trả phòng</label><input type="text" class="form-control"></div>
-                        <div class="col-lg-2"><label>Khách</label><select class="form-control"></select></div>
+                        <?php $this->renderPartial('_form_booking', array(
+                            'paymentForm' => $paymentForm,
+                            'form' => $form,
+                            'listGuest' => $listGuest,
+                        )); ?>
                     </div>
-                    <div style="margin-top: 20px"><button class="btn btn-danger btn-lg btn-block">Đặt chỗ</button></div>
+                    <div style="margin-top: 20px">
+                        <button type="submit" class="btn btn-danger btn-lg btn-block">Đặt chỗ</button>
+                    </div>
+                    <?php $this->endWidget(); ?>
+
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-4 col-sm-6">
                             <?php if(!empty($room->Users->profile_picture)) : ?>
@@ -154,6 +166,12 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
+            <?php $form=$this->beginWidget('CActiveForm', array(
+                'htmlOptions' => array(
+                    'class' => 'form-horizontal form-booking'
+                ),
+
+            )); ?>
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
@@ -162,14 +180,17 @@
 				<h4 class="modal-title" id="myModalLabel">Đặt chỗ</h4>
 			</div>
 			<div class="modal-body">
-			    <div class="col-lg-5"><label>Nhận phòng</label><input type="text" class="form-control"></div>
-                <div class="col-lg-5"><label>Trả phòng</label><input type="text" class="form-control"></div>
-                <div class="col-lg-2"><label>Khách</label><select class="form-control"></select></div>
+                <?php $this->renderPartial('_form_booking', array(
+                    'paymentForm' => $paymentForm,
+                    'form' => $form,
+                    'listGuest' => $listGuest,
+                )); ?>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng lại</button>
-				<button type="button" class="btn btn-primary">Đặt chỗ</button>
+				<button type="submit" class="btn btn-primary">Đặt chỗ</button>
 			</div>
+            <?php $this->endWidget(); ?>
 		</div>
 	</div>
 </div>

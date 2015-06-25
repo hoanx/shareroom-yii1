@@ -48,6 +48,8 @@ class Constant {
     const MIN_LEN_ROOM_NAME = 20;
     const MIN_LEN_ROOM_DESCRIPTION = 400;
 
+    const DATE_FORMAT = 'dd-mm-yyyy';
+
 
     static function deleteFlag($status = null) {
         $base = array(
@@ -142,6 +144,16 @@ class Constant {
             self::CANCELLATION_FLEXIBILITY => Yii::t('app', 'Linh hoạt: Trả 100%, trừ phí dịch vụ nếu hủy ít nhất 1 ngày trước ngày đến'),
             self::CANCELLATION_MEDIUM => Yii::t('app', 'Trung bình: Trả 100%, trừ phí dịch vụ nếu hủy ít nhất 5 ngày trước ngày đến'),
             self::CANCELLATION_STRICT => Yii::t('app', 'Nghiêm ngặt: Trả 50%, trừ phí dịch vụ nếu hủy ít nhất 1 tuần trước ngày đến'),
+        );
+
+        return !empty($base[$type]) ? $base[$type] : $base;
+    }
+
+    public static function getCancellationShort($type = null){
+        $base = array(
+            self::CANCELLATION_FLEXIBILITY => Yii::t('app', 'Linh hoạt'),
+            self::CANCELLATION_MEDIUM => Yii::t('app', 'Trung bình'),
+            self::CANCELLATION_STRICT => Yii::t('app', 'Nghiêm ngặt'),
         );
 
         return !empty($base[$type]) ? $base[$type] : $base;
