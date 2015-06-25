@@ -63,8 +63,8 @@ echo $this->renderPartial('//profile/_menu_profile');
                     <div class="col-md-2 spaces-info">
                         <div class="spaces-image-room">
                             <img src="<?php echo RoomImages::getImageByRoomaddress($data->id)?>" class="img-responsive"
-                                 alt="<?php echo $data->name ?>">
-                        </div>
+                                   alt="<?php echo $data->name ?>">
+                    </div>
                         <div class="change-status">
                             <input type="checkbox" value="<?php echo $data->id ?>" name="status_room_<?php echo($data->id) ?>"
                                 <?php echo $data->status_flg ? 'checked' : '' ?>>

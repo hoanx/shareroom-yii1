@@ -67,16 +67,16 @@ class Messages extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'message_type' => 'Message Type',
-			'to_user_id' => 'To User',
-			'from_user_id' => 'From User',
-			'from_user_fisrt_name' => 'From User Fisrt Name',
-			'from_user_last_name' => 'From User Last Name',
-			'start_date' => 'Start Date',
-			'end_date' => 'End Date',
-			'qty_guests' => 'Qty Guests',
-			'content' => 'Content',
-			'status_flg' => 'Status Flg',
+			'message_type' => 'Loại tin nhắn',
+			'to_user_id' => 'Tới',
+			'from_user_id' => 'Từ',
+			'from_user_fisrt_name' => 'Tên người gửi',
+			'from_user_last_name' => 'Họ người gửi',
+			'start_date' => 'Ngày đến',
+			'end_date' => 'Ngày về',
+			'qty_guests' => 'Số khách',
+			'content' => 'Nội dung',
+			'status_flg' => 'Trạng thái',
 			'created' => 'Created',
 			'updated' => 'Updated',
 			'del_flg' => 'Del Flg',
@@ -131,4 +131,14 @@ class Messages extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function beforeSave() {
+        $now = new CDbExpression('NOW()');
+
+        if ($this->isNewRecord){
+            $this->created = $now;
+        }
+        $this->updated = $now;
+        return parent::beforeSave();
+    }
 }

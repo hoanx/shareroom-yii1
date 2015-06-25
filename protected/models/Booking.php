@@ -164,6 +164,9 @@ class Booking extends CActiveRecord
 
         if ($this->isNewRecord){
             $this->created = $now;
+
+            //send message to author post room
+
         }
         $this->updated = $now;
         return parent::beforeSave();

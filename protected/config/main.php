@@ -8,6 +8,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Share Room',
+    'language' => 'vi',
 
 	// preloading 'log' component
 	'preload'=>array('log'),

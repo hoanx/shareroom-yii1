@@ -70,7 +70,16 @@ class ProfileController extends Controller
     public function actionMy_Booking()
     {
         $this->setPageTitle(Yii::t('app', 'Đặt chỗ của tôi'));
-        $this->render('my_booking');
+
+        $user_id = Yii::app()->user->id;
+        $criteria = new CDbCriteria();
+        $criteria->compare('del_flg', Constant::DEL_FALSE);
+        $criteria->compare('user_id', $user_id);
+        $myBookingModel = Booking::model()->findAll($criteria);
+
+        $this->render('my_booking', array(
+            'myBookingModel'=>$myBookingModel,
+        ));
     }
 
     public function actionPicture()
