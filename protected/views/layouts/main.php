@@ -21,10 +21,14 @@
     $clientScript->registerCssFile($baseUrl . '/css/frontend.css');
     $clientScript->registerCssFile($baseUrl . '/css/style-room.css');
     $clientScript->registerCssFile($baseUrl . '/css/responsive.css');
+    $clientScript->registerCssFile($baseUrl . '/css/normalize.css');
+    $clientScript->registerCssFile($baseUrl . '/css/ion.rangeSlider.css');
+    $clientScript->registerCssFile($baseUrl . '/css/ion.rangeSlider.skinFlat.css');
     //JS
     $clientScript->registerScriptFile($baseUrl . '/js/jquery-1.10.2.min.js');
     $clientScript->registerScriptFile($baseUrl . '/js/jquery.form.min.js');
     $clientScript->registerScriptFile($baseUrl . '/js/jquery.nivo.slider.js');
+    $clientScript->registerScriptFile($baseUrl . '/js/ion.rangeSlider.js');
     $clientScript->registerScriptFile($baseUrl . '/js/bootstrap.min.js');
     $clientScript->registerScriptFile($baseUrl . '/js/bootstrap-switch.min.js');
     $clientScript->registerScriptFile('https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places');

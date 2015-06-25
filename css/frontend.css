@@ -163,6 +163,9 @@ ul.navbar-nav{
 	padding: 20px 5px 10px;
     border-radius: 5px;
 }
+.frm-search select {
+	padding-left: 38px;
+}
 .frm-search .form-group{
     margin-bottom: 10px;
 }
@@ -898,6 +901,12 @@ ul.orange-list li{
 .search-form  .btn-group label i {
 	font-size: 32px;
 	margin-bottom: 5px;
+}
+.search-form  .panel {
+	margin-top: 15px;
+}
+.search-form .checkbox {
+	margin-top: 0px;
 }
 /*------Style form booking------*/
 .form-booking .frm-checkin,

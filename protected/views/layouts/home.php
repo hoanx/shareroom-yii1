@@ -82,48 +82,7 @@ $action = Yii::app()->controller->action->id;
             <h2 class="slider-caption"><?php echo(Yii::t('app', 'Đặt phòng du lịch với giá tốt nhất')) ?></h2>
             <div class="search-container">
                 <div class="container">
-                    <form class="frm-search row" action="<?php echo Yii::app()->createUrl("rooms/index")  ?>" id="form-search">
-                        <div class="col-sm-12 col-md-4">
-                            <div class="form-group">
-                                <div class="inner-addon left-addon">
-                                    <i class="fa fa-map-marker"></i>
-                                    <input type="text" class="form-control input-lg" id="place-desc" name="place" placeholder="<?php echo(Yii::t('app', 'Điểm đến của bạn')) ?>">
-                                    <input type="hidden" id="place-lat" name="lat" >
-                                    <input type="hidden" id="place-long" name="long" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-3 col-md-2">
-                            <div class="form-group">
-                                <div class="inner-addon left-addon">
-                                    <i class="fa fa-calendar"></i>
-                                    <input type="text" class="form-control input-lg"
-                                           placeholder="<?= Yii::t('app', 'Nhận phòng') ?>">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-3 col-md-2">
-                            <div class="form-group">
-                                <div class="inner-addon left-addon">
-                                    <i class="fa fa-calendar"></i>
-                                    <input type="text" class="form-control input-lg" placeholder="<?= Yii::t('app', 'Trả phòng') ?>">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-3 col-md-2">
-                            <div class="form-group">
-                                <div class="inner-addon left-addon">
-                                    <i class="fa fa-users"></i>
-                                    <input type="text" class="form-control input-lg" placeholder="<?= Yii::t('app', 'Khách') ?>">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-3 col-md-2">
-                            <button id="search-button" class="btn btn-primary btn-block btn-lg"
-                                    type="submit"><?= Yii::t('app', 'Tìm kiếm') ?></button>
-                        </div>
-    
-                    </form>
+                    <?php echo $this->renderPartial('//layouts/_form_search', array());?>
                 </div>
             </div>
         </div>
