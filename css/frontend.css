@@ -935,5 +935,18 @@ ul.orange-list li{
     font-weight: bold;
 }
 h3.section-title{
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+.payment-page .btn-payment{
+    font-weight: bold;
+}
+.payment-page .terms_info{
+    margin-bottom: 25px;
+}
+
+@media (min-width: 992px) {
+    .payment-page .rm-padding{
+        padding: 0 !important;
+    }
 }

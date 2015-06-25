@@ -188,4 +188,14 @@ class ProfileController extends Controller
 
 
     }
+
+    public function actionBooking($booking_id = null)
+    {
+        if(is_null($booking_id)){
+            $this->redirect(array('profile/my_booking'));
+        }
+
+
+        $this->render('booking');
+    }
 }
