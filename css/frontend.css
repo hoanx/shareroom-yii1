@@ -835,3 +835,64 @@ ul.orange-list li{
     -ms-transform: translate(0, 25%) !important; /* IE 9 */
     -webkit-transform: translate(0, 25%) !important; /* Safari and Chrome */
 }
+.img-room {
+	position: relative;
+}
+.img-room .img-show {
+	height: 350px !important;
+}
+.money-room {
+	position: absolute;
+	bottom: 40px;
+	left: 0px;
+	background-color: rgba(60,63,64,0.9);
+	color: #fff;
+	font-size: 30px;
+	padding: 0 20px 5px;
+}
+.money-room sup {
+	font-size: 12px;
+	top: -1.2em;
+}
+.user-room {
+	position: absolute;
+	bottom: -40px;
+	right: 20px;
+	width: 80px;
+}
+.user-room img {
+	border: 3px solid #fff;
+}
+.room-search {
+	margin-bottom: 10px;
+}
+@media (max-width: 768px) {
+    .money-room {
+		font-size: 24px;
+	}
+	.money-room sup {
+		font-size: 9px;
+	}	
+}
+.search-form {
+	background-color: #fff;
+	padding: 10px;
+}
+.search-form h4 {
+	text-transform: uppercase;
+	font-weight: bold;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 10px;
+	text-align: center;
+}
+.search-form  .btn-group {
+	width: 100%;
+}
+.search-form  .btn-group label {
+	width: 33.33%;
+	padding: 10px;
+}
+.search-form  .btn-group label i {
+	font-size: 32px;
+	margin-bottom: 5px;
+}

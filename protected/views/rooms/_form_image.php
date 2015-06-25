@@ -14,7 +14,7 @@
 
             <p class="text-center">Upload hình ảnh ở đây</p>
 
-            <p class="text-center">Bạn có thể upload tối đa 6 hình. Hãy chọn những hình ảnh đẹp nhất nhé.</p>
+            <p class="text-center">Bạn phải upload tối thiểu 6 hình. Hãy chọn những hình ảnh đẹp nhất nhé.</p>
 
             <p class="text-center">Ảnh không được nặng quá 4MB với kích thước chuẩn là 662pixels x 400 pixels</p>
 

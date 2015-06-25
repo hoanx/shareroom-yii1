@@ -27,6 +27,8 @@
  */
 class RoomAddress extends CActiveRecord
 {
+    public $distance;
+    
     const STATUS_ENABLE = 1;
     const STATUS_DISABLE = 0;
 	/**
@@ -50,7 +52,7 @@ class RoomAddress extends CActiveRecord
 			array('user_id, accommodates, bedrooms, beds, room_size, del_flg', 'numerical', 'integerOnly'=>true),
 			array('lat, long', 'numerical'),
 			array('address_detail, address, district, city, name', 'length', 'max'=>255),
-			array('description, created, updated, room_type, amenities, status_flg', 'safe'),
+			array('description, created, updated, room_type, amenities, status_flg, distance', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, address_detail, address, district, city, lat, long, name, description, room_type,
@@ -273,4 +275,13 @@ class RoomAddress extends CActiveRecord
         }
     }
     
+    public static function checkSort($data = null) {
+        if(isset($_GET['sort']) && $_GET['sort'] == $data) echo 'active';
+    }
+    
+    public static function checkRoomtype($data = null, $checkbox = false) {
+        if(isset($_GET['room_type']) && strpos($_GET['room_type'], $data) !== false) {
+            echo ($checkbox) ?  'checked' : 'active'; 
+        }
+    }
 }

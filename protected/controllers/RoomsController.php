@@ -19,15 +19,50 @@ class RoomsController extends Controller
     }
     
     public function actionIndex(){
-        var_dump($_POST);
-        var_dump($_GET);
-        die;
-//         $model = new RoomAddress('search');
-        
-//         $this->render('index', array(
-//             'model' => $model,
-//             'user' => $user
-//         ));
+        if(!empty($_GET['lat']) && !empty($_GET['long'])) {
+            $data = $_GET;
+            
+            $earthRadius = '3963.0';
+            $latitude = $data['lat'];
+            $longitude = $data['long'];
+            
+            $criteria = new CDbCriteria();
+            $criteria->join = 'LEFT JOIN tb_room_price AS roomprice ON t.id = roomprice.room_address_id';
+            $criteria->select = "ROUND($earthRadius * ACOS(SIN($latitude*PI()/180) * SIN(t.lat*PI()/180)
+                            + COS($latitude*PI()/180) * COS(t.lat*PI()/180 )  *  COS((t.long*PI()/180) - ($longitude*PI()/180) )), 1) as distance, t.*, roomprice.*";
+            
+            $criteria->condition = 't.del_flg = :del_flg';
+            
+            if(isset($data['room_type']) && $data['room_type']) {
+                $types = explode(",", $data['room_type']);
+                $query_parts = array();
+                foreach($types as $type) {
+                    $query_parts[] = "'%".mysql_real_escape_string($type)."%'";
+                }
+                
+                $string = implode(' OR t.room_type LIKE ', $query_parts);
+                
+                $criteria->condition .= ' AND t.room_type LIKE ' . $string;
+            }
+            
+            $criteria->params = array(
+                ':del_flg' => Constant::DEL_FALSE,
+            );
+            
+            if(isset($_GET['sort'])) {
+                $criteria->order = 'distance ASC, roomprice.price ASC';
+            } else {
+                $criteria->order = 'distance ASC';
+            }
+
+            $model = RoomAddress::model()->findAll($criteria);
+            
+            $this->render('index', array(
+                'model' => $model,
+            ));
+            
+        }
+
     }
 
 

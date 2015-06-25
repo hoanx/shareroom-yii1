@@ -12,8 +12,10 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="box-image">
-                        <?php 
-                            echo CHtml::link(CHtml::image(Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $image->image_name), array('rooms/view', 'id' => $room->id));
+                        <?php
+                            if($image) {
+                                echo CHtml::link(CHtml::image(Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $image->image_name), array('rooms/view', 'id' => $room->id));
+                            } 
                         ?>
                         <div>
                             <div class="title"><?php echo CHtml::link($room->name, array('rooms/view', 'id' => $room->id)); ?></div>
