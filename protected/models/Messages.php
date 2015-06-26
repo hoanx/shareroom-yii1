@@ -6,13 +6,7 @@
  * The followings are the available columns in table 'tb_messages':
  * @property integer $id
  * @property integer $message_type
- * @property integer $to_user_id
  * @property integer $from_user_id
- * @property string $from_user_fisrt_name
- * @property string $from_user_last_name
- * @property string $start_date
- * @property string $end_date
- * @property integer $qty_guests
  * @property string $content
  * @property integer $status_flg
  * @property string $created
@@ -39,13 +33,13 @@ class Messages extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('conversation_id, to_user_id, from_user_id, from_user_fisrt_name, from_user_last_name', 'required'),
-			array('message_type, to_user_id, from_user_id, qty_guests, status_flg', 'numerical', 'integerOnly'=>true),
-			array('from_user_fisrt_name, from_user_last_name, del_flg', 'length', 'max'=>255),
-			array('created, updated, start_date, end_date, qty_guests, content', 'safe'),
+			array('conversation_id, from_user_id', 'required'),
+			array('message_type, from_user_id, status_flg', 'numerical', 'integerOnly'=>true),
+			array('del_flg', 'length', 'max'=>255),
+			array('created, updated, content', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, message_type, to_user_id, from_user_id, from_user_fisrt_name, from_user_last_name, start_date, end_date, qty_guests, content, status_flg, created, updated, del_flg', 'safe', 'on'=>'search'),
+			array('id, conversation_id, message_type, from_user_id, content, status_flg, created, updated, del_flg', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,13 +63,7 @@ class Messages extends CActiveRecord
 			'id' => 'ID',
 	        'conversation_id' => 'Conversation',
 			'message_type' => 'Loại tin nhắn',
-			'to_user_id' => 'Tới',
 			'from_user_id' => 'Từ',
-			'from_user_fisrt_name' => 'Tên người gửi',
-			'from_user_last_name' => 'Họ người gửi',
-			'start_date' => 'Ngày đến',
-			'end_date' => 'Ngày về',
-			'qty_guests' => 'Số khách',
 			'content' => 'Nội dung',
 			'status_flg' => 'Trạng thái',
 			'created' => 'Created',
@@ -105,13 +93,7 @@ class Messages extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('conversation_id',$this->conversation_id);
 		$criteria->compare('message_type',$this->message_type);
-		$criteria->compare('to_user_id',$this->to_user_id);
 		$criteria->compare('from_user_id',$this->from_user_id);
-		$criteria->compare('from_user_fisrt_name',$this->from_user_fisrt_name,true);
-		$criteria->compare('from_user_last_name',$this->from_user_last_name,true);
-		$criteria->compare('start_date',$this->start_date,true);
-		$criteria->compare('end_date',$this->end_date,true);
-		$criteria->compare('qty_guests',$this->qty_guests);
 		$criteria->compare('content',$this->content,true);
 		$criteria->compare('status_flg',$this->status_flg);
 		$criteria->compare('created',$this->created,true);

@@ -19,17 +19,20 @@ CREATE TABLE `tb_conversation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `qty_guests` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
-  `del_flg` int(11) DEFAULT NULL,
+  `del_flg` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_conversation` */
 
 LOCK TABLES `tb_conversation` WRITE;
 
-insert  into `tb_conversation`(`id`,`from_id`,`to_id`,`created`,`updated`,`del_flg`) values (1,3,3,'2015-06-26 17:22:59','2015-06-26 17:22:59',NULL),(2,3,3,'2015-06-26 17:26:40','2015-06-26 17:26:40',NULL);
+insert  into `tb_conversation`(`id`,`from_id`,`to_id`,`start_date`,`end_date`,`qty_guests`,`created`,`updated`,`del_flg`) values (1,3,3,NULL,NULL,NULL,'2015-06-26 17:22:59','2015-06-26 17:22:59',0),(2,3,3,NULL,NULL,NULL,'2015-06-26 17:26:40','2015-06-26 17:26:40',0),(3,3,3,'0000-00-00','0000-00-00',800000,'2015-06-26 17:45:24','2015-06-26 17:45:24',0),(4,3,3,'0000-00-00','0000-00-00',800000,'2015-06-26 17:46:24','2015-06-26 17:46:24',0),(5,3,3,'0000-00-00','0000-00-00',800000,'2015-06-26 17:46:58','2015-06-26 17:46:58',0),(6,3,3,'0000-00-00','0000-00-00',800000,'2015-06-26 17:47:13','2015-06-26 17:47:13',0),(7,3,3,'0000-00-00','0000-00-00',800000,'2015-06-26 17:47:29','2015-06-26 17:47:29',0);
 
 UNLOCK TABLES;
 
@@ -41,13 +44,7 @@ CREATE TABLE `tb_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `conversation_id` int(11) NOT NULL,
   `message_type` int(11) NOT NULL DEFAULT '0' COMMENT '0: message default; 1: message new booking room',
-  `to_user_id` int(11) NOT NULL,
   `from_user_id` int(11) NOT NULL,
-  `from_user_fisrt_name` varchar(255) NOT NULL,
-  `from_user_last_name` varchar(255) NOT NULL,
-  `start_date` datetime DEFAULT NULL,
-  `end_date` datetime DEFAULT NULL,
-  `qty_guests` int(11) DEFAULT NULL,
   `content` text,
   `status_flg` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 : unRead; 1:Readed',
   `created` datetime DEFAULT NULL,
@@ -60,7 +57,7 @@ CREATE TABLE `tb_messages` (
 
 LOCK TABLES `tb_messages` WRITE;
 
-insert  into `tb_messages`(`id`,`conversation_id`,`message_type`,`to_user_id`,`from_user_id`,`from_user_fisrt_name`,`from_user_last_name`,`start_date`,`end_date`,`qty_guests`,`content`,`status_flg`,`created`,`updated`,`del_flg`) values (1,2,1,3,3,'Tiến','Nguyễn','0000-00-00 00:00:00','0000-00-00 00:00:00',800000,'',0,'2015-06-26 17:26:40','2015-06-26 17:26:40',NULL);
+insert  into `tb_messages`(`id`,`conversation_id`,`message_type`,`from_user_id`,`content`,`status_flg`,`created`,`updated`,`del_flg`) values (1,2,1,3,'',0,'2015-06-26 17:26:40','2015-06-26 17:26:40',NULL);
 
 UNLOCK TABLES;
 

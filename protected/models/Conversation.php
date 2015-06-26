@@ -31,7 +31,7 @@ class Conversation extends CActiveRecord
 		return array(
 			array('from_id, to_id', 'required'),
 			array('from_id, to_id, del_flg', 'numerical', 'integerOnly'=>true),
-			array('created, updated', 'safe'),
+			array('created, updated, start_date, end_date, qty_guests', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, from_id, to_id, created, updated, del_flg', 'safe', 'on'=>'search'),
@@ -58,6 +58,9 @@ class Conversation extends CActiveRecord
 			'id' => 'ID',
 			'from_id' => 'From',
 			'to_id' => 'To',
+	        'start_date' => 'Ngày đến',
+	        'end_date' => 'Ngày về',
+	        'qty_guests' => 'Số khách',
 			'created' => 'Created',
 			'updated' => 'Updated',
 			'del_flg' => 'Del Flg',
@@ -85,6 +88,9 @@ class Conversation extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('from_id',$this->from_id);
 		$criteria->compare('to_id',$this->to_id);
+		$criteria->compare('start_date',$this->start_date,true);
+		$criteria->compare('end_date',$this->end_date,true);
+		$criteria->compare('qty_guests',$this->qty_guests);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->compare('del_flg',$this->del_flg);
