@@ -28,7 +28,7 @@
                 if (!empty($images)) :
                     foreach ($images as $image) :
                         ?>
-                        <div class="col-md-2 col-sm-4">
+                        <div class="col-md-3 col-sm-4">
                             <?php echo CHtml::image(Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $image->image_name) ?>
                             <a class="delete"
                                href="<?php echo Yii::app()->createUrl("rooms/deleteImage", array('id' => $image->id)) ?>"><i

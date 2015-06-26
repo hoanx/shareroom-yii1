@@ -746,10 +746,28 @@ ul.orange-list li{
 	margin-top: 10px;
 }
 #room-info .nivoSlider {
-	height: 400px !important;
+	height: 436px !important;
 }
 #room-info .nivoSlider img {
-	height: 400px !important;
+	height: 436px !important;
+}
+
+@media (max-width: 992px) {
+    #room-info .nivoSlider {
+		height: 300px !important;
+	}
+	#room-info .nivoSlider img {
+		height: 300px !important;
+	}
+}
+
+@media (max-width: 480px) {
+    #room-info .nivoSlider {
+		height: 240px !important;
+	}
+	#room-info .nivoSlider img {
+		height: 240px !important;
+	}
 }
 
 .room-extra {
