@@ -16,6 +16,8 @@ class Constant {
     const BEDROOMS_MAX = 10;
 
     const BEDS_MAX = 16;
+    
+    const MAX_DISTANCE = 20;
 
     const AMENITIES_SMOKING_ALLOWED = 'smoking_allowed';
     const AMENITIES_PETS_ALLOWED = 'pets_allowed';

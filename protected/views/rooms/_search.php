@@ -16,7 +16,7 @@
             $countAm = RoomAddress::listAmenities();
         ?>
         <?php foreach($model as $room) : ?>
-            <?php if($room->distance > 10) break; ?>
+            <?php if($room->distance > Constant::MAX_DISTANCE) break; ?>
             <?php 
                 if($minprice == 0) {
                     $minprice =  $room->RoomPrice->price;

@@ -19,51 +19,51 @@ $this->pageTitle = Yii::app()->name;
 
     <div class="row location">
         <div class="col-xs-6 col-sm-4 location-info">
-            <a href="#">
+            <a href="<?php echo Yii::app()->createUrl("rooms/index", array("place" => 'Hà Nội', 'lat' => '21.0277644', 'long' => '105.83415979999995'))?>">
                 <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/hanoi.jpg" alt="Hà Nội" class="img-responsive img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Hà Nội')) ?></div>
             </a>
         </div>
         <div class="col-xs-6 col-sm-4 location-info">
-            <a href="#">
+            <a href="<?php echo Yii::app()->createUrl("rooms/index", array("place" => 'Quảng Ninh', 'lat' => '21.006382', 'long' => '107.29251440000007'))?>">
                 <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/quangninh.jpg" alt="Quảng Ninh" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Quảng Ninh')) ?></div>
             </a>
         </div>
         <div class="col-xs-6 col-sm-4 location-info">
-            <a href="#">
+            <a href="<?php echo Yii::app()->createUrl("rooms/index", array("place" => 'Sapa', 'lat' => '22.3363608', 'long' => '103.84378519999996'))?>">
                 <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/sapa.jpg" alt="Sapa" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Sapa')) ?></div>
             </a>
         </div>
         <div class="col-xs-6 col-sm-6 location-info">
-            <a href="#">
+            <a href="<?php echo Yii::app()->createUrl("rooms/index", array("place" => 'Đà Nẵng', 'lat' => '16.0544068', 'long' => '108.20216670000002'))?>">
                 <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/da-nang.jpg" alt="Đà Nẵng" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Đà Nẵng')) ?></div>
             </a>
 
         </div>
         <div class="col-xs-6 col-sm-6 location-info">
-            <a href="#">
+            <a href="<?php echo Yii::app()->createUrl("rooms/index", array("place" => 'Nha Trang', 'lat' => '12.2387911', 'long' => '109.19674880000002'))?>">
                 <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/nha-trang.jpg" alt="Nha Trang" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Nha Trang')) ?></div>
             </a>
         </div>
         <div class="col-xs-6 col-sm-4 location-info">
-            <a href="#">
+            <a href="<?php echo Yii::app()->createUrl("rooms/index", array("place" => 'Thành Phố Hồ Chí Minh', 'lat' => '10.8230989', 'long' => '106.6296638'))?>">
                 <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/tphcm.jpg" alt="Thành Phố Hồ Chí Minh"
                              class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'TPHCM')) ?></div>
             </a>
         </div>
         <div class="col-xs-6 col-sm-4 location-info">
-            <a href="#">
+            <a href="<?php echo Yii::app()->createUrl("rooms/index", array("place" => 'Hội An', 'lat' => '15.8800584', 'long' => '108.3380469'))?>">
                 <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/hoi-an.jpg" alt="Hội An" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Hội An')) ?></div>
             </a>
         </div>
         <div class="col-xs-6 col-sm-4 location-info">
-            <a href="#">
+            <a href="<?php echo Yii::app()->createUrl("rooms/index", array("place" => 'Phú Quốc', 'lat' => '10.289879', 'long' => '103.98401999999999'))?>">
                 <img src="<?php echo(Yii::app()->baseUrl) ?>/images/location/phu-quoc.jpg" alt="Phú Quốc" class="img-responsive">
                 <div class="info-text"><?php echo(Yii::t('app', 'Phú Quốc')) ?></div>
             </a>
