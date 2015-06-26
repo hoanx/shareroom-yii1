@@ -13,7 +13,18 @@
         <div class="form-group">
             <div class="inner-addon left-addon">
                 <i class="fa fa-calendar"></i>
-                <?php echo CHtml::textField('startdate', isset($_GET['startdate']) ? $_GET['startdate'] : null, array('class' => 'form-control input-lg', 'placeholder' => Yii::t('app', 'Nhận phòng')))?>
+                <?php
+                    $this->widget('zii.widgets.jui.CJuiDatePicker',array(
+                        'name'=>'startdate',
+                        'value' => isset($_GET['startdate']) ? $_GET['startdate'] : null,
+                        'options'=>array(
+                        ),
+                        'htmlOptions'=>array(
+                            'class' => 'form-control input-lg',
+                            'placeholder' => Yii::t('app', 'Nhận phòng')
+                        ),
+                    ));
+                ?>
             </div>
         </div>
     </div>
@@ -21,7 +32,18 @@
         <div class="form-group">
             <div class="inner-addon left-addon">
                 <i class="fa fa-calendar"></i>
-                <?php echo CHtml::textField('enddate', isset($_GET['enddate']) ? $_GET['enddate'] : null, array('class' => 'form-control input-lg', 'placeholder' => Yii::t('app', 'Trả phòng')))?>
+                <?php
+                    $this->widget('zii.widgets.jui.CJuiDatePicker',array(
+                        'name'=>'enddate',
+                        'value' => isset($_GET['enddate']) ? $_GET['enddate'] : null,
+                        'options'=>array(
+                        ),
+                        'htmlOptions'=>array(
+                            'class' => 'form-control input-lg',
+                            'placeholder' => Yii::t('app', 'Trả phòng')
+                        ),
+                    ));
+                ?>
             </div>
         </div>
     </div>

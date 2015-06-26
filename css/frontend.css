@@ -705,7 +705,7 @@ ul.orange-list li{
     border: 1px solid #FFFFFF;
     background: none;
     font-weight: bold;
-	color: #222;
+    color: #222;
 }
 
 .spaces-index .ui-datepicker table .requested a {
@@ -713,7 +713,9 @@ ul.orange-list li{
     background-image :none !important;
     /*color: #ffffff !important;*/
 }
-
+.spaces-index .ui-datepicker-multi .ui-datepicker-group table {
+	width: 100%;
+}
 
 /*======== end style datepicker==============*/
 
@@ -1107,19 +1109,16 @@ h3.section-title{
 	color: #999;
 }
 /* Other Datepicker Color Schemes */
-/* Blue */
+/* Sunrise */
 .ui-datepicker .ui-datepicker-header,
 .ui-datepicker .ui-datepicker-header .ui-state-hover,
 .ui-datepicker thead {
-	background: #4796b3;
+	background: #be3631;
 }
 .ui-datepicker th {
-	border-color: #52accc;
+	border-color: #cf4944;
 }
 .ui-datepicker td .ui-state-active,
 .ui-datepicker td .ui-state-hover {
-	background: #096484;
-}
-.ui-datepicker-multi .ui-datepicker-group table {
-	width: 100%;
+	background: #dd823b;
 }
