@@ -8,7 +8,7 @@
     <div class="col-md-3 col-sm-4">
         <div class="profile-box profile-picture">
             <div class="picture">
-                <img src="<?php echo Yii::app()->createUrl('profile/image')?>" class="img-responsive">
+                <img src="<?php echo Yii::app()->createUrl('profile/image', array('id'=>$usersModel->id))?>" class="img-responsive">
             </div>
         </div>
         <?php echo CHtml::link(Yii::t('app', 'Liên lạc với tôi'), 'javascript:void(0)', array('class'=>'btn btn-info btn-block')) ?>

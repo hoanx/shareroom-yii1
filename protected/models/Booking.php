@@ -29,6 +29,12 @@ class Booking extends CActiveRecord
     const PAYMENT_METHOD_COMPANY = 'company';
     const PAYMENT_METHOD_SMARTLINK = 'smartlink';
 
+    const STATUS_UNPAID = 1;
+    const STATUS_PAID = 2;
+    const STATUS_FAILS = 3;
+    const STATUS_CANCEL = 4;
+
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -158,6 +164,9 @@ class Booking extends CActiveRecord
 
         if ($this->isNewRecord){
             $this->created = $now;
+
+            //send message to author post room
+
         }
         $this->updated = $now;
         return parent::beforeSave();
@@ -168,6 +177,16 @@ class Booking extends CActiveRecord
             self::PAYMENT_METHOD_SMARTLINK => Yii::t('app','Thanh toán bằng smartlink'),
             self::PAYMENT_METHOD_BANK_TRANFER => Yii::t('app','Thanh toán chuyển khoản'),
             self::PAYMENT_METHOD_COMPANY => Yii::t('app','Thanh toán tại văn phòng'),
+        );
+        return !empty($result[$method]) ? $result[$method] : $result;
+    }
+
+    public static function _getStatus($method = null) {
+        $result = array(
+            self::STATUS_UNPAID => Yii::t('app','Chưa thanh toán'),
+            self::STATUS_PAID => Yii::t('app','Đã thanh toán'),
+            self::STATUS_FAILS => Yii::t('app','Thanh toán lỗi'),
+            self::STATUS_CANCEL => Yii::t('app','Đã từ chối'),
         );
         return !empty($result[$method]) ? $result[$method] : $result;
     }

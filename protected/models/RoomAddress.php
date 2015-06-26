@@ -360,4 +360,21 @@ class RoomAddress extends CActiveRecord
         $amenities = array_fill_keys($amenities, 0);
         return $amenities;
     }
+
+    /**
+     * Get owner info by room
+     *
+     * @param $room_address_id
+     * @return array|bool|mixed|null
+     */
+    public static function getOwnerRoom($room_address_id){
+        $criteria = new CDbCriteria();
+        $criteria->compare('del_flg', Constant::DEL_FALSE);
+        $roomAddressModel = self::model()->findByPk($room_address_id);
+        if($roomAddressModel){
+            return $roomAddressModel->Users;
+        }
+
+        return false;
+    }
 }
