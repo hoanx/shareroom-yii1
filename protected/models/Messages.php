@@ -39,7 +39,7 @@ class Messages extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('to_user_id, from_user_id, from_user_fisrt_name, from_user_last_name, start_date, end_date, qty_guests, content', 'required'),
+			array('conversation_id, to_user_id, from_user_id, from_user_fisrt_name, from_user_last_name, start_date, end_date, qty_guests, content', 'required'),
 			array('message_type, to_user_id, from_user_id, qty_guests, status_flg', 'numerical', 'integerOnly'=>true),
 			array('from_user_fisrt_name, from_user_last_name, del_flg', 'length', 'max'=>255),
 			array('created, updated', 'safe'),
@@ -67,6 +67,7 @@ class Messages extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+	        'conversation_id' => 'Conversation',
 			'message_type' => 'Loại tin nhắn',
 			'to_user_id' => 'Tới',
 			'from_user_id' => 'Từ',
@@ -102,6 +103,7 @@ class Messages extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('conversation_id',$this->conversation_id);
 		$criteria->compare('message_type',$this->message_type);
 		$criteria->compare('to_user_id',$this->to_user_id);
 		$criteria->compare('from_user_id',$this->from_user_id);
