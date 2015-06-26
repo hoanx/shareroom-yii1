@@ -39,10 +39,10 @@ class Messages extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('conversation_id, to_user_id, from_user_id, from_user_fisrt_name, from_user_last_name, start_date, end_date, qty_guests, content', 'required'),
+			array('conversation_id, to_user_id, from_user_id, from_user_fisrt_name, from_user_last_name', 'required'),
 			array('message_type, to_user_id, from_user_id, qty_guests, status_flg', 'numerical', 'integerOnly'=>true),
 			array('from_user_fisrt_name, from_user_last_name, del_flg', 'length', 'max'=>255),
-			array('created, updated', 'safe'),
+			array('created, updated, start_date, end_date, qty_guests, content', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, message_type, to_user_id, from_user_id, from_user_fisrt_name, from_user_last_name, start_date, end_date, qty_guests, content, status_flg, created, updated, del_flg', 'safe', 'on'=>'search'),

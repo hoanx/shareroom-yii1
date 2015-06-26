@@ -23,11 +23,13 @@ CREATE TABLE `tb_conversation` (
   `updated` datetime DEFAULT NULL,
   `del_flg` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_conversation` */
 
 LOCK TABLES `tb_conversation` WRITE;
+
+insert  into `tb_conversation`(`id`,`from_id`,`to_id`,`created`,`updated`,`del_flg`) values (1,3,3,'2015-06-26 17:22:59','2015-06-26 17:22:59',NULL),(2,3,3,'2015-06-26 17:26:40','2015-06-26 17:26:40',NULL);
 
 UNLOCK TABLES;
 
@@ -43,20 +45,22 @@ CREATE TABLE `tb_messages` (
   `from_user_id` int(11) NOT NULL,
   `from_user_fisrt_name` varchar(255) NOT NULL,
   `from_user_last_name` varchar(255) NOT NULL,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
-  `qty_guests` int(11) NOT NULL,
-  `content` text NOT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `qty_guests` int(11) DEFAULT NULL,
+  `content` text,
   `status_flg` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 : unRead; 1:Readed',
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   `del_flg` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_messages` */
 
 LOCK TABLES `tb_messages` WRITE;
+
+insert  into `tb_messages`(`id`,`conversation_id`,`message_type`,`to_user_id`,`from_user_id`,`from_user_fisrt_name`,`from_user_last_name`,`start_date`,`end_date`,`qty_guests`,`content`,`status_flg`,`created`,`updated`,`del_flg`) values (1,2,1,3,3,'Tiến','Nguyễn','0000-00-00 00:00:00','0000-00-00 00:00:00',800000,'',0,'2015-06-26 17:26:40','2015-06-26 17:26:40',NULL);
 
 UNLOCK TABLES;
 

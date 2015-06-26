@@ -97,6 +97,26 @@ class PaymentsController extends Controller
                     $bookingHistoryModel->room_lat = $roomModel->lat;
                     $bookingHistoryModel->room_long = $roomModel->long;
                     $bookingHistoryModel->save(false);
+                    
+                    $conversation = new Conversation();
+                    $conversation->from_id = $user_id;
+                    $conversation->to_id = $roomModel->user_id;
+                    $conversation->save();
+                    
+                    $messages = new Messages();
+                    $messages->conversation_id = $conversation->id;
+                    $messages->message_type = Messages::MESSAGE_BOOKING;
+                    $messages->from_user_id = $user_id;
+                    $messages->to_user_id = $roomModel->user_id;
+                    $messages->from_user_fisrt_name = $usersModel->first_name;
+                    $messages->from_user_last_name = $usersModel->last_name;
+                    $messages->start_date = $paymentData['checkin'];
+                    $messages->end_date = $paymentData['checkout'];
+                    $messages->qty_guests = $paymentData['price'];
+                    $messages->content = 'Chúc mừng! Bạn có một yêu cầu đặt chỗ!Vui lòng xem xét kỹ yêu cầu đặt chỗ của bạn. Nếu bạn có bất kỳ thắc mắc nào, hãy gửi tin nhắn cho khách trước khi chấp nhận việc đặt chỗ.';
+                    $messages->status_flg = 0;
+                    $messages->save();
+
 
                     if($bookingModel->payment_method==Booking::PAYMENT_METHOD_SMARTLINK){
                         //redirect and process payment smartlink
