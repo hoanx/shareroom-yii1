@@ -284,4 +284,80 @@ class RoomAddress extends CActiveRecord
             echo ($checkbox) ?  'checked' : 'active'; 
         }
     }
+    
+    public static function getRooms($data) {
+        $earthRadius = '3963.0';
+        $latitude = $data['lat'];
+        $longitude = $data['long'];
+    
+        $criteria = new CDbCriteria();
+        $criteria->join = 'LEFT JOIN tb_room_price AS roomprice ON t.id = roomprice.room_address_id';
+        $criteria->select = "ROUND($earthRadius * ACOS(SIN($latitude*PI()/180) * SIN(t.lat*PI()/180)
+        + COS($latitude*PI()/180) * COS(t.lat*PI()/180 )  *  COS((t.long*PI()/180) - ($longitude*PI()/180) )), 1) as distance, t.*, roomprice.*";
+    
+        $criteria->condition = 't.del_flg = :del_flg';
+    
+        if(isset($data['bedrooms']) && $data['bedrooms']) {
+            $criteria->condition .= ' AND t.bedrooms = ' . $data['bedrooms'];
+        }
+    
+        if(isset($data['beds']) && $data['beds']) {
+            $criteria->condition .= ' AND t.beds = ' . $data['beds'];
+        }
+    
+        if(isset($data['accommodates']) && $data['accommodates']) {
+            $criteria->condition .= ' AND t.accommodates >= ' . $data['accommodates'];
+        }
+    
+        if(isset($data['price']) && $data['price']) {
+            $prices = explode(",", $data['price']);
+            $criteria->condition .= ' AND roomprice.price >= ' . $prices[0] . ' AND roomprice.price <= ' . $prices[1];
+        }
+    
+        if(isset($data['room_type']) && $data['room_type']) {
+            $types = explode(",", $data['room_type']);
+            $query_parts = array();
+            foreach($types as $type) {
+                $query_parts[] = "'%".mysql_real_escape_string($type)."%'";
+            }
+    
+            $string = implode(' OR t.room_type LIKE ', $query_parts);
+    
+            $criteria->condition .= ' AND (t.room_type LIKE ' . $string . ') ';
+        }
+    
+        if(isset($data['amenities']) && $data['amenities']) {
+            $amenities = explode(",", $data['amenities']);
+            $query_parts = array();
+            foreach($amenities as $amenitie) {
+                $query_parts[] = "'%".mysql_real_escape_string($amenitie)."%'";
+            }
+    
+            $string = implode(' AND t.amenities LIKE ', $query_parts);
+    
+            $criteria->condition .= ' AND (t.amenities LIKE ' . $string  . ') ';
+        }
+    
+    
+        $criteria->params = array(
+                ':del_flg' => Constant::DEL_FALSE,
+        );
+    
+        if(isset($data['sort'])) {
+            $criteria->order = 'distance ASC, roomprice.price ASC';
+        } else {
+            $criteria->order = 'distance ASC';
+        }
+    
+        $model = RoomAddress::model()->findAll($criteria);
+    
+        return $model;
+    }
+    
+    public static function listAmenities() {
+        $amenities = Constant::getAmenities();
+        $amenities = array_flip($amenities);
+        $amenities = array_fill_keys($amenities, 0);
+        return $amenities;
+    }
 }

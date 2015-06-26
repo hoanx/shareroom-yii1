@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by HoaNguyen.
- * Date: 5/24/15
- */
-
 class RoomsController extends Controller
 {
     protected function beforeAction($action) {
-        if($action->id == 'view' || $action->id == 'index') {
+        if($action->id == 'view' || $action->id == 'index' || $action->id == 'updateAjax') {
             return parent::beforeAction($action);
         }
         
@@ -22,79 +17,20 @@ class RoomsController extends Controller
         if(!empty($_GET['lat']) && !empty($_GET['long'])) {
             $data = $_GET;
             
-            $earthRadius = '3963.0';
-            $latitude = $data['lat'];
-            $longitude = $data['long'];
+            $model = RoomAddress::getRooms($data);
             
-            $criteria = new CDbCriteria();
-            $criteria->join = 'LEFT JOIN tb_room_price AS roomprice ON t.id = roomprice.room_address_id';
-            $criteria->select = "ROUND($earthRadius * ACOS(SIN($latitude*PI()/180) * SIN(t.lat*PI()/180)
-                            + COS($latitude*PI()/180) * COS(t.lat*PI()/180 )  *  COS((t.long*PI()/180) - ($longitude*PI()/180) )), 1) as distance, t.*, roomprice.*";
-            
-            $criteria->condition = 't.del_flg = :del_flg';
-            
-            if(isset($data['bedrooms']) && $data['bedrooms']) {
-                $criteria->condition .= ' AND t.bedrooms = ' . $data['bedrooms'];
-            }
-            
-            if(isset($data['beds']) && $data['beds']) {
-                $criteria->condition .= ' AND t.beds = ' . $data['beds'];
-            }
-            
-            if(isset($data['accommodates']) && $data['accommodates']) {
-                $criteria->condition .= ' AND t.accommodates >= ' . $data['accommodates'];
-            }
-            
-            if(isset($data['price']) && $data['price']) {
-                $prices = explode(",", $data['price']);
-                $criteria->condition .= ' AND roomprice.price >= ' . $prices[0] . ' AND roomprice.price <= ' . $prices[1];
-            }
-            
-            if(isset($data['room_type']) && $data['room_type']) {
-                $types = explode(",", $data['room_type']);
-                $query_parts = array();
-                foreach($types as $type) {
-                    $query_parts[] = "'%".mysql_real_escape_string($type)."%'";
-                }
-                
-                $string = implode(' OR t.room_type LIKE ', $query_parts);
-                
-                $criteria->condition .= ' AND (t.room_type LIKE ' . $string . ') ';
-            }
-            
-            if(isset($data['amenities']) && $data['amenities']) {
-                $amenities = explode(",", $data['amenities']);
-                $query_parts = array();
-                foreach($amenities as $amenitie) {
-                    $query_parts[] = "'%".mysql_real_escape_string($amenitie)."%'";
-                }
-            
-                $string = implode(' OR t.amenities LIKE ', $query_parts);
-            
-                $criteria->condition .= ' AND (t.amenities LIKE ' . $string  . ') ';
-            }
-
-            
-            $criteria->params = array(
-                ':del_flg' => Constant::DEL_FALSE,
-            );
-            
-            if(isset($_GET['sort'])) {
-                $criteria->order = 'distance ASC, roomprice.price ASC';
+            if(Yii::app()->request->isAjaxRequest) {
+                echo $this->renderPartial('_search', array('model' => $model), true, true);
             } else {
-                $criteria->order = 'distance ASC';
+                $this->render('index', array(
+                    'model' => $model,
+                ));
             }
-
-            $model = RoomAddress::model()->findAll($criteria);
             
-            $this->render('index', array(
-                'model' => $model,
-            ));
-            
+        } else {
+            $this->redirect(Yii::app()->homeUrl);
         }
-
     }
-
 
     public function actionNew($id = null) {
         $this->setPageTitle(Yii::t('app', 'Đăng tin cho thuê'));
