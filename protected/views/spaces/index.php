@@ -24,15 +24,14 @@ echo $this->renderPartial('//profile/_menu_profile');
     <div class="profile-index spaces-index">
         <?php if ($listRoomModel): ?>
             <?php foreach ($listRoomModel as $data): ?>
-
+                <?php $listDateBooking = Booking::getDateBookingByRoomAddress($data->id); ?>
                 <?php Yii::app()->clientScript->beginScript('custom-script-'.$data->id); ?>
                 <script type="text/javascript">
                     // An array of dates
                     var eventDates_<?php echo($data->id) ?> = {};
-                    eventDates_<?php echo($data->id) ?>[ new Date( '06/28/2015' )] = new Date( '06/28/2015' );
-                    eventDates_<?php echo($data->id) ?>[ new Date( '07/15/2015' )] = new Date( '07/15/2015' );
-                    eventDates_<?php echo($data->id) ?>[ new Date( '07/22/2015' )] = new Date( '07/22/2015' );
-                    eventDates_<?php echo($data->id) ?>[ new Date( '08/05/2015' )] = new Date( '08/05/2015' );
+                    <?php foreach($listDateBooking as $date): ?>
+                    eventDates_<?php echo($data->id) ?>[ new Date( '<?php echo($date) ?>' )] = new Date( '<?php echo($date) ?>' );
+                     <?php endforeach ?>
 
                     jQuery(document).ready(function () {
                         jQuery("[name='status_room_<?php echo($data->id) ?>']").bootstrapSwitch();

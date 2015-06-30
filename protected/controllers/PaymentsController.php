@@ -65,8 +65,10 @@ class PaymentsController extends Controller
                 $bookingModel->attributes = $_POST['Booking'];
                 $bookingModel->user_id = $usersModel->id;
                 $bookingModel->room_address_id = $roomModel->id;
-                $bookingModel->check_in = $paymentData['checkin'].' '.Constant::getTimeCheck($roomModel->RoomPrice->check_in);
-                $bookingModel->check_out = $paymentData['checkout'].' '.Constant::getTimeCheck($roomModel->RoomPrice->check_out);
+                $bookingModel->check_in = $paymentData['checkin'];
+                $bookingModel->time_check_in = Constant::getTimeCheck($roomModel->RoomPrice->check_in);
+                $bookingModel->check_out = $paymentData['checkout'];
+                $bookingModel->time_check_out = Constant::getTimeCheck($roomModel->RoomPrice->check_out);
                 $bookingModel->number_of_guests = $paymentData['number_of_guests'];
                 $bookingModel->room_price = $paymentData['price'];
                 $bookingModel->cleaning_fees = $paymentData['cleaning_fees'];

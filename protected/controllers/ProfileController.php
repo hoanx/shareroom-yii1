@@ -70,15 +70,33 @@ class ProfileController extends Controller
     public function actionMy_Booking()
     {
         $this->setPageTitle(Yii::t('app', 'Đặt chỗ của tôi'));
-
         $user_id = Yii::app()->user->id;
+
+        $bookingStatusForm = new BookingStatusForm();
+
         $criteria = new CDbCriteria();
         $criteria->compare('del_flg', Constant::DEL_FALSE);
         $criteria->compare('user_id', $user_id);
+
+        if(isset($_GET['BookingStatusForm']['filter_status'])){
+            $bookingStatusForm->filter_status  = $_GET['BookingStatusForm']['filter_status'];
+            if($bookingStatusForm->filter_status==Booking::BOOKING_STATUS_PENDING){
+                $criteria->compare('booking_status', $bookingStatusForm->filter_status);
+            }elseif($bookingStatusForm->filter_status==2){
+                $criteria->addInCondition('booking_status', array(
+                    Booking::BOOKING_STATUS_ACCEPT,
+                    Booking::BOOKING_STATUS_UNACCEPT,
+                    Booking::BOOKING_STATUS_USER_CANCEL
+                ));
+            }
+
+        }
+
         $myBookingModel = Booking::model()->findAll($criteria);
 
         $this->render('my_booking', array(
             'myBookingModel'=>$myBookingModel,
+            'bookingStatusForm'=>$bookingStatusForm,
         ));
     }
 

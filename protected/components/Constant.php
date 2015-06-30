@@ -48,7 +48,7 @@ class Constant {
 
     const MIN_IMAGE_ROOM = 6;
     const MIN_LEN_ROOM_NAME = 20;
-    const MIN_LEN_ROOM_DESCRIPTION = 400;
+    const MIN_LEN_ROOM_DESCRIPTION = 200;
 
     const DATE_FORMAT = 'dd-mm-yyyy';
 

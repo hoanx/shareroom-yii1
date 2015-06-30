@@ -11,13 +11,19 @@ echo $this->renderPartial('//profile/_menu_profile');
     <!-- Tab panes -->
     <div class="profile-index spaces-index">
         <div class="panel panel-default profile-box message-box">
+            <?php $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'filter-status-form',
+                'method' => 'get',
+                'action' => array('profile/my_booking'),
+                'enableAjaxValidation' => false,
+            )); ?>
             <div class="panel-heading box-header">
                 <span><?php echo(Yii::t('app', 'Đặt chỗ của tôi.')) ?></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <select>
-                    <option value="0">Tất cả</option>
-                    <option value="1">Đang chờ</option>
-                    <option value="3">Đã xong</option>
-                </select>
+                <?php echo $form->dropDownList($bookingStatusForm, 'filter_status', array(
+                    0 => 'Tất cả',
+                    Booking::BOOKING_STATUS_PENDING => 'Đang chờ',
+                    2 => 'Đã xong',
+                )); ?>
             </div>
             <div class="panel-body">
                 <?php if($myBookingModel): ?>
@@ -25,17 +31,36 @@ echo $this->renderPartial('//profile/_menu_profile');
                         <table class="table table-bordered">
                             <tr>
                                 <th>Trạng thái</th>
+                                <th>Thanh toán</th>
                                 <th>Ngày</th>
                                 <th>Vị trí</th>
                                 <th>Chủ nhà</th>
                                 <th>Giá</th>
-                                <th>Lựa chọn</th>
+<!--                                <th>Lựa chọn</th>-->
                             </tr>
                             <?php foreach($myBookingModel as $data): ?>
                                 <?php $ownerInfo = RoomAddress::getOwnerRoom($data->room_address_id); ?>
+                                <?php
+                                $style_status = '';
+                                switch($data->booking_status){
+                                    case Booking::BOOKING_STATUS_PENDING:
+                                        $style_status = 'pending';
+                                        break;
+                                    case Booking::BOOKING_STATUS_ACCEPT:
+                                        $style_status = 'accept';
+                                        break;
+                                    case Booking::BOOKING_STATUS_UNACCEPT:
+                                        $style_status = 'unaccept';
+                                        break;
+                                    case Booking::BOOKING_STATUS_USER_CANCEL:
+                                        $style_status = 'user_cancel';
+                                        break;
+                                }
+                                ?>
                                 <tr>
-                                    <td class="status"><?php echo(Booking::_getStatus($data->status_flg)) ?></td>
-                                    <td class="date"><?php echo($data->check_in . ' <br> ' . $data->check_out) ?></td>
+                                    <td class="status <?php echo($style_status ? $style_status : '') ?>"><?php echo(Booking::_getBookingStatus($data->booking_status)) ?></td>
+                                    <td class="status"><?php echo(Booking::_getStatus($data->payment_status)) ?></td>
+                                    <td class="date"><?php echo($data->check_in .' '. Constant::getTimeCheck($data->time_check_in) . ' <br> ' . $data->check_out .' '. Constant::getTimeCheck($data->time_check_out)) ?></td>
                                     <td class="room">
                                         <img src="<?php echo RoomImages::getImageByRoomaddress($data->room_address_id)?>"
                                              class="image-medium">
@@ -54,7 +79,15 @@ echo $this->renderPartial('//profile/_menu_profile');
 
                                     </td>
                                     <td class="price"><?php echo number_format($data->total_amount) ?> VND</td>
-                                    <td></td>
+                                    <!--<td>
+                                        <?php /*if($data->booking_status == Booking::BOOKING_STATUS_PENDING) : */?>
+                                            <?php /*echo CHtml::link('<i class="fa fa-times-circle fa-lg unaccept"></i>', 'javascript:void(0)', array(
+                                                'title'=>'Hủy',
+                                                'class' => 'unaccept',
+                                                'data-id' => $data->id
+                                            )) */?>
+                                        <?php /*endif */?>
+                                    </td>-->
                                 </tr>
                             <?php endforeach; ?>
                         </table>
@@ -63,7 +96,20 @@ echo $this->renderPartial('//profile/_menu_profile');
                     <div>Không có yêu cầu nào.</div>
                 <?php endif ?>
             </div>
+            <?php $this->endWidget(); ?>
         </div>
     </div>
 
 </div>
+
+<?php Yii::app()->clientScript->beginScript('custom-script'); ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            /*============== Filter status =================*/
+            jQuery('#BookingStatusForm_filter_status').on('change', function() {
+                jQuery('form#filter-status-form').submit();
+            });
+
+        });
+    </script>
+<?php Yii::app()->clientScript->endScript();?>

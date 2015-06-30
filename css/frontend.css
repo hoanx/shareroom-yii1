@@ -706,6 +706,7 @@ ul.orange-list li{
     background: none;
     font-weight: bold;
     color: #222;
+    cursor: default;
 }
 
 .spaces-index .ui-datepicker table .requested a {
@@ -996,6 +997,8 @@ h3.section-title{
 .spaces-reservations table td.status,
 .spaces-reservations table td.price{
     font-weight: bold;
+    text-align:center;
+    vertical-align:middle
 }
 
 .spaces-reservations table td.user .user-info{
@@ -1121,4 +1124,22 @@ h3.section-title{
 .ui-datepicker td .ui-state-active,
 .ui-datepicker td .ui-state-hover {
 	background: #dd823b;
+}
+
+/*========== STYLE TABLE LIST BOOKING ============*/
+table.table-booking a.accept{
+    color: #51ed0e;
+}
+table.table-booking a.unaccept{
+    color: #f70243;
+}
+.spaces-reservations table td.status.accept{
+    color: #51ed0e;
+}
+.spaces-reservations table td.status.pending{
+    color: #ec971f;
+}
+.spaces-reservations table td.status.unaccept,
+.spaces-reservations table td.status.user_cancel{
+    color: #c9302c;
 }

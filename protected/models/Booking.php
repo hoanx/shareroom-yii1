@@ -8,7 +8,9 @@
  * @property integer $user_id
  * @property integer $room_address_id
  * @property string $check_in
+ * @property string $time_check_in
  * @property string $check_out
+ * @property string $time_check_out
  * @property integer $number_of_guests
  * @property double $room_price
  * @property double $cleaning_fees
@@ -16,7 +18,8 @@
  * @property double $discount
  * @property integer $total_amount
  * @property string $payment_method
- * @property integer $status_flg
+ * @property integer $payment_status
+ * @property integer $booking_status
  * @property string $invoice_date
  * @property string $refund_date
  * @property string $created
@@ -34,6 +37,10 @@ class Booking extends CActiveRecord
     const STATUS_FAILS = 3;
     const STATUS_CANCEL = 4;
 
+    const BOOKING_STATUS_PENDING = 1;
+    const BOOKING_STATUS_UNACCEPT = 2;
+    const BOOKING_STATUS_ACCEPT = 3;
+    const BOOKING_STATUS_USER_CANCEL = 4;
 
 	/**
 	 * @return string the associated database table name
@@ -53,14 +60,14 @@ class Booking extends CActiveRecord
 		return array(
 			array('user_id, room_address_id, check_in, check_out, number_of_guests, room_price, cleaning_fees,
 			    total_amount, payment_method', 'required'),
-			array('user_id, room_address_id, number_of_guests, total_amount, status_flg, del_flg', 'numerical', 'integerOnly'=>true),
+			array('user_id, room_address_id, number_of_guests, total_amount, payment_status, booking_status, del_flg', 'numerical', 'integerOnly'=>true),
 			array('room_price, cleaning_fees, discount', 'numerical'),
 			array('check_in, check_out, coupon_code, payment_method', 'length', 'max'=>255),
-			array('invoice_date, refund_date, created, updated', 'safe'),
+			array('time_check_in, time_check_out, invoice_date, refund_date, created, updated', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, room_address_id, check_in, check_out, number_of_guests, room_price, cleaning_fees,
-			    coupon_code, discount, total_amount, payment_method, status_flg, invoice_date, refund_date, created,
+			array('id, user_id, room_address_id, time_check_in, time_check_out, check_in, check_out, number_of_guests, room_price, cleaning_fees,
+			    coupon_code, discount, total_amount, payment_method, payment_status, booking_status, invoice_date, refund_date, created,
 			    updated, del_flg', 'safe', 'on'=>'search'),
 		);
 	}
@@ -97,7 +104,8 @@ class Booking extends CActiveRecord
 			'discount' => Yii::t('app', 'Giảm giá'),
 			'total_amount' => Yii::t('app', 'Tổng'),
 			'payment_method' => Yii::t('app', 'Phương thức thanh toán'),
-			'status_flg' => Yii::t('app', 'Trạng thái thanh toán'),
+			'payment_status' => Yii::t('app', 'Trạng thái thanh toán'),
+			'booking_status' => Yii::t('app', 'Trạng thái'),
 			'invoice_date' => Yii::t('app', 'Ngày thanh toán'),
 			'refund_date' => Yii::t('app', 'Ngày hủy'),
 			'created' => 'Created',
@@ -136,7 +144,7 @@ class Booking extends CActiveRecord
 		$criteria->compare('discount',$this->discount);
 		$criteria->compare('total_amount',$this->total_amount);
 		$criteria->compare('payment_method',$this->payment_method,true);
-		$criteria->compare('status_flg',$this->status_flg);
+		$criteria->compare('payment_status',$this->payment_status);
 		$criteria->compare('invoice_date',$this->invoice_date,true);
 		$criteria->compare('refund_date',$this->refund_date,true);
 		$criteria->compare('created',$this->created,true);
@@ -189,5 +197,37 @@ class Booking extends CActiveRecord
             self::STATUS_CANCEL => Yii::t('app','Đã từ chối'),
         );
         return !empty($result[$method]) ? $result[$method] : $result;
+    }
+
+    public static function _getBookingStatus($method = null) {
+        $result = array(
+            self::BOOKING_STATUS_PENDING => Yii::t('app','Đang chờ'),
+            self::BOOKING_STATUS_UNACCEPT => Yii::t('app','Đã từ chối'),
+            self::BOOKING_STATUS_ACCEPT => Yii::t('app','Đã chấp nhận'),
+            self::BOOKING_STATUS_USER_CANCEL => Yii::t('app','Khách hủy'),
+        );
+        return !empty($result[$method]) ? $result[$method] : $result;
+    }
+
+    public static function getDateBookingByRoomAddress($room_address_id){
+        $listDate = array();
+        $criteria = new CDbCriteria();
+        $criteria->compare('del_flg', Constant::DEL_FALSE);
+        $criteria->compare('room_address_id', $room_address_id);
+        $criteria->addInCondition('booking_status', array(
+            Booking::BOOKING_STATUS_ACCEPT,
+            Booking::BOOKING_STATUS_PENDING
+        ));
+        $listBookingModel = Booking::model()->findAll($criteria);
+        if($listBookingModel){
+            foreach($listBookingModel as $booking){
+                $checkin = date('Y-m-d', strtotime($booking->check_in));
+                $checkiout= date('Y-m-d', strtotime($booking->check_out));
+                $arrr = Common::createDateRangeArray($checkin, $checkiout);
+                $listDate = array_merge($listDate, $arrr);
+            }
+        }
+
+        return $listDate;
     }
 }
