@@ -1067,5 +1067,27 @@ class Common
         // and you might want to convert to integer
         return intval($numberDays);
     }
+    
+    public static function humanTiming ($time) {
+    
+        $time = time() - $time; // to get the time since that moment
+    
+        $tokens = array (
+            31536000 => 'năm',
+            2592000 => 'tháng',
+            604800 => 'tuần',
+            86400 => 'ngày',
+            3600 => 'giờ',
+            60 => 'phút',
+            1 => 'giây'
+        );
+    
+        foreach ($tokens as $unit => $text) {
+            if ($time < $unit) continue;
+            $numberOfUnits = floor($time / $unit);
+            return $numberOfUnits.' '.$text . ' trước';
+        }
+    
+    }
 
 }

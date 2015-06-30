@@ -82,7 +82,7 @@ class PaymentsController extends Controller
                     $checkError = false;
                 }
 
-                if($checkError===false){
+                if($checkError === false){
                     $bookingModel->save(false);
                     $bookingUserModel->booking_id = $bookingModel->id;
                     $bookingUserModel->save(false);
@@ -101,9 +101,11 @@ class PaymentsController extends Controller
                     $conversation = new Conversation();
                     $conversation->from_id = $user_id;
                     $conversation->to_id = $roomModel->user_id;
+                    $conversation->title = $roomModel->name;
                     $conversation->start_date = date("Y-m-d", strtotime($bookingModel->check_in));
                     $conversation->end_date = date("Y-m-d", strtotime($bookingModel->check_out));
                     $conversation->qty_guests = $bookingModel->number_of_guests;
+                    $conversation->status_flg = Messages::STATUS_WAITING;
                     $conversation->save();
                     
                     $messages = new Messages();
@@ -111,9 +113,11 @@ class PaymentsController extends Controller
                     $messages->message_type = Messages::MESSAGE_BOOKING;
                     $messages->from_user_id = $user_id;
                     $messages->content = 'Chúc mừng! Bạn có một yêu cầu đặt chỗ! Vui lòng xem xét kỹ yêu cầu đặt chỗ của bạn. Nếu bạn có bất kỳ thắc mắc nào, hãy gửi tin nhắn cho khách trước khi chấp nhận việc đặt chỗ.';
-                    $messages->status_flg = 0;
+                    $messages->status_flg = Messages::STATUS_WAITING;
                     $messages->save();
-
+                    
+                    $conversation->last_message_id = $messages->id;
+                    $conversation->save();
 
                     if($bookingModel->payment_method==Booking::PAYMENT_METHOD_SMARTLINK){
                         //redirect and process payment smartlink

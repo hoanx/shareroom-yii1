@@ -17,6 +17,10 @@ class Messages extends CActiveRecord
 {
     const MESSAGE_DEFAULT = 0;
     const MESSAGE_BOOKING = 1;
+    
+    const STATUS_WAITING = 1;
+    const STATUS_ACCEPT = 2;
+    const STATUS_DENY = 3;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -51,6 +55,7 @@ class Messages extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+	        'Users' => array(self::BELONGS_TO, 'Users', 'from_user_id'),
 		);
 	}
 

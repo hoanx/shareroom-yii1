@@ -31,7 +31,7 @@ class Conversation extends CActiveRecord
 		return array(
 			array('from_id, to_id', 'required'),
 			array('from_id, to_id, del_flg', 'numerical', 'integerOnly'=>true),
-			array('created, updated, start_date, end_date, qty_guests', 'safe'),
+			array('created, updated, start_date, end_date, qty_guests, status_flg, last_message_id, read_flg', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, from_id, to_id, created, updated, del_flg', 'safe', 'on'=>'search'),
@@ -46,6 +46,8 @@ class Conversation extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+	        'LastMessage' => array(self::BELONGS_TO, 'Messages', 'last_message_id'),
+	        'ToUser' => array(self::BELONGS_TO, 'Users', 'to_id'),
 		);
 	}
 

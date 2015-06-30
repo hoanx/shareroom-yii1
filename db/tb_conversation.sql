@@ -19,20 +19,24 @@ CREATE TABLE `tb_conversation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL,
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
   `qty_guests` int(11) DEFAULT NULL,
+  `status_flg` int(11) DEFAULT '0',
+  `last_message_id` int(11) DEFAULT NULL,
+  `read_flg` int(11) DEFAULT '0',
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   `del_flg` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_conversation` */
 
 LOCK TABLES `tb_conversation` WRITE;
 
-insert  into `tb_conversation`(`id`,`from_id`,`to_id`,`start_date`,`end_date`,`qty_guests`,`created`,`updated`,`del_flg`) values (1,3,3,NULL,NULL,NULL,'2015-06-26 17:22:59','2015-06-26 17:22:59',0),(2,3,3,NULL,NULL,NULL,'2015-06-26 17:26:40','2015-06-26 17:26:40',0),(3,3,3,'0000-00-00','0000-00-00',800000,'2015-06-26 17:45:24','2015-06-26 17:45:24',0),(4,3,3,'0000-00-00','0000-00-00',800000,'2015-06-26 17:46:24','2015-06-26 17:46:24',0),(5,3,3,'0000-00-00','0000-00-00',800000,'2015-06-26 17:46:58','2015-06-26 17:46:58',0),(6,3,3,'0000-00-00','0000-00-00',800000,'2015-06-26 17:47:13','2015-06-26 17:47:13',0),(7,3,3,'0000-00-00','0000-00-00',800000,'2015-06-26 17:47:29','2015-06-26 17:47:29',0);
+insert  into `tb_conversation`(`id`,`from_id`,`to_id`,`title`,`start_date`,`end_date`,`qty_guests`,`status_flg`,`last_message_id`,`read_flg`,`created`,`updated`,`del_flg`) values (1,3,3,'Cho thuê nhà Cầu giấy','2015-06-26 00:00:00','2015-06-30 00:00:00',1,1,1,0,'2015-06-26 17:57:59','2015-06-26 17:57:59',0),(2,3,3,'Cho thuê nhà Cầu giấy','2015-06-30 00:00:00','2015-06-30 00:00:00',1,2,2,0,'2015-06-30 14:08:54','2015-06-30 14:08:54',0);
 
 UNLOCK TABLES;
 
@@ -46,18 +50,18 @@ CREATE TABLE `tb_messages` (
   `message_type` int(11) NOT NULL DEFAULT '0' COMMENT '0: message default; 1: message new booking room',
   `from_user_id` int(11) NOT NULL,
   `content` text,
-  `status_flg` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 : unRead; 1:Readed',
+  `status_flg` tinyint(4) NOT NULL DEFAULT '0',
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   `del_flg` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_messages` */
 
 LOCK TABLES `tb_messages` WRITE;
 
-insert  into `tb_messages`(`id`,`conversation_id`,`message_type`,`from_user_id`,`content`,`status_flg`,`created`,`updated`,`del_flg`) values (1,2,1,3,'',0,'2015-06-26 17:26:40','2015-06-26 17:26:40',NULL);
+insert  into `tb_messages`(`id`,`conversation_id`,`message_type`,`from_user_id`,`content`,`status_flg`,`created`,`updated`,`del_flg`) values (1,1,1,3,'Chúc mừng! Bạn có một yêu cầu đặt chỗ! Vui lòng xem xét kỹ yêu cầu đặt chỗ của bạn. Nếu bạn có bất kỳ thắc mắc nào, hãy gửi tin nhắn cho khách trước khi chấp nhận việc đặt chỗ.',1,'2015-06-26 17:57:59','2015-06-26 17:57:59',NULL),(2,2,1,3,'Chúc mừng! Bạn có một yêu cầu đặt chỗ! Vui lòng xem xét kỹ yêu cầu đặt chỗ của bạn. Nếu bạn có bất kỳ thắc mắc nào, hãy gửi tin nhắn cho khách trước khi chấp nhận việc đặt chỗ.',1,'2015-06-30 14:08:54','2015-06-30 14:08:54',NULL);
 
 UNLOCK TABLES;
 
