@@ -101,10 +101,7 @@ class PaymentsController extends Controller
                     $conversation = new Conversation();
                     $conversation->from_id = $user_id;
                     $conversation->to_id = $roomModel->user_id;
-                    $conversation->title = $roomModel->name;
-                    $conversation->start_date = date("Y-m-d", strtotime($bookingModel->check_in));
-                    $conversation->end_date = date("Y-m-d", strtotime($bookingModel->check_out));
-                    $conversation->qty_guests = $bookingModel->number_of_guests;
+                    $conversation->booking_id = $bookingModel->id;
                     $conversation->status_flg = Messages::STATUS_WAITING;
                     $conversation->save();
                     

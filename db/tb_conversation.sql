@@ -19,10 +19,7 @@ CREATE TABLE `tb_conversation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `start_date` datetime DEFAULT NULL,
-  `end_date` datetime DEFAULT NULL,
-  `qty_guests` int(11) DEFAULT NULL,
+  `booking_id` int(11) DEFAULT NULL,
   `status_flg` int(11) DEFAULT '0',
   `last_message_id` int(11) DEFAULT NULL,
   `read_flg` int(11) DEFAULT '0',
@@ -36,7 +33,7 @@ CREATE TABLE `tb_conversation` (
 
 LOCK TABLES `tb_conversation` WRITE;
 
-insert  into `tb_conversation`(`id`,`from_id`,`to_id`,`title`,`start_date`,`end_date`,`qty_guests`,`status_flg`,`last_message_id`,`read_flg`,`created`,`updated`,`del_flg`) values (1,3,3,'Cho thuê nhà Cầu giấy','2015-06-26 00:00:00','2015-06-30 00:00:00',1,1,1,0,'2015-06-26 17:57:59','2015-06-26 17:57:59',0),(2,3,3,'Cho thuê nhà Cầu giấy','2015-06-30 00:00:00','2015-06-30 00:00:00',1,2,2,0,'2015-06-30 14:08:54','2015-06-30 14:08:54',0);
+insert  into `tb_conversation`(`id`,`from_id`,`to_id`,`booking_id`,`status_flg`,`last_message_id`,`read_flg`,`created`,`updated`,`del_flg`) values (1,3,3,1,1,1,0,'2015-06-26 17:57:59','2015-06-26 17:57:59',0),(2,3,3,2,2,2,0,'2015-06-30 14:08:54','2015-06-30 14:08:54',0);
 
 UNLOCK TABLES;
 

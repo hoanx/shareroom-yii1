@@ -41,12 +41,15 @@ echo $this->renderPartial('//profile/_menu_profile');
                 </div>
                 <div class="col-xs-7" id="convertation-info">
                     <p><?php echo CHtml::link('Tin nhắn với ' . $conversation->ToUser->first_name . ' ' . $conversation->ToUser->last_name, array('message', 'id' => $conversation->id));?></p>
-                    <p><?php echo $conversation->title ?></p>
-                    <p>
-                        <span><i class="fa fa-calendar-o"></i><?php echo 'Ngày ' . date('d/m/Y' , strtotime($conversation->start_date)) . ' - ' . date('d/m/Y' , strtotime($conversation->end_date)) ?></span>
-                        <span><i class="fa fa-moon-o"></i><?php echo floor((strtotime($conversation->end_date) - strtotime($conversation->start_date))/86400) . ' đêm'  ?></span>
-                        <span><i class="fa fa-user"></i><?php echo $conversation->qty_guests . ' người'  ?></span>
-                    </p>
+                    <?php if(isset($conversation->Booking)) : ?>
+                        <?php $booking = $conversation->Booking; ?>
+                        <p><?php echo $booking->BookingHistory->room_name ?></p>
+                        <p>
+                            <span><i class="fa fa-calendar-o"></i><?php echo 'Ngày ' . date('d/m/Y' , strtotime($booking->check_in)) . ' - ' . date('d/m/Y' , strtotime($booking->check_out)) ?></span>
+                            <span><i class="fa fa-moon-o"></i><?php echo floor((strtotime($booking->check_out) - strtotime($booking->check_in))/86400) . ' đêm'  ?></span>
+                            <span><i class="fa fa-user"></i><?php echo $booking->number_of_guests . ' người'  ?></span>
+                        </p>
+                    <?php endif; ?>
                     <p><?php if(isset($conversation->LastMessage)) echo mb_substr(strip_tags($conversation->LastMessage->content), 0, 100);?></p>
                 </div>
                 <div class="col-xs-2" style="text-align: right;">

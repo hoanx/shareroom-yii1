@@ -12,7 +12,7 @@ class MessageController extends Controller
         
         if(isset($_GET['read_flg']) && $_GET['read_flg'] == 2) {
             $criteria->condition .= ' AND read_flg = 1';
-        } elseif($_GET['read_flg'] == 3) {
+        } elseif(isset($_GET['read_flg']) && $_GET['read_flg'] == 3) {
             $criteria->condition .= ' AND read_flg = 0';
         }
         
