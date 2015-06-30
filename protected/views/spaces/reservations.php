@@ -39,7 +39,7 @@ echo $this->renderPartial('//profile/_menu_profile');
 <!--                            <th>Thanh toán</th>-->
                             <th>Ngày</th>
                             <th>Vị trí</th>
-                            <th>Khách</th>
+                            <th style="min-width: 160px">Khách</th>
                             <th>Giá</th>
                             <th>Lựa chọn</th>
                         </tr>
