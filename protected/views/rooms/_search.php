@@ -53,6 +53,8 @@
                     <div class="user-room">
                         <?php if(!empty($room->Users->profile_picture)) : ?>
                             <?php echo CHtml::image($room->Users->profile_picture, '', array('class' => 'img-responsive image-user')) ?>
+                        <?php else: ?>
+                            <img src="/profile/image" class="img-responsive image-user">
                         <?php endif; ?>
                     </div>
                 </div>

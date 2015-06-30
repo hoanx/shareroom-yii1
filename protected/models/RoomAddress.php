@@ -295,7 +295,7 @@ class RoomAddress extends CActiveRecord
         $criteria->select = "ROUND($earthRadius * ACOS(SIN($latitude*PI()/180) * SIN(t.lat*PI()/180)
         + COS($latitude*PI()/180) * COS(t.lat*PI()/180 )  *  COS((t.long*PI()/180) - ($longitude*PI()/180) )), 1) as distance, t.*, roomprice.*";
     
-        $criteria->condition = 't.del_flg = :del_flg';
+        $criteria->condition = 't.del_flg = :del_flg AND t.status_flg = 1';
     
         if(isset($data['bedrooms']) && $data['bedrooms']) {
             $criteria->condition .= ' AND t.bedrooms = ' . $data['bedrooms'];

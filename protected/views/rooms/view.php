@@ -145,6 +145,8 @@
                         <div class="col-md-4 col-sm-6">
                             <?php if(!empty($room->Users->profile_picture)) : ?>
                                 <?php echo CHtml::image($room->Users->profile_picture, '', array('class' => 'img-responsive image-user')) ?>
+                            <?php else: ?>
+                                <img src="/profile/image" class="img-responsive image-user">
                             <?php endif; ?>
                         </div>
                         <div class="col-md-8 col-sm-6">

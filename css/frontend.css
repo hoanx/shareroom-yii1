@@ -1126,6 +1126,7 @@ h3.section-title{
 	background: #dd823b;
 }
 
+<<<<<<< HEAD
 /*========== STYLE TABLE LIST BOOKING ============*/
 table.table-booking a.accept{
     color: #51ed0e;
@@ -1142,4 +1143,29 @@ table.table-booking a.unaccept{
 .spaces-reservations table td.status.unaccept,
 .spaces-reservations table td.status.user_cancel{
     color: #c9302c;
+}
+
+#img-last-message img {
+	padding: 2px;
+	border: 1px solid #d6d6d6;
+}
+#info-last-message p {
+	text-align: left;
+	padding-top: 0;
+	padding-bottom: 3px;
+	margin-bottom: 0;
+	font-size: 13px;
+}
+#convertation-info p {
+	text-align: left;
+	padding-top: 0;
+	padding-bottom: 3px;
+	margin-bottom: 0;
+	font-size: 13px;
+}
+#convertation-info p span {
+	margin-right: 15px;
+}
+#convertation-info p span i {
+	margin-right: 5px;
 }
