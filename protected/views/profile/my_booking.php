@@ -8,15 +8,15 @@ echo $this->renderPartial('//profile/_menu_profile');
 ?>
 <div class="profile-box spaces-reservations my_booking">
 
+    <?php $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'filter-status-form',
+        'method' => 'get',
+        'action' => array('profile/my_booking'),
+        'enableAjaxValidation' => false,
+    )); ?>
     <!-- Tab panes -->
     <div class="profile-index spaces-index">
         <div class="panel panel-default profile-box message-box">
-            <?php $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'filter-status-form',
-                'method' => 'get',
-                'action' => array('profile/my_booking'),
-                'enableAjaxValidation' => false,
-            )); ?>
             <div class="panel-heading box-header">
                 <span><?php echo(Yii::t('app', 'Đặt chỗ của tôi.')) ?></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <?php echo $form->dropDownList($bookingStatusForm, 'filter_status', array(
@@ -96,10 +96,10 @@ echo $this->renderPartial('//profile/_menu_profile');
                     <div>Không có yêu cầu nào.</div>
                 <?php endif ?>
             </div>
-            <?php $this->endWidget(); ?>
+
         </div>
     </div>
-
+    <?php $this->endWidget(); ?>
 </div>
 
 <?php Yii::app()->clientScript->beginScript('custom-script'); ?>

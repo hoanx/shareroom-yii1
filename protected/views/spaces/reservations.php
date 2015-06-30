@@ -11,15 +11,15 @@ echo $this->renderPartial('//profile/_menu_profile');
     <!-- Nav tabs -->
     <?php echo $this->renderPartial('_menu_spaces'); ?>
 
+    <?php $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'filter-status-form',
+        'method' => 'get',
+        'action' => array('spaces/reservations'),
+        'enableAjaxValidation' => false,
+    )); ?>
     <!-- Tab panes -->
     <div class="profile-index spaces-index">
         <div class="panel panel-default profile-box message-box">
-            <?php $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'filter-status-form',
-                'method' => 'get',
-                'action' => array('spaces/reservations'),
-                'enableAjaxValidation' => false,
-            )); ?>
             <div class="panel-heading box-header">
                 <span><?php echo(Yii::t('app', 'Yêu cầu đặt chỗ')) ?></span>&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -109,11 +109,11 @@ echo $this->renderPartial('//profile/_menu_profile');
                     <div>Không có yêu cầu nào.</div>
                 <?php endif ?>
             </div>
-            <?php $this->endWidget(); ?>
         </div>
     </div>
-
+    <?php $this->endWidget(); ?>
 </div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="StatusModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
