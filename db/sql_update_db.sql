@@ -8,3 +8,10 @@ SET FOREIGN_KEY_CHECKS=1;
 ALTER TABLE `tb_room_address` ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `tb_room_address` MODIFY description TEXT;
+
+/*Update database 30-06-2015*/
+ALTER TABLE `tb_booking` ADD COLUMN `time_check_in`  int(255) NOT NULL AFTER `check_out`;
+ALTER TABLE `tb_booking` ADD COLUMN `time_check_out`  int(255) NOT NULL AFTER `time_check_in`;
+ALTER TABLE `tb_booking` ADD COLUMN `payment_status`  tinyint(2) NOT NULL DEFAULT 1 COMMENT '1: pending; 2: Da thanh toan : 3 thanh toan loi; 4: refund' AFTER `payment_method`;
+ALTER TABLE `tb_booking` ADD COLUMN `booking_status`  tinyint(2) NOT NULL DEFAULT 1 AFTER `payment_status`;
+ALTER TABLE `tb_booking` DROP COLUMN `status_flg`;
