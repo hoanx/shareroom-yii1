@@ -1168,3 +1168,40 @@ table.table-booking a.unaccept{
 #convertation-info p span i {
 	margin-right: 5px;
 }
+#list-messages .panel i {
+	margin-right: 10px;
+}
+#list-messages #img-last-message {
+	padding: 10px 10px 0;
+}
+#list-messages .panel-body .col-sm-2 {
+	font-size: 13px;
+}
+.pannel-heading-small {
+	font-size: 13px;
+}
+#list-messages .text-small {
+	font-size: 12px;
+	color: #999;
+}
+#list-messages .price {
+	font-weight: bold;
+	text-align: right;
+}
+.sub-menu-message .sub-title {
+	font-size: 16px;
+	font-weight: bold;
+}
+.sub-menu-message ul {
+	padding-left: 25px;
+}
+.sub-menu-message ul li {
+	margin-bottom: 5px;
+}
+.sub-menu-message .ui-datepicker-inline {
+	width: 100%;
+}
+.sub-menu-message .ui-state-default, .sub-menu-message .ui-widget-content .ui-state-default, .sub-menu-message .ui-widget-header .ui-state-default {
+	background: none;
+	color: #222;
+}

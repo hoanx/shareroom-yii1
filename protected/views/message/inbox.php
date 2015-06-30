@@ -40,7 +40,7 @@ echo $this->renderPartial('//profile/_menu_profile');
                     <?php endif;?>
                 </div>
                 <div class="col-xs-7" id="convertation-info">
-                    <p><?php echo CHtml::link('Tin nhắn với ' . $conversation->ToUser->first_name . ' ' . $conversation->ToUser->last_name, array('message', 'id' => $conversation->id));?></p>
+                    <p><?php echo CHtml::link('Tin nhắn với ' . $conversation->ToUser->first_name . ' ' . $conversation->ToUser->last_name, array('message/view', 'id' => $conversation->id));?></p>
                     <?php if(isset($conversation->Booking)) : ?>
                         <?php $booking = $conversation->Booking; ?>
                         <p><?php echo $booking->BookingHistory->room_name ?></p>

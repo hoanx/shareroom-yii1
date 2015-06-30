@@ -39,9 +39,28 @@ class SpacesController extends Controller
                 $bookingStatusModel = Booking::model()->findByPk($bookingStatusForm->booking_id, 'del_flg = 0');
                 $bookingStatusModel->booking_status = $bookingStatusForm->status;
                 $bookingStatusModel->save(false);
-                if($bookingStatusForm->content){
-                    //send message to guese
-
+                
+                $conversation = Conversation::model()->findByAttributes(array('booking_id' => $bookingStatusModel->id));
+                
+                if($conversation) {
+                    $messages = new Messages();
+                    $messages->conversation_id = $conversation->id;
+                    $messages->message_type = Messages::MESSAGE_BOOKING;
+                    $messages->from_user_id = $user_id;
+                    
+                    if($bookingStatusForm->status == Booking::BOOKING_STATUS_ACCEPT) {
+                        $messages->content = 'Chúc mừng! Bạn đã đặt chỗ thành công.';
+                        $messages->status_flg = Messages::STATUS_ACCEPT;
+                    } else {
+                        $messages->content = 'Bạn đã từ chối yêu cầu đặt chỗ.Chúng tôi khuyến khích bạn chấp nhận yêu cầu đặt chỗ nếu bài đăng của bạn còn trống và bạn cảm thấy thoải mái với khách. Trải nghiệm tốt và bài nhận xét tích cực sẽ giúp bạn tăng thứ hạng trên Shareroom.';
+                        $messages->status_flg = Messages::STATUS_DENY;
+                    }
+                    $messages->save();
+                    
+                    $conversation->last_message_id = $messages->id;
+                    $conversation->status_flg = $messages->status_flg;
+                    $conversation->read_flg = 0;
+                    $conversation->save();
                 }
             }
         }
