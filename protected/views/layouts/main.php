@@ -68,7 +68,6 @@
                             <li><?php echo CHtml::link('<i class="fa fa-cog"></i>  ' . Yii::t('app', 'Thiết lập'), array('profile/changepass')) ?></li>
                             <li>
                                 <?php echo CHtml::link('<i class="fa fa-envelope"></i> ' . Yii::t('app', 'Hộp thư'), array('message/inbox')) ?>
-                                <span class="notification-mail"><?php echo Messages::getNotificationMail(Yii::app()->user->id) ?></span>
                             </li>
                             <li><?php echo CHtml::link('<i class="fa fa-sign-out"></i> ' . Yii::t('app', 'Đăng xuất'), array('site/logout')) ?></li>
                         </ul>

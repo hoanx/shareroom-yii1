@@ -709,7 +709,8 @@ ul.orange-list li{
     cursor: default;
 }
 
-.spaces-index .ui-datepicker table .requested a {
+.spaces-index .ui-datepicker table .requested a ,
+.sub-menu-message .ui-datepicker table .requested a {
     background-color: #ffb584 !important;
     background-image :none !important;
     /*color: #ffffff !important;*/
