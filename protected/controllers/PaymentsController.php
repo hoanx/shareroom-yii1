@@ -111,8 +111,10 @@ class PaymentsController extends Controller
                     $messages->conversation_id = $conversation->id;
                     $messages->message_type = Messages::MESSAGE_BOOKING;
                     $messages->from_user_id = $user_id;
+                    $messages->to_user_id = $roomModel->user_id;
                     $messages->content = 'Chúc mừng! Bạn có một yêu cầu đặt chỗ! Vui lòng xem xét kỹ yêu cầu đặt chỗ của bạn. Nếu bạn có bất kỳ thắc mắc nào, hãy gửi tin nhắn cho khách trước khi chấp nhận việc đặt chỗ.';
                     $messages->status_flg = Messages::STATUS_WAITING;
+                    $messages->read_flg = 0;
                     $messages->save();
                     
                     $conversation->last_message_id = $messages->id;

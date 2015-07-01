@@ -19,9 +19,11 @@ class MessageController extends Controller
         $criteria->condition = 't.del_flg = :del_flg AND (t.from_id = :user_id OR t.to_id = :user_id)';
         
         if(isset($_GET['read_flg']) && $_GET['read_flg'] == 2) {
-            $criteria->condition .= ' AND read_flg = 1';
+            $criteria->join = 'INNER JOIN tb_messages ON tb_messages.conversation_id = t.id AND tb_messages.read_flg = 1 AND tb_messages.to_user_id = ' . Yii::app()->user->id;
+            $criteria->group = 't.id';
         } elseif(isset($_GET['read_flg']) && $_GET['read_flg'] == 3) {
-            $criteria->condition .= ' AND read_flg = 0';
+            $criteria->join = 'INNER JOIN tb_messages ON tb_messages.conversation_id = t.id AND tb_messages.read_flg = 0 AND tb_messages.to_user_id = ' . Yii::app()->user->id;
+            $criteria->group = 't.id';
         }
         
         $criteria->params = array(
@@ -41,9 +43,6 @@ class MessageController extends Controller
             $this->redirect(array('inbox'));
         }
         
-        $conversation->read_flg = 1;
-        $conversation->save();
-    
         $newMessage = new Messages();
         
         if(isset($_POST['Messages'])) {
@@ -51,18 +50,20 @@ class MessageController extends Controller
             $newMessage->conversation_id = $conversation->id;
             $newMessage->message_type = Messages::MESSAGE_DEFAULT;
             $newMessage->from_user_id = Yii::app()->user->id;
+            $newMessage->to_user_id = ($conversation->to_id == Yii::app()->user->id) ? $conversation->from_id : $conversation->to_id;
+            $newMessage->read_flg = 0;
             $newMessage->status_flg = 0;
         
             if($newMessage->validate()) {
                 $newMessage->save();
                 $newMessage = new Messages();
-                
-                $conversation->read_flg = 0;
-                $conversation->save();
             }
         }
         
         $messages = Messages::model()->findAllByAttributes(array('conversation_id' => $id));
+        
+        Messages::model()->updateAll(array('read_flg' => 1),'conversation_id = :conversation_id AND to_user_id = :to_user_id', 
+                array(':conversation_id' => $conversation->id, ':to_user_id' => Yii::app()->user->id));
         
         $this->render('view', array('conversation' => $conversation, 'messages' => $messages, 'newMessage' => $newMessage));
     }

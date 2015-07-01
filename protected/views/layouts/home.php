@@ -58,7 +58,10 @@
                         <li><?php echo CHtml::link('<i class="fa fa-sign-out"></i> ' . Yii::t('app', 'Đăng xuất'), array('site/logout')) ?></li>
                     </ul>
                 </li>
-                <li><?php echo CHtml::link('<i class="fa fa-envelope-o"></i>', array('message/inbox')) ?></li>
+                <li>
+                    <?php echo CHtml::link('<i class="fa fa-envelope-o"></i>', array('message/inbox')) ?>
+                    <?php echo Messages::getNotificationMail(Yii::app()->user->id) ?>
+                </li>
                 <li><?php echo CHtml::link(Yii::t('app', 'Đăng tin cho thuê'), array('rooms/new'), array('class' => 'btn btn-primary')) ?></li>
             <?php endif; ?>
         </ul>

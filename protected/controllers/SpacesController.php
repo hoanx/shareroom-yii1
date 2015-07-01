@@ -47,6 +47,8 @@ class SpacesController extends Controller
                     $messages->conversation_id = $conversation->id;
                     $messages->message_type = Messages::MESSAGE_BOOKING;
                     $messages->from_user_id = $user_id;
+                    $messages->to_user_id = ($conversation->to_id == $user_id) ? $conversation->from_id : $conversation->to_id;
+                    $messages->read_flg = 0;
                     
                     if($bookingStatusForm->status == Booking::BOOKING_STATUS_ACCEPT) {
                         $messages->content = 'Chúc mừng! Bạn đã đặt chỗ thành công.';
@@ -59,7 +61,6 @@ class SpacesController extends Controller
                     
                     $conversation->last_message_id = $messages->id;
                     $conversation->status_flg = $messages->status_flg;
-                    $conversation->read_flg = 0;
                     $conversation->save();
                 }
             }

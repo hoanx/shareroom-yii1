@@ -37,10 +37,10 @@ class Messages extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('conversation_id, from_user_id', 'required'),
+			array('conversation_id, from_user_id, to_user_id', 'required'),
 			array('message_type, from_user_id, status_flg', 'numerical', 'integerOnly'=>true),
 			array('del_flg', 'length', 'max'=>255),
-			array('created, updated, content', 'safe'),
+			array('created, updated, content, read_flg', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, conversation_id, message_type, from_user_id, content, status_flg, created, updated, del_flg', 'safe', 'on'=>'search'),
@@ -130,5 +130,18 @@ class Messages extends CActiveRecord
         }
         $this->updated = $now;
         return parent::beforeSave();
+    }
+    
+    public static function getNotificationMail($id) {
+        $count = Messages::model()->countByAttributes(array(
+                'to_user_id'=> $id,
+                'read_flg' => 0 
+        ));
+        
+        if($count) {
+            return '<span class="notification-mail">' . $count . '</span>';
+        } else {
+            return null;
+        }
     }
 }

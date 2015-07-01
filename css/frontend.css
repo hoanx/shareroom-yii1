@@ -1205,3 +1205,12 @@ table.table-booking a.unaccept{
 	background: none;
 	color: #222;
 }
+.notification-mail {
+  position: absolute;
+  top: -8px;
+  right: 9px;
+  background-color: red;
+  color: #fff;
+  padding: 1px 3px;
+  font-size: 11px;
+  border-radius: 2px;
