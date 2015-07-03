@@ -1189,6 +1189,9 @@ table.table-booking a.unaccept{
 	font-weight: bold;
 	text-align: right;
 }
+#list-messages .btn-block {
+	font-size: 10px;
+}
 .sub-menu-message .sub-title {
 	font-size: 16px;
 	font-weight: bold;
@@ -1205,6 +1208,9 @@ table.table-booking a.unaccept{
 .sub-menu-message .ui-state-default, .sub-menu-message .ui-widget-content .ui-state-default, .sub-menu-message .ui-widget-header .ui-state-default {
 	background: none;
 	color: #222;
+}
+.sub-menu-message #collapseOne .panel-body {
+	padding: 5px;
 }
 .notification-mail {
   position: absolute;

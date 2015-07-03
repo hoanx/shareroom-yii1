@@ -169,11 +169,14 @@ class RoomsController extends Controller
                 $listGuest[$i] = $i;
             }
         }
+        
+        $wishlist = Wishlist::model()->findByAttributes(array('room_address_id' => $id, 'user_id' => Yii::app()->user->id));
 
         $this->render('view', array(
             'room' => $room,
             'paymentForm' => $paymentForm,
             'listGuest' => $listGuest,
+            'wishlist' => $wishlist
         ));
     }
     
@@ -264,5 +267,28 @@ class RoomsController extends Controller
         }
         echo(json_encode($result));
         Yii::app()->end();
+    }
+    
+    public function actionWishlist() {
+        $room_address_id = $_GET['room_address_id'];
+        $user_id =  Yii::app()->user->id;
+        
+        $wishlist = Wishlist::model()->findByAttributes(array('room_address_id' => $room_address_id, 'user_id' => $user_id));
+        
+        if($wishlist) {
+            Wishlist::model()->deleteAll(
+                    'room_address_id = :room_address_id AND user_id = :user_id',
+                    array(':room_address_id' => $room_address_id, ':user_id' => $user_id)
+            );
+            
+            echo '<i class="fa fa-heart-o"></i> Đưa vào mục yêu thích';
+        } else {
+            $wishlist = new Wishlist();
+            $wishlist->room_address_id = $room_address_id;
+            $wishlist->user_id = $user_id;
+            $wishlist->save();
+            
+            echo '<i class="fa fa-heart" style="color: #ff5a5f;"></i> Xóa khỏi mục yêu thích';
+        }
     }
 }

@@ -225,4 +225,16 @@ class ProfileController extends Controller
 
         $this->render('booking');
     }
+    
+    public function actionWishlist()
+    {
+        $this->setPageTitle(Yii::t('app', 'Các mục yêu thích'));
+        $user_id = Yii::app()->user->id;
+        
+        $wishlist = Wishlist::model()->findAllByAttributes(array('user_id' => $user_id));
+    
+        $this->render('wishlist', array(
+            'wishlist' => $wishlist,
+        ));
+    }
 }
