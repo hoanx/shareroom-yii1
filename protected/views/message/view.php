@@ -168,7 +168,7 @@
                                 ),
                             )
                         ); ?>
-                        <div>
+                        <div style="margin: 5px;">
                             <br>
                             Liên kết đến căn nhà<br>
                             <input type="text" readonly value="<?php echo Yii::app()->createAbsoluteUrl('rooms/view', array('id' => $booking->room_address_id)) ?>" class="form-control"></input>
