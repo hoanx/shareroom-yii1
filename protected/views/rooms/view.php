@@ -129,13 +129,15 @@
                         ),
 
                     )); ?>
-                    <div class="row">
-                        <?php $this->renderPartial('_form_booking', array(
-                            'paymentForm' => $paymentForm,
-                            'form' => $form,
-                            'listGuest' => $listGuest,
-                        )); ?>
-                    </div>
+
+                    <?php $this->renderPartial('_form_booking', array(
+                        'paymentForm' => $paymentForm,
+                        'form' => $form,
+                        'listGuest' => $listGuest,
+                        'room' => $room,
+                        'mobile' => 0
+                    )); ?>
+
                     <div style="margin-top: 20px">
                         <button type="submit" class="btn btn-danger btn-lg btn-block">Đặt chỗ</button>
                     </div>
@@ -186,6 +188,8 @@
                     'paymentForm' => $paymentForm,
                     'form' => $form,
                     'listGuest' => $listGuest,
+                    'room' => $room,
+                    'mobile' => 1
                 )); ?>
 			</div>
 			<div class="modal-footer">

@@ -15,3 +15,8 @@ ALTER TABLE `tb_booking` ADD COLUMN `time_check_out`  int(255) NOT NULL AFTER `t
 ALTER TABLE `tb_booking` ADD COLUMN `payment_status`  tinyint(2) NOT NULL DEFAULT 1 COMMENT '1: pending; 2: Da thanh toan : 3 thanh toan loi; 4: refund' AFTER `payment_method`;
 ALTER TABLE `tb_booking` ADD COLUMN `booking_status`  tinyint(2) NOT NULL DEFAULT 1 AFTER `payment_status`;
 ALTER TABLE `tb_booking` DROP COLUMN `status_flg`;
+
+/*Update database 03-07-2015*/
+
+ALTER TABLE `tb_booking` ADD COLUMN `additional_guests`  float NOT NULL COMMENT 'Số khách thêm' AFTER `discount`;
+ALTER TABLE `tb_booking` ADD COLUMN `price_additional_guests`  float NOT NULL COMMENT 'Giá cho mỗi khách thêm' AFTER `additional_guests`;

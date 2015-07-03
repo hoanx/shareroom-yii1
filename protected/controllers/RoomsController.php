@@ -141,9 +141,16 @@ class RoomsController extends Controller
 
         $paymentForm = new PaymentForm();
         $paymentForm->room_address_id = $room->id;
+        $paymentForm->min_night = $room->RoomPrice->min_nights;
+        $paymentForm->max_night = $room->RoomPrice->max_nights;
 
         if(isset($_POST['PaymentForm']) && $_POST['PaymentForm']){
             $paymentForm->attributes = $_POST['PaymentForm'];
+
+            if(!Yii::app()->user->id) {
+                $this->redirect(array('site/signin'));
+            }
+
             if($paymentForm->validate()){
                 if(Yii::app()->user->hasState('paymentData')){
                     Yii::app()->user->__unset('paymentData');

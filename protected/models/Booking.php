@@ -14,6 +14,8 @@
  * @property integer $number_of_guests
  * @property double $room_price
  * @property double $cleaning_fees
+ * @property double $additional_guests
+ * @property double $price_additional_guests
  * @property string $coupon_code
  * @property double $discount
  * @property integer $total_amount
@@ -25,6 +27,8 @@
  * @property string $created
  * @property string $updated
  * @property integer $del_flg
+ *
+ * @todo: 2 trường $additional_guests và $price_additional_guests hiện tại chưa sử dụng vì ko chọn được nhiều hơn số khách tối đa
  */
 class Booking extends CActiveRecord
 {
@@ -61,14 +65,14 @@ class Booking extends CActiveRecord
 			array('user_id, room_address_id, check_in, check_out, number_of_guests, room_price, cleaning_fees,
 			    total_amount, payment_method', 'required'),
 			array('user_id, room_address_id, number_of_guests, total_amount, payment_status, booking_status, del_flg', 'numerical', 'integerOnly'=>true),
-			array('room_price, cleaning_fees, discount', 'numerical'),
+			array('room_price, cleaning_fees, additional_guests, price_additional_guests, discount', 'numerical'),
 			array('check_in, check_out, coupon_code, payment_method', 'length', 'max'=>255),
 			array('time_check_in, time_check_out, invoice_date, refund_date, created, updated', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, room_address_id, time_check_in, time_check_out, check_in, check_out, number_of_guests, room_price, cleaning_fees,
-			    coupon_code, discount, total_amount, payment_method, payment_status, booking_status, invoice_date, refund_date, created,
-			    updated, del_flg', 'safe', 'on'=>'search'),
+			    additional_guests, coupon_code, discount, total_amount, payment_method, payment_status, booking_status, invoice_date, refund_date, created,
+			    updated, del_flg, price_additional_guests', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -100,6 +104,8 @@ class Booking extends CActiveRecord
 			'number_of_guests' => Yii::t('app', 'Số khách'),
 			'room_price' => Yii::t('app', 'Giá'),
 			'cleaning_fees' => Yii::t('app', 'Phí dọn dẹp'),
+			'additional_guests' => Yii::t('app', 'Số khách thêm'),
+			'price_additional_guests' => Yii::t('app', 'Giá cho khách thêm'),
 			'coupon_code' => Yii::t('app', 'Mã giảm giá'),
 			'discount' => Yii::t('app', 'Giảm giá'),
 			'total_amount' => Yii::t('app', 'Tổng'),

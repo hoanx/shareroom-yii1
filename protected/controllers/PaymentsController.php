@@ -45,7 +45,19 @@ class PaymentsController extends Controller
             $paymentData['price'] = $price;
             $paymentData['price_night'] = $paymentData['number_night'] * $price;
             $paymentData['cleaning_fees'] = $roomModel->RoomPrice->cleaning_fees;
-            $paymentData['total_amount'] = $paymentData['price_night']+$paymentData['cleaning_fees'];
+            $paymentData['price_additional_guests'] = 0; // Giá cho mỗi khách thêm
+            $paymentData['additional_guests'] = 0; // số khách thêm
+            if($roomModel->RoomPrice->additional_guests &&
+                $paymentData['number_of_guests'] < Constant::GUEST_MAX &&
+                $paymentData['number_of_guests'] > $roomModel->accommodates ){
+
+                $paymentData['price_additional_guests'] = $roomModel->RoomPrice->additional_guests;
+                $paymentData['additional_guests'] = $paymentData['number_of_guests']-$roomModel->accommodates;
+
+            }
+
+            $paymentData['total_amount'] = $paymentData['price_night']+$paymentData['cleaning_fees']+
+                                            ($paymentData['price_additional_guests']*$paymentData['additional_guests']);
 
             //get user infomation
             $user_id = Yii::app()->user->id;
@@ -59,8 +71,8 @@ class PaymentsController extends Controller
             $bookingUserModel->address = $usersModel->address;
             $bookingUserModel->phone_number = $usersModel->phone_number;
 
+            // save info booking
             $bookingModel = new Booking();
-
             if(isset($_POST['Booking'], $_POST['BookingUser'])) {
                 $bookingModel->attributes = $_POST['Booking'];
                 $bookingModel->user_id = $usersModel->id;
@@ -72,6 +84,8 @@ class PaymentsController extends Controller
                 $bookingModel->number_of_guests = $paymentData['number_of_guests'];
                 $bookingModel->room_price = $paymentData['price'];
                 $bookingModel->cleaning_fees = $paymentData['cleaning_fees'];
+                $bookingModel->additional_guests = $paymentData['additional_guests'];
+                $bookingModel->price_additional_guests = $paymentData['price_additional_guests'];
                 $bookingModel->total_amount = $paymentData['total_amount'];
 
                 $bookingUserModel->attributes = $_POST['BookingUser'];
