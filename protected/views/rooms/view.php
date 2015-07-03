@@ -137,10 +137,21 @@
                         )); ?>
                     </div>
                     <div style="margin-top: 20px">
-                        <button type="submit" class="btn btn-danger btn-lg btn-block">Đặt chỗ</button>
+                        <button type="submit" class="btn btn-danger btn-block">Đặt chỗ</button>
                     </div>
                     <?php $this->endWidget(); ?>
-
+                    <div style="margin-top: 20px">
+                        <?php if(Yii::app()->user->isGuest) : ?>
+                            <?php echo CHtml::link('<i class="fa fa-heart-o"></i> Đưa vào mục yêu thích', array('site/signin'), array('class' => 'btn btn-default btn-block'))?>
+                        <?php else: ?>
+                            <?php if($wishlist) : ?>
+                                <button type="button" class="btn btn-default btn-block" id="add-wishlist"><i class="fa fa-heart" style="color: #ff5a5f;"></i> Xóa khỏi mục yêu thích</button>
+                            <?php else: ?>
+                                <button type="button" class="btn btn-default btn-block" id="add-wishlist"><i class="fa fa-heart-o"></i> Đưa vào mục yêu thích</button>
+                            <?php endif; ?>
+                        <?php endif;?>
+                    </div>
+                    <hr>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-4 col-sm-6">
                             <?php if(!empty($room->Users->profile_picture)) : ?>
@@ -212,6 +223,7 @@
         	        topPadding = 15;
 
         	    $window.scroll(function() {
+        	    	jQuery('#ui-datepicker-div').css("display", "none")
         	        if ($window.scrollTop() > offset.top) {
         	            $sidebar.stop().animate({
         	                marginTop: $window.scrollTop() - offset.top + topPadding
@@ -224,6 +236,16 @@
         	    });
         	    
         	});
+
+        	jQuery('#add-wishlist').click(function() {
+        		jQuery.ajax({
+                    url: "<?php echo Yii::app()->createUrl('rooms/wishlist', array('room_address_id' => $room->id)) ?>",
+            	}).done(function(data) {
+            	    jQuery("#add-wishlist").html(data);
+            	});
+    	    });
+
+        	
             
             var mapOptions = {
                 zoom: 15,
