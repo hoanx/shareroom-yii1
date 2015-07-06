@@ -64,8 +64,13 @@ return array(
         'google' => array(
             'class' => 'ext.yii-google-api-php-client.YiiGoogleApi',
             // See http://code.google.com/p/google-api-php-client/wiki/OAuth2
-            'clientId' => '312670614441-4kgsas398idcfnif8hh2ghp4uqbvghno.apps.googleusercontent.com',
-            'clientSecret' => 'ImFosF9-WFwysf4OPbTfcauu',
+//            client id develop.shareroom.vn
+//            'clientId' => '312670614441-4kgsas398idcfnif8hh2ghp4uqbvghno.apps.googleusercontent.com',
+//            'clientSecret' => 'ImFosF9-WFwysf4OPbTfcauu',
+
+            // client Id dev local shareroomyii1.com
+            'clientId' => '312670614441-btj9c7iut15ar77guv54h20dr50qom1q.apps.googleusercontent.com',
+            'clientSecret' => 'QorpQ7qZwEfsEgtyzMy-hHsE',
             // // This is the API key for 'Simple API Access'
             'developerKey' => '',
         ),
