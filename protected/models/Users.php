@@ -48,7 +48,13 @@ class Users extends CActiveRecord
             array('password', 'length', 'min'=>8),
             array('re_password', 'compare', 'compareAttribute'=>'password', 'on'=>'register'),
             array('email','email'),
-            array('email','unique'),
+            //array('email','unique'),
+            array('email', 'unique', 'criteria'=>array(
+                'condition'=>'`del_flg`=:del_flg',
+                'params'=>array(
+                    ':del_flg'=>Constant::DEL_FALSE
+                )
+            )),
 			array('gender, del_flg', 'numerical', 'integerOnly'=>true),
 			array('password, email, first_name, last_name, phone_number, address, google_id, facebook_id', 'length', 'max'=>255),
 			// The following rule is used by search().

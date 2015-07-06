@@ -222,11 +222,13 @@ class SiteController extends Controller
             // Retrieve & store the access token in a session.
             $_SESSION['access_token_facebook'] = $session->getToken();
             // Retrieve User’s Profile Information
-            $requestProfile = ( new FacebookRequest( $session, 'GET', '/me' ) )->execute();
+            $requestFB = new FacebookRequest( $session, 'GET', '/me' );
+            $requestProfile = $requestFB->execute();
             $userProfile = $requestProfile->getGraphObject(GraphUser::className())->asArray();
 
             // Get User’s Profile Picture
-            $requestPicture = ( new FacebookRequest( $session, 'GET', '/me/picture?type=large&redirect=false' ) )->execute();
+            $requestPicFB = new FacebookRequest( $session, 'GET', '/me/picture?type=large&redirect=false' );
+            $requestPicture = $requestPicFB->execute();
             $userPicture = $requestPicture->getGraphObject(GraphUser::className())->asArray();
 
             $gender = 0;
@@ -236,7 +238,7 @@ class SiteController extends Controller
             $this->userInfoFacebook = array(
                 'facebook_id' => $userProfile['id'],
                 'email' => $userProfile['email'],
-                'birthday' => $userProfile['birthday'] ? date('Y-m-d', strtotime($userProfile['birthday'])) : null,
+                'birthday' => isset($userProfile['birthday']) ? date('Y-m-d', strtotime($userProfile['birthday'])) : null,
                 'first_name' => $userProfile['first_name'],
                 'last_name' => $userProfile['last_name'],
                 'profile_picture' => $userPicture['url'],
