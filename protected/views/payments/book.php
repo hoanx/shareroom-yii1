@@ -66,12 +66,22 @@
                 <div class="row billing-summary">
                     <div
                         class="col-xs-7"><?php echo number_format($paymentData['price']) . 'VND x ' . $paymentData['number_night'] ?></div>
-                    <div class="col-xs-5 rm-padding"><?php echo number_format($paymentData['price_night']) ?> VND</div>
+                    <div class="col-xs-5 rm-padding text-right"><?php echo number_format($paymentData['price_night']) ?> VND</div>
                 </div>
+
+                <?php if($paymentData['additional_guests']): ?>
+                    <div class="row billing-summary">
+                        <div class="col-xs-7">
+                            Phí mỗi khách thêm
+                            <?php echo number_format($roomModel->RoomPrice->additional_guests) . 'VND x ' . $paymentData['number_night'] ?>
+                        </div>
+                        <div class="col-xs-5 rm-padding text-right"><?php echo number_format($paymentData['price_additional_guests']) ?> VND</div>
+                    </div>
+                <?php endif ?>
 
                 <div class="row billing-summary">
                     <div class="col-xs-7">Phí dọn dẹp</div>
-                    <div class="col-xs-5 rm-padding"><?php echo number_format($paymentData['cleaning_fees']) ?> VND</div>
+                    <div class="col-xs-5 rm-padding text-right"><?php echo number_format($paymentData['cleaning_fees']) ?> VND</div>
                 </div>
 
                 <hr class="clearfix">

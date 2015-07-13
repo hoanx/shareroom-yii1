@@ -20,3 +20,7 @@ ALTER TABLE `tb_booking` DROP COLUMN `status_flg`;
 
 ALTER TABLE `tb_booking` ADD COLUMN `additional_guests`  float NOT NULL COMMENT 'Số khách thêm' AFTER `discount`;
 ALTER TABLE `tb_booking` ADD COLUMN `price_additional_guests`  float NOT NULL COMMENT 'Giá cho mỗi khách thêm' AFTER `additional_guests`;
+
+/*Update database 07-07-2015*/
+ALTER TABLE `tb_room_price` ADD COLUMN `guest_per_night`  int(11) NOT NULL AFTER `additional_guests`;
+ALTER TABLE `tb_room_price` ADD COLUMN `cleaning_fees_day`  tinyint(4) NOT NULL DEFAULT 1 COMMENT '1: phi vs theo 1 lan o; 2: phi vs tinh theo ngay' AFTER `cleaning_fees`;

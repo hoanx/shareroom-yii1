@@ -10,7 +10,11 @@
         <div class="form-group">
             <?php echo $form->labelEx($model,'address_detail', array('class'=>'col-sm-2 control-label label-left')); ?>
             <div class="col-sm-10">
-                <?php echo $form->textField($model,'address_detail', array('class'=>'form-control', 'id' => 'autocomplete')); ?>
+                <?php echo $form->textField($model,'address_detail', array(
+                    'class'=>'form-control',
+                    'id' => 'autocomplete',
+                    'placeholder' => 'Nhập địa chỉ của bạn',
+                )); ?>
                 <?php echo $form->hiddenField($model,'lat', array('id' => 'lat')); ?>
                 <?php echo $form->hiddenField($model,'long', array('id' => 'lng')); ?>
             </div>
@@ -62,6 +66,9 @@
     <div class="col-md-6">
         <div id="map-canvas-new-room">
 
+        </div>
+        <div class="text-note" style="text-align: center;margin-top: 8px">
+            <p>Click vào bản đồ để hiển thị vị trí phòng cho thuê</p>
         </div>
     </div>
 </div>

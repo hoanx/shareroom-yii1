@@ -49,7 +49,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="/" class="navbar-brand">
-                <img src="<?php echo $baseUrl ?>/images/logo.png" alt="Logo">
+                <img src="<?php echo $baseUrl ?>/images/logo.jpg" style="height: 100%;width: auto" alt="Logo">
             </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">

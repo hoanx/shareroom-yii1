@@ -1,0 +1,27 @@
+Host: 112.78.2.87
+
+1. Thông tin quản trị Web-Hosting Linux: shareroom.vn
++ Link truy cập: http://112.78.2.87:2082
++ User name: ho7269d
++ Password:  Qiku874fi@$
+----------------------------------------
+2. Thông tin kết nối FTP:
++ Host name: 112.78.2.55
++ User name: ho7269d
++ Password:  Qiku874fi@$
+
+MySQL
+DB-Name: ho7269d_shareroomvn
+user: ho7269d_root
+pass: 1qAzxSw2@
+
+Mail sales
+adress: sales@shareroom.vn
+pass: 1qaZXsw2
+
+Mail support
+address: support@shareroom.vn
+pass: 1qaZXsw2
+
+Pass key SSH: 1qaZXsw2
+

@@ -22,7 +22,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model,'description', array('class'=>'col-sm-4 col-md-2 control-label label-left')); ?>
             <div class="col-sm-4 col-md-5">
-                <?php echo $form->textArea($model,'description', array('class'=>'form-control', 'row'=>8)); ?>
+                <?php echo $form->textArea($model,'description', array('class'=>'form-control', 'rows'=>12)); ?>
             </div>
             <div class="col-sm-offset-4 col-md-offset-2 col-sm-8 col-md-5 alert-error-form">
                 <?php echo $form->error($model,'description'); ?>
@@ -76,7 +76,7 @@
             <?php echo $form->labelEx($model,'room_size', array('class'=>'col-sm-4 col-md-2 control-label label-left')); ?>
             <div class="input-group col-sm-8 col-md-5">
                 <?php echo $form->textField($model,'room_size', array('class'=>'form-control')); ?>
-                <span class="input-group-addon" id="basic-addon2">m2</span>
+                <span class="input-group-addon" id="basic-addon2">m<sup>2</sup></span>
             </div>
             <div class="col-sm-offset-4 col-md-offset-2 col-sm-8 col-md-5 alert-error-form">
                 <?php echo $form->error($model,'room_size'); ?>

@@ -152,7 +152,10 @@ class SpacesController extends Controller
                 //$this->redirect(array('rooms/image' , 'id' => $model->id));
             }
         }
-        $this->render('pricing',array('model'=>$model));
+        $this->render('pricing',array(
+            'model'=>$model,
+            'room'=>$room,
+        ));
     }
 
     public function actionPhotos($id=null){

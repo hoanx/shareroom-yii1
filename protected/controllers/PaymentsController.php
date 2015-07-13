@@ -44,20 +44,26 @@ class PaymentsController extends Controller
             }
             $paymentData['price'] = $price;
             $paymentData['price_night'] = $paymentData['number_night'] * $price;
-            $paymentData['cleaning_fees'] = $roomModel->RoomPrice->cleaning_fees;
+
+            // check tinh phi don dep theo dieu kien
+            if($roomModel->RoomPrice->cleaning_fees_day==Constant::CLEANING_FEES_PER_BOOKING){
+                $paymentData['cleaning_fees'] = $roomModel->RoomPrice->cleaning_fees;
+            }else{
+                $paymentData['cleaning_fees'] = $roomModel->RoomPrice->cleaning_fees * $paymentData['number_night'];
+            }
+
             $paymentData['price_additional_guests'] = 0; // Giá cho mỗi khách thêm
             $paymentData['additional_guests'] = 0; // số khách thêm
             if($roomModel->RoomPrice->additional_guests &&
-                $paymentData['number_of_guests'] < Constant::GUEST_MAX &&
-                $paymentData['number_of_guests'] > $roomModel->accommodates ){
+                $paymentData['number_of_guests'] > $roomModel->RoomPrice->guest_per_night ){
 
-                $paymentData['price_additional_guests'] = $roomModel->RoomPrice->additional_guests;
-                $paymentData['additional_guests'] = $paymentData['number_of_guests']-$roomModel->accommodates;
+                $paymentData['price_additional_guests'] = $roomModel->RoomPrice->additional_guests*$paymentData['number_night'];
+                $paymentData['additional_guests'] = $paymentData['number_of_guests'] - $roomModel->RoomPrice->guest_per_night;
 
             }
 
             $paymentData['total_amount'] = $paymentData['price_night']+$paymentData['cleaning_fees']+
-                                            ($paymentData['price_additional_guests']*$paymentData['additional_guests']);
+                                            ($paymentData['price_additional_guests']);
 
             //get user infomation
             $user_id = Yii::app()->user->id;

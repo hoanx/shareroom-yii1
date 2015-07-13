@@ -36,6 +36,7 @@ class ProfileController extends Controller
         $this->setPageTitle(Yii::t('app', 'Thông tin chi tiết'));
         $user_id = Yii::app()->user->id;
         $usersModel = Users::model()->findByPk($user_id, 'del_flg = 0');
+        $usersModel->setScenario('updates');
 
         if (isset($_POST['Users']) && $dataPost = $_POST['Users']) {
             $usersModel->attributes = $dataPost;

@@ -25,6 +25,7 @@ echo $this->renderPartial('_step_create_room', array(
     <?php $this->renderPartial('_form_price', array(
         'model' => $model,
         'form' => $form,
+        'room'=>$room,
     )); ?>
 
     <div class="form-group form-actions">

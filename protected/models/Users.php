@@ -44,6 +44,7 @@ class Users extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('password, email, first_name, last_name', 'required'),
+			array('phone_number', 'required', 'on'=>'updates'),
 			array('re_password', 'required', 'on'=>'register'),
             array('password', 'length', 'min'=>8),
             array('re_password', 'compare', 'compareAttribute'=>'password', 'on'=>'register'),

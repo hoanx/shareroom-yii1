@@ -44,14 +44,22 @@ class RoomsController extends Controller
         }
         
         $user = Users::model()->findByAttributes(array('id' => Yii::app()->user->id, 'del_flg' => 0));
+        $user->setScenario('updates');
         
         if(isset($_POST['RoomAddress'], $_POST['Users'])) {
             $model->attributes  = $_POST['RoomAddress'];
             $model->user_id = Yii::app()->user->id;
             
             $user->attributes =  $_POST['Users'];
-            
-            if($model->validate() && $user->validate()) {
+            $modelValidate = $userValidate = false;
+            if($model->validate()){
+                $modelValidate = true;
+            }
+            if($user->validate()){
+                $userValidate = true;
+            }
+
+            if($modelValidate && $userValidate) {
                 $model->save();
                 $user->save();
                 $this->redirect(array('rooms/price' , 'id' => $model->id));
@@ -79,6 +87,8 @@ class RoomsController extends Controller
         if(!$model) {
             $model = new RoomPrice;
         }
+
+        $model->cleaning_fees_day = Constant::CLEANING_FEES_PER_BOOKING;
         
         if(isset($_POST['RoomPrice'])) {
             $model->attributes=$_POST['RoomPrice'];
@@ -89,7 +99,10 @@ class RoomsController extends Controller
                 $this->redirect(array('rooms/image' , 'id' => $model->id));
             }
         }
-        $this->render('price',array('model'=>$model));
+        $this->render('price',array(
+            'model'=>$model,
+            'room'=>$room,
+        ));
     }
     
     public function actionImage($id = null) {

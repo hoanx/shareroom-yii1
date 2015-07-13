@@ -92,6 +92,14 @@
                 <?php echo $form->textField($model, 'additional_guests', array('class' => 'form-control')); ?>
             </div>
             <div class="col-md-7">
+                <?php
+                $dataDropdown = array();
+                for($i=1; $i <= $room->accommodates; $i++){
+                    $dataDropdown[$i] = $i;
+                }
+                ?>
+                một đêm cho một khách sau số khách
+                <?php echo $form->dropdownList($model, 'guest_per_night', $dataDropdown, array('class' => '')); ?>
             </div>
             <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'additional_guests'); ?>
@@ -104,6 +112,15 @@
                 <?php echo $form->textField($model, 'cleaning_fees', array('class' => 'form-control')); ?>
             </div>
             <div class="col-md-7">
+                <div>
+                    <?php echo $form->radioButtonList($model, 'cleaning_fees_day', Constant::getCleaningFeesPerDay(), array(
+                        'template' => '{beginLabel}{input}&nbsp;{labelTitle}{endLabel}',
+                        'separator' => '',
+                        'labelOptions' => array(
+                            'class' => 'radio-inline',
+                        ),
+                    )) ?>
+                </div>
             </div>
             <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'cleaning_fees'); ?>

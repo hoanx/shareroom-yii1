@@ -43,6 +43,9 @@ class Constant {
     const CANCELLATION_MEDIUM = 2;
     const CANCELLATION_STRICT = 3;
 
+    const CLEANING_FEES_PER_DAY = 2;
+    const CLEANING_FEES_PER_BOOKING = 1;
+
     const MIN_NIGHTS = 30;
     const MAX_NIGHTS = 180;
 
@@ -192,4 +195,12 @@ class Constant {
 
     }
 
+    public static function getCleaningFeesPerDay($type = null){
+        $base = array(
+            self::CLEANING_FEES_PER_DAY => Yii::t('app', 'Một ngày/đêm'),
+            self::CLEANING_FEES_PER_BOOKING=> Yii::t('app', 'Một lần ở'),
+        );
+
+        return !empty($base[$type]) ? $base[$type] : $base;
+    }
 }

@@ -139,7 +139,7 @@ class RoomAddress extends CActiveRecord
 			'name' => Yii::t('app', 'Tên bài đăng'),
 			'description' => Yii::t('app', 'Mô tả'),
 			'room_type' => Yii::t('app', 'Loại phòng'),
-			'accommodates' => Yii::t('app', 'Số khách'),
+			'accommodates' => Yii::t('app', 'Số khách tối đa'),
 			'bedrooms' => Yii::t('app', 'Phòng ngủ'),
 			'beds' => Yii::t('app', 'Giường'),
 			'room_size' => Yii::t('app', 'Diện tích'),
