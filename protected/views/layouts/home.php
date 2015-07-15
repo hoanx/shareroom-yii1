@@ -165,6 +165,24 @@ $action = Yii::app()->controller->action->id;
         	    return false;
         	  }
 	    });
+
+         jQuery('#search-button').on("click", function(e) {
+    	    e.preventDefault();
+            var address = document.getElementById('place-desc').value;
+            var geocodersearch = new google.maps.Geocoder();
+            geocodersearch.geocode( { 'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                	var latitude = results[0].geometry.location.lat();
+                	var longitude = results[0].geometry.location.lng();
+                    document.getElementById('place-lat').value =  latitude;
+                    document.getElementById('place-long').value =  longitude;
+                    jQuery('#form-search').submit();
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+            	    return false;
+                }
+            });
+	    });
          
          var autocompleteSearch;
          
@@ -179,7 +197,7 @@ $action = Yii::app()->controller->action->id;
         			document.getElementById('place-lat').value =  place.geometry.location.lat();
         		    document.getElementById('place-long').value =  place.geometry.location.lng();
         		}
-        	}
+    	}
     });
 </script>
 </body>
