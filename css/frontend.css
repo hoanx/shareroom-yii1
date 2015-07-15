@@ -1113,20 +1113,19 @@ h3.section-title{
 	color: #999;
 }
 /* Other Datepicker Color Schemes */
-/* Sunrise */
+/* Blue */
 .ui-datepicker .ui-datepicker-header,
 .ui-datepicker .ui-datepicker-header .ui-state-hover,
 .ui-datepicker thead {
-	background: #be3631;
+	background: #4796b3;
 }
 .ui-datepicker th {
-	border-color: #cf4944;
+	border-color: #52accc;
 }
 .ui-datepicker td .ui-state-active,
 .ui-datepicker td .ui-state-hover {
-	background: #dd823b;
+	background: #096484;
 }
-
 /*========== STYLE TABLE LIST BOOKING ============*/
 table.table-booking a.accept{
     color: #51ed0e;
@@ -1221,3 +1220,7 @@ table.table-booking a.unaccept{
   padding: 1px 3px;
   font-size: 11px;
   border-radius: 2px;
+}
+.navbar-brand {
+	padding: 10px 0 0 0;
+}

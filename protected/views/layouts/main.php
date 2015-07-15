@@ -49,11 +49,11 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="/" class="navbar-brand">
-                <img src="<?php echo $baseUrl ?>/images/logo.jpg" style="height: 100%;width: auto" alt="Logo">
+                <img src="<?php echo $baseUrl ?>/images/logo.png" style="height: 100%;width: auto" alt="Logo">
             </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
-            <ul class="nav navbar-nav pull-right">
+            <ul class="nav navbar-nav navbar-right">
                 <?php if (Yii::app()->user->isGuest) : ?>
                     <li><?php echo CHtml::link(Yii::t('app', 'Đăng ký'), array('site/signup')) ?></li>
                     <li><?php echo CHtml::link(Yii::t('app', 'Đăng nhập'), array('site/signin')) ?></li>

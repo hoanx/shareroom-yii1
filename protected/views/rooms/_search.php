@@ -38,13 +38,13 @@
                 $content .= '<div>' . number_format($room->RoomPrice->price) . 'VND</div>';
             ?>
             <?php $location[] = array($content, $room->lat, $room->long, $room->id) ; ?>
-            <div class="room-search col-md-6">
+            <div class="room-search col-md-6" id="room_<?php echo $room->id?>">
                 <div class="img-room" >
                     <?php 
                         $images = $room->RoomImages; 
                         if (!empty($images)) {
                             $image = $images[0];
-                            echo CHtml::image(Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $image->image_name, '', array('class' => 'img-responsive img-show'));
+                            echo CHtml::link(CHtml::image(Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $image->image_name, '', array('class' => 'img-responsive img-show')), array('rooms/view', 'id' => $room->id));
                         }
                     ?>
                     <div class="money-room">
@@ -236,10 +236,12 @@
                 });
 
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                  return function() {
-                    infowindow.setContent(locations[i][0]);
-                    infowindow.open(map, marker);
-                  }
+                    return function() {
+                    	console.log('aaaaa');
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                        goToByScroll('room_' + locations[i][3]);     
+                    }
                 })(marker, i));
             }
 
@@ -268,7 +270,15 @@
             	});
  
             }
-            
+
+            function goToByScroll(id){
+                // Remove "link" from the ID
+                  id = id.replace("link", "");
+                    // Scroll
+                  $('html,body').animate({
+                      scrollTop: $("#"+id).offset().top},
+                      'slow');
+              }
                        	
         });
     </script>

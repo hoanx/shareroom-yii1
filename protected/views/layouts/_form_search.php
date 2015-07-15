@@ -18,10 +18,15 @@
                         'name'=>'startdate',
                         'value' => isset($_GET['startdate']) ? $_GET['startdate'] : null,
                         'options'=>array(
+                            'onSelect' => "js:function(selectedDate) {
+                                $('#end_date').datepicker('option', 'minDate', selectedDate);
+                            }",
+                            'minDate' => 'js:new Date()',
                         ),
                         'htmlOptions'=>array(
                             'class' => 'form-control input-lg',
-                            'placeholder' => Yii::t('app', 'Nhận phòng')
+                            'placeholder' => Yii::t('app', 'Nhận phòng'),
+                            'id' => 'start_date'
                         ),
                     ));
                 ?>
@@ -37,10 +42,15 @@
                         'name'=>'enddate',
                         'value' => isset($_GET['enddate']) ? $_GET['enddate'] : null,
                         'options'=>array(
+                            'onSelect' => "js:function(selectedDate) {
+                                $('#start_date').datepicker('option', 'maxDate', selectedDate);
+                            }",
+                            'minDate' => 'js:new Date()',
                         ),
                         'htmlOptions'=>array(
                             'class' => 'form-control input-lg',
-                            'placeholder' => Yii::t('app', 'Trả phòng')
+                            'placeholder' => Yii::t('app', 'Trả phòng'),
+                            'id' => 'end_date'
                         ),
                     ));
                 ?>

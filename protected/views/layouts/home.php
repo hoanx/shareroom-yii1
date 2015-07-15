@@ -37,11 +37,11 @@
             <span class="icon-bar"></span>
         </button>
         <a href="/" class="navbar-brand">
-            <img src="<?php echo $baseUrl ?>/images/logo.jpg" style="height: 100%;width: auto" alt="Logo">
+            <img src="<?php echo $baseUrl ?>/images/logo.png" style="height: 100%;width: auto" alt="Logo">
         </a>
     </div>
     <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
-        <ul class="nav navbar-nav pull-right">
+        <ul class="nav navbar-nav navbar-right">
             <?php if (Yii::app()->user->isGuest) : ?>
                 <li><?php echo CHtml::link(Yii::t('app', 'Đăng ký'), array('site/signup')) ?></li>
                 <li><?php echo CHtml::link(Yii::t('app', 'Đăng nhập'), array('site/signin')) ?></li>
@@ -83,7 +83,7 @@ $action = Yii::app()->controller->action->id;
                  data-thumb="<?php echo $baseUrl ?>/images/slides/sleep.jpg" alt=""/>
         </div>
         <div class="box-search">
-            <h2 class="slider-caption"><?php echo(Yii::t('app', 'Đặt phòng du lịch với giá tốt nhất')) ?></h2>
+            <h2 class="slider-caption hidden-xs"><?php echo(Yii::t('app', 'Đặt phòng du lịch với giá tốt nhất')) ?></h2>
             <div class="search-container">
                 <div class="container">
                     <?php echo $this->renderPartial('//layouts/_form_search', array());?>
