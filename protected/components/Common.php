@@ -1036,29 +1036,22 @@ class Common
         }
     }
 
-    /**
-     * Returns an encrypted & utf8-encoded
-     */
-    public static function encrypt($pure_string) {
-        $encryption_key = ENCRYPTION_KEY;
-        $iv_size = mcrypt_get_iv_size(MCRYPT_BLOWFISH, MCRYPT_MODE_ECB);
-        $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-        $encrypted_string = mcrypt_encrypt(MCRYPT_BLOWFISH, $encryption_key, utf8_encode($pure_string), MCRYPT_MODE_ECB, $iv);
-        return base64_encode($encrypted_string);
+    public static function encrypt($string=''){
+        if(empty($string)) return false;
+    
+        return base64_encode(ENCRYPTION_KEY.$string);
     }
-
-    /**
-     * Returns decrypted original string
-     */
-    public static function decrypt($encrypted_string) {
-        $encryption_key = ENCRYPTION_KEY;
-        $encrypted_string = base64_decode($encrypted_string);
-        $iv_size = mcrypt_get_iv_size(MCRYPT_BLOWFISH, MCRYPT_MODE_ECB);
-        $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-        $decrypted_string = mcrypt_decrypt(MCRYPT_BLOWFISH, $encryption_key, $encrypted_string, MCRYPT_MODE_ECB, $iv);
-        return $decrypted_string;
+    
+    public static function decrypt($string=''){
+        if(empty($string)) return false;
+    
+        $result = base64_decode($string);
+        if(str_replace(ENCRYPTION_KEY, '', $result)){
+            return str_replace(ENCRYPTION_KEY, '', $result);
+        }
+        return false;
     }
-
+    
     public static function getRangeDate($start_date, $end_date){
         $timeDiff = abs(strtotime($end_date) - strtotime($start_date));
 
@@ -1114,6 +1107,75 @@ class Common
             }
         }
         return $aryRange;
+    }
+    
+    public static function sendMail($emailAdd, $subject, $content, $from=null, $attachments=null){
+        //Sent mail login info
+        Yii::import('application.extensions.phpmailer.JPhpMailer');
+    
+        $mail = new SmtpMailer();
+    
+        $mail->IsSMTP();
+    
+        $from == null? $mail->SetFrom('support@shareroom.vn', 'Admin') : $mail->SetFrom($from['mail_account'], $from['mail_name']);
+    
+        $mail->Subject = $subject;
+    
+        $mail->MsgHTML($content);
+    
+        if(!is_array($attachments)) {
+            $attachments = array($attachments);
+        }
+        foreach($attachments as $attachment) {
+            $path = isset($attachment['path']) ? $attachment['path'] : null;
+            $name = isset($attachment['name']) ? $attachment['name'] : '';
+            $encoding = isset($attachment['encoding']) ? $attachment['encoding'] : 'base64';
+            $type = isset($attachment['type']) ? $attachment['type'] : 'application/octet-stream';
+            if($path) {
+                $mail->AddAttachment($path, $name, $encoding, $type);
+            }
+        }
+    
+        if(is_array($emailAdd)){
+            if (isset($emailAdd['mail'])){
+                foreach ((array)$emailAdd['mail'] as $to) {
+                    if($to != null) {
+                        $mail->AddAddress($to);
+                    }
+                }
+            }
+    
+            if (isset($emailAdd['CC'])){
+                foreach((array)$emailAdd['CC'] as $cc){
+                    if($cc != null) {
+                        $mail->AddCC($cc);
+                    }
+                }
+            }
+            if (isset($emailAdd['BCC'])){
+                foreach((array)$emailAdd['BCC'] as $bcc){
+                    if($bcc != null) {
+                        $mail->AddBCC($bcc);
+                    }
+                }
+            }
+            if (!isset($emailAdd['mail'])){
+                foreach($emailAdd as $add){
+                    if($add != null) {
+                        $mail->AddAddress($add);
+                    }
+                }
+            }
+    
+        }else{
+            $mail->AddAddress($emailAdd);
+        }
+    
+        if ($mail->Send()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -192,6 +192,49 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+	
+	public function actionForgotpass() {
+	    $this->pageTitle = Yii::t('app', 'Đặt lại mật khẩu');
+	    
+	    if(isset($_GET['token'])) {
+	        $decrypt = Common::decrypt($_GET['token']);
+	        $data = explode(',', $decrypt);
+	        $email = $data[0];
+	        
+	        $user = Users::findByEmail($email);
+	        $user->scenario = 'register';
+	        $user->password = '';
+	        
+	        if(isset($_POST['Users'])) {
+	            $user->attributes = $_POST['Users'];
+	            $password = $user->password;
+	            if($user->save()){
+	                $this->_login($user, $password);
+	            }
+	        }
+	        
+	        $this->render('forgotpass', array(
+                'user' => $user
+	        ));
+	    } else {
+	        $this->redirect(Yii::app()->homeUrl);
+	    }
+	}
+	
+	public function actionSendforgot() {
+	    if(Yii::app()->request->isAjaxRequest) {
+	        $data = $_POST;
+	        $user = Users::findByEmail($data['email']);
+	        if($user) {
+	            $content = $this->renderPartial('//template/forgotpass', array('user' => $user), true, true);
+	            Common::sendMail($data['email'], 'Yêu cầu đặt lại mật khẩu cho tài khoản Shareroom của bạn', $content);
+	            echo 'success';
+	        } else {
+	            echo 'error';
+	        }
+	    }
+	    die;
+	}
 
     protected function _initFacebookSDK(){
         $app_id = Yii::app()->facebook->appId;

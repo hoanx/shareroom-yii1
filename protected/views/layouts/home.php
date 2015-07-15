@@ -45,7 +45,7 @@
             <?php if (Yii::app()->user->isGuest) : ?>
                 <li><?php echo CHtml::link(Yii::t('app', 'Đăng ký'), array('site/signup')) ?></li>
                 <li><?php echo CHtml::link(Yii::t('app', 'Đăng nhập'), array('site/signin')) ?></li>
-                <li><?php echo CHtml::link(Yii::t('app', 'Đăng tin cho thuê'), array('/'), array('class' => 'btn btn-primary')) ?></li>
+                <li><?php echo CHtml::link(Yii::t('app', 'Đăng tin cho thuê'), array('site/signin'), array('class' => 'btn btn-primary')) ?></li>
             <?php else : ?>
                 <li>
                     <a href="#" class="dropdown-toggle"

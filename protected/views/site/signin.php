@@ -35,9 +35,9 @@ $loginGplusUrl = $this->loginGplusUrl;
         <?php $form=$this->beginWidget('CActiveForm', array(
             'id'=>'login-form',
             'action' => $this->createUrl(Yii::app()->controller->id. '/' . Yii::app()->controller->action->id, $_GET).'#signin-form',
-            'enableClientValidation'=>true,
+//             'enableClientValidation'=>true,
             'clientOptions'=>array(
-                'validateOnSubmit'=>true,
+//                 'validateOnSubmit'=>true,
             ),
         )); ?>
 
@@ -70,12 +70,58 @@ $loginGplusUrl = $this->loginGplusUrl;
             <?php echo CHtml::submitButton(Yii::t("app", "Đăng nhập"), array('class'=>'btn btn-success btn-block btn-submit btn-lg')); ?>
         </div>
         <div class="form-group link-forgotpass">
-            <?php echo CHtml::link(Yii::t('app', 'Quên mật khẩu?'), array('site/forgotpass')) ?>
+            <?php echo CHtml::link(Yii::t('app', 'Quên mật khẩu?'), '#', array('data-toggle' => 'modal', 'data-target' => '#myModal')) ?>
         </div>
+        
         <div class="form-group">
             Không có tài khoản? <?php echo CHtml::link('Đăng ký tại đây', array('site/signup')) ?>
         </div>
 
         <?php $this->endWidget(); ?>
-    </div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Quên mật khẩu?</h4>
+					</div>
+					<div class="modal-body">
+					    <h5>Nhập địa chỉ email liên kết với tài khoản của bạn để nhận liên kết thiết lập lại mật khẩu.</h5>
+						<div class="form-group">
+							<input type="email" class="form-control" id="email" placeholder="Email">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="send-forgot">Thiết lập lại mật khẩu</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+<?php Yii::app()->clientScript->beginScript('custom-script'); ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('#send-forgot').click(function(){
+                var email = jQuery('#email').val();
+                if(email) {
+                	jQuery.ajax({
+                		type: "POST",
+                        url: '<?php echo(Yii::app()->createAbsoluteUrl('site/sendforgot')) ?>',
+                        data: {"email": email},
+                	}).done(function(data) {
+                		jQuery(".alert").hide();
+                    	if(data == 'success') {
+                    		jQuery(".modal-body").append("<p class='alert alert-success'>Một liên kết thiết lập lại mật khẩu đã được gửi đến email của bạn.</p>");
+                    	} else {
+                    		jQuery(".modal-body").append("<p class='alert alert-danger'>Không thể tạo liên kết thiết lập lại. Hãy thử lại</p>");
+                    	}
+                	});
+                }
+            });
+        });
+    </script>
+<?php Yii::app()->clientScript->endScript();?>
