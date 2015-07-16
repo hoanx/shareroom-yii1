@@ -79,28 +79,38 @@ class PaymentsController extends Controller
 
             // save info booking
             $bookingModel = new Booking();
-            if(isset($_POST['Booking'], $_POST['BookingUser'])) {
-                $bookingModel->attributes = $_POST['Booking'];
-                $bookingModel->user_id = $usersModel->id;
-                $bookingModel->room_address_id = $roomModel->id;
-                $bookingModel->check_in = $paymentData['checkin'];
-                $bookingModel->time_check_in = Constant::getTimeCheck($roomModel->RoomPrice->check_in);
-                $bookingModel->check_out = $paymentData['checkout'];
-                $bookingModel->time_check_out = Constant::getTimeCheck($roomModel->RoomPrice->check_out);
-                $bookingModel->number_of_guests = $paymentData['number_of_guests'];
-                $bookingModel->room_price = $paymentData['price'];
-                $bookingModel->cleaning_fees = $paymentData['cleaning_fees'];
-                $bookingModel->additional_guests = $paymentData['additional_guests'];
-                $bookingModel->price_additional_guests = $paymentData['price_additional_guests'];
-                $bookingModel->total_amount = $paymentData['total_amount'];
+            $bookingModel->user_id = $usersModel->id;
+            $bookingModel->room_address_id = $roomModel->id;
+            $bookingModel->check_in = $paymentData['checkin'];
+            $bookingModel->time_check_in = Constant::getTimeCheck($roomModel->RoomPrice->check_in);
+            $bookingModel->check_out = $paymentData['checkout'];
+            $bookingModel->time_check_out = Constant::getTimeCheck($roomModel->RoomPrice->check_out);
+            $bookingModel->number_of_guests = $paymentData['number_of_guests'];
 
+            $bookingModel->room_price = $paymentData['price'];
+            $bookingModel->cleaning_fees = $paymentData['cleaning_fees'];
+            $bookingModel->additional_guests = $paymentData['additional_guests'];
+            $bookingModel->price_additional_guests = $paymentData['price_additional_guests'];
+            $bookingModel->total_amount = $paymentData['total_amount'];
+
+            if(isset($_POST['submit']) && $_POST['submit']=='Sử dụng'){
+                $bookingModel->attributes = $_POST['Booking'];
+                //$bookingUserModel->attributes = $_POST['BookingUser'];
+                if($bookingModel->validate(array('coupon_code'))){
+                    $couponMode = Coupon::getCouponByCode($bookingModel->coupon_code);
+                    $bookingModel->discount = $couponMode->discount_amount_percent;
+                    $bookingModel->total_amount = $bookingModel->total_amount - ($paymentData['price_night']*$bookingModel->discount/100);
+                }
+
+            }elseif(isset($_POST['Booking'], $_POST['BookingUser'])) {
+                $bookingModel->attributes = $_POST['Booking'];
                 $bookingUserModel->attributes = $_POST['BookingUser'];
 
                 $checkError = true;
                 if($bookingModel->validate()){
                     $checkError = false;
                 }
-                if($bookingUserModel->validate()){
+                if($bookingUserModel->validate() && $checkError===false){
                     $checkError = false;
                 }
 
@@ -144,7 +154,7 @@ class PaymentsController extends Controller
                         //redirect and process payment smartlink
 
                     }else{
-                        $this->redirect(array('profile/booking', 'booking_id'=>$bookingModel->id));
+                        $this->redirect(array('profile/my_booking', 'booking_id'=>$bookingModel->id));
                     }
                 }
             }
@@ -152,11 +162,13 @@ class PaymentsController extends Controller
         }else{
             $this->redirect(array('rooms/view', 'id'=>$id));
         }
+
         $this->render('book', array(
             'roomModel' => $roomModel,
             'paymentData' => $paymentData,
             'bookingUserModel' => $bookingUserModel,
             'bookingModel' => $bookingModel,
+            'couponMode' => isset($couponMode) ? $couponMode : array(),
         ));
 
     }

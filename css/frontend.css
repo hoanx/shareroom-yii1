@@ -953,6 +953,7 @@ ul.orange-list li{
 }
 .payment-page .billing-summary{
     line-height: 26px;
+    margin-bottom: 4px;
 }
 .payment-page .billing-summary.total{
     font-weight: bold;
@@ -970,7 +971,7 @@ h3.section-title{
 
 @media (min-width: 992px) {
     .payment-page .rm-padding{
-        padding: 0 !important;
+        padding: 0 15px 0 0 !important;
     }
 }
 
@@ -1223,4 +1224,7 @@ table.table-booking a.unaccept{
 }
 .navbar-brand {
 	padding: 10px 0 0 0;
+}
+#input-counpon{
+    display: none;
 }

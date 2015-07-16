@@ -6,7 +6,7 @@ Host: 112.78.2.87
 + Password:  Qiku874fi@$
 ----------------------------------------
 2. Thông tin kết nối FTP:
-+ Host name: 112.78.2.55
++ Host name: 112.78.2.87
 + User name: ho7269d
 + Password:  Qiku874fi@$
 
