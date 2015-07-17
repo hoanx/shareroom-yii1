@@ -117,6 +117,7 @@ class ProfileController extends Controller
         $userBankModel = UsersBank::model()->find($criteria);
         if (!$userBankModel) {
             $userBankModel = new UsersBank();
+            $userBankModel->user_id = Yii::app()->user->id;
         }
 
         if (isset($_POST['UsersBank']) && $dataPost = $_POST['UsersBank']) {

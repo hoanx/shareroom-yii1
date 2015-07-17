@@ -32,7 +32,7 @@ class UsersBank extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, bank_number, bank_name, bank_branch, bank_holder_name, created, updated', 'required'),
+			array('user_id, bank_number, bank_name, bank_branch, bank_holder_name', 'required'),
 			array('user_id, del_flg', 'numerical', 'integerOnly'=>true),
 			array('bank_number, bank_name, bank_branch, bank_holder_name', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -113,4 +113,14 @@ class UsersBank extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function beforeSave() {
+        $now = new CDbExpression('NOW()');
+
+        if ($this->isNewRecord){
+            $this->created = $now;
+        }
+        $this->updated = $now;
+        return parent::beforeSave();
+    }
 }
