@@ -58,7 +58,9 @@
                         <?php echo number_format($room->RoomPrice->price) ?> <sup>VND</sup>
                     </div>
                     <div class="user-room">
-                        <?php echo CHtml::image(Yii::app()->createUrl('profile/image', array('id'=>$room->Users->id)), '', array('class' => 'img-responsive image-user')) ?>
+                        <a href="<?php echo $this->createUrl('profile/show', array('id'=>$room->Users->id)) ?>">
+                            <?php echo CHtml::image(Yii::app()->createUrl('profile/image', array('id'=>$room->Users->id)), '', array('class' => 'img-responsive image-user')) ?>
+                        </a>
                     </div>
                 </div>
                 <h4 style="color: #398fd1;"><?php echo CHtml::link($room->name, array('rooms/view', 'id' => $room->id))?></h4>

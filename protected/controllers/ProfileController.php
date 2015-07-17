@@ -18,7 +18,7 @@ class ProfileController extends Controller
     public function actionShow($id = null)
     {
         if (is_null($id)) {
-            $this->redirect('/');
+            $id = Yii::app()->user->id;
         }
 
         $usersModel = Users::model()->findByPk($id, 'del_flg = 0');

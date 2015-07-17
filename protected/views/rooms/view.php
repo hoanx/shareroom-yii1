@@ -156,7 +156,9 @@
                     <hr>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-4 col-sm-6">
-                            <?php echo CHtml::image(Yii::app()->createUrl('profile/image', array('id'=>$room->Users->id)), '', array('class' => 'img-responsive image-user')) ?>
+                            <a href="<?php echo $this->createUrl('profile/show', array('id'=>$room->Users->id)) ?>">
+                                <?php echo CHtml::image(Yii::app()->createUrl('profile/image', array('id'=>$room->Users->id)), '', array('class' => 'img-responsive image-user')) ?>
+                            </a>
                         </div>
                         <div class="col-md-8 col-sm-6">
                             <h5><?php echo $room->Users->first_name ?></h5>
