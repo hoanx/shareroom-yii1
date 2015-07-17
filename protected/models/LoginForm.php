@@ -51,9 +51,19 @@ class LoginForm extends CFormModel
     public function authenticate($attribute, $params)
     {
         if (!$this->hasErrors()) {
+
             $this->_identity = new UserIdentity($this->email, $this->password);
-            if (!$this->_identity->authenticate())
-                $this->addError('password', 'Email hoặc mật khẩu không đúng. Vui lòng thử lại.');
+            if (!$this->_identity->authenticate()){
+                if ($this->_identity->errorCode == UserIdentity::ERROR_USERNAME_INVALID) {
+                    $this->addError('email', Yii::t('app', 'Địa chỉ Email không đúng. Vui lòng thử lại.'));
+                } elseif ($this->_identity->errorCode == UserIdentity::ERROR_PASSWORD_INVALID) {
+                    $this->addError('password', Yii::t('app', 'Mật khẩu không đúng. Vui lòng thử lại.'));
+                } elseif ($this->_identity->errorCode == UserIdentity::ERROR_EMAIL_FACEBOOK) {
+                    $this->addError('email', Yii::t('app', 'Bạn đã đăng ký bằng facebook. Vui lòng đăng nhập bằng facebook.'));
+                } elseif ($this->_identity->errorCode == UserIdentity::ERROR_EMAIL_GOOGLE_PLUS) {
+                    $this->addError('email', Yii::t('app', 'Bạn đã đăng ký bằng google plus. Vui lòng đăng nhập bằng google plus.'));
+                }
+            }
         }
     }
 

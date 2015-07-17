@@ -139,13 +139,14 @@ class ProfileController extends Controller
         $usersModel = Users::model()->findByPk($user_id, 'del_flg = 0');
 
         if (isset($_POST['ChangePassword']) && $data = $_POST['ChangePassword']) {
-            $changePassModel->password = $usersModel->password;
+            $changePassModel->password = ($usersModel->password);
             $changePassModel->attributes = $data;
 
             if ($changePassModel->validate()) {
-                $usersModel->password = $changePassModel->new_pass;
+                $usersModel->password = Users::encrypt($changePassModel->new_pass);
                 if ($usersModel->save(false)) {
                     Yii::app()->user->setFlash('success', Yii::t('app', 'Đổi mật khẩu thành công!'));
+                    $this->redirect(array('profile/changepass'));
                 }
             } else {
                 $changePassModel->current_pass = $data['current_pass'];

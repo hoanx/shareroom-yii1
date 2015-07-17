@@ -66,7 +66,7 @@ class SiteController extends Controller
 	 */
 	public function actionError()
 	{
-	    var_dump(Yii::app()->errorHandler->error);die;
+	    Common::debugdie(Yii::app()->errorHandler->error);
 		if($error=Yii::app()->errorHandler->error)
 		{
 			if(Yii::app()->request->isAjaxRequest)

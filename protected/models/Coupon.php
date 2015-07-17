@@ -31,8 +31,8 @@ class Coupon extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, coupon_code, discount_amount_percent', 'required'),
-			array('id, discount_amount_percent, coupon_uses, del_flg', 'numerical', 'integerOnly'=>true),
+			array('coupon_code, discount_amount_percent', 'required'),
+			array('discount_amount_percent, coupon_uses', 'numerical', 'integerOnly'=>true),
 			array('coupon_code', 'length', 'max'=>255),
 			array('period, created, updated', 'safe'),
 			// The following rule is used by search().
@@ -59,8 +59,8 @@ class Coupon extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'coupon_code' => Yii::t('app', 'Mã Giảm giá'),
-			'discount_amount_percent' => Yii::t('app', 'Giảm giá'),
+			'coupon_code' => Yii::t('app', 'Mã khuyến mãi'),
+			'discount_amount_percent' => Yii::t('app', 'Khuyến mãi'),
 			'period' => Yii::t('app', 'Thời hạn đến ngày'),
 			'coupon_uses' => Yii::t('app', 'Số lần sử dụng'),
 			'created' => Yii::t('app', 'Ngày tạo'),

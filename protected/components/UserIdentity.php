@@ -7,6 +7,8 @@
  */
 class UserIdentity extends CUserIdentity
 {
+    const ERROR_EMAIL_FACEBOOK=3;
+    const ERROR_EMAIL_GOOGLE_PLUS=4;
     public $id;
 
     /**
@@ -22,8 +24,15 @@ class UserIdentity extends CUserIdentity
         $userModel = Users::model()->findByAttributes(array('email' => $this->username, 'del_flg' => 0));
         if ($userModel === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        else if (Users::encrypt($this->password) !== $userModel->password)
-            $this->errorCode = self::ERROR_PASSWORD_INVALID;
+        else if (Users::encrypt($this->password) !== $userModel->password){
+            if($userModel->facebook_id){
+                $this->errorCode = self::ERROR_EMAIL_FACEBOOK;
+            }elseif($userModel->google_id){
+                $this->errorCode = self::ERROR_EMAIL_GOOGLE_PLUS;
+            }else{
+                $this->errorCode = self::ERROR_PASSWORD_INVALID;
+            }
+        }
         else {
             $this->id = $userModel->id;
             $this->setState('id', $userModel->id);

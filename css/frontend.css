@@ -1228,3 +1228,7 @@ table.table-booking a.unaccept{
 #input-counpon{
     display: none;
 }
+
+.ui-datepicker select {
+    color: #000000;
+}

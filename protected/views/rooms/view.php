@@ -156,11 +156,7 @@
                     <hr>
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-4 col-sm-6">
-                            <?php if(!empty($room->Users->profile_picture)) : ?>
-                                <?php echo CHtml::image($room->Users->profile_picture, '', array('class' => 'img-responsive image-user')) ?>
-                            <?php else: ?>
-                                <img src="/profile/image" class="img-responsive image-user">
-                            <?php endif; ?>
+                            <?php echo CHtml::image(Yii::app()->createUrl('profile/image', array('id'=>$room->Users->id)), '', array('class' => 'img-responsive image-user')) ?>
                         </div>
                         <div class="col-md-8 col-sm-6">
                             <h5><?php echo $room->Users->first_name ?></h5>

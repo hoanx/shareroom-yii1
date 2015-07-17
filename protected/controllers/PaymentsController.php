@@ -152,6 +152,8 @@ class PaymentsController extends Controller
 
                     if($bookingModel->payment_method==Booking::PAYMENT_METHOD_SMARTLINK){
                         //redirect and process payment smartlink
+                        //@todo: change url
+                        $this->redirect(array('profile/my_booking', 'booking_id'=>$bookingModel->id));
 
                     }else{
                         $this->redirect(array('profile/my_booking', 'booking_id'=>$bookingModel->id));
@@ -171,5 +173,21 @@ class PaymentsController extends Controller
             'couponMode' => isset($couponMode) ? $couponMode : array(),
         ));
 
+    }
+
+    public function actionAddCouponCode(){
+        $counponModel = new Coupon();
+        $counponModel->coupon_code = Coupon::generateCouponCode();
+        $data_amount = array('5', '10', '15', '20');
+        $k = array_rand($data_amount);
+        $counponModel->discount_amount_percent = $data_amount[$k];
+        if($counponModel->save()){
+            Yii::app()->user->setFlash('success', Yii::t('app', 'Thêm Coupon code thành công! {coupon_code}', array(
+                '{coupon_code}' => $counponModel->coupon_code
+            )));
+        }else{
+            Yii::app()->user->setFlash('error', Yii::t('app', 'Thêm Coupon code Lỗi!'));
+        }
+        $this->redirect(array('profile/dashboard'));
     }
 }
