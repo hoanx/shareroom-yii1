@@ -4,7 +4,13 @@
             <label style="margin-right: 20px;">Sắp xếp theo:</label>
             <div class="btn-group" role="group" aria-label="...">
                 <a href="<?php echo $this->createUrl('', array_merge($_GET, array('sort' => 'review'))) ?>" class="btn btn-default <?php RoomAddress::checkSort('review') ?>">Lượng giới thiệu</a>
-                <a href="<?php echo $this->createUrl('', array_merge($_GET, array('sort' => 'price'))) ?>" class="btn btn-default <?php RoomAddress::checkSort('price') ?>">Giá</a>
+                <?php if(isset($_GET['sort']) && $_GET['sort'] == 'price_desc') : ?>
+                    <a href="<?php echo $this->createUrl('', array_merge($_GET, array('sort' => 'price_asc'))) ?>" class="btn btn-default <?php RoomAddress::checkSort('price_desc') ?>">Giá <i class="fa fa-arrow-down"></i></a>
+                <?php elseif(isset($_GET['sort']) && $_GET['sort'] == 'price_asc'): ?>
+                    <a href="<?php echo $this->createUrl('', array_merge($_GET, array('sort' => 'price_desc'))) ?>" class="btn btn-default <?php RoomAddress::checkSort('price_asc') ?>">Giá <i class="fa fa-arrow-up"></i></a>
+                <?php else: ?>
+                    <a href="<?php echo $this->createUrl('', array_merge($_GET, array('sort' => 'price_desc'))) ?>" class="btn btn-default">Giá <i class="fa fa-arrow-up"></i></a>
+                <?php endif; ?>
             </div>
 		</div>
         <hr>
@@ -79,6 +85,7 @@
 				<label class="btn btn-info <?php echo RoomAddress::checkRoomtype('private_room') ?>"> <input type="checkbox" autocomplete="off" value="private_room" name="room_type" <?php echo RoomAddress::checkRoomtype('private_room', true) ?>> <i class="fa fa-user-secret"></i><br>Phòng riêng</label> 
 				<label class="btn btn-info <?php echo RoomAddress::checkRoomtype('share_room') ?>"> <input type="checkbox"autocomplete="off" value="share_room" name="room_type" <?php echo RoomAddress::checkRoomtype('share_room', true) ?>> <i class="fa fa-share-alt"></i><br>Phòng chia sẻ</label>
 			</div>
+			<?php /* 
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title"><?php echo Yii::t('app', 'Diện tích') ?></h3>
@@ -96,7 +103,7 @@
         			</div>
 				</div>
 			</div>
-			
+			*/?>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title"><?php echo Yii::t('app', 'Giá') ?></h3>

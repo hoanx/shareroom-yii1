@@ -277,6 +277,7 @@ class RoomAddress extends CActiveRecord
     
     public static function checkSort($data = null) {
         if(isset($_GET['sort']) && $_GET['sort'] == $data) echo 'active';
+        
     }
     
     public static function checkRoomtype($data = null, $checkbox = false) {
@@ -318,24 +319,26 @@ class RoomAddress extends CActiveRecord
             $types = explode(",", $data['room_type']);
             $query_parts = array();
             foreach($types as $type) {
-                $query_parts[] = "'%".mysqli_real_escape_string($type)."%'";
+                $query_parts[] = "'%". addslashes($type) ."%'";
             }
     
-            $string = implode(' OR t.room_type LIKE ', $query_parts);
-    
-            $criteria->condition .= ' AND (t.room_type LIKE ' . $string . ') ';
+            if(!empty($query_parts)) {
+                $string = implode(' OR t.room_type LIKE ', $query_parts);
+                $criteria->condition .= ' AND (t.room_type LIKE ' . $string . ') ';
+            }
         }
     
         if(isset($data['amenities']) && $data['amenities']) {
             $amenities = explode(",", $data['amenities']);
             $query_parts = array();
             foreach($amenities as $amenitie) {
-                $query_parts[] = "'%".mysqli_real_escape_string($amenitie)."%'";
+                $query_parts[] = "'%". addslashes($amenitie) ."%'";
             }
     
-            $string = implode(' AND t.amenities LIKE ', $query_parts);
-    
-            $criteria->condition .= ' AND (t.amenities LIKE ' . $string  . ') ';
+            if(!empty($query_parts)) {
+                $string = implode(' AND t.amenities LIKE ', $query_parts);
+                $criteria->condition .= ' AND (t.amenities LIKE ' . $string  . ') ';
+            }
         }
     
     
@@ -344,7 +347,11 @@ class RoomAddress extends CActiveRecord
         );
     
         if(isset($data['sort'])) {
-            $criteria->order = 'distance ASC, roomprice.price ASC';
+            if($data['sort'] == 'price_desc') {
+                $criteria->order = 'roomprice.price DESC, distance ASC';
+            } else {
+                $criteria->order = 'roomprice.price ASC, distance ASC';
+            }
         } else {
             $criteria->order = 'distance ASC';
         }
