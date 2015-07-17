@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'tb_coupon':
  * @property integer $id
  * @property string $coupon_code
- * @property integer $discount_amount
+ * @property integer $discount_amount_percent
  * @property string $period
  * @property integer $coupon_uses
  * @property string $created
@@ -31,13 +31,13 @@ class Coupon extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, coupon_code, discount_amount', 'required'),
-			array('id, discount_amount, coupon_uses, del_flg', 'numerical', 'integerOnly'=>true),
+			array('id, coupon_code, discount_amount_percent', 'required'),
+			array('id, discount_amount_percent, coupon_uses, del_flg', 'numerical', 'integerOnly'=>true),
 			array('coupon_code', 'length', 'max'=>255),
 			array('period, created, updated', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, coupon_code, discount_amount, period, coupon_uses, created, updated, del_flg', 'safe', 'on'=>'search'),
+			array('id, coupon_code, discount_amount_percent, period, coupon_uses, created, updated, del_flg', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,12 +59,12 @@ class Coupon extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'coupon_code' => 'Coupon Code',
-			'discount_amount' => 'Discount Amount',
-			'period' => 'Period',
-			'coupon_uses' => 'Coupon Uses',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'coupon_code' => Yii::t('app', 'Mã Giảm giá'),
+			'discount_amount_percent' => Yii::t('app', 'Giảm giá'),
+			'period' => Yii::t('app', 'Thời hạn đến ngày'),
+			'coupon_uses' => Yii::t('app', 'Số lần sử dụng'),
+			'created' => Yii::t('app', 'Ngày tạo'),
+			'updated' => Yii::t('app', 'Ngày sửa'),
 			'del_flg' => 'Del Flg',
 		);
 	}
@@ -89,12 +89,12 @@ class Coupon extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('coupon_code',$this->coupon_code,true);
-		$criteria->compare('discount_amount',$this->discount_amount);
+		$criteria->compare('discount_amount_percent',$this->discount_amount_percent);
 		$criteria->compare('period',$this->period,true);
 		$criteria->compare('coupon_uses',$this->coupon_uses);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
-		$criteria->compare('del_flg',$this->del_flg);
+		$criteria->compare('del_flg',Constant::DEL_FALSE);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -111,4 +111,34 @@ class Coupon extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function beforeSave() {
+        $now = new CDbExpression('NOW()');
+
+        if ($this->isNewRecord){
+            $this->created = $now;
+        }
+        $this->updated = $now;
+        return parent::beforeSave();
+    }
+
+    public static function generateCouponCode($lenght = 14){
+        $chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $res = "";
+        for ($i = 0; $i < $lenght; $i++) {
+            $res .= $chars[mt_rand(0, strlen($chars)-1)];
+        }
+
+        return $res;
+    }
+
+    public static function getCouponByCode($coupon_code){
+        $criteria = new CDbCriteria();
+        $criteria->compare('coupon_code',$coupon_code);
+        $criteria->compare('del_flg',Constant::DEL_FALSE);
+        $now = new CDbExpression("NOW()");
+        $criteria->addCondition('period > '.$now);
+
+        return self::model()->find($criteria);
+    }
 }

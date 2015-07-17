@@ -73,8 +73,31 @@ class Booking extends CActiveRecord
 			array('id, user_id, room_address_id, time_check_in, time_check_out, check_in, check_out, number_of_guests, room_price, cleaning_fees,
 			    additional_guests, coupon_code, discount, total_amount, payment_method, payment_status, booking_status, invoice_date, refund_date, created,
 			    updated, del_flg, price_additional_guests', 'safe', 'on'=>'search'),
+
+            array('coupon_code', 'checkCoupon'),
 		);
 	}
+
+    /**
+     * check if isset coupon code
+     *
+     * @param $attribute_name
+     * @param $params
+     * @return bool
+     */
+    public function checkCoupon($attribute_name, $params){
+        if (!empty($this->$attribute_name)) {
+            //check coupon code
+            $couponMode = Coupon::getCouponByCode($this->$attribute_name);
+            if(!$couponMode){
+                $this->addError($attribute_name, Yii::t('app', "{attribute_name} không tồn tại.", array(
+                    '{attribute_name}' => self::getAttributeLabel($attribute_name)
+                )));
+                return false;
+            }
+        }
+        return true;
+    }
 
 	/**
 	 * @return array relational rules.
@@ -106,7 +129,7 @@ class Booking extends CActiveRecord
 			'cleaning_fees' => Yii::t('app', 'Phí dọn dẹp'),
 			'additional_guests' => Yii::t('app', 'Số khách thêm'),
 			'price_additional_guests' => Yii::t('app', 'Giá cho khách thêm'),
-			'coupon_code' => Yii::t('app', 'Mã giảm giá'),
+			'coupon_code' => Yii::t('app', 'Mã khuyến mãi'),
 			'discount' => Yii::t('app', 'Giảm giá'),
 			'total_amount' => Yii::t('app', 'Tổng'),
 			'payment_method' => Yii::t('app', 'Phương thức thanh toán'),
