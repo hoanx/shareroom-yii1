@@ -318,7 +318,7 @@ class RoomAddress extends CActiveRecord
             $types = explode(",", $data['room_type']);
             $query_parts = array();
             foreach($types as $type) {
-                $query_parts[] = "'%".mysql_real_escape_string($type)."%'";
+                $query_parts[] = "'%".mysqli_real_escape_string($type)."%'";
             }
     
             $string = implode(' OR t.room_type LIKE ', $query_parts);
@@ -330,7 +330,7 @@ class RoomAddress extends CActiveRecord
             $amenities = explode(",", $data['amenities']);
             $query_parts = array();
             foreach($amenities as $amenitie) {
-                $query_parts[] = "'%".mysql_real_escape_string($amenitie)."%'";
+                $query_parts[] = "'%".mysqli_real_escape_string($amenitie)."%'";
             }
     
             $string = implode(' AND t.amenities LIKE ', $query_parts);
