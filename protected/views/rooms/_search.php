@@ -20,6 +20,7 @@
             $minprice = 0;
             $maxprice = 0;
             $countAm = RoomAddress::listAmenities();
+            $i = 0;
         ?>
         <?php foreach($model as $room) : ?>
             <?php if($room->distance > Constant::MAX_DISTANCE) break; ?>
@@ -45,7 +46,7 @@
             ?>
             <?php $location[] = array($content, $room->lat, $room->long, $room->id) ; ?>
             <div class="room-search col-md-6" id="room_<?php echo $room->id?>">
-                <div class="img-room" >
+                <div class="img-room" data-room='<?php echo $i ?>'>
                     <?php 
                         $images = $room->RoomImages; 
                         if (!empty($images)) {
@@ -70,6 +71,7 @@
                     $room_type_title = $room->getRoomType($room->room_type, true);
                     if($room_type_title) echo implode(', ' , $room_type_title) . ' - ';
                     echo $room->district . ' - ' . $room->city;
+                    $i++;
                 ?>
                 </h5>
             </div>
@@ -235,6 +237,7 @@
             var infowindow = new google.maps.InfoWindow();
 
             var marker, i;
+            var markers = new Array();
 
             for (i = 0; i < locations.length; i++) {  
                 marker = new google.maps.Marker({
@@ -244,13 +247,26 @@
 
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
                     return function() {
-                    	console.log('aaaaa');
                         infowindow.setContent(locations[i][0]);
                         infowindow.open(map, marker);
                         goToByScroll('room_' + locations[i][3]);     
                     }
                 })(marker, i));
+
+                google.maps.event.addListener(marker, 'rightclick', (function(marker, i) {
+                    return function() {
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
+
+                markers.push(marker);
             }
+
+            jQuery('.img-room').hover(function(){
+                var room = jQuery(this).data('room');
+            	google.maps.event.trigger(markers[room], 'rightclick');
+            });
 
             function setGetParameter(paramName, paramValue) {
                 var url = window.location.href;
@@ -282,11 +298,10 @@
                 // Remove "link" from the ID
                   id = id.replace("link", "");
                     // Scroll
-                  $('html,body').animate({
-                      scrollTop: $("#"+id).offset().top},
+                  jQuery('html,body').animate({
+                      scrollTop: jQuery("#"+id).offset().top},
                       'slow');
-              }
-                       	
+            }
         });
     </script>
 <?php Yii::app()->clientScript->endScript();?>
