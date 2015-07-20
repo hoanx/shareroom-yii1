@@ -59,9 +59,19 @@
                     </div>
                     <div class="user-room">
                         <?php if(!empty($room->Users->profile_picture)) : ?>
-                            <?php echo CHtml::image($room->Users->profile_picture, '', array('class' => 'img-responsive image-user')) ?>
+                            <?php 
+                                echo CHtml::link(
+                                    CHtml::image($room->Users->profile_picture, '', array('class' => 'img-responsive image-user')),
+                                    array('profile/show', 'id' => $room->Users->id)
+                                )
+                            ?>
                         <?php else: ?>
-                            <img src="/profile/image" class="img-responsive image-user">
+                            <?php 
+                                echo CHtml::link(
+                                    CHtml::image('/images/no-image.jpg', '', array('class' => 'img-responsive image-user')),
+                                    array('profile/show', 'id' => $room->Users->id)
+                                )
+                            ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -75,8 +85,23 @@
                 ?>
                 </h5>
             </div>
+            <?php if($i%2 == 0 ) : ?>
+                </div>
+                <div class="row">
+            <?php endif; ?>
         <?php endforeach; ?>
         </div>
+        <?php
+//         $this->widget('CLinkPager', array(
+//             'pages' => $pages,
+//             'header' => '',
+//             'selectedPageCssClass' => 'active',
+//             'hiddenPageCssClass' => 'disabled',
+//             'htmlOptions' => array(
+//                 'class' => 'pagination',
+//             )
+//         ))
+        ?>
     </div>
     <div class="col-md-4">
         <div class="search-form">

@@ -439,7 +439,7 @@ hr {
 .location-info a img {
     position: relative;
     border-radius: 5px;
-    height: 350px;
+    height: 230px;
 }
 
 @media (max-width: 980px) {
@@ -449,7 +449,7 @@ hr {
 }
 @media (max-width: 768px) {
 	.location-info a img {
-	    height: 220px;
+	    height: 180px;
 	}
 }
 
@@ -830,7 +830,6 @@ ul.orange-list li{
 }
 @media (min-width: 1368px) {
     .more-width {
-		width: 450px;
 		background-color: #fff;
 		border: solid 1px #c6c6c6;
 	}
@@ -838,7 +837,6 @@ ul.orange-list li{
 
 @media (min-width: 1200px) {
     .more-width {
-		width: 400px;
 		background-color: #fff;
 		border: solid 1px #c6c6c6;
 	}
@@ -868,7 +866,7 @@ ul.orange-list li{
 	position: relative;
 }
 .img-room .img-show {
-	height: 350px !important;
+	height: 220px !important;
 }
 .money-room {
 	position: absolute;
@@ -885,7 +883,7 @@ ul.orange-list li{
 }
 .user-room {
 	position: absolute;
-	bottom: -40px;
+	bottom: 10px;
 	right: 20px;
 	width: 80px;
 }

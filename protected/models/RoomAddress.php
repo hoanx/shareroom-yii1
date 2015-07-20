@@ -356,6 +356,14 @@ class RoomAddress extends CActiveRecord
             $criteria->order = 'distance ASC';
         }
     
+//         $count = RoomAddress::model()->count($criteria);
+        
+//         $criteria->limit = Constant::PAGE_ROOM;
+        
+//         if(isset($data['page']) && $data['page']) {
+//            $criteria->offset = $data['page'];
+//         }
+        
         $model = RoomAddress::model()->findAll($criteria);
     
         return $model;

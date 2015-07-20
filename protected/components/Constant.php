@@ -1,7 +1,8 @@
 <?php
 class Constant {
     const PAGE_SIZE = 50;
-
+    const PAGE_ROOM = 2;
+    
     const DEL_TRUE = 1;
     const DEL_FALSE = 0;
 

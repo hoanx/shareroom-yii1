@@ -14,7 +14,7 @@
                 echo $room->district . ' - ' . $room->city;
             ?>
             </h5>
-            <div class="slider">
+            <div class="slider theme-default">
                 <?php if(!empty($room->RoomImages)) : ?>
                     <div id="slider" class="nivoSlider">
                         <?php foreach ($room->RoomImages as $image) : ?>
@@ -157,9 +157,19 @@
                     <div class="row" style="margin-top: 20px">
                         <div class="col-md-4 col-sm-6">
                             <?php if(!empty($room->Users->profile_picture)) : ?>
-                                <?php echo CHtml::image($room->Users->profile_picture, '', array('class' => 'img-responsive image-user')) ?>
+                                <?php 
+                                    echo CHtml::link(
+                                        CHtml::image($room->Users->profile_picture, '', array('class' => 'img-responsive image-user')),
+                                        array('profile/show', 'id' => $room->Users->id)
+                                    )
+                                ?>
                             <?php else: ?>
-                                <img src="/profile/image" class="img-responsive image-user">
+                                <?php 
+                                    echo CHtml::link(
+                                        CHtml::image('/images/no-image.jpg', '', array('class' => 'img-responsive image-user')),
+                                        array('profile/show', 'id' => $room->Users->id)
+                                    )
+                                ?>
                             <?php endif; ?>
                         </div>
                         <div class="col-md-8 col-sm-6">
@@ -217,7 +227,6 @@
         jQuery(document).ready(function() {
         	jQuery('#slider').nivoSlider({
                 controlNav: false,
-                directionNav: false
             });
 
         	jQuery(function() {
@@ -229,13 +238,9 @@
         	    $window.scroll(function() {
         	    	jQuery('#ui-datepicker-div').css("display", "none")
         	        if ($window.scrollTop() > offset.top) {
-        	            $sidebar.stop().animate({
-        	                marginTop: $window.scrollTop() - offset.top + topPadding
-        	            });
+        	        	$sidebar.css('margin-top', $window.scrollTop() - offset.top + topPadding);
         	        } else {
-        	            $sidebar.stop().animate({
-        	                marginTop: 0
-        	            });
+        	        	$sidebar.css('margin-top', 0);
         	        }
         	    });
         	    

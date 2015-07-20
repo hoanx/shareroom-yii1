@@ -19,7 +19,7 @@
                         'value' => isset($_GET['startdate']) ? $_GET['startdate'] : null,
                         'options'=>array(
                             'onSelect' => "js:function(selectedDate) {
-                                $('#end_date').datepicker('option', 'minDate', selectedDate);
+                                jQuery('#end_date').datepicker('option', 'minDate', selectedDate);
                             }",
                             'minDate' => 'js:new Date()',
                         ),
@@ -43,7 +43,7 @@
                         'value' => isset($_GET['enddate']) ? $_GET['enddate'] : null,
                         'options'=>array(
                             'onSelect' => "js:function(selectedDate) {
-                                $('#start_date').datepicker('option', 'maxDate', selectedDate);
+                                jQuery('#start_date').datepicker('option', 'maxDate', selectedDate);
                             }",
                             'minDate' => 'js:new Date()',
                         ),

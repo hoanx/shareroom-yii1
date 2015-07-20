@@ -8,6 +8,10 @@ class ProfileController extends Controller
 {
     public function beforeAction($action)
     {
+        if($action->id == 'show' || $action->id == 'image') {
+            return parent::beforeAction($action);
+        }
+        
         if (Yii::app()->user->isGuest) {
             $this->redirect(array('site/signin'));
         }
@@ -25,9 +29,12 @@ class ProfileController extends Controller
         if (!$usersModel) {
             $this->redirect('/');
         }
+        
+        $rooms = RoomAddress::model()->findAllByAttributes(array('user_id' => $id, 'status_flg' => RoomAddress::STATUS_ENABLE));
 
         $this->render('show', array(
             'usersModel' => $usersModel,
+            'rooms' => $rooms
         ));
     }
 
