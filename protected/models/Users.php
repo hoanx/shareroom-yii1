@@ -60,8 +60,10 @@ class Users extends CActiveRecord
 			array('password, email, first_name, last_name, phone_number, address, google_id, facebook_id', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, birthday, password, email, first_name, last_name, gender, phone_number, description, address, profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe'),
-			array('id, birthday, password, email, first_name, last_name, gender, phone_number, description, address, profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe', 'on'=>'search'),
+			array('id, birthday, password, email, first_name, last_name, gender, phone_number, description, address,
+			    profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe'),
+			array('id, birthday, password, email, first_name, last_name, gender, phone_number, description, address,
+			    profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -84,7 +86,6 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'username' => Yii::t('app', 'Tài khoản'),
 			'password' => Yii::t('app', 'Mật khẩu'),
 			're_password' => Yii::t('app', 'Nhập lại mật khẩu'),
 			'email' => Yii::t('app', 'Email'),
@@ -120,24 +121,30 @@ class Users extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+        $criteria->compare('del_flg',Constant::DEL_FALSE);
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('username',$this->username,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('first_name',$this->first_name,true);
-		$criteria->compare('last_name',$this->last_name,true);
-		$criteria->compare('gender',$this->gender);
-		$criteria->compare('phone_number',$this->phone_number,true);
-		$criteria->compare('address',$this->address,true);
-		$criteria->compare('google_id',$this->google_id,true);
-		$criteria->compare('facebook_id',$this->facebook_id,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
-		$criteria->compare('del_flg',$this->del_flg);
+		$criteria->compare('t.id',$this->id);
+		$criteria->compare('t.password',$this->password,true);
+		$criteria->compare('t.email',$this->email,true);
+		$criteria->compare('t.first_name',$this->first_name,true);
+		$criteria->compare('t.last_name',$this->last_name,true);
+		$criteria->compare('t.gender',$this->gender);
+		$criteria->compare('t.phone_number',$this->phone_number,true);
+		$criteria->compare('t.address',$this->address,true);
+		$criteria->compare('t.google_id',$this->google_id,true);
+		$criteria->compare('t.facebook_id',$this->facebook_id,true);
+		$criteria->compare('t.created',$this->created,true);
+		$criteria->compare('t.updated',$this->updated,true);
+
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+            'criteria'=>$criteria,
+            'pagination' => array(
+                    'pageSize' => Constant::PAGE_SIZE
+                ),
+            'sort' => array(
+                'defaultOrder' => 't.id desc',
+            ),
 		));
 	}
 

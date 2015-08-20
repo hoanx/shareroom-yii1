@@ -81,6 +81,23 @@ class Common
         return $password;
     }
 
+    public static function checkActive($controller) {
+        if(is_array($controller)) {
+            foreach ($controller as $k => $v) {
+                if($v == Yii::app()->controller->id) {
+                    echo 'active';
+                    break;
+                }
+            }
+        } else {
+            if($controller == Yii::app()->controller->id) {
+                echo 'active';
+            } elseif ($controller == Yii::app()->controller->id . '/' . Yii::app()->controller->action->id) {
+                echo 'active';
+            }
+        }
+    }
+
     public static function countryArray()
     {
         return array(
