@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends AdminController
+class ManagerController extends AdminController
 {
 
 	/**
@@ -9,7 +9,6 @@ class UserController extends AdminController
 	 */
 	public function actionView($id)
 	{
-        $this->setPageTitle(Yii::t('app', 'Chi tiết thành viên'));
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -21,16 +20,14 @@ class UserController extends AdminController
 	 */
 	public function actionCreate()
 	{
-        $this->setPageTitle(Yii::t('app', 'Thêm mới thành viên'));
-		$model=new Users;
-        $model->setScenario('create_admin');
+		$model=new Admin;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Users']))
+		if(isset($_POST['Admin']))
 		{
-			$model->attributes=$_POST['Users'];
+			$model->attributes=$_POST['Admin'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -47,16 +44,14 @@ class UserController extends AdminController
 	 */
 	public function actionUpdate($id)
 	{
-        $this->setPageTitle(Yii::t('app', 'Cập nhật thành viên'));
 		$model=$this->loadModel($id);
-        $model->setScenario('updates');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Users']))
+		if(isset($_POST['Admin']))
 		{
-			$model->attributes=$_POST['Users'];
+			$model->attributes=$_POST['Admin'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -73,10 +68,11 @@ class UserController extends AdminController
 	 */
 	public function actionDelete($id)
 	{
-        $model=$this->loadModel($id);
-        $model->del_flg = Constant::DEL_TRUE;
-        $model->save(false);
-        $this->redirect(array('index'));
+		$this->loadModel($id)->delete();
+
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**
@@ -84,32 +80,37 @@ class UserController extends AdminController
 	 */
 	public function actionIndex()
 	{
-        $this->setPageTitle(Yii::t('app', 'Danh sách thành viên'));
-        $model=new Users('search');
-        $model->unsetAttributes();  // clear any default values
+		$dataProvider=new CActiveDataProvider('Admin');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
 
-        if (!empty($_GET['Search'])) {
-            $model->attributes = $_GET['Users'];
-        } elseif (!empty($_GET['SearchAdv']) && !empty($_GET['Users']['Search'])) {
-            $model->attributes = $_GET['Users']['Search'];
-        }
+	/**
+	 * Manages all models.
+	 */
+	public function actionAdmin()
+	{
+		$model=new Admin('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Admin']))
+			$model->attributes=$_GET['Admin'];
 
-
-        $this->render('index',array(
-            'model'=>$model,
-        ));
+		$this->render('admin',array(
+			'model'=>$model,
+		));
 	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Users the loaded model
+	 * @return Admin the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Users::model()->findByPk($id, 'del_flg=0');
+		$model=Admin::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -117,11 +118,11 @@ class UserController extends AdminController
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Users $model the model to be validated
+	 * @param Admin $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='users-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='admin-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

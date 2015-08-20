@@ -2,17 +2,12 @@
 /* @var $this UserController */
 /* @var $model Users */
 
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List Users', 'url'=>array('index')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
-);
+echo CHtml::link('<i class="fa fa-arrow-left"></i> '.Yii::t('app', 'Quay lại'),
+    $this->createUrl('index'),
+    array(
+        'class' => 'btn btn-info back-link'
+    ));
 ?>
 
-<h1>Create Users</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

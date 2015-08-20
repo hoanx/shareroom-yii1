@@ -39,7 +39,7 @@ class Common
      */
     public static function debug($var)
     {
-        echo '<pre style="text-align: left;font-size: 14;">';
+        echo '<pre style="text-align: left;font-size: 14;margin-top: 60px;">';
         $trace = debug_backtrace();
         echo 'Line: ' . $trace[0]['line'] . '<br>';
         print_r($var);
@@ -52,7 +52,7 @@ class Common
      */
     public static function debugdie($var)
     {
-        echo '<pre style="text-align: left;font-size: 14;">';
+        echo '<pre style="text-align: left;font-size: 14;margin-top: 60px;">';
         $trace = debug_backtrace();
         echo 'Line: ' . $trace[0]['line'] . '<br>';
         print_r($var);

@@ -1,6 +1,6 @@
 <section class="view-record">
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <?php
             $this->widget('zii.widgets.CDetailView', array(
                 'id'=>'view-detail',
@@ -20,7 +20,7 @@
     <br/>
     <div class="row">
         <?php $form=$this->beginWidget('CActiveForm'); ?>
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <fieldset>
                 <legend><?php echo Yii::t('admin', 'Thay đổi mật khẩu') ?></legend>
                 <div class="form-group">
@@ -39,7 +39,7 @@
                     <?php echo $form->error($changePassModel,'re_new_pass'); ?>
                 </div>
                 <div class="form-actions">
-                    <?php echo CHtml::htmlButton(Yii::t('admin', 'Change'), array('type' => 'submit', 'class' => 'btn btn-primary btn-submit'))?>
+                    <?php echo CHtml::htmlButton(Yii::t('app', 'Thay đổi'), array('type' => 'submit', 'class' => 'btn btn-primary btn-submit'))?>
                 </div>
             </fieldset>
         </div>

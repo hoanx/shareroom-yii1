@@ -4,92 +4,83 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="wide form">
+<div class="panel-group filter-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseOne"><?php echo Yii::t('app', 'Tìm kiếm') ?></a>
+            </h4>
+        </div>
+        <div id="collapseOne"
+             class="panel-collapse collapse <?php if (!empty($_GET['Search']) || empty($_GET)) echo 'in' ?>">
+            <?php echo CHtml::form(array('user/index'), 'get') ?>
+            <div class="panel-body row">
+                <div class="col-md-3">
+                    <?php echo CHtml::activeTextField($model, 'keyword', array(
+                        'class' => 'form-control inline-block',
+                    ))?>
+                </div>
+                <?php echo CHtml::submitButton(Yii::t('app', 'Tìm kiếm'), array(
+                    'class' => 'btn btn-default',
+                    'name' => 'Search'
+                ))?>
+            </div>
+            <?php echo CHtml::endForm(); ?>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseTwo"><?php echo Yii::t('app', 'Tìm kiếm nâng cao') ?></a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse <?php if (!empty($_GET['SearchAdv'])) echo 'in' ?>">
+            <?php echo CHtml::form(array('user/index'), 'get') ?>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]id') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]id', array('class' => 'form-control')) ?>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]email') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]email', array('class' => 'form-control')) ?>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]first_name') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]first_name', array('class' => 'form-control')) ?>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]last_name') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]last_name', array('class' => 'form-control')) ?>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]gender') ?>
+                        <?php echo CHtml::activeDropDownList($model, '[Search]gender',
+                            Users::gender(),
+                            array('class' => 'form-control'))?>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]phone_number') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]phone_number', array('class' => 'form-control')) ?>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]address') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]address', array('class' => 'form-control')) ?>
+                    </div>
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
+                </div>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'first_name'); ?>
-		<?php echo $form->textField($model,'first_name',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'last_name'); ?>
-		<?php echo $form->textField($model,'last_name',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'birthday'); ?>
-		<?php echo $form->textField($model,'birthday'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'gender'); ?>
-		<?php echo $form->textField($model,'gender'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'phone_number'); ?>
-		<?php echo $form->textField($model,'phone_number',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'address'); ?>
-		<?php echo $form->textField($model,'address',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'profile_picture'); ?>
-		<?php echo $form->textArea($model,'profile_picture',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'google_id'); ?>
-		<?php echo $form->textField($model,'google_id',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'facebook_id'); ?>
-		<?php echo $form->textField($model,'facebook_id',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'updated'); ?>
-		<?php echo $form->textField($model,'updated'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'del_flg'); ?>
-		<?php echo $form->textField($model,'del_flg'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+                <div class="form-group">
+                    <?php echo CHtml::submitButton(Yii::t('app', 'Tìm kiếm'), array(
+                        'class' => 'btn btn-default pull-right',
+                        'name' => 'SearchAdv'
+                    ))?>
+                </div>
+            </div>
+            <?php echo CHtml::endForm() ?>
+        </div>
+    </div>
+</div>

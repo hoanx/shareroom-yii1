@@ -27,6 +27,8 @@ class Users extends CActiveRecord
     const GENDER_FEMALE = 2;
 
     public $re_password;
+
+    public $keyword;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -43,13 +45,12 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('password, email, first_name, last_name', 'required'),
-			array('phone_number', 'required', 'on'=>'updates'),
-			array('re_password', 'required', 'on'=>'register'),
+			array('email, first_name, last_name', 'required'),
+			array('phone_number', 'required', 'on'=>array('create_admin', 'updates')),
+			array('password, re_password', 'required', 'on'=>'register'),
             array('password', 'length', 'min'=>8),
             array('re_password', 'compare', 'compareAttribute'=>'password', 'on'=>'register'),
             array('email','email'),
-            //array('email','unique'),
             array('email', 'unique', 'criteria'=>array(
                 'condition'=>'`del_flg`=:del_flg',
                 'params'=>array(
@@ -61,9 +62,9 @@ class Users extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, birthday, password, email, first_name, last_name, gender, phone_number, description, address,
-			    profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe'),
+			    profile_picture, google_id, facebook_id, created, updated, del_flg, keyword', 'safe'),
 			array('id, birthday, password, email, first_name, last_name, gender, phone_number, description, address,
-			    profile_picture, google_id, facebook_id, created, updated, del_flg', 'safe', 'on'=>'search'),
+			    profile_picture, google_id, facebook_id, created, updated, del_flg, keyword', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -101,6 +102,7 @@ class Users extends CActiveRecord
 			'created' => Yii::t('app', 'Created'),
 			'updated' => Yii::t('app', 'Updated'),
 			'del_flg' => Yii::t('app', 'Del Flg'),
+			'keyword' => Yii::t('app', 'Từ khoá'),
 		);
 	}
 
@@ -123,18 +125,24 @@ class Users extends CActiveRecord
 		$criteria=new CDbCriteria;
         $criteria->compare('del_flg',Constant::DEL_FALSE);
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.password',$this->password,true);
-		$criteria->compare('t.email',$this->email,true);
-		$criteria->compare('t.first_name',$this->first_name,true);
-		$criteria->compare('t.last_name',$this->last_name,true);
-		$criteria->compare('t.gender',$this->gender);
-		$criteria->compare('t.phone_number',$this->phone_number,true);
-		$criteria->compare('t.address',$this->address,true);
-		$criteria->compare('t.google_id',$this->google_id,true);
-		$criteria->compare('t.facebook_id',$this->facebook_id,true);
-		$criteria->compare('t.created',$this->created,true);
-		$criteria->compare('t.updated',$this->updated,true);
+        if (!isset($this->keyword)) {
+            $criteria->compare('t.id',$this->id);
+            $criteria->compare('t.email',$this->email,true);
+            $criteria->compare('t.first_name',$this->first_name,true);
+            $criteria->compare('t.last_name',$this->last_name,true);
+            $criteria->compare('t.gender',$this->gender);
+            $criteria->compare('t.phone_number',$this->phone_number,true);
+            $criteria->compare('t.address',$this->address,true);
+        }else{
+            $criteria->compare('t.id',$this->keyword, true, 'OR');
+            $criteria->compare('t.email',$this->keyword,true, 'OR');
+            $criteria->compare('t.first_name',$this->keyword,true, 'OR');
+            $criteria->compare('t.last_name',$this->keyword,true, 'OR');
+            $criteria->compare('t.phone_number',$this->keyword,true, 'OR');
+            $criteria->compare('t.address',$this->keyword,true, 'OR');
+
+        }
+
 
 
 		return new CActiveDataProvider($this, array(
