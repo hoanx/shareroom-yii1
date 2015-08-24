@@ -200,5 +200,11 @@ $action = Yii::app()->controller->action->id;
     	}
     });
 </script>
+<script lang="javascript">
+(function() {var _h1= document.getElementsByTagName('title')[0] || false;
+var product_name = ''; if(_h1){product_name= _h1.textContent || _h1.innerText;}var ga = document.createElement('script'); ga.type = 'text/javascript';
+ga.src = '//live.vnpgroup.net/js/web_client_box.php?hash=6b2fc79afc4ff04101b4b26a07f0b5ba&data=eyJoYXNoIjoiODkzNDg2ODhlYTQyMGRhYzAyMTcxZjEzNDUyMTYzMWEiLCJzc29faWQiOjcwMzI2OX0-&pname='+product_name;
+var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();
+</script><noscript><a href="http://www.vatgia.com" title="vatgia.com" target="_blank">Tài trợ bởi vatgia.com</a></noscript><noscript><a href="http://vchat.vn" title="vchat.vn" target="_blank">Phát triển bởi vchat.vn</a></noscript>	
 </body>
 </html>

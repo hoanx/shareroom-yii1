@@ -9,6 +9,16 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
+                <h5><?= Yii::t('app', 'Thông tin công ty') ?></h5>
+                <ul>
+                    <li><a href="#"><?php echo(Yii::t('app', 'Giới thiệu shareroom')) ?></a></li>
+                    <li><a href="#"><?php echo(Yii::t('app', 'Về chúng tôi')) ?></a></li>
+                    <li><a href="#"><?php echo(Yii::t('app', 'Chính sách riêng tư')) ?></a></li>
+                    <li><a href="#"><?php echo(Yii::t('app', 'Điều kiện & điều khoản')) ?></a></li>
+                    <li><a href="#"><?php echo(Yii::t('app', 'Liên hệ')) ?></a></li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
                 <?php /* 
                 <div class="fb-page" data-href="https://www.facebook.com/shareroom.vn" data-hide-cover="false"
                      data-show-facepile="true" data-show-posts="false">
@@ -30,16 +40,6 @@
                */ ?>
             </div>
             <div class="col-sm-4">
-                <h5><?= Yii::t('app', 'Thông tin công ty') ?></h5>
-                <ul>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Giới thiệu shareroom')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Về chúng tôi')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Chính sách riêng tư')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Điều kiện & điều khoản')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Liên hệ')) ?></a></li>
-                </ul>
-            </div>
-            <div class="col-sm-4">
                 <h5><?= Yii::t('app', 'Được chứng nhận') ?></h5>
                 <div class="col-xs-6">
                     <a href="#">
@@ -50,6 +50,6 @@
         </div>
     </div>
 </footer>
-<div id="bottom-bar">
-    <?php echo Yii::t('app', 'Hỗ trợ : 0963.117.951 / <a href="mailto:sales@shareroom.vn">sales@shareroom.vn</a>') ?>
-</div>
+<!-- <div id="bottom-bar"> -->
+    <?php // echo Yii::t('app', 'Hỗ trợ : 0963.117.951 / <a href="mailto:sales@shareroom.vn">sales@shareroom.vn</a>') ?>
+<!-- </div> -->
