@@ -73,7 +73,9 @@
             </div>
 
             <div class="form-group">
-                <?php echo $form->labelEx($model, 'description'); ?>
+                <?php echo $form->labelEx($model, 'description', array(
+                    'label'=> Yii::t('app', 'Mô tả')
+                )); ?>
                 <?php echo $form->textArea($model, 'description', array(
                     'rows' => 6,
                     'cols' => 50,

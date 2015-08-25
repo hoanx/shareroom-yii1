@@ -21,6 +21,8 @@ class ManagerController extends AdminController
 	public function actionCreate()
 	{
 		$model=new Admin;
+        $model->setScenario('register');
+        $model->password = Common::generatePassword();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -46,15 +48,20 @@ class ManagerController extends AdminController
 	{
 		$model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Admin']))
 		{
 			$model->attributes=$_POST['Admin'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+            if(empty($model->password))
+                unset($model->password);
+
+			if($model->save()){
+                Yii::app()->getModule('admin')->user->setFlash('success', 'Lưu thông tin quản trị viên thành công.');
+                $this->redirect(array('index'));
+            }
+
+		}else{
+            unset($model->password);
+        }
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -68,11 +75,10 @@ class ManagerController extends AdminController
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        $model=$this->loadModel($id);
+        $model->del_flg = Constant::DEL_TRUE;
+        $model->save(false);
+        $this->redirect(array('index'));
 	}
 
 	/**
@@ -80,25 +86,19 @@ class ManagerController extends AdminController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Admin');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
+        $this->setPageTitle(Yii::t('app', 'Danh sách quản trị viên'));
+        $model=new Admin('search');
+        $model->unsetAttributes();  // clear any default values
 
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Admin('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Admin']))
-			$model->attributes=$_GET['Admin'];
+        if (!empty($_GET['Search'])) {
+            $model->attributes = $_GET['Admin'];
+        } elseif (!empty($_GET['SearchAdv']) && !empty($_GET['Admin']['Search'])) {
+            $model->attributes = $_GET['Admin']['Search'];
+        }
 
-		$this->render('admin',array(
-			'model'=>$model,
-		));
+        $this->render('index',array(
+            'model'=>$model,
+        ));
 	}
 
 	/**
@@ -116,16 +116,4 @@ class ManagerController extends AdminController
 		return $model;
 	}
 
-	/**
-	 * Performs the AJAX validation.
-	 * @param Admin $model the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='admin-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
 }

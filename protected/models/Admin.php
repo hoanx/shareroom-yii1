@@ -14,6 +14,8 @@
  */
 class Admin extends CActiveRecord
 {
+    public $keyword;
+    public $sent_pass_to_email = 1;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -31,14 +33,17 @@ class Admin extends CActiveRecord
 		// will receive user inputs.
 		return array(
             array('email, username','unique'),
+            array('email, username','required'),
+            array('password', 'required', 'on'=>'register'),
             array('email', 'email'),
-			array('del_flg', 'numerical', 'integerOnly'=>true),
+			array('del_flg, sent_pass_to_email', 'numerical', 'integerOnly'=>true),
 			array('username', 'length', 'max'=>50),
 			array('password, email', 'length', 'max'=>255),
-			array('created, updated', 'safe'),
+			array('password', 'length', 'min'=>8),
+			array('created, updated, keyword, sent_pass_to_email', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, email, created, updated, del_flg', 'safe', 'on'=>'search'),
+			array('id, username, password, email, created, updated, del_flg, keyword', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,6 +68,8 @@ class Admin extends CActiveRecord
 			'username' => Yii::t('app', 'Tài khoản'),
 			'password' => Yii::t('app', 'Mật khẩu'),
 			'email' => Yii::t('app', 'Email'),
+            'keyword' => Yii::t('app', 'Từ khoá'),
+            'sent_pass_to_email' => Yii::t('app', 'Gửi mật khẩu vào email'),
 		);
 	}
 
@@ -83,17 +90,26 @@ class Admin extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+        $criteria->compare('del_flg',Constant::DEL_FALSE);
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('username',$this->username,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
-		$criteria->compare('del_flg',Constant::DEL_FALSE);
+        if (!isset($this->keyword)) {
+            $criteria->compare('t.id',$this->id);
+            $criteria->compare('t.email',$this->email,true);
+            $criteria->compare('t.username',$this->username,true);
+        }else{
+            $criteria->compare('t.id',$this->keyword, true);
+            $criteria->compare('t.email',$this->keyword,true, 'OR');
+            $criteria->compare('t.username',$this->keyword,true, 'OR');
+        }
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+            'criteria'=>$criteria,
+            'pagination' => array(
+                'pageSize' => Constant::PAGE_SIZE
+            ),
+            'sort' => array(
+                'defaultOrder' => 't.id asc',
+            ),
 		));
 	}
 
@@ -109,7 +125,19 @@ class Admin extends CActiveRecord
 	}
 
     public function beforeSave() {
-        $this->password = self::encrypt($this->password);
+        if($this->password){
+            $this->password = self::encrypt($this->password);
+            if($this->sent_pass_to_email){
+                //@todo: Sent email password to manager
+
+            }
+        }
+
+        $now = new CDbExpression('NOW()');
+        if ($this->isNewRecord){
+            $this->created = $now;
+        }
+        $this->updated = $now;
         return parent::beforeSave();
     }
 

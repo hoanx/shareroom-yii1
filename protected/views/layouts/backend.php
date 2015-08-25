@@ -15,13 +15,13 @@
     //CSS
     $clientScript->registerCssFile($baseUrl . '/css/bootstrap.css');
     $clientScript->registerCssFile($baseUrl . '/css/font-awesome.min.css');
+    //$clientScript->registerCssFile($baseUrl . '/css/frontend.css');
     $clientScript->registerCssFile($baseUrl . '/css/backend.css');
 
     //JS
     $clientScript->registerScriptFile($baseUrl . '/js/jquery-1.10.2.min.js');
     $clientScript->registerScriptFile($baseUrl . '/js/bootstrap.min.js');
     $clientScript->registerScriptFile('https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places');
-
 
     ?>
 </head>
@@ -106,15 +106,15 @@
     </div>
     <div id="main-content">
         <h1 id="page-title"><?php echo $this->pageTitle ?></h1>
-        <?php if (Yii::app()->user->hasFlash('success')): ?>
+        <?php if (Yii::app()->getModule('admin')->user->hasFlash('success')): ?>
             <div class="alert alert-success fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <?php echo Yii::app()->user->getFlash('success'); ?>
+                <?php echo Yii::app()->getModule('admin')->user->getFlash('success'); ?>
             </div>
-        <?php elseif (Yii::app()->user->hasFlash('error')): ?>
+        <?php elseif (Yii::app()->getModule('admin')->user->hasFlash('error')): ?>
             <div class="alert alert-danger fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <?php echo Yii::app()->user->getFlash('error'); ?>
+                <?php echo Yii::app()->getModule('admin')->user->getFlash('error'); ?>
             </div>
         <?php endif; ?>
         <?php echo $content; ?>
