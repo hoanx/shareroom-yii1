@@ -126,11 +126,13 @@ class Admin extends CActiveRecord
 
     public function beforeSave() {
         if($this->password){
-            $this->password = self::encrypt($this->password);
             if($this->sent_pass_to_email){
-                //@todo: Sent email password to manager
+                $subject = Yii::t('app', 'Mật khẩu mới');
+                $content = Yii::app()->controller->renderPartial('//template/password_for_manager', array('model' => $this), true, true);
+                Common::sendMail($this->email, $subject, $content);
 
             }
+            $this->password = self::encrypt($this->password);
         }
 
         $now = new CDbExpression('NOW()');
