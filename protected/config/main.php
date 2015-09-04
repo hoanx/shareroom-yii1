@@ -65,15 +65,15 @@ return array(
         'google' => array(
             'class' => 'ext.yii-google-api-php-client.YiiGoogleApi',
             // See http://code.google.com/p/google-api-php-client/wiki/OAuth2
-//            client id develop.shareroom.vn
-//            'clientId' => '312670614441-4kgsas398idcfnif8hh2ghp4uqbvghno.apps.googleusercontent.com',
-//            'clientSecret' => 'ImFosF9-WFwysf4OPbTfcauu',
+            // client id shareroom.vn
+//            'clientId' => '441501181947-i6vvh4adacu0ejv338mdi71egrrdeps2.apps.googleusercontent.com',
+//            'clientSecret' => 'UsGUhSMlol9fN3DCRIBrlJR7',
 
             // client Id dev local shareroomyii1.com
-            'clientId' => '312670614441-btj9c7iut15ar77guv54h20dr50qom1q.apps.googleusercontent.com',
-            'clientSecret' => 'QorpQ7qZwEfsEgtyzMy-hHsE',
-            // // This is the API key for 'Simple API Access'
-            'developerKey' => '',
+            'clientId' => '441501181947-c8rfavgbor7r3p6dmp6i17dcorkslojh.apps.googleusercontent.com',
+            'clientSecret' => 'SczvVtWbaqzhHqhHGyUaO6Nk',
+             // This is the API key for 'Simple API Access'
+            'developerKey' => 'AIzaSyD1KM1GqKb_vr6FXEAJ8azksz1PBRzkwAk',
         ),
 		'user'=>array(
 			// enable cookie-based authentication

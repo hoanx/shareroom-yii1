@@ -169,29 +169,44 @@ class RoomAddress extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('address_detail',$this->address_detail,true);
-		$criteria->compare('address',$this->address,true);
-		$criteria->compare('district',$this->district,true);
-		$criteria->compare('city',$this->city,true);
-		$criteria->compare('lat',$this->lat);
-		$criteria->compare('long',$this->long);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('room_type',$this->room_type,true);
-		$criteria->compare('accommodates',$this->accommodates);
-		$criteria->compare('bedrooms',$this->bedrooms);
-		$criteria->compare('beds',$this->beds);
-		$criteria->compare('room_size',$this->room_size);
-		$criteria->compare('amenities',$this->amenities,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
-		$criteria->compare('del_flg',$this->del_flg);
+        $criteria->compare('t.del_flg',Constant::DEL_FALSE);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+        if (!isset($this->keyword)) {
+            $criteria->compare('t.id',$this->id);
+            $criteria->compare('t.user_id',$this->user_id);
+            $criteria->compare('t.address_detail',$this->address_detail,true);
+            $criteria->compare('t.address',$this->address,true);
+            $criteria->compare('t.district',$this->district,true);
+            $criteria->compare('t.city',$this->city,true);
+            $criteria->compare('t.lat',$this->lat);
+            $criteria->compare('t.long',$this->long);
+            $criteria->compare('t.name',$this->name,true);
+            $criteria->compare('t.description',$this->description,true);
+            $criteria->compare('t.room_type',$this->room_type,true);
+            $criteria->compare('t.accommodates',$this->accommodates);
+            $criteria->compare('t.bedrooms',$this->bedrooms);
+            $criteria->compare('t.beds',$this->beds);
+            $criteria->compare('t.room_size',$this->room_size);
+            $criteria->compare('t.amenities',$this->amenities,true);
+        }else{
+            $criteria->compare('t.id',$this->keyword, true, 'OR');
+            $criteria->compare('t.address_detail',$this->keyword,true, 'OR');
+            $criteria->compare('t.address',$this->keyword,true, 'OR');
+            $criteria->compare('t.district',$this->keyword,true, 'OR');
+            $criteria->compare('t.city',$this->keyword,true, 'OR');
+            $criteria->compare('t.name',$this->keyword,true, 'OR');
+            $criteria->compare('t.description',$this->keyword,true, 'OR');
+        }
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'pagination' => array(
+                'pageSize' => Constant::PAGE_SIZE
+            ),
+            'sort' => array(
+                'defaultOrder' => 't.id desc',
+            ),
+        ));
 	}
 
 	/**
