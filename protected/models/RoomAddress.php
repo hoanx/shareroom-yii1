@@ -279,7 +279,7 @@ class RoomAddress extends CActiveRecord
                 echo '<i class="fa fa-building"></i><br>' . Yii::t('app', 'Cả căn hộ');
                 break;
             case Constant::ROOM_TYPE_PRIVATE_ROOM:
-                echo '<i class="fa fa-user-secret"></i><br>' . Yii::t('app', 'Phòng riêng');
+                echo '<i class="fa fa-home"></i><br>' . Yii::t('app', 'Phòng riêng');
                 break;
             case Constant::ROOM_TYPE_SHARE_ROOM:
                 echo '<i class="fa fa-share-alt"></i><br>' . Yii::t('app', 'Phòng chia sẻ');

@@ -1230,3 +1230,9 @@ table.table-booking a.unaccept{
 .ui-datepicker select {
     color: #000000;
 }
+.page-static{
+    font-size: 16px;
+}
+.page-static .author{
+    margin-top: 35px;
+}

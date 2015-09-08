@@ -39,22 +39,17 @@ class FacebookRequest
   /**
    * @const string Version number of the Facebook PHP SDK.
    */
-  const VERSION = '4.0.23';
+  const VERSION = '4.0.9';
 
   /**
    * @const string Default Graph API version for requests
    */
-  const GRAPH_API_VERSION = 'v2.3';
+  const GRAPH_API_VERSION = 'v2.0';
 
   /**
    * @const string Graph API URL
    */
   const BASE_GRAPH_URL = 'https://graph.facebook.com';
-
-  /**
-   * @const string Graph API URL
-   */
-  const BASE_VIDEO_GRAPH_URL = 'https://graph-video.facebook.com';
 
   /**
    * @var FacebookSession The session used for this request
@@ -199,13 +194,13 @@ class FacebookRequest
 
     $params = ($parameters ?: array());
     if ($session
-      && ! isset($params['access_token'])) {
-      $params['access_token'] = $session->getToken();
+      && !isset($params["access_token"])) {
+      $params["access_token"] = $session->getToken();
     }
-    if (! isset($params['appsecret_proof'])
-      && FacebookSession::useAppSecretProof()) {
-      $params['appsecret_proof'] = $this->getAppSecretProof(
-        $params['access_token']
+    if (FacebookSession::useAppSecretProof()
+      && !isset($params["appsecret_proof"])) {
+      $params["appsecret_proof"] = $this->getAppSecretProof(
+        $params["access_token"]
       );
     }
     $this->params = $params;
@@ -218,14 +213,7 @@ class FacebookRequest
    */
   protected function getRequestURL()
   {
-    $pathElements = explode('/', $this->path);
-    $lastInPath = end($pathElements);
-    if ($lastInPath == 'videos' && $this->method === 'POST') {
-      $baseUrl = static::BASE_VIDEO_GRAPH_URL;
-    } else {
-      $baseUrl = static::BASE_GRAPH_URL;
-    }
-    return $baseUrl . '/' . $this->version . $this->path;
+    return static::BASE_GRAPH_URL . '/' . $this->version . $this->path;
   }
 
   /**
@@ -241,7 +229,7 @@ class FacebookRequest
     $url = $this->getRequestURL();
     $params = $this->getParameters();
 
-    if ($this->method === 'GET') {
+    if ($this->method === "GET") {
       $url = self::appendParamsToUrl($url, $params);
       $params = array();
     }
@@ -251,7 +239,7 @@ class FacebookRequest
     $connection->addRequestHeader('Accept-Encoding', '*'); // Support all available encodings.
 
     // ETag
-    if (null !== $this->etag) {
+    if (isset($this->etag)) {
       $connection->addRequestHeader('If-None-Match', $this->etag);
     }
 
@@ -261,7 +249,7 @@ class FacebookRequest
 
     static::$requestCount++;
 
-    $etagHit = 304 === $connection->getResponseHttpStatusCode();
+    $etagHit = 304 == $connection->getResponseHttpStatusCode();
 
     $headers = $connection->getResponseHeaders();
     $etagReceived = isset($headers['ETag']) ? $headers['ETag'] : null;
@@ -303,7 +291,7 @@ class FacebookRequest
    *
    * @return string
    */
-  public static function appendParamsToUrl($url, array $params = array())
+  public static function appendParamsToUrl($url, $params = array())
   {
     if (!$params) {
       return $url;

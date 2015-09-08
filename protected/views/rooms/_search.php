@@ -82,7 +82,7 @@
             <div id="map" style="height: 350px;margin-bottom: 10px;"></div>
 			<div class="btn-group" data-toggle="buttons">
 				<label class="btn btn-info <?php echo RoomAddress::checkRoomtype('entire_home') ?>"><input type="checkbox" autocomplete="off" value="entire_home" name="room_type" <?php echo RoomAddress::checkRoomtype('entire_home', true) ?>> <i class="fa fa-building"></i><br>Cả căn hộ</label> 
-				<label class="btn btn-info <?php echo RoomAddress::checkRoomtype('private_room') ?>"> <input type="checkbox" autocomplete="off" value="private_room" name="room_type" <?php echo RoomAddress::checkRoomtype('private_room', true) ?>> <i class="fa fa-user-secret"></i><br>Phòng riêng</label> 
+				<label class="btn btn-info <?php echo RoomAddress::checkRoomtype('private_room') ?>"> <input type="checkbox" autocomplete="off" value="private_room" name="room_type" <?php echo RoomAddress::checkRoomtype('private_room', true) ?>> <i class="fa fa-home"></i><br>Phòng riêng</label>
 				<label class="btn btn-info <?php echo RoomAddress::checkRoomtype('share_room') ?>"> <input type="checkbox"autocomplete="off" value="share_room" name="room_type" <?php echo RoomAddress::checkRoomtype('share_room', true) ?>> <i class="fa fa-share-alt"></i><br>Phòng chia sẻ</label>
 			</div>
 			<?php /* 

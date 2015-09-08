@@ -11,11 +11,10 @@
             <div class="col-sm-4">
                 <h5><?= Yii::t('app', 'Thông tin công ty') ?></h5>
                 <ul>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Giới thiệu shareroom')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Về chúng tôi')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Chính sách riêng tư')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Điều kiện & điều khoản')) ?></a></li>
-                    <li><a href="#"><?php echo(Yii::t('app', 'Liên hệ')) ?></a></li>
+                    <li><a href="<?php echo(Yii::app()->createUrl('site/about')) ?>"><?php echo(Yii::t('app', 'Giới thiệu shareroom')) ?></a></li>
+                    <li><a href="<?php echo(Yii::app()->createUrl('site/privacy_policies')) ?>"><?php echo(Yii::t('app', 'Chính sách riêng tư')) ?></a></li>
+                    <li><a href="<?php echo(Yii::app()->createUrl('site/policy')) ?>"><?php echo(Yii::t('app', 'Điều kiện & điều khoản')) ?></a></li>
+                    <li><a href="<?php echo(Yii::app()->createUrl('site/contact')) ?>"><?php echo(Yii::t('app', 'Liên hệ')) ?></a></li>
                 </ul>
             </div>
             <div class="col-sm-4">
@@ -40,12 +39,14 @@
                */ ?>
             </div>
             <div class="col-sm-4">
+                <?php /*
                 <h5><?= Yii::t('app', 'Được chứng nhận') ?></h5>
                 <div class="col-xs-6">
                     <a href="#">
                         <img src="<?php echo $baseUrl ?>/images/dangkybocongthuong.jpg" class="img-responsive">
                     </a>
                 </div>
+                */ ?>
             </div>
         </div>
     </div>

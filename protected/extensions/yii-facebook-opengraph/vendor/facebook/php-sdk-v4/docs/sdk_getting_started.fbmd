@@ -17,7 +17,7 @@ If you're using [Composer](https://getcomposer.org/) as a package manager for PH
 ~~~~
 {
   "require" : {
-    "facebook/php-sdk-v4" : "~4.0.12"
+    "facebook/php-sdk-v4" : "4.0.*"
   }
 }
 ~~~~
@@ -42,7 +42,6 @@ You will need to have configured a Facebook App, which you can obtain from the [
 Then, initialize the SDK with your app ID and secret:
 
 ~~~
-session_start(); // For the Facebook SDK to work correctly, you need to start a PHP session
 FacebookSession::setDefaultApplication('YOUR_APP_ID', 'YOUR_APP_SECRET');
 ~~~
 </card>
@@ -61,7 +60,7 @@ $loginUrl = $helper->getLoginUrl();
 ~~~~
 
 ~~~~
-$helper = new FacebookRedirectLoginHelper('your redirect URL here');
+$helper = new FacebookRedirectLoginHelper();
 try {
   $session = $helper->getSessionFromRedirect();
 } catch(FacebookRequestException $ex) {

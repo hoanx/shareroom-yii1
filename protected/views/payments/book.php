@@ -271,6 +271,23 @@
                     <button type="submit" class="btn btn-success btn-lg btn-block btn-payment"><?php echo(Yii::t('app', 'Thanh toán')) ?></button>
                 </div>
             </div>
+
+            <div class="row">
+                <ul>
+                    <li style="margin-bottom: 6px;">
+                        Shareroom sẽ liên hệ với quý khách (qua email hoặc điện thoại) trong vòng <b style="font-size: 15px; color: #e89928;">30 phút</b> (T2-CN: 08:00 - 23:00) để xác
+                        nhận phòng và thời hạn thanh toán.
+                    </li>
+                    <li style="margin-bottom: 6px;">
+                        Quý khách sẽ thanh toán (chuyển khoản hoặc tại văn phòng của shareroom) sau khi có xác nhận
+                        còn phòng trống từ chúng tôi.
+                    </li>
+                    <li class="last" style="margin-bottom: 6px;">
+                        Trường hợp Quý khách muốn xác nhận ngay, vui lòng liên hệ với chúng tôi theo Hotline: <b>0931.68.78.66</b>
+                    </li>
+
+                </ul>
+            </div>
         </section>
     </div>
 <?php $this->endWidget(); ?>
