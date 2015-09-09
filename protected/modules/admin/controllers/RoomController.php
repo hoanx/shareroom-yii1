@@ -1,6 +1,6 @@
 <?php
 
-class ManagerController extends AdminController
+class RoomController extends AdminController
 {
 
 	/**
@@ -86,14 +86,14 @@ class ManagerController extends AdminController
 	 */
 	public function actionIndex()
 	{
-        $this->setPageTitle(Yii::t('app', 'Danh sách quản trị viên'));
-        $model=new Admin('search');
+        $this->setPageTitle(Yii::t('app', 'Danh sách phòng cho thuê'));
+        $model=new RoomAddress('search');
         $model->unsetAttributes();  // clear any default values
 
         if (!empty($_GET['Search'])) {
-            $model->attributes = $_GET['Admin'];
-        } elseif (!empty($_GET['SearchAdv']) && !empty($_GET['Admin']['Search'])) {
-            $model->attributes = $_GET['Admin']['Search'];
+            $model->attributes = $_GET['RoomAddress'];
+        } elseif (!empty($_GET['SearchAdv']) && !empty($_GET['RoomAddress']['Search'])) {
+            $model->attributes = $_GET['RoomAddress']['Search'];
         }
 
         $this->render('index',array(
@@ -110,7 +110,7 @@ class ManagerController extends AdminController
 	 */
 	public function loadModel($id)
 	{
-		$model=Admin::model()->findByPk($id);
+		$model=RoomAddress::model()->findByPk($id, 'del_flg=0');
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

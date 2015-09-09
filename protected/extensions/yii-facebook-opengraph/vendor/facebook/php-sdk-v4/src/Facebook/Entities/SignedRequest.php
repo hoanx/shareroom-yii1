@@ -298,10 +298,9 @@ class SignedRequest
    */
   public static function validateSignature($hashedSig, $sig)
   {
-    $intSignatureLength = mb_strlen($sig);
-    if (mb_strlen($hashedSig) === $intSignatureLength) {
+    if (mb_strlen($hashedSig) === mb_strlen($sig)) {
       $validate = 0;
-      for ($i = 0; $i < $intSignatureLength; $i++) {
+      for ($i = 0; $i < mb_strlen($sig); $i++) {
         $validate |= ord($hashedSig[$i]) ^ ord($sig[$i]);
       }
       if ($validate === 0) {
@@ -324,18 +323,8 @@ class SignedRequest
    */
   public static function validateCsrf(array $data, $state)
   {
-    if (isset($data['state'])) {
-      $savedLen = strlen($state);
-      $givenLen = strlen($data['state']);
-      if ($savedLen == $givenLen) {
-        $result = 0;
-        for ($i = 0; $i < $savedLen; $i++) {
-          $result |= ord($state[$i]) ^ ord($data['state'][$i]);
-        }
-        if ($result === 0) {
-          return;
-        }
-      }
+    if (isset($data['state']) && $data['state'] === $state) {
+      return;
     }
 
     throw new FacebookSDKException(

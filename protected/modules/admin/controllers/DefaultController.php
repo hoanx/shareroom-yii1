@@ -61,13 +61,13 @@ class DefaultController extends AdminController {
             if ($changePassModel->validate()) {
                 $profileModel->password = $changePassModel->new_pass;
                 if ($profileModel->save()) {
-                    Yii::app()->user->setFlash('success', Yii::t('admin', 'Change password success!'));
+                    Yii::app()->getModule('admin')->user->setFlash('success', Yii::t('admin', 'Thay đổi mật khẩu thành công.'));
+                    $this->redirect('profile');
                 }
             }else{
                 $changePassModel->current_pass = $data['current_pass'];
             }
         }
-
 
         $this->render('profile', array(
             'profileModel' => $profileModel,

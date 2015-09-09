@@ -1,41 +1,38 @@
 <?php
 /* @var $this UserController */
 /* @var $model Users */
-
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	$model->id,
-);
-
-$this->menu=array(
-	array('label'=>'List Users', 'url'=>array('index')),
-	array('label'=>'Create Users', 'url'=>array('create')),
-	array('label'=>'Update Users', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Users', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
-);
 ?>
 
-<h1>View Users #<?php echo $model->id; ?></h1>
+<section class="user-view">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="picture">
+                <img src="<?php echo Yii::app()->createUrl('/profile/image', array('id'=>$model->id))?>" class="img-responsive">
+            </div>
+        </div>
+        <div class="col-md-9">
+            <?php $this->widget('zii.widgets.CDetailView', array(
+                'data'=>$model,
+                'attributes'=>array(
+                    'email',
+                    'first_name',
+                    'last_name',
+                    'birthday',
+                    array(
+                        'name'=>'gender',
+                        'value'=>function($data){
+                                return is_string(Users::gender($data->gender)) ? Users::gender($data->gender) : '';
+                            }
+                    ),
+                    'phone_number',
+                    'address',
+                    array(
+                        'header' => Yii::t('app', 'Mô tả bản thân'),
+                        'name' =>  'description'
+                    )
+                ),
+            )); ?>
+        </div>
+    </div>
+</section>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'email',
-		'password',
-		'first_name',
-		'last_name',
-		'birthday',
-		'gender',
-		'phone_number',
-		'address',
-		'profile_picture',
-		'google_id',
-		'facebook_id',
-		'created',
-		'updated',
-		'del_flg',
-		'description',
-	),
-)); ?>

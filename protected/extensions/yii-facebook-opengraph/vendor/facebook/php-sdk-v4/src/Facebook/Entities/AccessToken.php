@@ -154,10 +154,11 @@ class AccessToken
     $machineIdIsValid = $tokenInfo->getProperty('machine_id') == $machineId;
     $accessTokenIsValid = $tokenInfo->isValid();
 
-    $accessTokenIsStillAlive = true;
     // Not all access tokens return an expiration. E.g. an app access token.
     if ($tokenInfo->getExpiresAt() instanceof \DateTime) {
       $accessTokenIsStillAlive = $tokenInfo->getExpiresAt()->getTimestamp() >= time();
+    } else {
+      $accessTokenIsStillAlive = true;
     }
 
     return $appIdIsValid && $machineIdIsValid && $accessTokenIsValid && $accessTokenIsStillAlive;
@@ -364,16 +365,6 @@ class AccessToken
   public function __toString()
   {
     return $this->accessToken;
-  }
-
-  /**
-   * Returns true if the access token is an app session token.
-   *
-   * @return bool
-   */
-  public function isAppSession()
-  {
-    return strpos($this->accessToken, '|') !== false;
   }
 
 }

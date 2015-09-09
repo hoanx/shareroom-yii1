@@ -49,31 +49,25 @@ class FacebookStreamHttpClientTest extends AbstractTestHttpClient
     $this->streamMock
       ->shouldReceive('streamContextCreate')
       ->once()
-      ->with(m::on(function($arg) {
-            if ( ! isset($arg['http']) || ! isset($arg['ssl'])) {
+      ->with(\Mockery::on(function($arg) {
+            if (!isset($arg['http']) || !isset($arg['ssl'])) {
               return false;
             }
 
-            if ($arg['http'] !== [
+            if ($arg['http'] !== array(
                 'method' => 'GET',
                 'timeout' => 60,
                 'ignore_errors' => true,
                 'header' => 'X-foo: bar',
-              ]) {
+              )) {
               return false;
             }
 
-            $caInfo = array_diff_assoc($arg['ssl'], [
-                'verify_peer' => true,
-                'verify_peer_name' => true,
-                'allow_self_signed' => true,
-              ]);
-
-            if (count($caInfo) !== 1) {
+            if ($arg['ssl']['verify_peer'] !== true) {
               return false;
             }
 
-            if (1 !== preg_match('/.+\/certs\/DigiCertHighAssuranceEVRootCA\.pem$/', $caInfo['cafile'])) {
+            if (false === preg_match('/.fb_ca_chain_bundle\.crt$/', $arg['ssl']['cafile'])) {
               return false;
             }
 

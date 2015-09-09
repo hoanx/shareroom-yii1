@@ -66,7 +66,6 @@ class SiteController extends Controller
 	 */
 	public function actionError()
 	{
-	    Common::debugdie(Yii::app()->errorHandler->error);
 		if($error=Yii::app()->errorHandler->error)
 		{
 			if(Yii::app()->request->isAjaxRequest)
@@ -239,6 +238,7 @@ class SiteController extends Controller
     protected function _initFacebookSDK(){
         $app_id = Yii::app()->facebook->appId;
         $app_secret = Yii::app()->facebook->secret;
+        $app_version = Yii::app()->facebook->version;
         FacebookSession::setDefaultApplication($app_id, $app_secret);
         $refirect_url = Yii::app()->createAbsoluteUrl('site/signup', array('facebook_code'=>1));
         $helper = new FacebookRedirectLoginHelper($refirect_url);
@@ -248,7 +248,6 @@ class SiteController extends Controller
                 // Check if an access token has already been set.
                 $session = new FacebookSession( $_SESSION['access_token_facebook'] );
             } else {
-
                 // Get access token from the code parameter in the URL.
                 $session = $helper->getSessionFromRedirect();
             }
@@ -273,11 +272,11 @@ class SiteController extends Controller
             $requestPicFB = new FacebookRequest( $session, 'GET', '/me/picture?type=large&redirect=false' );
             $requestPicture = $requestPicFB->execute();
             $userPicture = $requestPicture->getGraphObject(GraphUser::className())->asArray();
-
             $gender = 0;
-            if($userProfile['gender']=='male') $gender = Users::GENDER_MALE;
-            if($userProfile['gender']=='female') $gender = Users::GENDER_FEMALE;
-
+            if(isset($userProfile['gender'])){
+                if($userProfile['gender']=='male') $gender = Users::GENDER_MALE;
+                if($userProfile['gender']=='female') $gender = Users::GENDER_FEMALE;
+            }
             $this->userInfoFacebook = array(
                 'facebook_id' => $userProfile['id'],
                 'email' => $userProfile['email'],
@@ -288,7 +287,6 @@ class SiteController extends Controller
                 'gender' => $gender,
                 'password' => Constant::DEFAULT_PASSWORD,
             );
-
         }else{
             $permissions = array(
                 'email',
@@ -297,8 +295,6 @@ class SiteController extends Controller
             );
             $this->loginFacebookUrl = $helper->getLoginUrl($permissions);
         }
-
-
     }
 
 
@@ -358,6 +354,20 @@ class SiteController extends Controller
 
     public function actionCancellation_policies(){
         $this->render('cancellation');
+    }
 
+    public function actionPrivacy_policies(){
+        $this->pageTitle = Yii::t('app', 'Điều khoản riêng tư');
+        $this->render('privacy');
+    }
+
+    public function actionAbout(){
+        $this->pageTitle = Yii::t('app', 'Giới thiệu shareroom');
+        $this->render('about');
+    }
+
+    public function actionPolicy(){
+        $this->pageTitle = Yii::t('app', 'Điều khoản & Điều kiện');
+        $this->render('policy');
     }
 }

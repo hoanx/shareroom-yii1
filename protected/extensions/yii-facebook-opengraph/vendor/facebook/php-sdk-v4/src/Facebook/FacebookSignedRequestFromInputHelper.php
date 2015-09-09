@@ -69,7 +69,7 @@ abstract class FacebookSignedRequestFromInputHelper
   /**
    * Instantiates a new SignedRequest entity.
    *
-   * @param string|null $rawSignedRequest
+   * @param string|null
    */
   public function instantiateSignedRequest($rawSignedRequest = null)
   {
@@ -157,9 +157,8 @@ abstract class FacebookSignedRequestFromInputHelper
    */
   public function getRawSignedRequestFromCookie()
   {
-    $strCookieKey = 'fbsr_' . $this->appId;
-    if (isset($_COOKIE[$strCookieKey])) {
-      return $_COOKIE[$strCookieKey];
+    if (isset($_COOKIE['fbsr_' . $this->appId])) {
+      return $_COOKIE['fbsr_' . $this->appId];
     }
     return null;
   }

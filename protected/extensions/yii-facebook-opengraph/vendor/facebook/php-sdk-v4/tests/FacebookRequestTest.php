@@ -41,7 +41,7 @@ class FacebookRequestTest extends PHPUnit_Framework_TestCase
       'DELETE',
       '/' . $user_id
     ))->execute()->getGraphObject()->asArray();
-    $this->assertEquals(['success' => true], $response);
+    $this->assertTrue($response);
   }
 
   public function testETagHit()

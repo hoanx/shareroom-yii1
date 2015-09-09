@@ -2,17 +2,11 @@
 /* @var $this ManagerController */
 /* @var $model Admin */
 
-$this->breadcrumbs=array(
-	'Admins'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List Admin', 'url'=>array('index')),
-	array('label'=>'Manage Admin', 'url'=>array('admin')),
-);
+echo CHtml::link('<i class="fa fa-arrow-left"></i> '.Yii::t('app', 'Quay lại'),
+    $this->createUrl('index'),
+    array(
+        'class' => 'btn btn-info back-link'
+    ));
 ?>
-
-<h1>Create Admin</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

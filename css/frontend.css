@@ -1230,7 +1230,6 @@ table.table-booking a.unaccept{
 .ui-datepicker select {
     color: #000000;
 }
-
 .spaces-calendar .dp-highlight .ui-state-default {
 	background: #484 !important;
 	color: #FFF;
@@ -1282,4 +1281,10 @@ table.table-booking a.unaccept{
     font-size: 10px;
     padding: 0;
     line-height: 10px;
+}
+.page-static{
+    font-size: 16px;
+}
+.page-static .author{
+    margin-top: 35px;
 }

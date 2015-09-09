@@ -75,12 +75,14 @@ $action = Yii::app()->controller->action->id;
 <?php if ($controller == "site" && $action == "index") : ?>
     <div class="slider-wrapper theme-default">
         <div id="slider" class="nivoSlider">
-            <img src="<?php echo $baseUrl ?>/images/slides/city.jpg"
-                 data-thumb="<?php echo $baseUrl ?>/images/slides/city.jpg" alt=""/>
-            <img src="<?php echo $baseUrl ?>/images/slides/home.jpg"
-                 data-thumb="<?php echo $baseUrl ?>/images/slides/home.jpg" alt="" data-transition="slideInLeft"/>
-            <img src="<?php echo $baseUrl ?>/images/slides/sleep.jpg"
-                 data-thumb="<?php echo $baseUrl ?>/images/slides/sleep.jpg" alt=""/>
+            <img src="<?php echo $baseUrl ?>/images/slides/dalat1.jpg"
+                 data-thumb="<?php echo $baseUrl ?>/images/slides/dalat1.jpg" alt=""/>
+            <img src="<?php echo $baseUrl ?>/images/slides/phanthiet_1408967046.jpg"
+                 data-thumb="<?php echo $baseUrl ?>/images/slides/phanthiet_1408967046.jpg" alt="" data-transition="slideInLeft"/>
+            <img src="<?php echo $baseUrl ?>/images/slides/phuquoc1_1408966845.jpg"
+                 data-thumb="<?php echo $baseUrl ?>/images/slides/phuquoc1_1408966845.jpg" alt=""/>
+            <img src="<?php echo $baseUrl ?>/images/slides/SaiGon3.jpg"
+                 data-thumb="<?php echo $baseUrl ?>/images/slides/SaiGon3.jpg" alt=""/>
         </div>
         <div class="box-search">
             <h2 class="slider-caption hidden-xs"><?php echo(Yii::t('app', 'Đặt phòng du lịch với giá tốt nhất')) ?></h2>
