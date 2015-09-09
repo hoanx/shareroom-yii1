@@ -45,6 +45,11 @@ class Booking extends CActiveRecord
     const BOOKING_STATUS_UNACCEPT = 2;
     const BOOKING_STATUS_ACCEPT = 3;
     const BOOKING_STATUS_USER_CANCEL = 4;
+    
+    public $keyword;
+    public $email;
+    public $name;
+    public $address_detail;
 
 	/**
 	 * @return string the associated database table name
@@ -72,7 +77,7 @@ class Booking extends CActiveRecord
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, room_address_id, time_check_in, time_check_out, check_in, check_out, number_of_guests, room_price, cleaning_fees,
 			    additional_guests, coupon_code, discount, total_amount, payment_method, payment_status, booking_status, invoice_date, refund_date, created,
-			    updated, del_flg, price_additional_guests', 'safe', 'on'=>'search'),
+			    updated, del_flg, price_additional_guests, email, name, address_detail', 'safe', 'on'=>'search'),
 
             array('coupon_code', 'checkCoupon'),
 		);
@@ -140,6 +145,9 @@ class Booking extends CActiveRecord
 			'created' => 'Created',
 			'updated' => 'Updated',
 			'del_flg' => 'Del Flg',
+	        'name' => 'Tên phòng',
+	        'address_detail' => 'Địa chỉ phòng',
+	        'email' => 'Email của người đặt phòng'
 		);
 	}
 
@@ -161,27 +169,68 @@ class Booking extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('room_address_id',$this->room_address_id);
-		$criteria->compare('check_in',$this->check_in,true);
-		$criteria->compare('check_out',$this->check_out,true);
-		$criteria->compare('number_of_guests',$this->number_of_guests);
-		$criteria->compare('room_price',$this->room_price);
-		$criteria->compare('cleaning_fees',$this->cleaning_fees);
-		$criteria->compare('coupon_code',$this->coupon_code,true);
-		$criteria->compare('discount',$this->discount);
-		$criteria->compare('total_amount',$this->total_amount);
-		$criteria->compare('payment_method',$this->payment_method,true);
-		$criteria->compare('payment_status',$this->payment_status);
-		$criteria->compare('invoice_date',$this->invoice_date,true);
-		$criteria->compare('refund_date',$this->refund_date,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
-		$criteria->compare('del_flg',$this->del_flg);
+		$criteria->with = array('BookingUser', 'BookingHistory');
+		
+		if (!isset($this->keyword)) {
+		    $criteria->compare('id',$this->id);
+		    $criteria->compare('user_id',$this->user_id);
+		    $criteria->compare('room_address_id',$this->room_address_id);
+		    $criteria->compare('check_in',$this->check_in,true);
+		    $criteria->compare('check_out',$this->check_out,true);
+		    $criteria->compare('number_of_guests',$this->number_of_guests);
+		    $criteria->compare('room_price',$this->room_price);
+		    $criteria->compare('cleaning_fees',$this->cleaning_fees);
+		    $criteria->compare('coupon_code',$this->coupon_code,true);
+		    $criteria->compare('discount',$this->discount);
+		    $criteria->compare('total_amount',$this->total_amount);
+		    $criteria->compare('payment_method',$this->payment_method,true);
+		    $criteria->compare('payment_status',$this->payment_status);
+		    $criteria->compare('booking_status',$this->booking_status);
+		    $criteria->compare('invoice_date',$this->invoice_date,true);
+		    $criteria->compare('refund_date',$this->refund_date,true);
+		    $criteria->compare('created',$this->created,true);
+		    $criteria->compare('updated',$this->updated,true);
+		    $criteria->compare('del_flg',$this->del_flg);
+		    $criteria->compare('BookingUser.email',$this->email,true);
+		    $criteria->compare('BookingHistory.room_name',$this->name,true);
+		    $criteria->compare('BookingHistory.room_address_detail',$this->address_detail,true);
+		} else {
+		    $criteria->compare('id',$this->keyword);
+		    $criteria->compare('check_in',$this->keyword,true);
+		    $criteria->compare('check_out',$this->keyword,true);
+		    $criteria->compare('room_price',$this->keyword);
+		    $criteria->compare('total_amount',$this->keyword);
+		    $criteria->compare('payment_method',$this->keyword,true);
+		    $criteria->compare('invoice_date',$this->keyword,true);
+		    $criteria->compare('refund_date',$this->keyword,true);
+		    $criteria->compare('created',$this->keyword,true);
+		    $criteria->compare('updated',$this->keyword,true);
+		    $criteria->compare('BookingUser.email',$this->keyword,true);
+		    $criteria->compare('BookingHistory.room_name',$this->keyword,true);
+		    $criteria->compare('BookingHistory.room_address_detail',$this->keyword,true);
+		}
 
+		$sort = new CSort;
+		$sort->attributes = array(
+	        '*',
+	        'email' => array(
+                'asc' => 'BookingUser.email ASC',
+                'desc' => 'BookingUser.email DESC',
+	        ),
+	        'name' => array(
+                'asc' => 'BookingHistory.room_name ASC',
+                'desc' => 'BookingHistory.room_name DESC',
+	        ),
+	        'address_detail' => array(
+                'asc' => 'BookingHistory.room_address_detail ASC',
+                'desc' => 'BookingHistory.room_address_detail DESC',
+	        ),
+		);
+		$sort->defaultOrder = 't.id desc';
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+	        'sort' => $sort
 		));
 	}
 
@@ -208,7 +257,7 @@ class Booking extends CActiveRecord
 
     public static function _getPaymentMethod($method = null) {
         $result = array(
-            //self::PAYMENT_METHOD_SMARTLINK => Yii::t('app','Thanh toán bằng smartlink'),
+            self::PAYMENT_METHOD_SMARTLINK => Yii::t('app','Thanh toán bằng smartlink'),
             self::PAYMENT_METHOD_BANK_TRANFER => Yii::t('app','Thanh toán chuyển khoản'),
             self::PAYMENT_METHOD_COMPANY => Yii::t('app','Thanh toán tại văn phòng'),
         );

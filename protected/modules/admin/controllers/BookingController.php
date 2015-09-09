@@ -1,30 +1,7 @@
 <?php
 
-class RoomController extends AdminController
+class BookingController extends AdminController
 {
-
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-	    $this->setPageTitle(Yii::t('app', 'Xem chi tiết phòng cho thuê'));
-	    
-		$room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0));
-    
-        if(!$room) {
-            Yii::app()->user->setFlash('error', 'Invalid record.');
-            $this->redirect(Yii::app()->homeUrl);
-        }
-        
-        $room->amenities = unserialize($room->amenities);
-        
-        $this->render('view', array(
-            'room' => $room,
-        ));
-	}
-
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -44,19 +21,35 @@ class RoomController extends AdminController
 	 */
 	public function actionIndex()
 	{
-        $this->setPageTitle(Yii::t('app', 'Danh sách phòng cho thuê'));
-        $model=new RoomAddress('search');
+        $this->setPageTitle(Yii::t('app', 'Danh sách đặt phòng'));
+        $model=new Booking('search');
         $model->unsetAttributes();  // clear any default values
 
         if (!empty($_GET['Search'])) {
-            $model->attributes = $_GET['RoomAddress'];
-        } elseif (!empty($_GET['SearchAdv']) && !empty($_GET['RoomAddress']['Search'])) {
-            $model->attributes = $_GET['RoomAddress']['Search'];
+            $model->attributes = $_GET['Booking'];
+        } elseif (!empty($_GET['SearchAdv']) && !empty($_GET['Booking']['Search'])) {
+            $model->attributes = $_GET['Booking']['Search'];
         }
 
         $this->render('index',array(
             'model'=>$model,
         ));
+	}
+	
+	public function actionView($id)
+	{
+	    $this->setPageTitle(Yii::t('app', 'Xem chi tiết đặt phòng'));
+	
+	    $model = Booking::model()->findByAttributes(array('id' => $id, 'del_flg' => 0));
+	
+	    if(!$model) {
+	        Yii::app()->user->setFlash('error', 'Invalid record.');
+	        $this->redirect(Yii::app()->homeUrl);
+	    }
+	
+	    $this->render('view', array(
+            'model' => $model,
+	    ));
 	}
 
 	/**
@@ -68,7 +61,7 @@ class RoomController extends AdminController
 	 */
 	public function loadModel($id)
 	{
-		$model=RoomAddress::model()->findByPk($id, 'del_flg=0');
+		$model = Booking::model()->findByPk($id, 'del_flg=0');
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

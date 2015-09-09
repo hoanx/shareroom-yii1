@@ -3,7 +3,6 @@
 /* @var $model Users */
 ?>
 <section class="table-data">
-    <?php echo CHtml::link('<i class="fa fa-plus"></i> ' . Yii::t('admin', 'Thêm mới'), array('room/create'), array('class' => 'btn btn-success new-record-link')); ?>
     <?php $this->renderPartial('_search', array(
         'model'=>$model,
     )) ?>
