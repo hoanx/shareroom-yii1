@@ -148,4 +148,12 @@ class RoomPrice extends CActiveRecord
         $this->updated = $now;
         return parent::beforeSave();
     }
+    
+    public static function displayPrice($price = null) {
+        if(!empty($price)) {
+            return number_format($price) . ' VND';
+        } else {
+            return "<b>Không có phí</b>";
+        }
+    }
 }

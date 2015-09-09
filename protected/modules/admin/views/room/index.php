@@ -12,29 +12,35 @@
         'dataProvider' => $model->search(),
         'columns' => array(
             'id',
-            'email',
-            'first_name',
-            'last_name',
-            'birthday',
             array(
-                'name'=>'gender',
+                'name'=>'email',
                 'value'=>function($data){
-                        return is_string(Users::gender($data->gender)) ? Users::gender($data->gender) : '';
-                    }
+                    return $data->Users->email;
+                }
             ),
-            'phone_number',
-            /*
-            'address',
-            'profile_picture',
-            'google_id',
-            'facebook_id',
-            'created',
-            'updated',
-            'del_flg',
-            'description',
-            */
+            array(
+                'name'=>'first_name',
+                'value'=>function($data){
+                    return $data->Users->first_name;
+                }
+            ),
+            array(
+                'name'=>'last_name',
+                'value'=>function($data){
+                    return $data->Users->last_name;
+                }
+            ),
+            'name',
+            'address_detail',
+            array(
+                'name'=>'price',
+                'value'=>function($data){
+                    return number_format($data->RoomPrice->price);
+                }
+            ),
             array(
                 'class' => 'CButtonColumn',
+                'template' => '{view}{delete}',
             ),
         ),
     )); ?>

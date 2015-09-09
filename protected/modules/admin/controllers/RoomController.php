@@ -9,63 +9,61 @@ class RoomController extends AdminController
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
+	    $this->setPageTitle(Yii::t('app', 'Xem chi tiết phòng cho thuê'));
+	    
+		$room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0));
+    
+        if(!$room) {
+            Yii::app()->user->setFlash('error', 'Invalid record.');
+            $this->redirect(Yii::app()->homeUrl);
+        }
+        
+        $room->amenities = unserialize($room->amenities);
+        
+        $this->breadcrumbs = array(
+            $room->city => '',
+            $room->district => '',
+        );
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Admin;
-        $model->setScenario('register');
-        $model->password = Common::generatePassword();
+        $paymentForm = new PaymentForm();
+        $paymentForm->room_address_id = $room->id;
+        $paymentForm->min_night = $room->RoomPrice->min_nights;
+        $paymentForm->max_night = $room->RoomPrice->max_nights;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        if(isset($_POST['PaymentForm']) && $_POST['PaymentForm']){
+            $paymentForm->attributes = $_POST['PaymentForm'];
 
-		if(isset($_POST['Admin']))
-		{
-			$model->attributes=$_POST['Admin'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		if(isset($_POST['Admin']))
-		{
-			$model->attributes=$_POST['Admin'];
-            if(empty($model->password))
-                unset($model->password);
-
-			if($model->save()){
-                Yii::app()->getModule('admin')->user->setFlash('success', 'Lưu thông tin quản trị viên thành công.');
-                $this->redirect(array('index'));
+            if(!Yii::app()->user->id) {
+                $this->redirect(array('site/signin'));
             }
 
-		}else{
-            unset($model->password);
+            if($paymentForm->validate()){
+                if(Yii::app()->user->hasState('paymentData')){
+                    Yii::app()->user->__unset('paymentData');
+                }
+                Yii::app()->user->setState('paymentData', $paymentForm->attributes);
+                $this->redirect(array('payments/book', 'id'=>$paymentForm->room_address_id));
+            }
+
         }
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
+        $listGuest = array();
+        for($i=1; $i <= $room->accommodates; $i++){
+            if(Constant::GUEST_MAX==$i){
+                $listGuest[$i] = $i.'+';
+            }else{
+                $listGuest[$i] = $i;
+            }
+        }
+        
+        $wishlist = Wishlist::model()->findByAttributes(array('room_address_id' => $id, 'user_id' => Yii::app()->user->id));
+
+        $this->render('view', array(
+            'room' => $room,
+            'paymentForm' => $paymentForm,
+            'listGuest' => $listGuest,
+            'wishlist' => $wishlist
+        ));
 	}
 
 	/**
@@ -75,10 +73,11 @@ class RoomController extends AdminController
 	 */
 	public function actionDelete($id)
 	{
+	    $referer = Yii::app()->request->urlReferrer;
         $model=$this->loadModel($id);
         $model->del_flg = Constant::DEL_TRUE;
         $model->save(false);
-        $this->redirect(array('index'));
+        $this->redirect($referer);
 	}
 
 	/**

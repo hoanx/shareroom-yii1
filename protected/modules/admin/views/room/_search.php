@@ -31,7 +31,7 @@
             </h4>
         </div>
         <div id="collapseTwo" class="panel-collapse collapse <?php if (!empty($_GET['SearchAdv'])) echo 'in' ?>">
-            <?php echo CHtml::form(array('user/index'), 'get') ?>
+            <?php echo CHtml::form(array('room/index'), 'get') ?>
             <div class="panel-body">
                 <div class="row">
                     <div class="form-group col-lg-3">
@@ -51,18 +51,16 @@
                         <?php echo CHtml::activeTextField($model, '[Search]last_name', array('class' => 'form-control')) ?>
                     </div>
                     <div class="form-group col-lg-3">
-                        <?php echo CHtml::activeLabel($model, '[Search]gender') ?>
-                        <?php echo CHtml::activeDropDownList($model, '[Search]gender',
-                            Users::gender(),
-                            array('class' => 'form-control'))?>
+                        <?php echo CHtml::activeLabel($model, '[Search]name') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]name', array('class' => 'form-control')) ?>
                     </div>
                     <div class="form-group col-lg-3">
-                        <?php echo CHtml::activeLabel($model, '[Search]phone_number') ?>
-                        <?php echo CHtml::activeTextField($model, '[Search]phone_number', array('class' => 'form-control')) ?>
+                        <?php echo CHtml::activeLabel($model, '[Search]address_detail') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]address_detail', array('class' => 'form-control')) ?>
                     </div>
                     <div class="form-group col-lg-3">
-                        <?php echo CHtml::activeLabel($model, '[Search]address') ?>
-                        <?php echo CHtml::activeTextField($model, '[Search]address', array('class' => 'form-control')) ?>
+                        <?php echo CHtml::activeLabel($model, '[Search]price') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]price', array('class' => 'form-control')) ?>
                     </div>
 
                 </div>

@@ -91,14 +91,12 @@
                 <?php echo CHtml::link('<i class="fa fa-home"></i>' . Yii::t('admin', 'Phòng cho thuê') . '<span class="arrow"></span>', 'javascript:void(0)', array('class' => 'sidebar-item')) ?>
                 <ul class="nav-custom">
                     <li><?php echo CHtml::link('<i class="fa fa-list-ul"></i>' . Yii::t('admin', 'Danh sách'), array('room/index')) ?></li>
-                    <li><?php echo CHtml::link('<i class="fa fa-plus"></i>' . Yii::t('admin', 'Thêm mới'), array('room/create')) ?></li>
                 </ul>
             </li>
             <li class="<?php Common::checkActive('booking') ?>">
                 <?php echo CHtml::link('<i class="fa fa-money"></i>' . Yii::t('admin', 'Đặt phòng') . '<span class="arrow"></span>', 'javascript:void(0)', array('class' => 'sidebar-item')) ?>
                 <ul class="nav-custom">
                     <li><?php echo CHtml::link('<i class="fa fa-list-ul"></i>' . Yii::t('admin', 'Danh sách'), array('booking/index')) ?></li>
-                    <li><?php echo CHtml::link('<i class="fa fa-plus"></i>' . Yii::t('admin', 'Thêm mới'), array('booking/create')) ?></li>
                 </ul>
             </li>
 
