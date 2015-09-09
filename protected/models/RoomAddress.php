@@ -358,7 +358,7 @@ class RoomAddress extends CActiveRecord
     
     
         $criteria->params = array(
-                ':del_flg' => Constant::DEL_FALSE,
+            ':del_flg' => Constant::DEL_FALSE,
         );
     
         if(isset($data['sort'])) {
@@ -380,7 +380,28 @@ class RoomAddress extends CActiveRecord
 //         }
         
         $model = RoomAddress::model()->findAll($criteria);
-    
+        
+        if(isset($data['startdate']) && $data['startdate'] && isset($data['enddate']) && $data['enddate']) {
+            foreach($model as $k => $room) {
+                $criteria = new CDbCriteria();
+                $criteria->condition = 't.date > :start_date AND t.date < :end_date AND t.room_address_id = :room_address_id';
+                $criteria->params = array(
+                    ':start_date' => date("Y-m-d", strtotime($data['startdate'])),
+                    ':end_date' => date("Y-m-d", strtotime($data['enddate'])),
+                    ':room_address_id' => $room->id,
+                );
+                
+                $roomset = RoomSet::model()->findAll($criteria);
+                
+                if($roomset) {
+                    unset($model[$k]);
+                }
+                
+                
+            }
+        }
+        
+            
         return $model;
     }
     
