@@ -1232,7 +1232,39 @@ table.table-booking a.unaccept{
 }
 .page-static{
     font-size: 16px;
+    margin-bottom: 60px;
 }
-.page-static .author{
-    margin-top: 35px;
+.page-static .founder{
+    margin-top: 50px;
+}
+.founder .inner{
+    margin-top: 15px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.founder .founder-image{
+    margin-bottom: 30px;
+    border-radius: 50%;
+}
+
+.founder .title{
+    font-weight: normal;
+    font-size: 22px;
+    color: #2a6ebe;
+}
+.founder .sub-title{
+    color: rgb(170, 170, 170);
+    display: inline;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    font-size: 15.2px;
+    height: auto;
+    line-height: 22.8px;
+}
+
+.page-static ul.privacy li{
+    margin-bottom: 15px;
+    line-height: 30px;
+}
+.page-static .policy li{
+    line-height: 30px;
 }

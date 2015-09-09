@@ -23,6 +23,10 @@ Mail support
 address: support@shareroom.vn
 pass: 1qaZXsw2
 
+Mail admin
+address: admin@shareroom.vn
+pass: 1qaZXsw2
+
 Pass key SSH: 1qaZXsw2
 
 -------------------------------------------------
