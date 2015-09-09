@@ -102,9 +102,19 @@ echo $this->renderPartial('//profile/_menu_profile');
                         ); ?>
 
                         <div class="btn-control pull-right">
-                            <?php echo CHtml::link(Yii::t('app', 'Chỉnh sửa bài đăng'),
+                            <?php 
+                            echo CHtml::link(Yii::t('app', 'Chỉnh sửa bài đăng'),
                                 array(
                                     'spaces/editlisting',
+                                    'id' => ($data->id),
+                                ),
+                                array(
+                                    'class' => 'btn btn-default btn-url',
+                                    'style' => 'margin-right: 10px;'
+                                ));
+                            echo CHtml::link(Yii::t('app', 'Sửa lịch'),
+                                array(
+                                    'spaces/calendar',
                                     'id' => ($data->id),
                                 ),
                                 array(

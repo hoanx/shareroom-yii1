@@ -173,5 +173,101 @@ class SpacesController extends Controller
         $this->render('photos', array('room' => $room, 'images' => $images));
 
     }
+    
+    public function actionCalendar ($id=null) {
+        $this->setPageTitle(Yii::t('app', 'Quản lý lịch'));
+        
+        if(is_null($id)) $this->redirect(array('index'));
+        
+        $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
+        if(!$room || $room->user_id != Yii::app()->user->id) {
+            Yii::app()->user->setFlash('error', 'Permission denied.');
+            $this->redirect(Yii::app()->homeUrl);
+        }
+        
+        $roomDisable = RoomSet::model()->findAllByAttributes(array('room_address_id' => $id));
+        
+        $model = new RoomSet();
+        
+        if(isset($_POST['RoomSet'])) {
+            $model->attributes  = $_POST['RoomSet'];
+            
+            if(!empty($model->start_date)) {
+                if($model->status == RoomSet::STATUS_ENABLE) {
+                    // Kiểm tra end_date
+                    if(!empty($model->end_date)) {
+                        // Nếu có end_date thì set khoảng thời gian giữa start_date và end_date
+                        $start_date = $model->start_date;
+                        $end_date = $model->end_date;
+                        
+                        while (strtotime($start_date) <= strtotime($end_date)) {
+                            $roomSet = RoomSet::model()->findByAttributes(array('room_address_id' => $id, 'date' => $start_date));
+                        
+                            if($roomSet) {
+                                $roomSet->delete();
+                            }
+                        
+                            $start_date = date ("Y-m-d", strtotime("+1 day", strtotime($start_date)));
+                        }
+                    } else {
+                        // Nếu không có end_date thì chỉ set 1 ngày duy nhất
+                        $roomSet = RoomSet::model()->findByAttributes(array('room_address_id' => $id, 'date' => $model->start_date));
+                        
+                        if($roomSet) {
+                            $roomSet->delete();
+                        }
+                    }
+                    
+                    $this->redirect(array('calendar', 'id' => $id));
+                    
+                } else if ($model->status == RoomSet::STATUS_DISABLE) {
+                    // Kiểm tra end_date
+                    if(!empty($model->end_date)) {
+                        // Nếu có end_date thì set khoảng thời gian giữa start_date và end_date
+                        $start_date = $model->start_date;
+                        $end_date = $model->end_date;
+                        
+                        while (strtotime($start_date) <= strtotime($end_date)) {
+                            $roomSet = RoomSet::model()->findByAttributes(array('room_address_id' => $id, 'date' => $start_date));
+                            
+                            if(!$roomSet) {
+                                $roomSet = new RoomSet();
+                                $roomSet->room_address_id = $id;
+                                $roomSet->date = $start_date;
+                            
+                                $roomSet->save();
+                            }
+                            
+                            $start_date = date ("Y-m-d", strtotime("+1 day", strtotime($start_date)));
+                        }
+                        
+                    } else {
+                        // Nếu không có end_date thì chỉ set 1 ngày duy nhất
+                        $roomSet = RoomSet::model()->findByAttributes(array('room_address_id' => $id, 'date' => $model->start_date));
+                        
+                        if(!$roomSet) {
+                            $roomSet = new RoomSet();
+                            $roomSet->room_address_id = $id;
+                            $roomSet->date = $model->start_date;
+                            
+                            $roomSet->save();
+                        }
+                    }
+                    
+                    $this->redirect(array('calendar', 'id' => $id));
+                } else {
+                    // Báo lỗi nếu để trống status
+                    $model->addError('status', "Tính sẵn sàng không được để trống.");
+                }
+            } else {
+                $model->addError('start_date', "Ngày không được để trống.");
+            }
+        }
+        
+        $this->render('calendar',array(
+            'model' => $model, 
+            'roomDisable' => $roomDisable
+        ));
+    }
 
 }
