@@ -1230,6 +1230,58 @@ table.table-booking a.unaccept{
 .ui-datepicker select {
     color: #000000;
 }
+.spaces-calendar .dp-highlight .ui-state-default {
+	background: #484 !important;
+	color: #FFF;
+}
+.spaces-index .ui-datepicker table .requested.dp-highlight a {
+    background-color: #484 !important;
+}
+
+.spaces-calendar .ui-datepicker.ui-datepicker-multi {
+	width: 100% !important;
+}
+
+.spaces-calendar .ui-datepicker-multi .ui-datepicker-group {
+	float: none;
+}
+
+.spaces-calendar #datepicker {
+	height: 300px;
+	overflow-x: scroll;
+}
+
+.spaces-calendar .ui-widget {
+	font-size: 100%
+}
+.spaces-calendar .ui-datepicker .ui-state-default {    
+	min-height: 50px;
+	line-height: 32px;   
+}
+.spaces-calendar .ui-datepicker .ui-datepicker-header {    
+	height: 50px;
+	line-height: 32px;   
+}
+.spaces-calendar .ui-datepicker thead tr {
+    height: 50px;
+}
+.spaces-calendar .ui-datepicker .ui-datepicker-prev-hover, .spaces-calendar .ui-datepicker .ui-datepicker-next-hover, .spaces-calendar .ui-datepicker .ui-datepicker-next, .spaces-calendar .ui-datepicker .ui-datepicker-prev {
+    top: 1.2em;
+}
+.spaces-calendar .ui-datepicker .ui-datepicker-title {
+    margin-top: .6em;
+}
+.spaces-calendar .ui-state-default:after {
+	content: attr(data-content);
+	display: block;
+	text-align: center;
+	color: #D14;
+	font-size: small;
+	font-weight: bold;
+    font-size: 10px;
+    padding: 0;
+    line-height: 10px;
+}
 .page-static{
     font-size: 16px;
     margin-bottom: 60px;

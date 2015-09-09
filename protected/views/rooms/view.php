@@ -212,8 +212,7 @@
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
-    var disqus_developer = 1;
-    var disqus_shortname = 'shareroomvn';
+    var disqus_shortname = 'shareroomvn1';
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
