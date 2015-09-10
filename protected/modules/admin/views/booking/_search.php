@@ -8,7 +8,7 @@
         </div>
         <div id="collapseOne"
              class="panel-collapse collapse <?php if (!empty($_GET['Search']) || empty($_GET)) echo 'in' ?>">
-            <?php echo CHtml::form(array('room/index'), 'get') ?>
+            <?php echo CHtml::form(array('booking/index'), 'get') ?>
             <div class="panel-body row">
                 <div class="col-md-3">
                     <?php echo CHtml::activeTextField($model, 'keyword', array(
@@ -31,7 +31,7 @@
             </h4>
         </div>
         <div id="collapseTwo" class="panel-collapse collapse <?php if (!empty($_GET['SearchAdv'])) echo 'in' ?>">
-            <?php echo CHtml::form(array('room/index'), 'get') ?>
+            <?php echo CHtml::form(array('booking/index'), 'get') ?>
             <div class="panel-body">
                 <div class="row">
                     <div class="form-group col-lg-3">
@@ -43,14 +43,6 @@
                         <?php echo CHtml::activeTextField($model, '[Search]email', array('class' => 'form-control')) ?>
                     </div>
                     <div class="form-group col-lg-3">
-                        <?php echo CHtml::activeLabel($model, '[Search]first_name') ?>
-                        <?php echo CHtml::activeTextField($model, '[Search]first_name', array('class' => 'form-control')) ?>
-                    </div>
-                    <div class="form-group col-lg-3">
-                        <?php echo CHtml::activeLabel($model, '[Search]last_name') ?>
-                        <?php echo CHtml::activeTextField($model, '[Search]last_name', array('class' => 'form-control')) ?>
-                    </div>
-                    <div class="form-group col-lg-3">
                         <?php echo CHtml::activeLabel($model, '[Search]name') ?>
                         <?php echo CHtml::activeTextField($model, '[Search]name', array('class' => 'form-control')) ?>
                     </div>
@@ -59,10 +51,21 @@
                         <?php echo CHtml::activeTextField($model, '[Search]address_detail', array('class' => 'form-control')) ?>
                     </div>
                     <div class="form-group col-lg-3">
-                        <?php echo CHtml::activeLabel($model, '[Search]price') ?>
-                        <?php echo CHtml::activeTextField($model, '[Search]price', array('class' => 'form-control')) ?>
+                        <?php echo CHtml::activeLabel($model, '[Search]room_price') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]room_price', array('class' => 'form-control')) ?>
                     </div>
-
+                    <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]payment_status') ?>
+                        <?php echo CHtml::activeDropDownList($model, '[Search]payment_status',
+                            Booking::_getStatus(),
+                            array('class' => 'form-control', 'empty' => ''))?>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]booking_status') ?>
+                        <?php echo CHtml::activeDropDownList($model, '[Search]booking_status',
+                            Booking::_getBookingStatus(),
+                            array('class' => 'form-control', 'empty' => ''))?>
+                    </div>
                 </div>
 
                 <div class="form-group">

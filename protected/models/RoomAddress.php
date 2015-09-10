@@ -28,7 +28,12 @@
 class RoomAddress extends CActiveRecord
 {
     public $distance;
-    
+    public $keyword;
+    public $email;
+    public $first_name;
+    public $last_name;
+    public $price;
+
     const STATUS_ENABLE = 1;
     const STATUS_DISABLE = 0;
 	/**
@@ -56,7 +61,8 @@ class RoomAddress extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, address_detail, address, district, city, lat, long, name, description, room_type,
-			    accommodates, bedrooms, beds, room_size, amenities, created, updated, del_flg, status_flg', 'safe', 'on'=>'search'),
+			    accommodates, bedrooms, beds, room_size, amenities, created, updated, del_flg, status_flg, keyword, 
+		        email, first_name, last_name, price', 'safe', 'on'=>'search'),
 
             array('status_flg', 'validateEnable', 'on'=>'enable_status'),
 		);
@@ -148,6 +154,7 @@ class RoomAddress extends CActiveRecord
 			'created' => 'Created',
 			'updated' => 'Updated',
 			'del_flg' => 'Del Flg',
+	        'price' => 'Giá'
 		);
 	}
 
@@ -168,9 +175,9 @@ class RoomAddress extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
-        $criteria->compare('t.del_flg',Constant::DEL_FALSE);
-
+		
+		$criteria->with = array('Users', 'RoomPrice');
+		
         if (!isset($this->keyword)) {
             $criteria->compare('t.id',$this->id);
             $criteria->compare('t.user_id',$this->user_id);
@@ -188,6 +195,10 @@ class RoomAddress extends CActiveRecord
             $criteria->compare('t.beds',$this->beds);
             $criteria->compare('t.room_size',$this->room_size);
             $criteria->compare('t.amenities',$this->amenities,true);
+            $criteria->compare('Users.email',$this->email,true);
+            $criteria->compare('Users.first_name',$this->first_name,true);
+            $criteria->compare('Users.last_name',$this->last_name,true);
+            $criteria->compare('RoomPrice.price',$this->price,true);
         }else{
             $criteria->compare('t.id',$this->keyword, true, 'OR');
             $criteria->compare('t.address_detail',$this->keyword,true, 'OR');
@@ -196,16 +207,41 @@ class RoomAddress extends CActiveRecord
             $criteria->compare('t.city',$this->keyword,true, 'OR');
             $criteria->compare('t.name',$this->keyword,true, 'OR');
             $criteria->compare('t.description',$this->keyword,true, 'OR');
+            $criteria->compare('Users.email',$this->keyword,true);
+            $criteria->compare('Users.first_name',$this->keyword,true);
+            $criteria->compare('Users.last_name',$this->keyword,true);
         }
+        
+        $criteria->compare('t.del_flg',Constant::DEL_FALSE);
 
+        $sort = new CSort;
+        $sort->attributes = array(
+            '*',
+            'email' => array(
+                'asc' => 'Users.email ASC',
+                'desc' => 'Users.email DESC',
+            ),
+            'first_name' => array(
+                'asc' => 'Users.first_name ASC',
+                'desc' => 'Users.first_name DESC',
+            ),
+            'last_name' => array(
+                'asc' => 'Users.last_name ASC',
+                'desc' => 'Users.last_name DESC',
+            ),
+            'price' => array(
+                'asc' => 'RoomPrice.price ASC',
+                'desc' => 'RoomPrice.price DESC',
+            )
+        );
+        $sort->defaultOrder = 't.id desc';
+        
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
             'pagination' => array(
                 'pageSize' => Constant::PAGE_SIZE
             ),
-            'sort' => array(
-                'defaultOrder' => 't.id desc',
-            ),
+            'sort' => $sort,
         ));
 	}
 
@@ -358,7 +394,7 @@ class RoomAddress extends CActiveRecord
     
     
         $criteria->params = array(
-                ':del_flg' => Constant::DEL_FALSE,
+            ':del_flg' => Constant::DEL_FALSE,
         );
     
         if(isset($data['sort'])) {
@@ -380,7 +416,28 @@ class RoomAddress extends CActiveRecord
 //         }
         
         $model = RoomAddress::model()->findAll($criteria);
-    
+        
+        if(isset($data['startdate']) && $data['startdate'] && isset($data['enddate']) && $data['enddate']) {
+            foreach($model as $k => $room) {
+                $criteria = new CDbCriteria();
+                $criteria->condition = 't.date > :start_date AND t.date < :end_date AND t.room_address_id = :room_address_id';
+                $criteria->params = array(
+                    ':start_date' => date("Y-m-d", strtotime($data['startdate'])),
+                    ':end_date' => date("Y-m-d", strtotime($data['enddate'])),
+                    ':room_address_id' => $room->id,
+                );
+                
+                $roomset = RoomSet::model()->findAll($criteria);
+                
+                if($roomset) {
+                    unset($model[$k]);
+                }
+                
+                
+            }
+        }
+        
+            
         return $model;
     }
     
