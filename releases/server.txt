@@ -33,3 +33,19 @@ Pass key SSH: 1qaZXsw2
 Tai khoan matbao.vn
 MB202429/1qaZXsw2
 
+-------------------------------------------------
+Thông tin host VPS:
+ IP: 112.78.1.111
+• Port: 22
+• User name: root
+• Password: 2xqnyIHy61h
+
+Mysql
+h: localhost
+u: root
+p: 1qAzxSw2@
+
+Thông tin công cụ quản trị Web Hosting:
+• Link quản trị: http://112.78.1.111:7778
+• User name: admin
+• Password: NhN@tech

@@ -111,4 +111,18 @@ class RoomSet extends CActiveRecord
 	    );
 	    return !empty($base[$status]) ? $base[$status] : $base;
 	}
+
+    public static function getDateBookingByRoomAddress($room_address_id){
+        $listDate = array();
+        $criteria = new CDbCriteria();
+        $criteria->compare('room_address_id', $room_address_id);
+        $model = self::model()->findAll($criteria);
+        if($model){
+            foreach($model as $data){
+                $listDate[] = date('m/d/Y', strtotime($data->date));
+            }
+        }
+
+        return $listDate;
+    }
 }
