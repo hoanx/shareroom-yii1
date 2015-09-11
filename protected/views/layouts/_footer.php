@@ -18,7 +18,7 @@
                 </ul>
             </div>
             <div class="col-sm-4">
-                <?php /* 
+
                 <div class="fb-page" data-href="https://www.facebook.com/shareroom.vn" data-hide-cover="false"
                      data-show-facepile="true" data-show-posts="false">
                     <div class="fb-xfbml-parse-ignore">
@@ -36,7 +36,7 @@
                         fjs.parentNode.insertBefore(js, fjs);
                     }(document, 'script', 'facebook-jssdk'));</script>
                     
-               */ ?>
+
             </div>
             <div class="col-sm-4">
                 <?php /*

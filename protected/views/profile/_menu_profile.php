@@ -39,7 +39,7 @@ $action_name = Yii::app()->controller->action->id;
         <?php endif; ?>
     </ul>
 
-    <?php if($controller_name=='spaces' && !in_array($action_name, array('index', 'reservations', 'policies', 'calendar'))): ?>
+    <?php if($controller_name=='spaces' && !in_array($action_name, array('index', 'reservations', 'policies'))): ?>
     <hr>
     <ul class="sub-link">
         <li><?php echo CHtml::link(Yii::t('app', 'Quản lý bài đăng'), array('spaces/index')) ?></li>

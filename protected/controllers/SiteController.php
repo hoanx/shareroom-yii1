@@ -357,7 +357,7 @@ class SiteController extends Controller
     }
 
     public function actionPrivacy_policies(){
-        $this->pageTitle = Yii::t('app', 'Điều khoản riêng tư');
+        $this->pageTitle = Yii::t('app', 'Chính sách riêng tư');
         $this->render('privacy');
     }
 

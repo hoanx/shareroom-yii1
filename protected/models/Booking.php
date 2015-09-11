@@ -284,6 +284,11 @@ class Booking extends CActiveRecord
         return !empty($result[$method]) ? $result[$method] : $result;
     }
 
+    /**
+     * @deprecated: Khong con su dung Thay the bang function ben RoomSet
+     * @param $room_address_id
+     * @return array
+     */
     public static function getDateBookingByRoomAddress($room_address_id){
         $listDate = array();
         $criteria = new CDbCriteria();

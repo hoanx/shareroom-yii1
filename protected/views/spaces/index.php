@@ -24,7 +24,7 @@ echo $this->renderPartial('//profile/_menu_profile');
     <div class="profile-index spaces-index">
         <?php if ($listRoomModel): ?>
             <?php foreach ($listRoomModel as $data): ?>
-                <?php $listDateBooking = Booking::getDateBookingByRoomAddress($data->id); ?>
+                <?php $listDateBooking = RoomSet::getDateBookingByRoomAddress($data->id); ?>
                 <?php Yii::app()->clientScript->beginScript('custom-script-'.$data->id); ?>
                 <script type="text/javascript">
                     // An array of dates

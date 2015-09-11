@@ -2,7 +2,7 @@
 <div class="row">
 <?php endif?>
     <?php
-    $listDateBooking = Booking::getDateBookingByRoomAddress($room->id);
+    $listDateBooking = RoomSet::getDateBookingByRoomAddress($room->id);
     $id_input_checkin = 'InputCheckin' . $mobile;
     $id_input_checkout = 'InputCheckout' . $mobile;
     $id_error = 'msg' . $mobile;
@@ -11,8 +11,8 @@
     <script type="text/javascript">
         // An array of dates
         var eventDates_<?php echo($room->id) ?> = {};
-        <?php foreach($listDateBooking as $date): ?>
-        eventDates_<?php echo($room->id) ?>[ new Date('<?php echo($date) ?>')] = new Date('<?php echo($date) ?>');
+        <?php foreach($listDateBooking as $data): ?>
+        eventDates_<?php echo($room->id) ?>[ new Date('<?php echo($data) ?>')] = new Date('<?php echo($data) ?>');
         <?php endforeach ?>
     </script>
     <?php Yii::app()->clientScript->endScript(); ?>
