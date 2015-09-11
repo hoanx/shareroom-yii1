@@ -16,6 +16,7 @@
                 <?php
                     $this->widget('zii.widgets.jui.CJuiDatePicker',array(
                         'name'=>'startdate',
+                        'language'=>'vi',
                         'value' => isset($_GET['startdate']) ? $_GET['startdate'] : null,
                         'options'=>array(
                             'onSelect' => "js:function(selectedDate) {
@@ -40,6 +41,7 @@
                 <?php
                     $this->widget('zii.widgets.jui.CJuiDatePicker',array(
                         'name'=>'enddate',
+                        'language'=>'vi',
                         'value' => isset($_GET['enddate']) ? $_GET['enddate'] : null,
                         'options'=>array(
                             'onSelect' => "js:function(selectedDate) {

@@ -98,6 +98,7 @@ echo $this->renderPartial('_menu_profile');
                             $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                 'model' => $usersModel,
                                 'attribute' => 'birthday',
+                                'language'=>'vi',
                                 'options' => array(
                                     'changeMonth'=>'true',
                                     'changeYear'=>'true',

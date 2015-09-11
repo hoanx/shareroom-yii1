@@ -27,6 +27,7 @@
         $this->widget('zii.widgets.jui.CJuiDatePicker', array(
             'id' => $id_input_checkin,
             'model' => $paymentForm,
+            'language'=>'vi',
             'attribute' => 'checkin',
             'options' => array(
                 'minDate' => 0,
@@ -56,6 +57,7 @@
         $this->widget('zii.widgets.jui.CJuiDatePicker', array(
             'id' => $id_input_checkout,
             'model' => $paymentForm,
+            'language'=>'vi',
             'attribute' => 'checkout',
             'options' => array(
                 'minDate' => 0,

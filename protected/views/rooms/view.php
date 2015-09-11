@@ -229,27 +229,6 @@
                 controlNav: false,
             });
 
-        	jQuery(function() {
-        	    var $sidebar   = jQuery("#room-checkin .more-width"), 
-        	        $window    = jQuery(window),
-        	        offset     = $sidebar.offset(),
-        	        topPadding = 15;
-
-        	    $window.scroll(function() {
-        	    	jQuery('#ui-datepicker-div').css("display", "none")
-        	        if ($window.scrollTop() > offset.top) {
-        	            $sidebar.stop().animate({
-        	                marginTop: $window.scrollTop() - offset.top + topPadding
-        	            });
-        	        } else {
-        	            $sidebar.stop().animate({
-        	                marginTop: 0
-        	            });
-        	        }
-        	    });
-        	    
-        	});
-
         	jQuery('#add-wishlist').click(function() {
         		jQuery.ajax({
                     url: "<?php echo Yii::app()->createUrl('rooms/wishlist', array('room_address_id' => $room->id)) ?>",
