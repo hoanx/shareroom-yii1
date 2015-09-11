@@ -26,7 +26,7 @@ echo $this->renderPartial('//profile/_menu_profile');
                         lượng phí thích hợp..
                     </li>
                     <li>Trong trường hợp phòng/nhà cho thuê thiếu bất cứ tiện ích nào cho bất kỳ khoảng thời gian nào
-                        khách trọ, HomeAway có toàn quyền khấu trừ một khoảng phí từ phí đặt chỗ trả cho chủ nhà và hoàn
+                        khách trọ, Shareroom có toàn quyền khấu trừ một khoảng phí từ phí đặt chỗ trả cho chủ nhà và hoàn
                         trả cho khách. Phí hoàn trả sẽ được tính theo mức độ nghiêm trọng của sự việc, thời gian và cách
                         thức sự việc diễn ra.
                     </li>
@@ -34,7 +34,7 @@ echo $this->renderPartial('//profile/_menu_profile');
                         gồm cả nước nóng và lạnh). Bồn rửa, nhà vệ sinh, phòng tắm, bếp (nếu có) và lò nướng (nếu có)
                         đều phải đang ở trong tình trạng hoạt động tốt.
                     </li>
-                    <li>HomeAway cũng đảm bảo một phần phí sẽ được hoàn trả cho khách nếu bất cứ vật dụng nào được nhắc
+                    <li>Shareroom cũng đảm bảo một phần phí sẽ được hoàn trả cho khách nếu bất cứ vật dụng nào được nhắc
                         đến trong phần mô tả phòng/nhà cho thuê (ví dụ như máy điều hòa, kết nối internet không dây,
                         tivi, máy giặt, máy sấy) không hoạt động; cửa sổ, cửa lớn hoặc khóa bị hỏng; hay bấy cứ giường
                         hoặc khăn tắm không được giặt rửa chu đáo.
@@ -42,8 +42,8 @@ echo $this->renderPartial('//profile/_menu_profile');
                     <li>Bất kỳ công trình xây dựng nào đang diễn ra gần phòng/nhà trọ, đặc biệt là những công trình với
                         tầm cỡ lớn, cần phải được thông báo cho khách trước khi khách đến.
                     </li>
-                    <li>Xin lưu ý rằng bạn là một chủ trọ trong cộng đồng HomeAway. Vì vậy xin đảm bảo những thông tin
-                        bạn đưa lên trên HomeAway mô tả chân thực phòng/nhà cho thuê của bạn. Hình ảnh của phòng/nhà cho
+                    <li>Xin lưu ý rằng bạn là một chủ trọ trong cộng đồng Shareroom. Vì vậy xin đảm bảo những thông tin
+                        bạn đưa lên trên Shareroom mô tả chân thực phòng/nhà cho thuê của bạn. Hình ảnh của phòng/nhà cho
                         thuê phải là hình ảnh mới và phản ánh tất cả thay đổi trong trang trí nội thất (nếu có). Phần
                         "Mô tả" và "Tiện nghi" chỉ được đề cập đến những tiện nghi thực sự có trong phòng/nhà trọ của
                         bạn.
