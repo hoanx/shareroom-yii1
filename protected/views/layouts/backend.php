@@ -99,6 +99,9 @@
                     <li><?php echo CHtml::link('<i class="fa fa-list-ul"></i>' . Yii::t('admin', 'Danh sách'), array('booking/index')) ?></li>
                 </ul>
             </li>
+            <li class="<?php Common::checkActive('coupon') ?>">
+                <?php echo CHtml::link('<i class="fa fa-barcode"></i>' . Yii::t('admin', 'Mã giảm giá'), array('coupon/index'), array('class' => 'sidebar-item')) ?>
+            </li>
 
         </ul>
     </div>
