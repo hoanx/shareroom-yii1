@@ -14,7 +14,7 @@
                     <li><a href="<?php echo(Yii::app()->createUrl('site/about')) ?>"><?php echo(Yii::t('app', 'Giới thiệu shareroom')) ?></a></li>
                     <li><a href="<?php echo(Yii::app()->createUrl('site/privacy_policies')) ?>"><?php echo(Yii::t('app', 'Chính sách riêng tư')) ?></a></li>
                     <li><a href="<?php echo(Yii::app()->createUrl('site/policy')) ?>"><?php echo(Yii::t('app', 'Điều kiện & điều khoản')) ?></a></li>
-                    <li><a href="<?php echo(Yii::app()->createUrl('site/contact')) ?>"><?php echo(Yii::t('app', 'Liên hệ')) ?></a></li>
+                    <?php /* <li><a href="<?php echo(Yii::app()->createUrl('site/contact')) ?>"><?php echo(Yii::t('app', 'Liên hệ')) ?></a></li>*/ ?>
                 </ul>
             </div>
             <div class="col-sm-4">
