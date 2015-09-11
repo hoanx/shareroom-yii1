@@ -195,19 +195,19 @@ class Booking extends CActiveRecord
 		    $criteria->compare('BookingHistory.room_name',$this->name,true);
 		    $criteria->compare('BookingHistory.room_address_detail',$this->address_detail,true);
 		} else {
-		    $criteria->compare('id',$this->keyword);
-		    $criteria->compare('check_in',$this->keyword,true);
-		    $criteria->compare('check_out',$this->keyword,true);
-		    $criteria->compare('room_price',$this->keyword);
-		    $criteria->compare('total_amount',$this->keyword);
-		    $criteria->compare('payment_method',$this->keyword,true);
-		    $criteria->compare('invoice_date',$this->keyword,true);
-		    $criteria->compare('refund_date',$this->keyword,true);
-		    $criteria->compare('created',$this->keyword,true);
-		    $criteria->compare('updated',$this->keyword,true);
-		    $criteria->compare('BookingUser.email',$this->keyword,true);
-		    $criteria->compare('BookingHistory.room_name',$this->keyword,true);
-		    $criteria->compare('BookingHistory.room_address_detail',$this->keyword,true);
+		    $criteria->compare('id',$this->keyword,true, 'OR');
+		    $criteria->compare('check_in',$this->keyword,true, 'OR');
+		    $criteria->compare('check_out',$this->keyword,true, 'OR');
+		    $criteria->compare('room_price',$this->keyword, 'OR');
+		    $criteria->compare('total_amount',$this->keyword, 'OR');
+		    $criteria->compare('payment_method',$this->keyword,true, 'OR');
+		    $criteria->compare('invoice_date',$this->keyword,true, 'OR');
+		    $criteria->compare('refund_date',$this->keyword,true, 'OR');
+		    $criteria->compare('created',$this->keyword,true, 'OR');
+		    $criteria->compare('updated',$this->keyword,true, 'OR');
+		    $criteria->compare('BookingUser.email',$this->keyword,true, 'OR');
+		    $criteria->compare('BookingHistory.room_name',$this->keyword,true, 'OR');
+		    $criteria->compare('BookingHistory.room_address_detail',$this->keyword,true, 'OR');
 		}
 
 		$sort = new CSort;

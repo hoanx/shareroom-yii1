@@ -196,7 +196,7 @@ class RoomsController extends Controller
     public function actionUpload() {
         $count = RoomImages::model()->count("room_address_id = :room_address_id AND del_flg = :del_flg", array("room_address_id" => $_POST['id'], ':del_flg' => 0));
         
-        if($count > 6) {
+        if($count > 17) {
             echo json_encode(array('name' => ''));
         } else {
             $tmpImageFolder = $_SERVER['DOCUMENT_ROOT'] . Constant::PATH_UPLOAD_PICTURE;

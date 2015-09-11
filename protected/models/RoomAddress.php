@@ -207,9 +207,9 @@ class RoomAddress extends CActiveRecord
             $criteria->compare('t.city',$this->keyword,true, 'OR');
             $criteria->compare('t.name',$this->keyword,true, 'OR');
             $criteria->compare('t.description',$this->keyword,true, 'OR');
-            $criteria->compare('Users.email',$this->keyword,true);
-            $criteria->compare('Users.first_name',$this->keyword,true);
-            $criteria->compare('Users.last_name',$this->keyword,true);
+            $criteria->compare('Users.email',$this->keyword,true, 'OR');
+            $criteria->compare('Users.first_name',$this->keyword,true, 'OR');
+            $criteria->compare('Users.last_name',$this->keyword,true, 'OR');
         }
         
         $criteria->compare('t.del_flg',Constant::DEL_FALSE);

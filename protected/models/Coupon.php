@@ -15,6 +15,11 @@
  */
 class Coupon extends CActiveRecord
 {
+    /**
+     * @var keyword search
+     */
+    public $keyword;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -34,10 +39,10 @@ class Coupon extends CActiveRecord
 			array('coupon_code, discount_amount_percent', 'required'),
 			array('discount_amount_percent, coupon_uses', 'numerical', 'integerOnly'=>true),
 			array('coupon_code', 'length', 'max'=>255),
-			array('period, created, updated', 'safe'),
+			array('period, created, updated, keyword', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, coupon_code, discount_amount_percent, period, coupon_uses, created, updated, del_flg', 'safe', 'on'=>'search'),
+			array('id, coupon_code, discount_amount_percent, period, coupon_uses, created, updated, del_flg, keyword', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -86,15 +91,27 @@ class Coupon extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+        $criteria->compare('del_flg',Constant::DEL_FALSE);
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('coupon_code',$this->coupon_code,true);
-		$criteria->compare('discount_amount_percent',$this->discount_amount_percent);
-		$criteria->compare('period',$this->period,true);
-		$criteria->compare('coupon_uses',$this->coupon_uses);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
-		$criteria->compare('del_flg',Constant::DEL_FALSE);
+        if (!isset($this->keyword)) {
+            $criteria->compare('id',$this->id);
+            $criteria->compare('coupon_code',$this->coupon_code,true);
+            $criteria->compare('discount_amount_percent',$this->discount_amount_percent);
+            $criteria->compare('period',$this->period,true);
+            $criteria->compare('coupon_uses',$this->coupon_uses);
+            $criteria->compare('created',$this->created,true);
+            $criteria->compare('updated',$this->updated,true);
+
+        }else{
+            $criteria->compare('id',$this->keyword,true);
+            $criteria->compare('coupon_code',$this->keyword,true, 'OR');
+            $criteria->compare('discount_amount_percent',$this->keyword,true, 'OR');
+            $criteria->compare('period',$this->keyword,true, 'OR');
+            $criteria->compare('coupon_uses',$this->keyword,true, 'OR');
+            $criteria->compare('created',$this->keyword,true, 'OR');
+            $criteria->compare('updated',$this->keyword,true, 'OR');
+        }
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
