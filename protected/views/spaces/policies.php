@@ -19,7 +19,7 @@ echo $this->renderPartial('//profile/_menu_profile');
             </div>
             <div class="panel-body policies">
                 <ul class="orange-list">
-                    <li>Chúng tôi sẽ giữ 20% tổng giá trị hóa đơn làm phí dịch vụ, 80% tổng giá trị hóa đơn còn lại
+                    <li>Chúng tôi sẽ giữ 15% tổng giá trị hóa đơn làm phí dịch vụ, 85% tổng giá trị hóa đơn còn lại
                         chúng tôi sẽ gửi lại cho các bạn.
                     </li>
                     <li>Nếu khách bị chuyển sang một địa điểm khác không được đồng ý trước, khách sẽ được hoàn trả một
