@@ -800,6 +800,7 @@ ul.orange-list li{
     background-color: #FFFFFF;
 }
 #room-checkin {
+    margin-top: 80px;
 }
 #room-checkin h3 {
 	background-color: rgba(60,63,64,0.9);
@@ -1318,4 +1319,9 @@ table.table-booking a.unaccept{
 }
 .page-static .policy li{
     line-height: 30px;
+}
+
+.search-form .btn-info.active {
+	background-color: #d9534f !important;
+    border-color: #d43f3a !important;
 }

@@ -28,7 +28,7 @@
  * @property string $updated
  * @property integer $del_flg
  *
- * @todo: 2 trường $additional_guests và $price_additional_guests hiện tại chưa sử dụng vì ko chọn được nhiều hơn số khách tối đa
+ * @todo: 2 trÆ°á»�ng $additional_guests vÃ  $price_additional_guests hiá»‡n táº¡i chÆ°a sá»­ dá»¥ng vÃ¬ ko chá»�n Ä‘Æ°á»£c nhiá»�u hÆ¡n sá»‘ khÃ¡ch tá»‘i Ä‘a
  */
 class Booking extends CActiveRecord
 {
@@ -95,7 +95,7 @@ class Booking extends CActiveRecord
             //check coupon code
             $couponMode = Coupon::getCouponByCode($this->$attribute_name);
             if(!$couponMode){
-                $this->addError($attribute_name, Yii::t('app', "{attribute_name} không tồn tại.", array(
+                $this->addError($attribute_name, Yii::t('app', "{attribute_name} khÃ´ng tá»“n táº¡i.", array(
                     '{attribute_name}' => self::getAttributeLabel($attribute_name)
                 )));
                 return false;
@@ -127,27 +127,27 @@ class Booking extends CActiveRecord
 			'id' => 'ID',
 			'user_id' => 'User',
 			'room_address_id' => 'Room Address',
-			'check_in' => Yii::t('app', 'Ngày đến'),
-			'check_out' => Yii::t('app', 'Ngày đi'),
-			'number_of_guests' => Yii::t('app', 'Số khách'),
-			'room_price' => Yii::t('app', 'Giá'),
-			'cleaning_fees' => Yii::t('app', 'Phí dọn dẹp'),
-			'additional_guests' => Yii::t('app', 'Số khách thêm'),
-			'price_additional_guests' => Yii::t('app', 'Giá cho khách thêm'),
-			'coupon_code' => Yii::t('app', 'Mã khuyến mãi'),
-			'discount' => Yii::t('app', 'Giảm giá'),
-			'total_amount' => Yii::t('app', 'Tổng'),
-			'payment_method' => Yii::t('app', 'Phương thức thanh toán'),
-			'payment_status' => Yii::t('app', 'Trạng thái thanh toán'),
-			'booking_status' => Yii::t('app', 'Trạng thái'),
-			'invoice_date' => Yii::t('app', 'Ngày thanh toán'),
-			'refund_date' => Yii::t('app', 'Ngày hủy'),
+			'check_in' => Yii::t('app', 'NgÃ y Ä‘áº¿n'),
+			'check_out' => Yii::t('app', 'NgÃ y Ä‘i'),
+			'number_of_guests' => Yii::t('app', 'Sá»‘ khÃ¡ch'),
+			'room_price' => Yii::t('app', 'GiÃ¡'),
+			'cleaning_fees' => Yii::t('app', 'PhÃ­ dá»�n dáº¹p'),
+			'additional_guests' => Yii::t('app', 'Sá»‘ khÃ¡ch thÃªm'),
+			'price_additional_guests' => Yii::t('app', 'GiÃ¡ cho khÃ¡ch thÃªm'),
+			'coupon_code' => Yii::t('app', 'MÃ£ khuyáº¿n mÃ£i'),
+			'discount' => Yii::t('app', 'Giáº£m giÃ¡'),
+			'total_amount' => Yii::t('app', 'Tá»•ng'),
+			'payment_method' => Yii::t('app', 'PhÆ°Æ¡ng thá»©c thanh toÃ¡n'),
+			'payment_status' => Yii::t('app', 'Tráº¡ng thÃ¡i thanh toÃ¡n'),
+			'booking_status' => Yii::t('app', 'Tráº¡ng thÃ¡i'),
+			'invoice_date' => Yii::t('app', 'NgÃ y thanh toÃ¡n'),
+			'refund_date' => Yii::t('app', 'NgÃ y há»§y'),
 			'created' => 'Created',
 			'updated' => 'Updated',
 			'del_flg' => 'Del Flg',
-	        'name' => 'Tên phòng',
-	        'address_detail' => 'Địa chỉ phòng',
-	        'email' => 'Email của người đặt phòng'
+	        'name' => 'TÃªn phÃ²ng',
+	        'address_detail' => 'Ä�á»‹a chá»‰ phÃ²ng',
+	        'email' => 'Email cá»§a ngÆ°á»�i Ä‘áº·t phÃ²ng'
 		);
 	}
 
@@ -190,7 +190,7 @@ class Booking extends CActiveRecord
 		    $criteria->compare('refund_date',$this->refund_date,true);
 		    $criteria->compare('created',$this->created,true);
 		    $criteria->compare('updated',$this->updated,true);
-		    $criteria->compare('del_flg',$this->del_flg);
+		    $criteria->compare('t.del_flg',$this->del_flg);
 		    $criteria->compare('BookingUser.email',$this->email,true);
 		    $criteria->compare('BookingHistory.room_name',$this->name,true);
 		    $criteria->compare('BookingHistory.room_address_detail',$this->address_detail,true);
@@ -257,29 +257,29 @@ class Booking extends CActiveRecord
 
     public static function _getPaymentMethod($method = null) {
         $result = array(
-            self::PAYMENT_METHOD_SMARTLINK => Yii::t('app','Thanh toán bằng smartlink'),
-            self::PAYMENT_METHOD_BANK_TRANFER => Yii::t('app','Thanh toán chuyển khoản'),
-            self::PAYMENT_METHOD_COMPANY => Yii::t('app','Thanh toán tại văn phòng'),
+            self::PAYMENT_METHOD_SMARTLINK => Yii::t('app','Thanh toÃ¡n báº±ng smartlink'),
+            self::PAYMENT_METHOD_BANK_TRANFER => Yii::t('app','Thanh toÃ¡n chuyá»ƒn khoáº£n'),
+            self::PAYMENT_METHOD_COMPANY => Yii::t('app','Thanh toÃ¡n táº¡i vÄƒn phÃ²ng'),
         );
         return !empty($result[$method]) ? $result[$method] : $result;
     }
 
     public static function _getStatus($method = null) {
         $result = array(
-            self::STATUS_UNPAID => Yii::t('app','Chưa thanh toán'),
-            self::STATUS_PAID => Yii::t('app','Đã thanh toán'),
-            self::STATUS_FAILS => Yii::t('app','Thanh toán lỗi'),
-            self::STATUS_CANCEL => Yii::t('app','Đã từ chối'),
+            self::STATUS_UNPAID => Yii::t('app','ChÆ°a thanh toÃ¡n'),
+            self::STATUS_PAID => Yii::t('app','Ä�Ã£ thanh toÃ¡n'),
+            self::STATUS_FAILS => Yii::t('app','Thanh toÃ¡n lá»—i'),
+            self::STATUS_CANCEL => Yii::t('app','Ä�Ã£ tá»« chá»‘i'),
         );
         return !empty($result[$method]) ? $result[$method] : $result;
     }
 
     public static function _getBookingStatus($method = null) {
         $result = array(
-            self::BOOKING_STATUS_PENDING => Yii::t('app','Đang chờ'),
-            self::BOOKING_STATUS_UNACCEPT => Yii::t('app','Đã từ chối'),
-            self::BOOKING_STATUS_ACCEPT => Yii::t('app','Đã chấp nhận'),
-            self::BOOKING_STATUS_USER_CANCEL => Yii::t('app','Khách hủy'),
+            self::BOOKING_STATUS_PENDING => Yii::t('app','Ä�ang chá»�'),
+            self::BOOKING_STATUS_UNACCEPT => Yii::t('app','Ä�Ã£ tá»« chá»‘i'),
+            self::BOOKING_STATUS_ACCEPT => Yii::t('app','Ä�Ã£ cháº¥p nháº­n'),
+            self::BOOKING_STATUS_USER_CANCEL => Yii::t('app','KhÃ¡ch há»§y'),
         );
         return !empty($result[$method]) ? $result[$method] : $result;
     }
