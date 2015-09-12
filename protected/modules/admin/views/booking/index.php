@@ -15,7 +15,7 @@
                 'name'=>'email',
                 'value'=>function($data){
                     return $data->BookingUser->email;
-                }
+                },
             ),
             array(
                 'name'=>'room_price',
@@ -27,6 +27,18 @@
                 'name'=>'name',
                 'value'=>function($data){
                     return $data->BookingHistory->room_name;
+                }
+            ),
+            array(
+                'name'=>'user_email',
+                'value'=>function($data){
+                    return $data->User->email;
+                }
+            ),
+            array(
+                'name'=>'user_phone',
+                'value'=>function($data){
+                    return $data->User->phone_number;
                 }
             ),
             array(
