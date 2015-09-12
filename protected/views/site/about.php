@@ -36,19 +36,19 @@
             <h2>Người sáng lập</h2>
             <hr>
             <div class="col-md-4 tcenter inner">
-                <?php echo(CHtml::image(Yii::app()->baseUrl . '/images/founder/founder1.jpg', 'Mạc Ngọc Tuấn', array('class' => 'img-responsive founder-image'))) ?>
+                <?php echo(CHtml::image(Yii::app()->baseUrl . '/images/founder/tuan-mac.jpg', 'Mạc Ngọc Tuấn', array('class' => 'img-responsive founder-image'))) ?>
                 <h4 class="title">Mạc Ngọc Tuấn</h4>
                 <span class="sub-title">Founder</span>
             </div>
             <div class="col-md-4 tcenter inner">
-                <?php echo(CHtml::image(Yii::app()->baseUrl . '/images/founder/founder2.jpg', 'Nguyễn Xuân Đức', array('class' => 'img-responsive founder-image'))) ?>
+                <?php echo(CHtml::image(Yii::app()->baseUrl . '/images/founder/xuan-duc.jpg', 'Nguyễn Xuân Đức', array('class' => 'img-responsive founder-image'))) ?>
                 <h4 class="title">Nguyễn Xuân Đức</h4>
                 <span class="sub-title">Maketter</span>
             </div>
             <div class="col-md-4 tcenter inner">
-                <?php echo(CHtml::image(Yii::app()->baseUrl . '/images/founder/founder1.jpg', 'Mạc Ngọc Tuấn', array('class' => 'img-responsive founder-image'))) ?>
-                <h4 class="title">Mạc Ngọc Tuấn</h4>
-                <span class="sub-title">Founder</span>
+                <?php echo(CHtml::image(Yii::app()->baseUrl . '/images/founder/hoa-nguyen.jpeg', 'Nguyễn Xuân Hòa', array('class' => 'img-responsive founder-image'))) ?>
+                <h4 class="title">Nguyễn Xuân Hòa</h4>
+                <span class="sub-title">Developer</span>
             </div>
         </div>
     </div>
