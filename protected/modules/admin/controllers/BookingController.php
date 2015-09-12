@@ -24,6 +24,7 @@ class BookingController extends AdminController
         $this->setPageTitle(Yii::t('app', 'Danh sách đặt phòng'));
         $model=new Booking('search');
         $model->unsetAttributes();  // clear any default values
+        $model->del_flg = 0;
 
         if (!empty($_GET['Search'])) {
             $model->attributes = $_GET['Booking'];

@@ -30,14 +30,14 @@
                         <div class="col-sm-2 col-xs-4"><?php $room->iconRoomType($rt) ?></div>
                     <?php endforeach; ?>
                 <?php endif; ?>
-                <div class="col-sm-2 col-xs-4"><i class="fa fa-users"></i><br><?php echo $room->accommodates . ' người' ?></div>
-                <div class="col-sm-2 col-xs-4"><i class="fa fa-home"></i><br><?php echo $room->bedrooms . ' phòng ngủ'?></div>
-                <div class="col-sm-2 col-xs-4"><i class="fa fa-bed"></i><br><?php echo $room->beds  . ' giường' ?></div>
+                <div class="col-sm-2 col-xs-4"><i class="fa fa-users"></i><br><?php echo $room->accommodates . ' ngÆ°á»�i' ?></div>
+                <div class="col-sm-2 col-xs-4"><i class="fa fa-home"></i><br><?php echo $room->bedrooms . ' phÃ²ng ngá»§'?></div>
+                <div class="col-sm-2 col-xs-4"><i class="fa fa-bed"></i><br><?php echo $room->beds  . ' giÆ°á»�ng' ?></div>
             </div>
             <div class="room-desc">
-                <h4>Mô tả</h4>
+                <h4>MÃ´ táº£</h4>
                 <?php echo $room->description ?>
-                <h4>Tiện nghi</h4>
+                <h4>Tiá»‡n nghi</h4>
                 <div class="row">
                     <?php if($room->amenities) : ?>
                         <?php foreach($room->amenities as $amenity) : ?>
@@ -45,75 +45,75 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
-                <h4>Giá phòng</h4>
+                <h4>GiÃ¡ phÃ²ng</h4>
                 <div>
                     <table class="table table-striped">
                         <tr>
-                            <td>Phí dọn dẹp</td>
+                            <td>PhÃ­ dá»�n dáº¹p</td>
                             <td>
                                 <?php 
                                 if(!empty($room->RoomPrice->cleaning_fees)) {
                                     echo number_format($room->RoomPrice->cleaning_fees) . ' VND';
                                 } else {
-                                    echo "<b>Không có phí</b>";
+                                    echo "<b>KhÃ´ng cÃ³ phÃ­</b>";
                                 }
                                 ?>
                             </td>
                         </tr>
                         <tr>
-                            <td>Phí cho mỗi khách thêm</td>
+                            <td>PhÃ­ cho má»—i khÃ¡ch thÃªm</td>
                             <td>
                                 <?php 
                                 if(!empty($room->RoomPrice->additional_guests)) {
                                     echo number_format($room->RoomPrice->additional_guests) . ' VND';
                                 } else {
-                                    echo "<b>Không có phí</b>";
+                                    echo "<b>KhÃ´ng cÃ³ phÃ­</b>";
                                 }
                                 ?>
                             </td>
                         </tr>
                         <tr>
-                            <td>Điều kiện hủy bỏ</td>
+                            <td>Ä�iá»�u kiá»‡n há»§y bá»�</td>
                             <td><?php echo Constant::getCancellation($room->RoomPrice->cancellation) ?></td>
                         </tr>
                     </table>
                 </div>
-                <h4>Địa điểm</h4>
+                <h4>Ä�á»‹a Ä‘iá»ƒm</h4>
                 <div>
                     <div id="map-canvas-new-room" style="width: 100%;height: 400px;"></div>
                 </div>
-                <h4>Quy định khác</h4>
+                <h4>Quy Ä‘á»‹nh khÃ¡c</h4>
                 <div>
                     <?php 
                         if(!empty($room->RoomPrice->house_rules)) {
                             echo $room->RoomPrice->house_rules;
                         } else {
-                            echo "Chủ nhà không thiết lập quy định nào";
+                            echo "Chá»§ nhÃ  khÃ´ng thiáº¿t láº­p quy Ä‘á»‹nh nÃ o";
                         }
                     ?>
                 </div>
-                <h4>Chi tiết khác</h4>
+                <h4>Chi tiáº¿t khÃ¡c</h4>
                 <div>
                     <table class="table table-striped">
                         <tr>
-                            <td>Nhận phòng</td>
+                            <td>Nháº­n phÃ²ng</td>
                             <td><b><?php echo $room->RoomPrice->check_in . 'h'?></b></td>
                         </tr>
                         <tr>
-                            <td>Trả phòng</td>
+                            <td>Tráº£ phÃ²ng</td>
                             <td><b><?php echo $room->RoomPrice->check_out . 'h'?></b></td>
                         </tr>
                         <tr>
-                            <td>Diện tích</td>
+                            <td>Diá»‡n tÃ­ch</td>
                             <td><b><?php echo $room->room_size . ' m<sup>2</sup>'?></b></td>
                         </tr>
                         <tr>
-                            <td>Số đêm tối thiểu</td>
-                            <td><b><?php echo $room->RoomPrice->min_nights . ' đêm'?></b></td>
+                            <td>Sá»‘ Ä‘Ãªm tá»‘i thiá»ƒu</td>
+                            <td><b><?php echo $room->RoomPrice->min_nights . ' Ä‘Ãªm'?></b></td>
                         </tr>
                         <tr>
-                            <td>Số đêm tối đa</td>
-                            <td><b><?php echo $room->RoomPrice->max_nights . ' đêm'?></b></td>
+                            <td>Sá»‘ Ä‘Ãªm tá»‘i Ä‘a</td>
+                            <td><b><?php echo $room->RoomPrice->max_nights . ' Ä‘Ãªm'?></b></td>
                         </tr>
                     </table>
                 </div>
@@ -121,7 +121,7 @@
         </div>
         <div class="col-sm-4 hidden-xs" id="room-checkin">
             <div class="more-width">
-                <h3><?php echo number_format($room->RoomPrice->price) . ' VND' ?><span>Giá trung bình theo đêm</span></h3>
+                <h3><?php echo number_format($room->RoomPrice->price) . ' VND' ?><span>GiÃ¡ trung bÃ¬nh theo Ä‘Ãªm</span></h3>
                 <div class="checkin-content">
                     <?php $form=$this->beginWidget('CActiveForm', array(
                         'htmlOptions' => array(
@@ -139,17 +139,17 @@
                     )); ?>
 
                     <div style="margin-top: 20px">
-                        <button type="submit" class="btn btn-danger btn-block">Đặt chỗ</button>
+                        <button type="submit" class="btn btn-danger btn-block">Ä�áº·t chá»—</button>
                     </div>
                     <?php $this->endWidget(); ?>
                     <div style="margin-top: 20px">
                         <?php if(Yii::app()->user->isGuest) : ?>
-                            <?php echo CHtml::link('<i class="fa fa-heart-o"></i> Đưa vào mục yêu thích', array('site/signin'), array('class' => 'btn btn-default btn-block'))?>
+                            <?php echo CHtml::link('<i class="fa fa-heart-o"></i> Ä�Æ°a vÃ o má»¥c yÃªu thÃ­ch', array('site/signin'), array('class' => 'btn btn-default btn-block'))?>
                         <?php else: ?>
                             <?php if($wishlist) : ?>
-                                <button type="button" class="btn btn-default btn-block" id="add-wishlist"><i class="fa fa-heart" style="color: #ff5a5f;"></i> Xóa khỏi mục yêu thích</button>
+                                <button type="button" class="btn btn-default btn-block" id="add-wishlist"><i class="fa fa-heart" style="color: #ff5a5f;"></i> XÃ³a khá»�i má»¥c yÃªu thÃ­ch</button>
                             <?php else: ?>
-                                <button type="button" class="btn btn-default btn-block" id="add-wishlist"><i class="fa fa-heart-o"></i> Đưa vào mục yêu thích</button>
+                                <button type="button" class="btn btn-default btn-block" id="add-wishlist"><i class="fa fa-heart-o"></i> Ä�Æ°a vÃ o má»¥c yÃªu thÃ­ch</button>
                             <?php endif; ?>
                         <?php endif;?>
                     </div>
@@ -162,11 +162,11 @@
                         </div>
                         <div class="col-md-8 col-sm-6">
                             <h5><?php echo $room->Users->first_name ?></h5>
-                            <div><?php echo "Là thành viên từ " . date('m/Y' , strtotime($room->Users->created))?></div>
+                            <div><?php echo "LÃ  thÃ nh viÃªn tá»« " . date('m/Y' , strtotime($room->Users->created))?></div>
                         </div>
                     </div>
                     <div style="margin-top: 20px">
-                        <div><?php echo "Chia sẻ bài đăng này" ?></div>
+                        <div><?php echo "Chia sáº» bÃ i Ä‘Äƒng nÃ y" ?></div>
                     </div>
                 </div>
             </div>
@@ -174,7 +174,7 @@
     </div>            
 </div>
 <div class="row visible-xs modal-booked">
-<button class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#myModal">Đặt chỗ</button>
+<button class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#myModal">Ä�áº·t chá»—</button>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
@@ -190,7 +190,7 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="myModalLabel">Đặt chỗ</h4>
+				<h4 class="modal-title" id="myModalLabel">Ä�áº·t chá»—</h4>
 			</div>
 			<div class="modal-body">
                 <?php $this->renderPartial('_form_booking', array(
@@ -202,8 +202,8 @@
                 )); ?>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng lại</button>
-				<button type="submit" class="btn btn-primary">Đặt chỗ</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ä�Ã³ng láº¡i</button>
+				<button type="submit" class="btn btn-primary">Ä�áº·t chá»—</button>
 			</div>
             <?php $this->endWidget(); ?>
 		</div>
@@ -227,7 +227,24 @@
         jQuery(document).ready(function() {
         	jQuery('#slider').nivoSlider({
                 controlNav: false,
+                animSpeed: 300, 
             });
+
+        	jQuery(function() {
+        	    var $sidebar   = jQuery("#room-checkin .more-width"), 
+        	        $window    = jQuery(window),
+        	        offset     = $sidebar.offset(),
+        	        topPadding = 15;
+        	    $window.scroll(function() {
+        	    	jQuery('#ui-datepicker-div').css("display", "none");
+        	        if ($window.scrollTop() > offset.top) {
+        	            $sidebar.css('margin-top', $window.scrollTop() - offset.top + topPadding);
+        	        } else {
+            	        $sidebar.css('margin-top', 0);
+        	        }
+        	    });
+        	    
+        	});
 
         	jQuery('#add-wishlist').click(function() {
         		jQuery.ajax({
