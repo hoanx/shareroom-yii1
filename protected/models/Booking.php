@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the model class for table "tb_booking".
  *
@@ -28,19 +27,17 @@
  * @property string $updated
  * @property integer $del_flg
  *
- * @todo: 2 trÆ°á»�ng $additional_guests vÃ  $price_additional_guests hiá»‡n táº¡i chÆ°a sá»­ dá»¥ng vÃ¬ ko chá»�n Ä‘Æ°á»£c nhiá»�u hÆ¡n sá»‘ khÃ¡ch tá»‘i Ä‘a
+ * @todo: 2 trường $additional_guests và $price_additional_guests hiện tại chưa sử dụng vì ko chọn được nhiều hơn số khách tối đa
  */
 class Booking extends CActiveRecord
 {
     const PAYMENT_METHOD_BANK_TRANFER = 'banktranfer';
     const PAYMENT_METHOD_COMPANY = 'company';
     const PAYMENT_METHOD_SMARTLINK = 'smartlink';
-
     const STATUS_UNPAID = 1;
     const STATUS_PAID = 2;
     const STATUS_FAILS = 3;
     const STATUS_CANCEL = 4;
-
     const BOOKING_STATUS_PENDING = 1;
     const BOOKING_STATUS_UNACCEPT = 2;
     const BOOKING_STATUS_ACCEPT = 3;
@@ -50,7 +47,8 @@ class Booking extends CActiveRecord
     public $email;
     public $name;
     public $address_detail;
-
+	public $user_email;
+    public $user_phone;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -58,7 +56,6 @@ class Booking extends CActiveRecord
 	{
 		return 'tb_booking';
 	}
-
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -77,12 +74,10 @@ class Booking extends CActiveRecord
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, room_address_id, time_check_in, time_check_out, check_in, check_out, number_of_guests, room_price, cleaning_fees,
 			    additional_guests, coupon_code, discount, total_amount, payment_method, payment_status, booking_status, invoice_date, refund_date, created,
-			    updated, del_flg, price_additional_guests, email, name, address_detail', 'safe', 'on'=>'search'),
-
+			    updated, del_flg, price_additional_guests, email, name, address_detail, user_email, user_phone', 'safe', 'on'=>'search'),
             array('coupon_code', 'checkCoupon'),
 		);
 	}
-
     /**
      * check if isset coupon code
      *
@@ -95,7 +90,7 @@ class Booking extends CActiveRecord
             //check coupon code
             $couponMode = Coupon::getCouponByCode($this->$attribute_name);
             if(!$couponMode){
-                $this->addError($attribute_name, Yii::t('app', "{attribute_name} khÃ´ng tá»“n táº¡i.", array(
+                $this->addError($attribute_name, Yii::t('app', "{attribute_name} không tồn tại.", array(
                     '{attribute_name}' => self::getAttributeLabel($attribute_name)
                 )));
                 return false;
@@ -103,7 +98,6 @@ class Booking extends CActiveRecord
         }
         return true;
     }
-
 	/**
 	 * @return array relational rules.
 	 */
@@ -115,9 +109,9 @@ class Booking extends CActiveRecord
             'BookingHistory' => array(self::HAS_ONE, 'BookingHistory', 'booking_id'),
             'BookingPayment' => array(self::HAS_ONE, 'BookingPayment', 'booking_id'),
             'BookingUser' => array(self::HAS_ONE, 'BookingUser', 'booking_id'),
+			'User' => array(self::BELONGS_TO, 'Users', 'user_id'),
 		);
 	}
-
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -127,30 +121,31 @@ class Booking extends CActiveRecord
 			'id' => 'ID',
 			'user_id' => 'User',
 			'room_address_id' => 'Room Address',
-			'check_in' => Yii::t('app', 'NgÃ y Ä‘áº¿n'),
-			'check_out' => Yii::t('app', 'NgÃ y Ä‘i'),
-			'number_of_guests' => Yii::t('app', 'Sá»‘ khÃ¡ch'),
-			'room_price' => Yii::t('app', 'GiÃ¡'),
-			'cleaning_fees' => Yii::t('app', 'PhÃ­ dá»�n dáº¹p'),
-			'additional_guests' => Yii::t('app', 'Sá»‘ khÃ¡ch thÃªm'),
-			'price_additional_guests' => Yii::t('app', 'GiÃ¡ cho khÃ¡ch thÃªm'),
-			'coupon_code' => Yii::t('app', 'MÃ£ khuyáº¿n mÃ£i'),
-			'discount' => Yii::t('app', 'Giáº£m giÃ¡'),
-			'total_amount' => Yii::t('app', 'Tá»•ng'),
-			'payment_method' => Yii::t('app', 'PhÆ°Æ¡ng thá»©c thanh toÃ¡n'),
-			'payment_status' => Yii::t('app', 'Tráº¡ng thÃ¡i thanh toÃ¡n'),
-			'booking_status' => Yii::t('app', 'Tráº¡ng thÃ¡i'),
-			'invoice_date' => Yii::t('app', 'NgÃ y thanh toÃ¡n'),
-			'refund_date' => Yii::t('app', 'NgÃ y há»§y'),
+			'check_in' => Yii::t('app', 'Ngày đến'),
+			'check_out' => Yii::t('app', 'Ngày đi'),
+			'number_of_guests' => Yii::t('app', 'Số khách'),
+			'room_price' => Yii::t('app', 'Giá'),
+			'cleaning_fees' => Yii::t('app', 'Phí dọn dẹp'),
+			'additional_guests' => Yii::t('app', 'Số khách thêm'),
+			'price_additional_guests' => Yii::t('app', 'Giá cho khách thêm'),
+			'coupon_code' => Yii::t('app', 'Mã khuyến mãi'),
+			'discount' => Yii::t('app', 'Giảm giá'),
+			'total_amount' => Yii::t('app', 'Tổng'),
+			'payment_method' => Yii::t('app', 'Phương thức thanh toán'),
+			'payment_status' => Yii::t('app', 'Trạng thái thanh toán'),
+			'booking_status' => Yii::t('app', 'Trạng thái'),
+			'invoice_date' => Yii::t('app', 'Ngày thanh toán'),
+			'refund_date' => Yii::t('app', 'Ngày hủy'),
 			'created' => 'Created',
 			'updated' => 'Updated',
 			'del_flg' => 'Del Flg',
-	        'name' => 'TÃªn phÃ²ng',
-	        'address_detail' => 'Ä�á»‹a chá»‰ phÃ²ng',
-	        'email' => 'Email cá»§a ngÆ°á»�i Ä‘áº·t phÃ²ng'
+	        'name' => 'Tên phòng',
+	        'address_detail' => 'Địa chỉ phòng',
+	        'email' => 'Email của người đặt phòng',
+	        'user_email' => 'Email của chủ nhà',
+			'user_phone' => 'Số điện thoại của chủ nhà',
 		);
 	}
-
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
@@ -166,10 +161,8 @@ class Booking extends CActiveRecord
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
-
-		$criteria->with = array('BookingUser', 'BookingHistory');
+		$criteria->with = array('BookingUser', 'BookingHistory', 'User');
 		
 		if (!isset($this->keyword)) {
 		    $criteria->compare('id',$this->id);
@@ -209,7 +202,6 @@ class Booking extends CActiveRecord
 		    $criteria->compare('BookingHistory.room_name',$this->keyword,true, 'OR');
 		    $criteria->compare('BookingHistory.room_address_detail',$this->keyword,true, 'OR');
 		}
-
 		$sort = new CSort;
 		$sort->attributes = array(
 	        '*',
@@ -233,7 +225,6 @@ class Booking extends CActiveRecord
 	        'sort' => $sort
 		));
 	}
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -244,46 +235,40 @@ class Booking extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-
     public function beforeSave() {
         $now = new CDbExpression('NOW()');
-
         if ($this->isNewRecord){
             $this->created = $now;
         }
         $this->updated = $now;
         return parent::beforeSave();
     }
-
     public static function _getPaymentMethod($method = null) {
         $result = array(
-            self::PAYMENT_METHOD_SMARTLINK => Yii::t('app','Thanh toÃ¡n báº±ng smartlink'),
-            self::PAYMENT_METHOD_BANK_TRANFER => Yii::t('app','Thanh toÃ¡n chuyá»ƒn khoáº£n'),
-            self::PAYMENT_METHOD_COMPANY => Yii::t('app','Thanh toÃ¡n táº¡i vÄƒn phÃ²ng'),
+            self::PAYMENT_METHOD_SMARTLINK => Yii::t('app','Thanh toán bằng smartlink'),
+            self::PAYMENT_METHOD_BANK_TRANFER => Yii::t('app','Thanh toán chuyển khoản'),
+            self::PAYMENT_METHOD_COMPANY => Yii::t('app','Thanh toán tại văn phòng'),
         );
         return !empty($result[$method]) ? $result[$method] : $result;
     }
-
     public static function _getStatus($method = null) {
         $result = array(
-            self::STATUS_UNPAID => Yii::t('app','ChÆ°a thanh toÃ¡n'),
-            self::STATUS_PAID => Yii::t('app','Ä�Ã£ thanh toÃ¡n'),
-            self::STATUS_FAILS => Yii::t('app','Thanh toÃ¡n lá»—i'),
-            self::STATUS_CANCEL => Yii::t('app','Ä�Ã£ tá»« chá»‘i'),
+            self::STATUS_UNPAID => Yii::t('app','Chưa thanh toán'),
+            self::STATUS_PAID => Yii::t('app','Đã thanh toán'),
+            self::STATUS_FAILS => Yii::t('app','Thanh toán lỗi'),
+            self::STATUS_CANCEL => Yii::t('app','Đã từ chối'),
         );
         return !empty($result[$method]) ? $result[$method] : $result;
     }
-
     public static function _getBookingStatus($method = null) {
         $result = array(
-            self::BOOKING_STATUS_PENDING => Yii::t('app','Ä�ang chá»�'),
-            self::BOOKING_STATUS_UNACCEPT => Yii::t('app','Ä�Ã£ tá»« chá»‘i'),
-            self::BOOKING_STATUS_ACCEPT => Yii::t('app','Ä�Ã£ cháº¥p nháº­n'),
-            self::BOOKING_STATUS_USER_CANCEL => Yii::t('app','KhÃ¡ch há»§y'),
+            self::BOOKING_STATUS_PENDING => Yii::t('app','Đang chờ'),
+            self::BOOKING_STATUS_UNACCEPT => Yii::t('app','Đã từ chối'),
+            self::BOOKING_STATUS_ACCEPT => Yii::t('app','Đã chấp nhận'),
+            self::BOOKING_STATUS_USER_CANCEL => Yii::t('app','Khách hủy'),
         );
         return !empty($result[$method]) ? $result[$method] : $result;
     }
-
     /**
      * @deprecated: Khong con su dung Thay the bang function ben RoomSet
      * @param $room_address_id
@@ -307,7 +292,6 @@ class Booking extends CActiveRecord
                 $listDate = array_merge($listDate, $arrr);
             }
         }
-
         return $listDate;
     }
 }
