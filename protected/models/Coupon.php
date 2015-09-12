@@ -36,9 +36,10 @@ class Coupon extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+            array('coupon_code', 'unique'),
 			array('coupon_code, discount_amount_percent', 'required'),
 			array('discount_amount_percent, coupon_uses', 'numerical', 'integerOnly'=>true),
-			array('coupon_code', 'length', 'max'=>255),
+			array('coupon_code', 'length', 'max'=>Constant::COUPON_LENGHT),
 			array('period, created, updated, keyword', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -132,6 +133,8 @@ class Coupon extends CActiveRecord
     public function beforeSave() {
         $now = new CDbExpression('NOW()');
 
+        if(!$this->period) $this->period = null;
+
         if ($this->isNewRecord){
             $this->created = $now;
         }
@@ -139,7 +142,7 @@ class Coupon extends CActiveRecord
         return parent::beforeSave();
     }
 
-    public static function generateCouponCode($lenght = 14){
+    public static function generateCouponCode($lenght = Constant::COUPON_LENGHT){
         $chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $res = "";
         for ($i = 0; $i < $lenght; $i++) {
@@ -155,6 +158,7 @@ class Coupon extends CActiveRecord
         $criteria->compare('del_flg',Constant::DEL_FALSE);
         $now = new CDbExpression("NOW()");
         $criteria->addCondition('period > '.$now);
+        $criteria->addCondition('period IS NULL', 'OR');
 
         return self::model()->find($criteria);
     }

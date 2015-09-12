@@ -1,18 +1,11 @@
 <?php
 /* @var $this CouponController */
 /* @var $model Coupon */
-
-$this->breadcrumbs=array(
-	'Coupons'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List Coupon', 'url'=>array('index')),
-	array('label'=>'Manage Coupon', 'url'=>array('admin')),
-);
+echo CHtml::link('<i class="fa fa-arrow-left"></i> '.Yii::t('app', 'Quay lại'),
+    $this->createUrl('index'),
+    array(
+        'class' => 'btn btn-info back-link'
+    ));
 ?>
-
-<h1>Create Coupon</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

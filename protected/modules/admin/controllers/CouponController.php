@@ -20,6 +20,7 @@ class CouponController extends AdminController
 	 */
 	public function actionCreate()
 	{
+        $this->setPageTitle(Yii::t('app', 'Tạo mã giảm giá mới'));
 		$model=new Coupon;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -44,6 +45,7 @@ class CouponController extends AdminController
 	 */
 	public function actionUpdate($id)
 	{
+        $this->setPageTitle(Yii::t('app', 'Sửa mã giảm giá'));
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -80,6 +82,7 @@ class CouponController extends AdminController
 	 */
 	public function actionIndex()
 	{
+        $this->setPageTitle(Yii::t('app', 'Danh sách mã giảm giá'));
         $model=new Coupon('search');
         $model->unsetAttributes();  // clear any default values
 
@@ -121,4 +124,8 @@ class CouponController extends AdminController
 			Yii::app()->end();
 		}
 	}
+
+    public function actionGenerateCouponCode(){
+        echo Coupon::generateCouponCode();
+    }
 }

@@ -56,6 +56,8 @@ class Constant {
 
     const DATE_FORMAT = 'dd-mm-yyyy';
 
+    const COUPON_LENGHT = 14;
+
 
     static function deleteFlag($status = null) {
         $base = array(

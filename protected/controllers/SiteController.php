@@ -286,6 +286,7 @@ class SiteController extends Controller
                 'profile_picture' => $userPicture['url'],
                 'gender' => $gender,
                 'password' => Constant::DEFAULT_PASSWORD,
+                'description'=>''
             );
         }else{
             $permissions = array(
@@ -328,6 +329,7 @@ class SiteController extends Controller
                 'profile_picture' => $userInfo->picture,
                 'gender' => $gender,
                 'password' => Constant::DEFAULT_PASSWORD,
+                'description'=>''
             );
         }
         $this->loginGplusUrl = $client->createAuthUrl();

@@ -2,32 +2,33 @@
 /* @var $this CouponController */
 /* @var $model Coupon */
 
-$this->breadcrumbs=array(
-	'Coupons'=>array('index'),
-	$model->id,
-);
-
-$this->menu=array(
-	array('label'=>'List Coupon', 'url'=>array('index')),
-	array('label'=>'Create Coupon', 'url'=>array('create')),
-	array('label'=>'Update Coupon', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Coupon', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Coupon', 'url'=>array('admin')),
-);
+echo CHtml::link('<i class="fa fa-arrow-left"></i> '.Yii::t('app', 'Quay lại'),
+    $this->createUrl('index'),
+    array(
+        'class' => 'btn btn-info back-link'
+    ));
 ?>
 
-<h1>View Coupon #<?php echo $model->id; ?></h1>
+<div class="row">
+    <div class="col-md-7">
+        <?php $this->widget('zii.widgets.CDetailView', array(
+            'data'=>$model,
+            'attributes'=>array(
+                'id',
+                'coupon_code',
+                array(
+                    'name'=>'discount_amount_percent',
+                    'value'=>$model->discount_amount_percent.'%'
+                ),
+                'period',
+                'coupon_uses',
+                'created',
+                'updated',
+            ),
+            'htmlOptions' => array(
+                'class' => 'table table-striped'
+            ),
+        )); ?>
+    </div>
+</div>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'coupon_code',
-		'discount_amount_percent',
-		'period',
-		'coupon_uses',
-		'created',
-		'updated',
-		'del_flg',
-	),
-)); ?>
