@@ -157,8 +157,7 @@ class Coupon extends CActiveRecord
         $criteria->compare('coupon_code',$coupon_code);
         $criteria->compare('del_flg',Constant::DEL_FALSE);
         $now = new CDbExpression("NOW()");
-        $criteria->addCondition('period > '.$now);
-        $criteria->addCondition('period IS NULL', 'OR');
+        $criteria->addCondition('period IS NULL OR period > '.$now);
 
         return self::model()->find($criteria);
     }

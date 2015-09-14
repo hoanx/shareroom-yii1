@@ -12,7 +12,7 @@ Host: 112.78.2.87
 
 MySQL
 DB-Name: ho7269d_shareroomvn
-user: ho7269d_root
+user: ho7269d_rootss
 pass: 1qAzxSw2@
 
 Mail sales
@@ -39,6 +39,9 @@ Thông tin host VPS:
 • Port: 22
 • User name: root
 • Password: 2xqnyIHy61h
+
+User:
+hoanx/shArerOom113@%
 
 Mysql
 h: localhost
