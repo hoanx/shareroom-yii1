@@ -277,7 +277,7 @@ class Booking extends CActiveRecord
     public static function _getPaymentMethod($method = null)
     {
         $result = array(
-            self::PAYMENT_METHOD_SMARTLINK => Yii::t('app', 'Thanh toán bằng smartlink'),
+            //self::PAYMENT_METHOD_SMARTLINK => Yii::t('app', 'Thanh toán bằng smartlink'),
             self::PAYMENT_METHOD_BANK_TRANFER => Yii::t('app', 'Thanh toán chuyển khoản'),
             self::PAYMENT_METHOD_COMPANY => Yii::t('app', 'Thanh toán tại văn phòng'),
         );
