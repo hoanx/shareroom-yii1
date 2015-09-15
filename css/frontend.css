@@ -821,6 +821,7 @@ ul.orange-list li{
 }
 .image-user {
 	border-radius: 50%;
+	height: 40px;
 }
 .modal-booked {
 	padding: 20px;
@@ -941,6 +942,9 @@ ul.orange-list li{
 .form-booking .frm-guest select{
     padding-left: 10px;
     padding-right: 2px;
+}
+.form-booking .row {
+	margin-top: -10px;
 }
 /*----Style payment page-------*/
 .payment-page{
