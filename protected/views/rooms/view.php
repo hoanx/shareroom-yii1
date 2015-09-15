@@ -137,11 +137,11 @@
                         'mobile' => 0
                     )); ?>
 
-                    <div style="margin-top: 0px">
+                    <div style="margin-top: 20px">
                         <button type="submit" class="btn btn-danger btn-block">Đặt chỗ</button>
                     </div>
                     <?php $this->endWidget(); ?>
-                    <div style="margin-top: 10px">
+                    <div style="margin-top: 20px">
                         <?php if(Yii::app()->user->isGuest) : ?>
                             <?php echo CHtml::link('<i class="fa fa-heart-o"></i> Đưa vào mục yêu thích', array('site/signin'), array('class' => 'btn btn-default btn-block'))?>
                         <?php else: ?>
@@ -153,18 +153,18 @@
                         <?php endif;?>
                     </div>
                     <hr>
-                    <div class="row" style="margin-top: 10px">
-                        <div class="col-md-3 col-sm-6">
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-4 col-sm-6">
                             <a href="<?php echo $this->createUrl('profile/show', array('id'=>$room->Users->id)) ?>">
                                 <?php echo CHtml::image(Yii::app()->createUrl('profile/image', array('id'=>$room->Users->id)), '', array('class' => 'img-responsive image-user')) ?>
                             </a>
                         </div>
-                        <div class="col-md-9 col-sm-6">
+                        <div class="col-md-8 col-sm-6">
                             <h5 style="margin: 3px 0;"><?php echo $room->Users->first_name ?></h5>
                             <div><?php echo "Là thành viên từ " . date('m/Y' , strtotime($room->Users->created))?></div>
                         </div>
                     </div>
-                    <div style="margin-top: 10px">
+                    <div style="margin-top: 20px">
                         <div><?php echo "Chia sẻ bài đăng này" ?></div>
                     </div>
                 </div>
@@ -237,14 +237,16 @@
         	jQuery(function() {
         	    var $sidebar   = jQuery("#room-checkin .more-width"), 
         	        $window    = jQuery(window),
+        	        $divheight = jQuery(".box-price-room").height(),
         	        offset     = $sidebar.offset(),
         	        topPadding = 15;
         	    $window.scroll(function() {
         	    	jQuery('#ui-datepicker-div').css("display", "none");
         	        if ($window.scrollTop() > offset.top) {
-            	        console.log($window.scrollTop());
-            	        console.log(offset.top);
-        	            $sidebar.css('margin-top', $window.scrollTop() - offset.top + topPadding);
+            	        if(($window.scrollTop() + offset.top + topPadding) < $divheight) {
+            	        	$sidebar.css('margin-top', $window.scrollTop() - offset.top + topPadding);
+            	        }
+        	            
         	        } else {
             	        $sidebar.css('margin-top', 0);
         	        }
