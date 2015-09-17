@@ -68,10 +68,10 @@
             });
 
             function uploadFile() {
+            	jQuery('.se-pre-con').show();
                 jQuery("#upload").ajaxSubmit({
                     dataType: 'json',
                     success: function (data, statusText, xhr, wrapper) {
-                    	jQuery('.se-pre-con').show();
                         jQuery('#input-file').val('');
                         if (data.name) {
                             jQuery('#preview-image').append(data.name);
