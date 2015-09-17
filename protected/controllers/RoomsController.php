@@ -217,7 +217,7 @@ class RoomsController extends Controller
                 $model->save();
             }
             
-            $return = '<div class="col-md-2 col-sm-4"><img src="' . Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $newFileName . '" />
+            $return = '<div class="col-md-3 col-sm-4"><img src="' . Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $newFileName . '" />
                         <a class="delete" href="' . Yii::app()->createUrl("rooms/deleteImage", array('id' => $model->id)) . '" ><i class="fa fa-times fa-2x"></i></a>
                         </div>';
             
