@@ -32,6 +32,10 @@ table.table-custom th {
             </td>
         </tr>
         <tr>
+            <th>Trạng thái</th>
+            <td><?php echo $room->status_flg ? '<i class="fa fa-check-circle fa-true fa-lg"></i>' : '<i class="fa fa-times fa-false fa-lg"></i>' ?></td>
+        </tr>
+        <tr>
             <th>Hình ảnh</th>
             <td>
                 <div class="row">
@@ -82,13 +86,13 @@ table.table-custom th {
             <td>
                 <table class="table table-custom">
                     <tr>
-                        <th width="20%">Giá mỗi đêm</td>
+                        <th width="20%">Giá mỗi đêm</th>
                         <td width="30%"><?php echo RoomPrice::displayPrice($room->RoomPrice->price) ?></td>
-                        <th width="20%">Giá theo tuần</td>
+                        <th width="20%">Giá theo tuần</th>
                         <td width="30%"><?php echo RoomPrice::displayPrice($room->RoomPrice->weekly) ?></td>
                     </tr>
                     <tr>
-                        <th>Giá theo tháng</td>
+                        <th>Giá theo tháng</th>
                         <td><?php echo RoomPrice::displayPrice($room->RoomPrice->monthly) ?></td>
                         <th>Phí dọn dẹp</th>
                         <td><?php echo RoomPrice::displayPrice($room->RoomPrice->cleaning_fees) ?></td>
@@ -148,7 +152,7 @@ table.table-custom th {
                     strokeWeight: 1,
                     strokeColor: '#398fd1',
                     fillColor: '#398fd1',
-                    fillOpacity: 0.4,
+                    fillOpacity: 0.4
                 },
             	anchorPoint : new google.maps.Point(0, -29)
             });

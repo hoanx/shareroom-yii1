@@ -206,4 +206,12 @@ class Constant {
 
         return !empty($base[$type]) ? $base[$type] : $base;
     }
+
+    public static function getTrueFalse($status = null){
+        $base = array(
+            self::DEL_TRUE => Yii::t('app', 'Hiện'),
+            self::DEL_FALSE => Yii::t('app', 'Ẩn'),
+        );
+        return (!empty($base[$status])) ? $base[$status] : $base;
+    }
 }

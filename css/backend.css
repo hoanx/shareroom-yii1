@@ -589,3 +589,10 @@ tr.status-disabled > td > a {
 form span.required{
     color: #ff0000;
 }
+i.fa-true {
+    color: #51ed0e;
+}
+
+i.fa-false {
+    color: #f70243;
+}

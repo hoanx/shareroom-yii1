@@ -30,6 +30,19 @@
                 }
             ),
             'name',
+            array(
+                'name'=>'status_flg',
+                'type' => 'raw',
+                'htmlOptions' => array('style' => 'text-align:center;vertical-align:middle'),
+                'value' => function($data){
+                        if($data->status_flg){
+                            $_html = '<i class="fa fa-check-circle fa-true fa-lg"></i>';
+                        }else{
+                            $_html = '<i class="fa fa-times fa-false fa-lg"></i>';
+                        }
+                        return $_html;
+                    },
+            ),
             'address_detail',
             array(
                 'name'=>'price',

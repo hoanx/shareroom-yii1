@@ -194,6 +194,7 @@ class RoomAddress extends CActiveRecord
             $criteria->compare('t.bedrooms',$this->bedrooms);
             $criteria->compare('t.beds',$this->beds);
             $criteria->compare('t.room_size',$this->room_size);
+            $criteria->compare('t.status_flg',$this->status_flg);
             $criteria->compare('t.amenities',$this->amenities,true);
             $criteria->compare('Users.email',$this->email,true);
             $criteria->compare('Users.first_name',$this->first_name,true);

@@ -51,6 +51,10 @@
                         <?php echo CHtml::activeTextField($model, '[Search]last_name', array('class' => 'form-control')) ?>
                     </div>
                     <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]status_flg') ?>
+                        <?php echo CHtml::activeDropDownList($model, '[Search]status_flg', Constant::getTrueFalse(), array('class' => 'form-control')) ?>
+                    </div>
+                    <div class="form-group col-lg-3">
                         <?php echo CHtml::activeLabel($model, '[Search]name') ?>
                         <?php echo CHtml::activeTextField($model, '[Search]name', array('class' => 'form-control')) ?>
                     </div>
