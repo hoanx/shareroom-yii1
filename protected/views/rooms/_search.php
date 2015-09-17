@@ -32,7 +32,6 @@
                 if($room->RoomPrice->price > $maxprice) $maxprice = $room->RoomPrice->price;
                 if($room->RoomPrice->price < $minprice) $minprice = $room->RoomPrice->price;
                 
-                
                 $ams = unserialize($room->amenities);
                 if(!empty($ams)) {
                     foreach($ams as $am) {

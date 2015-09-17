@@ -4,7 +4,6 @@
  * Date: 6/18/15
  */
 ?>
-
     <div class="panel panel-default box box-price">
         <div class="panel-heading">
             <h4>Hình ảnh</h4>
@@ -42,6 +41,7 @@
         </div>
     </div>
 
+    <div class="se-pre-con"></div>
 
 <?php Yii::app()->clientScript->beginScript('custom-script'); ?>
     <script type="text/javascript">
@@ -68,6 +68,7 @@
             });
 
             function uploadFile() {
+            	jQuery('.se-pre-con').show();
                 jQuery("#upload").ajaxSubmit({
                     dataType: 'json',
                     success: function (data, statusText, xhr, wrapper) {
@@ -75,6 +76,9 @@
                         if (data.name) {
                             jQuery('#preview-image').append(data.name);
                         }
+                    },
+                    complete: function(){
+                    	jQuery('.se-pre-con').hide();
                     }
                 });
             }

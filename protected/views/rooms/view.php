@@ -160,7 +160,7 @@
                             </a>
                         </div>
                         <div class="col-md-8 col-sm-6">
-                            <h5><?php echo $room->Users->first_name ?></h5>
+                            <h5 style="margin: 3px 0;"><?php echo $room->Users->first_name ?></h5>
                             <div><?php echo "Là thành viên từ " . date('m/Y' , strtotime($room->Users->created))?></div>
                         </div>
                     </div>
@@ -237,12 +237,16 @@
         	jQuery(function() {
         	    var $sidebar   = jQuery("#room-checkin .more-width"), 
         	        $window    = jQuery(window),
+        	        $divheight = jQuery(".box-price-room").height(),
         	        offset     = $sidebar.offset(),
         	        topPadding = 15;
         	    $window.scroll(function() {
         	    	jQuery('#ui-datepicker-div').css("display", "none");
         	        if ($window.scrollTop() > offset.top) {
-        	            $sidebar.css('margin-top', $window.scrollTop() - offset.top + topPadding);
+            	        if(($window.scrollTop() + offset.top + topPadding) < $divheight) {
+            	        	$sidebar.css('margin-top', $window.scrollTop() - offset.top + topPadding);
+            	        }
+        	            
         	        } else {
             	        $sidebar.css('margin-top', 0);
         	        }
