@@ -32,6 +32,10 @@ table.table-custom th {
             </td>
         </tr>
         <tr>
+            <th>Địa chỉ chi tiết</th>
+            <td><?php echo $room->address_detail ?></td>
+        </tr>
+        <tr>
             <th>Trạng thái</th>
             <td><?php echo $room->status_flg ? '<i class="fa fa-check-circle fa-true fa-lg"></i>' : '<i class="fa fa-times fa-false fa-lg"></i>' ?></td>
         </tr>
