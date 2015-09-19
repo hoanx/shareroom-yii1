@@ -112,6 +112,21 @@ class RoomImages extends CActiveRecord
 	    return parent::beforeSave();
 	}
 
+    public function afterSave(){
+        //update status room
+        $count = RoomImages::model()->count("room_address_id = :room_address_id AND del_flg = :del_flg", array("room_address_id" => $this->room_address_id, ':del_flg' => 0));
+        if($count==Constant::MIN_IMAGE_ROOM){
+            $user_id = Yii::app()->user->id;
+            $criteriaRoom = new CDbCriteria();
+            $criteriaRoom->compare('del_flg', Constant::DEL_FALSE);
+            $criteriaRoom->compare('user_id', $user_id);
+            $roomAddModel = RoomAddress::model()->findByPk($this->room_address_id, $criteriaRoom);
+            $roomAddModel->status_flg = RoomAddress::STATUS_ENABLE;
+            $roomAddModel->save(false);
+        }
+        return parent::afterSave();
+    }
+
     public static function getImageByRoomaddress($room_address_id = null){
         if(is_null($room_address_id)) return false;
 

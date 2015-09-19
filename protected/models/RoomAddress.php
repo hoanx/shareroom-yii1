@@ -57,6 +57,7 @@ class RoomAddress extends CActiveRecord
 			array('user_id, accommodates, bedrooms, beds, room_size, del_flg', 'numerical', 'integerOnly'=>true),
 			array('lat, long', 'numerical'),
 			array('address_detail, address, district, city, name', 'length', 'max'=>255),
+			array('description', 'length', 'min'=>Constant::MIN_LEN_ROOM_DESCRIPTION),
 			array('description, created, updated, room_type, amenities, status_flg, distance', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
