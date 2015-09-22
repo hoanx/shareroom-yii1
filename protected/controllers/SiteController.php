@@ -80,21 +80,28 @@ class SiteController extends Controller
 	 */
 	public function actionContact()
 	{
+        $this->setPageTitle(Yii::t('app', 'Liên hệ'));
 		$model=new ContactForm;
 		if(isset($_POST['ContactForm']))
 		{
 			$model->attributes=$_POST['ContactForm'];
 			if($model->validate())
 			{
+                $subject = 'Liên hệ từ website';
 				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
+				$subject='=?UTF-8?B?'.base64_encode($subject).'?=';
 				$headers="From: $name <{$model->email}>\r\n".
 					"Reply-To: {$model->email}\r\n".
 					"MIME-Version: 1.0\r\n".
 					"Content-Type: text/plain; charset=UTF-8";
+                $body = $model->body.'<br>
+                    -----------------------------------<br>
+                    Họ tên : '.$model->name.'<br>
+                    Số điện thoại : '.$model->phone_number.'<br>
+                    Địa chỉ : '.$model->address.'<br>';
 
-				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
+				mail(Yii::app()->params['adminEmail'],$subject,$body,$headers);
+				Yii::app()->user->setFlash('contact', 'Cảm ơn bạn đã liên hệ với chúng tôi. Chúng tôi sẽ trả lời bạn trong thời gian sớm nhất.');
 				$this->refresh();
 			}
 		}
