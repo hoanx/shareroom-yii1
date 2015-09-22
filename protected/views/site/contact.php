@@ -70,7 +70,7 @@
             <div class="form-group">
                 <?php echo $form->labelEx($model,'body', array('class'=>'col-sm-4 control-label label-left')); ?>
                 <div class="col-sm-8">
-                    <?php echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50, 'class'=>'form-control', 'placeholder'=>Yii::t('app', 'Nhập địa chỉ'))); ?>
+                    <?php echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50, 'class'=>'form-control', 'placeholder'=>Yii::t('app', 'Nhập nội dung'))); ?>
                 </div>
                 <div class="col-sm-offset-4 col-sm-8 alert-error-form">
                     <?php echo $form->error($model,'body'); ?>

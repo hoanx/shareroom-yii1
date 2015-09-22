@@ -90,7 +90,10 @@ class SiteController extends Controller
                 $subject = 'Liên hệ từ website';
 				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
 				$subject='=?UTF-8?B?'.base64_encode($subject).'?=';
-				$headers="From: $name <{$model->email}>\r\n".
+                // To send HTML mail, the Content-type header must be set
+                $headers  = 'MIME-Version: 1.0' . "\r\n";
+                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				$headers .= "From: $name <{$model->email}>\r\n".
 					"Reply-To: {$model->email}\r\n".
 					"MIME-Version: 1.0\r\n".
 					"Content-Type: text/plain; charset=UTF-8";
