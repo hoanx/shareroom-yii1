@@ -47,7 +47,8 @@
             array(
                 'name'=>'price',
                 'value'=>function($data){
-                    return number_format($data->RoomPrice->price);
+                    if(isset($data->RoomPrice->price))
+                        return number_format($data->RoomPrice->price);
                 }
             ),
             array(
