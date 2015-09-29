@@ -351,6 +351,20 @@ class RoomAddress extends CActiveRecord
     
         $criteria->condition = 't.del_flg = :del_flg AND t.status_flg = 1';
 
+        if(isset($latitude) && $latitude) {
+            $maxLat = $latitude + 0.2;
+            $minLat = $latitude - 0.2;
+            $criteria->condition .= ' AND t.lat < ' . $maxLat;
+            $criteria->condition .= ' AND t.lat > ' . $minLat;
+        }
+        
+        if(isset($longitude) && $longitude) {
+            $maxLong = $longitude + 0.2;
+            $minLong = $longitude - 0.2;
+            $criteria->condition .= ' AND t.long < ' . $maxLong;
+            $criteria->condition .= ' AND t.long > ' . $minLong;
+        }
+        
         if(isset($data['bedrooms']) && $data['bedrooms']) {
             $criteria->condition .= ' AND t.bedrooms = ' . $data['bedrooms'];
         }
@@ -401,13 +415,11 @@ class RoomAddress extends CActiveRecord
     
         if(isset($data['sort'])) {
             if($data['sort'] == 'price_desc') {
-                $criteria->order = 'roomprice.price DESC, distance ASC';
+                $criteria->order = 'roomprice.price DESC';
             } else {
-                $criteria->order = 'roomprice.price ASC, distance ASC';
+                $criteria->order = 'roomprice.price ASC';
             }
-        } else {
-            $criteria->order = 'distance ASC';
-        }
+        } 
     
 //         $count = RoomAddress::model()->count($criteria);
         
