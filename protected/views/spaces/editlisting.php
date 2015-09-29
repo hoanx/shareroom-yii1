@@ -7,7 +7,7 @@
 echo $this->renderPartial('//profile/_menu_profile');
 echo $this->renderPartial('_step_edit_room', array(
     'step' => 3,
-    'model' => $model,
+    'model' => $room,
 ));
 ?>
 

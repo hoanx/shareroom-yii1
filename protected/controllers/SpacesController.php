@@ -103,7 +103,7 @@ class SpacesController extends Controller
     public function actionEditlisting($id=null){
         if(is_null($id)) $this->redirect(array('index'));
 
-        $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
+        $room = $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
 
         if(isset($_POST['RoomAddress'])) {
             $model->attributes  = $_POST['RoomAddress'];
@@ -123,6 +123,7 @@ class SpacesController extends Controller
 
         $this->render('editlisting', array(
             'model' => $model,
+            'room' => $room
         ));
     }
 
