@@ -345,9 +345,7 @@ class RoomAddress extends CActiveRecord
         $longitude = $data['long'];
     
         $criteria = new CDbCriteria();
-        $criteria->join = 'JOIN tb_room_price AS roomprice ON t.id = roomprice.room_address_id';
-        $criteria->select = "ROUND($earthRadius * ACOS(SIN($latitude*PI()/180) * SIN(t.lat*PI()/180)
-        + COS($latitude*PI()/180) * COS(t.lat*PI()/180 )  *  COS((t.long*PI()/180) - ($longitude*PI()/180) )), 1) as distance, t.*, roomprice.*";
+        $criteria->with = 'RoomPrice';
     
         $criteria->condition = 't.del_flg = :del_flg AND t.status_flg = 1';
 
@@ -379,7 +377,7 @@ class RoomAddress extends CActiveRecord
     
         if(isset($data['price']) && $data['price']) {
             $prices = explode(",", $data['price']);
-            $criteria->condition .= ' AND roomprice.price >= ' . $prices[0] . ' AND roomprice.price <= ' . $prices[1];
+            $criteria->condition .= ' AND RoomPrice.price >= ' . $prices[0] . ' AND RoomPrice.price <= ' . $prices[1];
         }
     
         if(isset($data['room_type']) && $data['room_type']) {
@@ -415,9 +413,9 @@ class RoomAddress extends CActiveRecord
     
         if(isset($data['sort'])) {
             if($data['sort'] == 'price_desc') {
-                $criteria->order = 'roomprice.price DESC';
+                $criteria->order = 'RoomPrice.price DESC';
             } else {
-                $criteria->order = 'roomprice.price ASC';
+                $criteria->order = 'RoomPrice.price ASC';
             }
         } 
     
