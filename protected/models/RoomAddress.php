@@ -345,7 +345,7 @@ class RoomAddress extends CActiveRecord
         $longitude = $data['long'];
     
         $criteria = new CDbCriteria();
-        $criteria->join = 'LEFT JOIN tb_room_price AS roomprice ON t.id = roomprice.room_address_id';
+        $criteria->join = 'JOIN tb_room_price AS roomprice ON t.id = roomprice.room_address_id';
         $criteria->select = "ROUND($earthRadius * ACOS(SIN($latitude*PI()/180) * SIN(t.lat*PI()/180)
         + COS($latitude*PI()/180) * COS(t.lat*PI()/180 )  *  COS((t.long*PI()/180) - ($longitude*PI()/180) )), 1) as distance, t.*, roomprice.*";
     
@@ -446,12 +446,9 @@ class RoomAddress extends CActiveRecord
                 if($roomset) {
                     unset($model[$k]);
                 }
-                
-                
             }
         }
         
-            
         return $model;
     }
     

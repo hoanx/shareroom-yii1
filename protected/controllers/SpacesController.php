@@ -150,7 +150,7 @@ class SpacesController extends Controller
 
             if($model->validate()) {
                 $model->save();
-                //$this->redirect(array('rooms/image' , 'id' => $model->id));
+                //$this->redirect(array('rooms/image' , 'id' => $model->room_address_id));
             }
         }
         $this->render('pricing',array(
