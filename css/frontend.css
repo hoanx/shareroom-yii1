@@ -894,6 +894,7 @@ ul.orange-list li{
 }
 .room-search {
 	margin-bottom: 10px;
+	min-height: 310px;
 }
 @media (max-width: 768px) {
     .money-room {
