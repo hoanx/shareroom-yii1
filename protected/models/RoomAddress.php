@@ -350,15 +350,15 @@ class RoomAddress extends CActiveRecord
         $criteria->condition = 't.del_flg = :del_flg AND t.status_flg = 1';
 
         if(isset($latitude) && $latitude) {
-            $maxLat = $latitude + 1.3;
-            $minLat = $latitude - 1.3;
+            $maxLat = $latitude + 0.4;
+            $minLat = $latitude - 0.4;
             $criteria->condition .= ' AND t.lat < ' . $maxLat;
             $criteria->condition .= ' AND t.lat > ' . $minLat;
         }
         
         if(isset($longitude) && $longitude) {
-            $maxLong = $longitude + 1.3;
-            $minLong = $longitude - 1.3;
+            $maxLong = $longitude + 0.4;
+            $minLong = $longitude - 0.4;
             $criteria->condition .= ' AND t.long < ' . $maxLong;
             $criteria->condition .= ' AND t.long > ' . $minLong;
         }
