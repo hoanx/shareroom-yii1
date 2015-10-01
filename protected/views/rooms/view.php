@@ -36,7 +36,7 @@
             </div>
             <div class="room-desc">
                 <h4>Mô tả</h4>
-                <?php echo $room->description ?>
+                <?php if(!empty($room->description)) echo nl2br($room->description) ?>
                 <h4>Tiện nghi</h4>
                 <div class="row">
                     <?php if($room->amenities) : ?>
