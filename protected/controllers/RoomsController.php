@@ -96,7 +96,7 @@ class RoomsController extends Controller
 
             if($model->validate()) {
                 $model->save();
-                $this->redirect(array('rooms/image' , 'id' => $model->id));
+                $this->redirect(array('rooms/image' , 'id' => $id));
             }
         }
         $this->render('price',array(

@@ -632,11 +632,11 @@ hr {
 	position: relative;
 }
 
-#preview-image .col-md-2:hover img {
+#preview-image .col-md-3:hover img {
     opacity: 0.5;
 }
 
-#preview-image .col-md-2:hover .delete {
+#preview-image .col-md-3:hover .delete {
 	display: inline;
 }
 
@@ -894,6 +894,7 @@ ul.orange-list li{
 }
 .room-search {
 	margin-bottom: 10px;
+	min-height: 310px;
 }
 @media (max-width: 768px) {
     .money-room {

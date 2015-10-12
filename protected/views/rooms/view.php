@@ -36,7 +36,7 @@
             </div>
             <div class="room-desc">
                 <h4>Mô tả</h4>
-                <?php echo $room->description ?>
+                <?php if(!empty($room->description)) echo nl2br($room->description) ?>
                 <h4>Tiện nghi</h4>
                 <div class="row">
                     <?php if($room->amenities) : ?>
@@ -121,7 +121,7 @@
         </div>
         <div class="col-sm-4 hidden-xs" id="room-checkin">
             <div class="more-width">
-                <h3><?php echo number_format($room->RoomPrice->price) . ' VND' ?><span>Giá trung bình theo đêm</span></h3>
+                <h3><?php if(isset($room->RoomPrice->price)) echo number_format($room->RoomPrice->price) . ' VND' ?><span>Giá trung bình theo đêm</span></h3>
                 <div class="checkin-content">
                     <?php $form=$this->beginWidget('CActiveForm', array(
                         'htmlOptions' => array(

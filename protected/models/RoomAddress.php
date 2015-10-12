@@ -345,12 +345,24 @@ class RoomAddress extends CActiveRecord
         $longitude = $data['long'];
     
         $criteria = new CDbCriteria();
-        $criteria->join = 'LEFT JOIN tb_room_price AS roomprice ON t.id = roomprice.room_address_id';
-        $criteria->select = "ROUND($earthRadius * ACOS(SIN($latitude*PI()/180) * SIN(t.lat*PI()/180)
-        + COS($latitude*PI()/180) * COS(t.lat*PI()/180 )  *  COS((t.long*PI()/180) - ($longitude*PI()/180) )), 1) as distance, t.*, roomprice.*";
+        $criteria->with = 'RoomPrice';
     
         $criteria->condition = 't.del_flg = :del_flg AND t.status_flg = 1';
 
+        if(isset($latitude) && $latitude) {
+            $maxLat = $latitude + 0.4;
+            $minLat = $latitude - 0.4;
+            $criteria->condition .= ' AND t.lat < ' . $maxLat;
+            $criteria->condition .= ' AND t.lat > ' . $minLat;
+        }
+        
+        if(isset($longitude) && $longitude) {
+            $maxLong = $longitude + 0.4;
+            $minLong = $longitude - 0.4;
+            $criteria->condition .= ' AND t.long < ' . $maxLong;
+            $criteria->condition .= ' AND t.long > ' . $minLong;
+        }
+        
         if(isset($data['bedrooms']) && $data['bedrooms']) {
             $criteria->condition .= ' AND t.bedrooms = ' . $data['bedrooms'];
         }
@@ -365,7 +377,7 @@ class RoomAddress extends CActiveRecord
     
         if(isset($data['price']) && $data['price']) {
             $prices = explode(",", $data['price']);
-            $criteria->condition .= ' AND roomprice.price >= ' . $prices[0] . ' AND roomprice.price <= ' . $prices[1];
+            $criteria->condition .= ' AND RoomPrice.price >= ' . $prices[0] . ' AND RoomPrice.price <= ' . $prices[1];
         }
     
         if(isset($data['room_type']) && $data['room_type']) {
@@ -401,13 +413,11 @@ class RoomAddress extends CActiveRecord
     
         if(isset($data['sort'])) {
             if($data['sort'] == 'price_desc') {
-                $criteria->order = 'roomprice.price DESC, distance ASC';
+                $criteria->order = 'RoomPrice.price DESC';
             } else {
-                $criteria->order = 'roomprice.price ASC, distance ASC';
+                $criteria->order = 'RoomPrice.price ASC';
             }
-        } else {
-            $criteria->order = 'distance ASC';
-        }
+        } 
     
 //         $count = RoomAddress::model()->count($criteria);
         
@@ -434,12 +444,9 @@ class RoomAddress extends CActiveRecord
                 if($roomset) {
                     unset($model[$k]);
                 }
-                
-                
             }
         }
         
-            
         return $model;
     }
     
@@ -465,5 +472,14 @@ class RoomAddress extends CActiveRecord
         }
 
         return false;
+    }
+
+    public static function getListStatus($type=null){
+        $base = array(
+            self::STATUS_DISABLE => Yii::t('app', 'Ẩn'),
+            self::STATUS_ENABLE => Yii::t('app', 'Hiện'),
+        );
+
+        return !empty($base[$type]) ? $base[$type] : $base;
     }
 }

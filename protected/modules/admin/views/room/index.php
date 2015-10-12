@@ -6,10 +6,22 @@
     <?php $this->renderPartial('_search', array(
         'model'=>$model,
     )) ?>
+    <?php $form = $this->beginWidget('CActiveForm', array(
+        'enableAjaxValidation' => false,
+    ));
+    ?>
     <?php $this->widget('zii.widgets.grid.CGridView', array(
         'id' => 'users-grid',
         'dataProvider' => $model->search(),
         'columns' => array(
+            array(
+                'value' => '$data->id',
+                'class' => 'CCheckBoxColumn',
+                'selectableRows' => 2,
+                'checkBoxHtmlOptions' => array(
+                    'name' => 'RoomAddressIds[]',
+                ),
+            ),
             'id',
             array(
                 'name'=>'email',
@@ -47,7 +59,8 @@
             array(
                 'name'=>'price',
                 'value'=>function($data){
-                    return number_format($data->RoomPrice->price);
+                    if(isset($data->RoomPrice->price))
+                        return number_format($data->RoomPrice->price);
                 }
             ),
             array(
@@ -56,4 +69,18 @@
             ),
         ),
     )); ?>
+    <div class="row" style="margin: 0;clear: both">
+        <div class="col-md-2" style="padding: 0">
+            <?php echo CHtml::dropDownList('status_flg', '', RoomAddress::getListStatus(), array(
+                'class' => 'form-control',
+            ))?>
+        </div>
+        <div class="col-md-10">
+            <?php echo CHtml::submitButton(Yii::t('app', 'Cập nhật'), array(
+                'class' => 'btn btn-success btn-submit'
+            )); ?>
+
+        </div>
+    </div>
+    <?php $this->endWidget(); ?>
 </section>

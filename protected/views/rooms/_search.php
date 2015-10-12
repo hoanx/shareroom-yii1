@@ -23,14 +23,15 @@
             $i = 0;
         ?>
         <?php foreach($model as $room) : ?>
-            <?php if($room->distance > Constant::MAX_DISTANCE) break; ?>
             <?php 
-                if($minprice == 0) {
-                    $minprice =  $room->RoomPrice->price;
+                if(isset($room->RoomPrice->price)) {
+                    if($minprice == 0) {
+                        $minprice =  $room->RoomPrice->price;
+                    }
+                    
+                    if($room->RoomPrice->price > $maxprice) $maxprice = $room->RoomPrice->price;
+                    if($room->RoomPrice->price < $minprice) $minprice = $room->RoomPrice->price;
                 }
-                
-                if($room->RoomPrice->price > $maxprice) $maxprice = $room->RoomPrice->price;
-                if($room->RoomPrice->price < $minprice) $minprice = $room->RoomPrice->price;
                 
                 $ams = unserialize($room->amenities);
                 if(!empty($ams)) {
@@ -41,7 +42,9 @@
                     
                 
                 $content = CHtml::link($room->name, array('rooms/view', 'id' => $room->id), array('class' => 'marker-link'));
-                $content .= '<div>' . number_format($room->RoomPrice->price) . 'VND</div>';
+                if(isset($room->RoomPrice->price)) {
+                    $content .= '<div>' . number_format($room->RoomPrice->price) . 'VND</div>';
+                }
             ?>
             <?php $location[] = array($content, $room->lat, $room->long, $room->id) ; ?>
             <div class="room-search col-md-6" id="room_<?php echo $room->id?>">
@@ -54,7 +57,7 @@
                         }
                     ?>
                     <div class="money-room">
-                        <?php echo number_format($room->RoomPrice->price) ?> <sup>VND</sup>
+                        <?php if(isset($room->RoomPrice->price)) echo number_format($room->RoomPrice->price) ?> <sup>VND</sup>
                     </div>
                     <div class="user-room">
                         <a href="<?php echo $this->createUrl('profile/show', array('id'=>$room->Users->id)) ?>">
@@ -226,7 +229,7 @@
             var locations = <?php echo json_encode($location) ?>;
 
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
+                zoom: 10,
                 center: new google.maps.LatLng(<?php echo $_GET['lat']?>, <?php echo $_GET['long']?>),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
