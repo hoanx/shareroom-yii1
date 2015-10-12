@@ -54,6 +54,23 @@ class RoomController extends AdminController
             $model->attributes = $_GET['RoomAddress']['Search'];
         }
 
+        if (isset($_POST['status_flg']) && isset($_POST['RoomAddressIds']) && $_POST['RoomAddressIds']){
+            $stt = $_POST['status_flg'];
+            $arrIds = $_POST['RoomAddressIds'];
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                foreach($arrIds as $room_id){
+                    $roomAddressModel = RoomAddress::model()->findByPk($room_id);
+                    $roomAddressModel->status_flg = $stt;
+                    $roomAddressModel->save(false);
+                }
+                $transaction->commit();
+            }catch (Exception $e) {
+                $transaction->rollback();
+            }
+
+        }
+
         $this->render('index',array(
             'model'=>$model,
         ));

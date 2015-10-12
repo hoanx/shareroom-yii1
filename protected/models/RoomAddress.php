@@ -473,4 +473,13 @@ class RoomAddress extends CActiveRecord
 
         return false;
     }
+
+    public static function getListStatus($type=null){
+        $base = array(
+            self::STATUS_DISABLE => Yii::t('app', 'Ẩn'),
+            self::STATUS_ENABLE => Yii::t('app', 'Hiện'),
+        );
+
+        return !empty($base[$type]) ? $base[$type] : $base;
+    }
 }
