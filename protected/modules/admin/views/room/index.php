@@ -69,7 +69,7 @@
             ),
         ),
     )); ?>
-    <div class="row" style="margin: 0">
+    <div class="row" style="margin: 0;clear: both">
         <div class="col-md-2" style="padding: 0">
             <?php echo CHtml::dropDownList('status_flg', '', RoomAddress::getListStatus(), array(
                 'class' => 'form-control',
