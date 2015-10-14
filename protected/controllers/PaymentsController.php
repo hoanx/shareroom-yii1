@@ -31,6 +31,7 @@ class PaymentsController extends Controller
                 $this->redirect(Yii::app()->homeUrl);
             }
             $roomModel->amenities = unserialize($roomModel->amenities);
+            $roomModel->room_type = unserialize($roomModel->room_type);
 
             //process calculate amount by day
             $paymentData['number_night'] = Common::getRangeDate($paymentData['checkin'], $paymentData['checkout']);
@@ -54,16 +55,23 @@ class PaymentsController extends Controller
 
             $paymentData['price_additional_guests'] = 0; // Giá cho mỗi khách thêm
             $paymentData['additional_guests'] = 0; // số khách thêm
-            if($roomModel->RoomPrice->additional_guests &&
-                $paymentData['number_of_guests'] > $roomModel->RoomPrice->guest_per_night ){
 
-                $paymentData['price_additional_guests'] = $roomModel->RoomPrice->additional_guests*$paymentData['number_night'];
-                $paymentData['additional_guests'] = $paymentData['number_of_guests'] - $roomModel->RoomPrice->guest_per_night;
+            //Check loai phong de tinh tien
+            //@todo: Đổi room type thành int (Chỗ chọn loại phòng chỉ chọn được 1 loại)
+            if(is_array($roomModel->room_type) && in_array(Constant::ROOM_TYPE_SHARE_ROOM ,array_values($roomModel->room_type))){
+                $paymentData['price_night'] = $paymentData['price_night']*$paymentData['number_of_guests'];
+                $paymentData['total_amount'] = $paymentData['price_night']+$paymentData['cleaning_fees'];
+            }else{
+                if($roomModel->RoomPrice->additional_guests &&
+                    $paymentData['number_of_guests'] > $roomModel->RoomPrice->guest_per_night ){
 
+                    $paymentData['price_additional_guests'] = $roomModel->RoomPrice->additional_guests*$paymentData['number_night'];
+                    $paymentData['additional_guests'] = $paymentData['number_of_guests'] - $roomModel->RoomPrice->guest_per_night;
+
+                }
+                $paymentData['total_amount'] = $paymentData['price_night']+$paymentData['cleaning_fees']+
+                    ($paymentData['price_additional_guests']);
             }
-
-            $paymentData['total_amount'] = $paymentData['price_night']+$paymentData['cleaning_fees']+
-                                            ($paymentData['price_additional_guests']);
 
             //get user infomation
             $user_id = Yii::app()->user->id;

@@ -110,12 +110,17 @@
                 </div>
                 <hr class="clearfix">
                 <div class="row billing-summary">
-                    <div
-                        class="col-xs-7"><?php echo number_format($paymentData['price']) . 'VND x ' . $paymentData['number_night'] ?></div>
+                    <div class="col-xs-7">
+                        <?php if(is_array($roomModel->room_type) && in_array(Constant::ROOM_TYPE_SHARE_ROOM ,array_values($roomModel->room_type))): ?>
+                            <?php echo number_format($paymentData['price']) . 'VND x ' . $paymentData['number_night']. ' x ' . $paymentData['number_of_guests'] ?>
+                        <?php else: ?>
+                            <?php echo number_format($paymentData['price']) . 'VND x ' . $paymentData['number_night'] ?>
+                        <?php endif ?>
+                    </div>
                     <div class="col-xs-5 rm-padding text-right"><?php echo number_format($paymentData['price_night']) ?> VND</div>
                 </div>
 
-                <?php if($paymentData['additional_guests']): ?>
+                <?php if(isset($paymentData['additional_guests']) && $paymentData['additional_guests']): ?>
                     <div class="row billing-summary">
                         <div class="col-xs-7">
                             Phí mỗi khách thêm
