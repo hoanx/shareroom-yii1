@@ -70,7 +70,7 @@ echo $this->renderPartial('//profile/_menu_profile');
                         </div>
                         <b>
                             Giá theo đêm<br>
-                            <?php echo number_format($data->RoomPrice->price) ?> VND
+                            <?php echo isset($data->RoomPrice->price) ? number_format($data->RoomPrice->price) : 0; ?> VND
                         </b>
 
                     </div>
