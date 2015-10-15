@@ -261,10 +261,6 @@ class RoomAddress extends CActiveRecord
     public function beforeSave() {
         $now = new CDbExpression('NOW()');
         
-        if(is_array($this->room_type)) {
-            $this->room_type = serialize($this->room_type);
-        }
-        
         if(is_array($this->amenities)) {
             $this->amenities = serialize($this->amenities);
         }

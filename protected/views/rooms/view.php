@@ -9,8 +9,8 @@
             <h3 style="color: #398fd1;"><?php echo $room->name ?></h3>
             <h5>
             <?php 
-                $room_type_title = $room->getRoomType($room->room_type, true);
-                if($room_type_title) echo implode(', ' , $room_type_title) . ' - ';
+                $room_type_title = Constant::getRoomType($room->room_type);
+                if($room_type_title  && is_string($room_type_title)) echo $room_type_title;
                 echo $room->district . ' - ' . $room->city;
             ?>
             </h5>
@@ -24,11 +24,8 @@
                 <?php endif; ?>
             </div>
             <div class="row room-extra">
-                <?php $room_type =  $room->getRoomType($room->room_type); ?>
-                <?php if($room_type) : ?>
-                    <?php foreach($room_type as $rt) : ?>
-                        <div class="col-sm-2 col-xs-4"><?php $room->iconRoomType($rt) ?></div>
-                    <?php endforeach; ?>
+                <?php if($room->room_type) : ?>
+                    <div class="col-sm-2 col-xs-4"><?php $room->iconRoomType($room->room_type) ?></div>
                 <?php endif; ?>
                 <div class="col-sm-2 col-xs-4"><i class="fa fa-users"></i><br><?php echo $room->accommodates . ' người' ?></div>
                 <div class="col-sm-2 col-xs-4"><i class="fa fa-home"></i><br><?php echo $room->bedrooms . ' phòng ngủ'?></div>

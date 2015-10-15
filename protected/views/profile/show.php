@@ -45,8 +45,8 @@
         <h4 style="color: #398fd1;"><?php echo CHtml::link($room->name, array('rooms/view', 'id' => $room->id))?></h4>
         <h5>
         <?php 
-            $room_type_title = $room->getRoomType($room->room_type, true);
-            if($room_type_title) echo implode(', ' , $room_type_title) . ' - ';
+            $room_type_title = Constant::getRoomType($room->room_type);
+            if($room_type_title  && is_string($room_type_title)) echo $room_type_title;
             echo $room->district . ' - ' . $room->city;
         ?>
         </h5>

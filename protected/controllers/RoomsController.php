@@ -37,7 +37,6 @@ class RoomsController extends Controller
         
         $model = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0, 'user_id' => Yii::app()->user->id));
         if($model) {
-            $model->room_type = unserialize($model->room_type);
             $model->amenities = unserialize($model->amenities);
         } else {
             $model = new RoomAddress();

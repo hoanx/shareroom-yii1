@@ -32,7 +32,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model,'room_type', array('class'=>'col-sm-4 col-md-2 control-label label-left')); ?>
             <div class="col-sm-4 col-md-10">
-                <?php echo $form->checkBoxList($model,'room_type', Constant::getRoomType(), array(
+                <?php echo $form->radioButtonList($model,'room_type', Constant::getRoomType(), array(
                     'template'=>'<div class="col-sm-4 col-md-3">{input} {label}</div>',
                     'separator' => '',
                 )); ?>

@@ -13,8 +13,8 @@ echo $this->renderPartial('_menu_profile');
                 <h4 style="color: #398fd1;margin-top: 10px;"><?php echo CHtml::link($data->RoomAddress->name, array('rooms/view', 'id' => $data->RoomAddress->id))?></h4>
                 <h5>
                 <?php 
-                    $room_type_title = RoomAddress::getRoomType($data->RoomAddress->room_type, true);
-                    if($room_type_title) echo implode(', ' , $room_type_title) . ' - ';
+                    $room_type_title = Constant::getRoomType($data->RoomAddress->room_type);
+                    if($room_type_title  && is_string($room_type_title)) echo $room_type_title;
                     echo $data->RoomAddress->district . ' - ' . $data->RoomAddress->city;
                 ?>
                 </h5>

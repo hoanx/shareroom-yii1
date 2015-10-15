@@ -116,8 +116,7 @@ class SpacesController extends Controller
             }
         }
 
-        if($model && is_string($model->room_type) && is_string($model->amenities)) {
-            $model->room_type = unserialize($model->room_type);
+        if($model && is_string($model->amenities)) {
             $model->amenities = unserialize($model->amenities);
         }
 
