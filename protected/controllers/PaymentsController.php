@@ -33,7 +33,7 @@ class PaymentsController extends Controller
             $roomModel->amenities = unserialize($roomModel->amenities);
             $dataRoomType = @unserialize($roomModel->room_type);
             if ($dataRoomType !== false) {
-                $roomModel->room_type = $dataRoomType[0]
+                $roomModel->room_type = $dataRoomType[0];
             }
 
             //process calculate amount by day
@@ -62,7 +62,7 @@ class PaymentsController extends Controller
             //Check loai phong de tinh tien
             //@todo: Đổi room type thành int (Chỗ chọn loại phòng chỉ chọn được 1 loại)
             if((is_array($roomModel->room_type) && in_array(Constant::ROOM_TYPE_SHARE_ROOM ,array_values($roomModel->room_type)))
-                OR (is_string($roomModel->room_type) && $roomModel->room_type==Constant::ROOM_TYPE_SHARE_ROOM){
+                OR (is_string($roomModel->room_type) && $roomModel->room_type==Constant::ROOM_TYPE_SHARE_ROOM)){
                 $paymentData['price_night'] = $paymentData['price_night']*$paymentData['number_of_guests'];
                 $paymentData['total_amount'] = $paymentData['price_night']+$paymentData['cleaning_fees'];
             }else{
