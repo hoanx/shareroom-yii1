@@ -46,7 +46,7 @@
         <h5>
         <?php 
             $room_type_title = Constant::getRoomType($room->room_type);
-            if($room_type_title  && is_string($room_type_title)) echo $room_type_title;
+            if($room_type_title  && is_string($room_type_title)) echo $room_type_title . ' ';
             echo $room->district . ' - ' . $room->city;
         ?>
         </h5>
