@@ -14,7 +14,7 @@ echo $this->renderPartial('_menu_profile');
                 <h5>
                 <?php 
                     $room_type_title = Constant::getRoomType($data->RoomAddress->room_type);
-                    if($room_type_title  && is_string($room_type_title)) echo $room_type_title . ' ';
+                    if($room_type_title  && is_string($room_type_title)) echo $room_type_title . '-';
                     echo $data->RoomAddress->district . ' - ' . $data->RoomAddress->city;
                 ?>
                 </h5>
