@@ -251,7 +251,27 @@
                         'labelOptions' => array(
 //                            'class' => 'radio-inline',
                         ),
+                        'class' => 'radio_payment_method',
                     )) ?>
+                </div>
+                <div class="info-payment">
+                    <div class="office-add">
+                        <b>Địa chỉ thanh toán: BT02 khu đô thị Vân Canh - Hoài Đức - Hà Nội</b>
+                    </div>
+                    <div class="bank-acc">
+                        <ul>
+                            <li>
+                                Số tài khoản: <b>41110000287792</b><br>
+                                Chủ tài khoản: <b>Mạc Ngọc Tuấn</b><br>
+                                Chi nhánh: <b>Ngân Hàng BIDV TP Sơn La</b>
+                            </li>
+                            <li>
+                                Số tài khoản: <b>711A27820403</b><br>
+                                Chủ tài khoản: <b>Mạc Ngọc Tuấn</b><br>
+                                Chi nhánh: <b>Ngân Hàng TMCP Công thương TP Sơn La</b>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="alert-error-form">
                     <?php echo $form->error($bookingModel,'payment_method'); ?>
@@ -302,6 +322,19 @@
 <?php Yii::app()->clientScript->beginScript('custom-script'); ?>
     <script type="text/javascript">
         jQuery(document).ready(function () {
+            jQuery("#Booking_payment_method_0").change(function() {
+                if(this.checked) {
+                    jQuery('.office-add').show();
+                    jQuery('.bank-acc').hide();
+                }
+            });
+            jQuery("#Booking_payment_method_1").change(function() {
+                if(this.checked) {
+                    jQuery('.bank-acc').show();
+                    jQuery('.office-add').hide();
+                }
+            });
+
             jQuery('#link-counpon a').click(function(){
                 jQuery('#link-counpon').hide();
                 jQuery('#input-counpon').show();
@@ -312,6 +345,14 @@
             jQuery('#link-counpon').hide();
             jQuery('#input-counpon').show();
             <?php endif ?>
+
+            <?php if($bookingModel->payment_method==Booking::PAYMENT_METHOD_COMPANY): ?>
+            jQuery('.office-add').show();
+            <?php elseif($bookingModel->payment_method==Booking::PAYMENT_METHOD_BANK_TRANFER): ?>
+            jQuery('.bank-acc').show();
+            <?php endif ?>
+
+            $bookingModel
         });
     </script>
 <?php Yii::app()->clientScript->endScript(); ?>

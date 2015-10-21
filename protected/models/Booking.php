@@ -100,11 +100,6 @@ class Booking extends CActiveRecord
                 )));
                 return false;
             }
-        }else{
-            $this->addError($attribute_name, Yii::t('app', "{attribute_name} không được để trống.", array(
-                '{attribute_name}' => self::getAttributeLabel($attribute_name)
-            )));
-            return false;
         }
         return true;
     }

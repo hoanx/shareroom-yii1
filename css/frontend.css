@@ -894,7 +894,7 @@ ul.orange-list li{
 }
 .room-search {
 	margin-bottom: 10px;
-	min-height: 310px;
+	min-height: 320px;
 }
 @media (max-width: 768px) {
     .money-room {
@@ -1339,4 +1339,20 @@ table.table-booking a.unaccept{
 	z-index: 9999;
 	background: url("../images/loading.gif") center no-repeat #fff;
 	opacity: 0.4;
+}
+
+.bank-acc{
+    display: none;
+}
+.bank-acc ul{
+    padding-left: 30px;
+}
+.bank-acc ul li{
+    line-height: 26px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.office-add{
+    padding-left: 10px;
+    display: none;
 }

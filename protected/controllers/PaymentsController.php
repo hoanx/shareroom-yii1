@@ -109,9 +109,16 @@ class PaymentsController extends Controller
                 $bookingModel->attributes = $_POST['Booking'];
                 //$bookingUserModel->attributes = $_POST['BookingUser'];
                 if($bookingModel->validate(array('coupon_code'))){
-                    $couponMode = Coupon::getCouponByCode($bookingModel->coupon_code);
-                    $bookingModel->discount = $couponMode->discount_amount_percent;
-                    $bookingModel->total_amount = $bookingModel->total_amount - ($paymentData['price_night']*$bookingModel->discount/100);
+                    if(empty($bookingModel->coupon_code)){
+                        $bookingModel->addError('coupon_code', Yii::t('app', "{attribute_name} không được để trống.", array(
+                            '{attribute_name}' => $bookingModel->getAttributeLabel('coupon_code')
+                        )));
+                    }else{
+                        $couponMode = Coupon::getCouponByCode($bookingModel->coupon_code);
+                        $bookingModel->discount = $couponMode->discount_amount_percent;
+                        $bookingModel->total_amount = $bookingModel->total_amount - ($paymentData['price_night']*$bookingModel->discount/100);
+                    }
+
                 }
 
             }elseif(isset($_POST['Booking'], $_POST['BookingUser'])) {
