@@ -324,14 +324,14 @@
         jQuery(document).ready(function () {
             jQuery("#Booking_payment_method_0").change(function() {
                 if(this.checked) {
-                    jQuery('.office-add').show();
-                    jQuery('.bank-acc').hide();
+                    jQuery('.office-add').hide();
+                    jQuery('.bank-acc').show();
                 }
             });
             jQuery("#Booking_payment_method_1").change(function() {
                 if(this.checked) {
-                    jQuery('.bank-acc').show();
-                    jQuery('.office-add').hide();
+                    jQuery('.bank-acc').hide();
+                    jQuery('.office-add').show();
                 }
             });
 
