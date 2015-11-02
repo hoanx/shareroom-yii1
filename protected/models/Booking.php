@@ -114,8 +114,9 @@ class Booking extends CActiveRecord
         return array(
             'BookingHistory' => array(self::HAS_ONE, 'BookingHistory', 'booking_id'),
             'BookingPayment' => array(self::HAS_ONE, 'BookingPayment', 'booking_id'),
-            'BookingUser' => array(self::HAS_ONE, 'BookingUser', 'booking_id'),
-            'User' => array(self::BELONGS_TO, 'Users', 'user_id'),
+            'BookingUser' => array(self::HAS_ONE, 'BookingUser', 'booking_id'),// Clone thong tin user dat phong
+            'BookingUserDetail' => array(self::BELONGS_TO, 'Users', 'user_id'), // Thong tin chi tiet cua user dat phong
+            'RoomAddress' => array(self::BELONGS_TO, 'RoomAddress', 'room_address_id', 'with'=>'Users'), // Thong tin Phong duoc dat va thong tin chu phong
         );
     }
 
@@ -170,7 +171,8 @@ class Booking extends CActiveRecord
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
         $criteria = new CDbCriteria;
-        $criteria->with = array('BookingUser', 'BookingHistory', 'User');
+        $criteria->with = array('BookingUser', 'BookingHistory', 'RoomAddress');
+        $criteria->compare('t.del_flg', Constant::DEL_FALSE);
 
         if (!isset($this->keyword)) {
             $criteria->compare('id', $this->id);
@@ -191,7 +193,6 @@ class Booking extends CActiveRecord
             $criteria->compare('refund_date', $this->refund_date, true);
             $criteria->compare('created', $this->created, true);
             $criteria->compare('updated', $this->updated, true);
-            $criteria->compare('t.del_flg', $this->del_flg);
             $criteria->compare('BookingUser.email', $this->email, true);
             $criteria->compare('BookingHistory.room_name', $this->name, true);
             $criteria->compare('BookingHistory.room_address_detail', $this->address_detail, true);

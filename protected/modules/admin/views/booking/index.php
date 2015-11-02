@@ -32,13 +32,13 @@
             array(
                 'name'=>'user_email',
                 'value'=>function($data){
-                    return $data->User->email;
+                    return $data->RoomAddress->Users->email;
                 }
             ),
             array(
                 'name'=>'user_phone',
                 'value'=>function($data){
-                    return $data->User->phone_number;
+                    return $data->RoomAddress->Users->phone_number;
                 }
             ),
             array(
