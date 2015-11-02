@@ -936,13 +936,14 @@ ul.orange-list li{
 .form-booking .frm-checkin,
 .form-booking .frm-checkout,
 .form-booking .frm-guest{
-    padding-left: 5px !important;
+    padding-left: 0px !important;
     padding-right: 5px !important;
 }
 
 .form-booking .frm-guest select{
-    padding-left: 10px;
+    padding-left: 2px;
     padding-right: 2px;
+    font-size: 12px;
 }
 /*----Style payment page-------*/
 .payment-page{
