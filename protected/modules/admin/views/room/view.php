@@ -27,7 +27,7 @@ table.table-custom th {
             <td>
                 <?php 
                     $room_type_title = Constant::getRoomType($room->room_type);
-                    if($room_type_title && is_string($room_type_title)) echo implode(', ' , $room_type_title);
+                    if($room_type_title && is_string($room_type_title)) echo $room_type_title;
                 ?>
             </td>
         </tr>
