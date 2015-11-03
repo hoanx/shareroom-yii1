@@ -125,15 +125,10 @@ class PaymentsController extends Controller
                 $bookingModel->attributes = $_POST['Booking'];
                 $bookingUserModel->attributes = $_POST['BookingUser'];
 
-                $checkError = true;
-                if($bookingModel->validate()){
-                    $checkError = false;
-                }
-                if($bookingUserModel->validate() && $checkError===false){
-                    $checkError = false;
-                }
+                $validateBooking = $bookingModel->validate();
+                $validateBookingUser = $bookingUserModel->validate();
 
-                if($checkError === false){
+                if($validateBooking && $validateBookingUser){
                     $bookingModel->save(false);
                     $bookingUserModel->booking_id = $bookingModel->id;
                     $bookingUserModel->save(false);
