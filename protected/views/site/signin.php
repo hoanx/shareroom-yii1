@@ -74,7 +74,7 @@ $loginGplusUrl = $this->loginGplusUrl;
         </div>
         
         <div class="form-group">
-            Không có tài khoản? <?php echo CHtml::link('Đăng ký tại đây', array('site/signup')) ?>
+            Không có tài khoản? <?php echo CHtml::link('Đăng ký tại đây', ($url_b ? array('site/signup', 'url_b'=>$url_b) : array('site/signup'))) ?>
         </div>
 
         <?php $this->endWidget(); ?>

@@ -159,15 +159,19 @@ class RoomsController extends Controller
         if(isset($_POST['PaymentForm']) && $_POST['PaymentForm']){
             $paymentForm->attributes = $_POST['PaymentForm'];
 
-            if(!Yii::app()->user->id) {
-                $this->redirect(array('site/signin'));
-            }
-
             if($paymentForm->validate()){
                 if(Yii::app()->user->hasState('paymentData')){
                     Yii::app()->user->__unset('paymentData');
                 }
                 Yii::app()->user->setState('paymentData', $paymentForm->attributes);
+
+                if(!Yii::app()->user->id) {
+                    $this->redirect(array(
+                        'site/signin',
+                        'url_b'=> $this->createAbsoluteUrl('payments/book', array('id'=>$paymentForm->room_address_id))
+                    ));
+                }
+
                 $this->redirect(array('payments/book', 'id'=>$paymentForm->room_address_id));
             }
 

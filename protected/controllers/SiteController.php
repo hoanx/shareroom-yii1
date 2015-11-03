@@ -42,6 +42,9 @@ class SiteController extends Controller
                 if(is_null($this->userInfoFacebook)){
                     $this->_initGPlusSDK();
                 }
+                if(isset($_GET['url_b']) && $_GET['url_b']){
+                    Yii::app()->user->setState('back_url', $_GET['url_b']);
+                }
             }else{
                 $this->redirect(Yii::app()->user->returnUrl);
             }
@@ -114,7 +117,7 @@ class SiteController extends Controller
 	/**
 	 * Displays the login page
 	 */
-	public function actionSignIn()
+	public function actionSignIn($url_b=null)
 	{
         $this->pageTitle = Yii::t('app', 'Đăng nhập');
 		$model=new LoginForm;
@@ -130,18 +133,27 @@ class SiteController extends Controller
 		{
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+			if($model->validate() && $model->login()){
+                if($url_b){
+                    $this->redirect($url_b);
+                }else{
+                    $this->redirect(Yii::app()->user->returnUrl);
+                }
+            }
+
 		}
 		// display the login form
-		$this->render('signin',array('model'=>$model));
+		$this->render('signin',array(
+            'model'=>$model,
+            'url_b'=>$url_b,
+        ));
 	}
 
 
     /**
      * Displays the sign up page
      */
-    public function actionSignUp()
+    public function actionSignUp($url_b=null)
     {
         $this->pageTitle = Yii::t('app', 'Đăng ký');
 
@@ -151,13 +163,16 @@ class SiteController extends Controller
             $usersModel->attributes=$_POST['Users'];
             $password = $usersModel->password;
             if($usersModel->save()){
-                $this->_login($usersModel, $password);
+                $this->_login($usersModel, $password, $url_b);
             }
         }elseif(!is_null($this->userInfoFacebook)){
+            if (Yii::app()->user->hasState('back_url')) {
+                $bacl_url = Yii::app()->user->getState('back_url');
+            }
             $email = $this->userInfoFacebook['email'];
             $user_exists = Users::findByEmail($email);
             if($user_exists){
-                $this->_login($user_exists, Constant::DEFAULT_PASSWORD);
+                $this->_login($user_exists, Constant::DEFAULT_PASSWORD, (isset($bacl_url)?$bacl_url:null));
             }else{
                 $userFacebookModel = new Users();
                 $userFacebookModel->attributes=$this->userInfoFacebook;
@@ -168,13 +183,16 @@ class SiteController extends Controller
                     $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.md5($user_id);
                     Common::download_profile_picture($userFacebookModel->profile_picture, $pathProfilePicture);
                 }
-                $this->_login($userFacebookModel, $userFacebookModel->password);
+                $this->_login($userFacebookModel, $userFacebookModel->password, (isset($bacl_url)?$bacl_url:null));
             }
         }elseif(!is_null($this->userInfoGPlus)){
             $email = $this->userInfoGPlus['email'];
             $user_exists = Users::findByEmail($email);
+            if (Yii::app()->user->hasState('back_url')) {
+                $bacl_url = Yii::app()->user->getState('back_url');
+            }
             if($user_exists){
-                $this->_login($user_exists, Constant::DEFAULT_PASSWORD);
+                $this->_login($user_exists, Constant::DEFAULT_PASSWORD, (isset($bacl_url)?$bacl_url:null));
             }else{
                 $userGoogleModel = new Users();
                 $userGoogleModel->attributes=$this->userInfoGPlus;
@@ -185,7 +203,8 @@ class SiteController extends Controller
                     $pathProfilePicture =  Yii::app()->basePath . '/..' . Constant::PATH_PROFILE_PICTURE.md5($user_id);
                     Common::download_profile_picture($userGoogleModel->profile_picture, $pathProfilePicture);
                 }
-                $this->_login($userGoogleModel, $userGoogleModel->password);
+
+                $this->_login($userGoogleModel, $userGoogleModel->password, (isset($bacl_url)?$bacl_url:null));
             }
         }
 
@@ -351,7 +370,7 @@ class SiteController extends Controller
      * @param object $usersModel
      * @param string $password
      */
-    protected function _login($usersModel, $password){
+    protected function _login($usersModel, $password, $url_b=null){
         //Set login
         $_identity = new UserIdentity($usersModel->email, $password);
         $_identity->id = $usersModel->id;
@@ -360,9 +379,12 @@ class SiteController extends Controller
         $_identity->setState('first_name', $usersModel->first_name);
         $_identity->setState('last_name', $usersModel->last_name);
         Yii::app()->user->login($_identity, 0);
-        $this->redirect(Yii::app()->user->returnUrl);
+        if($url_b){
+            $this->redirect($url_b);
+        }else{
+            $this->redirect(Yii::app()->user->returnUrl);
+        }
     }
-
 
     public function actionCancellation_policies(){
         $this->render('cancellation');
