@@ -53,7 +53,7 @@ class RoomAddress extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, address_detail, address, district, city, lat, long, name, description, accommodates,
-			    bedrooms, beds, room_size', 'required'),
+			    bedrooms, beds, room_size, room_type', 'required'),
 			array('user_id, accommodates, bedrooms, beds, room_size, del_flg', 'numerical', 'integerOnly'=>true),
 			array('lat, long', 'numerical'),
 			array('address_detail, address, district, city, name', 'length', 'max'=>255),
