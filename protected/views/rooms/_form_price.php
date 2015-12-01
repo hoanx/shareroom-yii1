@@ -66,7 +66,7 @@
                 <?php echo $form->textField($model, 'monthly', array('class' => 'form-control')); ?>
             </div>
             <div class="col-md-7 hint">
-                Khách sẽ được báo giá này cho bất kỳ đặt chỗ từ 28 đêm trở lên
+                Khách sẽ được báo giá này cho bất kỳ đặt phòng từ 28 đêm trở lên
             </div>
             <div class="col-sm-offset-4 col-sm-8 col-md-offset-2 col-md-5 alert-error-form">
                 <?php echo $form->error($model, 'monthly'); ?>

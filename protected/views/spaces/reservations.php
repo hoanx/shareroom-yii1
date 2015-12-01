@@ -21,7 +21,7 @@ echo $this->renderPartial('//profile/_menu_profile');
     <div class="profile-index spaces-index">
         <div class="panel panel-default profile-box message-box">
             <div class="panel-heading box-header">
-                <span><?php echo(Yii::t('app', 'Yêu cầu đặt chỗ')) ?></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span><?php echo(Yii::t('app', 'Yêu cầu đặt phòng')) ?></span>&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <?php echo $form->dropDownList($bookingStatusForm, 'filter_status', array(
                         0 => 'Tất cả',

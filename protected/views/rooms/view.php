@@ -135,7 +135,7 @@
                     )); ?>
 
                     <div style="margin-top: 20px">
-                        <button type="submit" class="btn btn-danger btn-block">Đặt chỗ</button>
+                        <button type="submit" class="btn btn-danger btn-block">đặt phòng</button>
                     </div>
                     <?php $this->endWidget(); ?>
                     <div style="margin-top: 20px">
@@ -170,7 +170,7 @@
     </div>            
 </div>
 <div class="row visible-xs modal-booked">
-<button class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#myModal">Đặt chỗ</button>
+<button class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#myModal">đặt phòng</button>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
@@ -185,7 +185,7 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="myModalLabel">Đặt chỗ</h4>
+				<h4 class="modal-title" id="myModalLabel">đặt phòng</h4>
 			</div>
 			<div class="modal-body">
                 <?php $this->renderPartial('_form_booking', array(
@@ -198,7 +198,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng lại</button>
-				<button type="submit" class="btn btn-primary">Đặt chỗ</button>
+				<button type="submit" class="btn btn-primary">đặt phòng</button>
 			</div>
             <?php $this->endWidget(); ?>
 		</div>

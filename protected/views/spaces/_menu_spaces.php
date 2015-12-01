@@ -15,9 +15,9 @@ $action_name = Yii::app()->controller->action->id;
     <?php endif; ?>
 
     <?php if ($controller_name == 'spaces' && $action_name == 'reservations'): ?>
-        <li class="active"><?php echo CHtml::link(Yii::t('app', 'Yêu cầu đặt chỗ'), array('spaces/reservations')) ?></li>
+        <li class="active"><?php echo CHtml::link(Yii::t('app', 'Yêu cầu đặt phòng'), array('spaces/reservations')) ?></li>
     <?php else: ?>
-        <li><?php echo CHtml::link(Yii::t('app', 'Yêu cầu đặt chỗ'), array('spaces/reservations')) ?></li>
+        <li><?php echo CHtml::link(Yii::t('app', 'Yêu cầu đặt phòng'), array('spaces/reservations')) ?></li>
     <?php endif; ?>
 
     <?php if ($controller_name == 'spaces' && $action_name == 'policies'): ?>

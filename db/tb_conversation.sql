@@ -2,7 +2,8 @@
 SQLyog Ultimate v9.31 GA
 MySQL - 5.6.21 : Database - shareroom-yii1
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -60,7 +61,7 @@ CREATE TABLE `tb_messages` (
 
 LOCK TABLES `tb_messages` WRITE;
 
-insert  into `tb_messages`(`id`,`conversation_id`,`message_type`,`from_user_id`,`to_user_id`,`content`,`status_flg`,`read_flg`,`created`,`updated`,`del_flg`) values (1,1,1,2,3,'Chúc mừng! Bạn có một yêu cầu đặt chỗ! Vui lòng xem xét kỹ yêu cầu đặt chỗ của bạn. Nếu bạn có bất kỳ thắc mắc nào, hãy gửi tin nhắn cho khách trước khi chấp nhận việc đặt chỗ.',1,1,'2015-06-26 17:57:59','2015-06-26 17:57:59',NULL),(2,2,1,3,2,'Chúc mừng! Bạn có một yêu cầu đặt chỗ! Vui lòng xem xét kỹ yêu cầu đặt chỗ của bạn. Nếu bạn có bất kỳ thắc mắc nào, hãy gửi tin nhắn cho khách trước khi chấp nhận việc đặt chỗ.',1,0,'2015-06-30 14:08:54','2015-06-30 14:08:54',NULL),(3,2,1,2,3,'Chúc mừng! Bạn đã đặt chỗ thành công.',2,1,'2015-06-30 16:12:09','2015-06-30 16:12:09',NULL),(4,1,1,3,2,'Bạn đã từ chối yêu cầu đặt chỗ.Chúng tôi khuyến khích bạn chấp nhận yêu cầu đặt chỗ nếu bài đăng của bạn còn trống và bạn cảm thấy thoải mái với khách. Trải nghiệm tốt và bài nhận xét tích cực sẽ giúp bạn tăng thứ hạng trên Shareroom.',3,0,'2015-06-30 16:13:04','2015-06-30 16:13:04',NULL),(5,1,1,3,2,'Bạn đã từ chối yêu cầu đặt chỗ.Chúng tôi khuyến khích bạn chấp nhận yêu cầu đặt chỗ nếu bài đăng của bạn còn trống và bạn cảm thấy thoải mái với khách. Trải nghiệm tốt và bài nhận xét tích cực sẽ giúp bạn tăng thứ hạng trên Shareroom.',3,0,'2015-06-30 16:13:14','2015-06-30 16:13:14',NULL),(8,1,0,3,2,'Xin lỗi ko thể cho thuê vì giá rẻ quá',0,0,'2015-06-30 17:34:13','2015-06-30 17:34:13',NULL),(9,1,0,3,2,'Sorry about that',0,0,'2015-06-30 17:34:59','2015-06-30 17:34:59',NULL),(10,1,0,3,2,'Ok thanks',0,0,'2015-07-01 08:26:58','2015-07-01 08:26:58',NULL);
+insert  into `tb_messages`(`id`,`conversation_id`,`message_type`,`from_user_id`,`to_user_id`,`content`,`status_flg`,`read_flg`,`created`,`updated`,`del_flg`) values (1,1,1,2,3,'Chúc mừng! Bạn có một yêu cầu đặt phòng! Vui lòng xem xét kỹ yêu cầu đặt phòng của bạn. Nếu bạn có bất kỳ thắc mắc nào, hãy gửi tin nhắn cho khách trước khi chấp nhận việc đặt phòng.',1,1,'2015-06-26 17:57:59','2015-06-26 17:57:59',NULL),(2,2,1,3,2,'Chúc mừng! Bạn có một yêu cầu đặt phòng! Vui lòng xem xét kỹ yêu cầu đặt phòng của bạn. Nếu bạn có bất kỳ thắc mắc nào, hãy gửi tin nhắn cho khách trước khi chấp nhận việc đặt phòng.',1,0,'2015-06-30 14:08:54','2015-06-30 14:08:54',NULL),(3,2,1,2,3,'Chúc mừng! Bạn đã đặt phòng thành công.',2,1,'2015-06-30 16:12:09','2015-06-30 16:12:09',NULL),(4,1,1,3,2,'Bạn đã từ chối yêu cầu đặt phòng.Chúng tôi khuyến khích bạn chấp nhận yêu cầu đặt phòng nếu bài đăng của bạn còn trống và bạn cảm thấy thoải mái với khách. Trải nghiệm tốt và bài nhận xét tích cực sẽ giúp bạn tăng thứ hạng trên Shareroom.',3,0,'2015-06-30 16:13:04','2015-06-30 16:13:04',NULL),(5,1,1,3,2,'Bạn đã từ chối yêu cầu đặt phòng.Chúng tôi khuyến khích bạn chấp nhận yêu cầu đặt phòng nếu bài đăng của bạn còn trống và bạn cảm thấy thoải mái với khách. Trải nghiệm tốt và bài nhận xét tích cực sẽ giúp bạn tăng thứ hạng trên Shareroom.',3,0,'2015-06-30 16:13:14','2015-06-30 16:13:14',NULL),(8,1,0,3,2,'Xin lỗi ko thể cho thuê vì giá rẻ quá',0,0,'2015-06-30 17:34:13','2015-06-30 17:34:13',NULL),(9,1,0,3,2,'Sorry about that',0,0,'2015-06-30 17:34:59','2015-06-30 17:34:59',NULL),(10,1,0,3,2,'Ok thanks',0,0,'2015-07-01 08:26:58','2015-07-01 08:26:58',NULL);
 
 UNLOCK TABLES;
 

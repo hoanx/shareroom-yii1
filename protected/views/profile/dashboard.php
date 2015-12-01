@@ -27,7 +27,7 @@ echo $this->renderPartial('_menu_profile');
             <div class="panel-body">
                 <ul>
                     <li><?php echo(CHtml::link(Yii::t('app', 'Quản lý bài đăng'), array('spaces/index'))) ?></li>
-                    <li><?php echo(CHtml::link(Yii::t('app', 'Yêu cầu đặt chỗ'), array('spaces/reservations'))) ?></li>
+                    <li><?php echo(CHtml::link(Yii::t('app', 'Yêu cầu đặt phòng'), array('spaces/reservations'))) ?></li>
                 </ul>
             </div>
         </div>

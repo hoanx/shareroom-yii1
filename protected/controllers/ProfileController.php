@@ -77,7 +77,7 @@ class ProfileController extends Controller
 
     public function actionMy_Booking()
     {
-        $this->setPageTitle(Yii::t('app', 'Đặt chỗ của tôi'));
+        $this->setPageTitle(Yii::t('app', 'đặt phòng của tôi'));
         $user_id = Yii::app()->user->id;
 
         $bookingStatusForm = new BookingStatusForm();

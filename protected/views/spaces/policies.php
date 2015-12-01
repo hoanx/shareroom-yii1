@@ -26,7 +26,7 @@ echo $this->renderPartial('//profile/_menu_profile');
                         lượng phí thích hợp..
                     </li>
                     <li>Trong trường hợp phòng/nhà cho thuê thiếu bất cứ tiện ích nào cho bất kỳ khoảng thời gian nào
-                        khách trọ, Shareroom có toàn quyền khấu trừ một khoảng phí từ phí đặt chỗ trả cho chủ nhà và hoàn
+                        khách trọ, Shareroom có toàn quyền khấu trừ một khoảng phí từ phí đặt phòng trả cho chủ nhà và hoàn
                         trả cho khách. Phí hoàn trả sẽ được tính theo mức độ nghiêm trọng của sự việc, thời gian và cách
                         thức sự việc diễn ra.
                     </li>

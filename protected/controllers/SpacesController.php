@@ -51,10 +51,10 @@ class SpacesController extends Controller
                     $messages->read_flg = 0;
                     
                     if($bookingStatusForm->status == Booking::BOOKING_STATUS_ACCEPT) {
-                        $messages->content = 'Chúc mừng! Bạn đã đặt chỗ thành công.';
+                        $messages->content = 'Chúc mừng! Bạn đã đặt phòng thành công.';
                         $messages->status_flg = Messages::STATUS_ACCEPT;
                     } else {
-                        $messages->content = 'Bạn đã từ chối yêu cầu đặt chỗ.Chúng tôi khuyến khích bạn chấp nhận yêu cầu đặt chỗ nếu bài đăng của bạn còn trống và bạn cảm thấy thoải mái với khách. Trải nghiệm tốt và bài nhận xét tích cực sẽ giúp bạn tăng thứ hạng trên Shareroom.';
+                        $messages->content = 'Bạn đã từ chối yêu cầu đặt phòng.Chúng tôi khuyến khích bạn chấp nhận yêu cầu đặt phòng nếu bài đăng của bạn còn trống và bạn cảm thấy thoải mái với khách. Trải nghiệm tốt và bài nhận xét tích cực sẽ giúp bạn tăng thứ hạng trên Shareroom.';
                         $messages->status_flg = Messages::STATUS_DENY;
                     }
                     $messages->save();

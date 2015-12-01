@@ -59,7 +59,7 @@
             <i class="fa fa-lock"></i>
                     <span>
                     Để bảo vệ quyền riêng tư chúng tôi sẽ giữ kín địa chỉ, số điện thoại cũng như các thông tin liên
-                    lạc khác cho đến khi khách xác nhận đặt chỗ với bạn.
+                    lạc khác cho đến khi khách xác nhận đặt phòng với bạn.
                     </span>
         </div>
     </div>
