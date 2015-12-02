@@ -4,7 +4,7 @@
             <h2><?php echo($this->getPageTitle()) ?></h2>
             <hr>
             <p>Với sứ mệnh đem đến trải nghiệm du lịch độc đáo cho khách hàng, Công ty cổ phần Shareroom chuyên cung cấp
-                dịch vụ đặt phòng homestayvới mức giá hợp lý, giúp bạn chọn lựa và lên kế hoạch cho chuyến du lịch của
+                dịch vụ đặt phòng homestay với mức giá hợp lý, giúp bạn chọn lựa và lên kế hoạch cho chuyến du lịch của
                 mình.</p>
 
             <p>Với hệ thống đặt phòng trực tuyến tại website: <a href="http://shareroom.vn/">http://shareroom.vn/</a>
