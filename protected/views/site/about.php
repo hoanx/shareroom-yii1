@@ -7,7 +7,7 @@
                 dịch vụ đặt phòng homestayvới mức giá hợp lý, giúp bạn chọn lựa và lên kế hoạch cho chuyến du lịch của
                 mình.</p>
 
-            <p>Với hệ thống đặt phòng trực tuyền tại website: <a href="http://shareroom.vn/">http://shareroom.vn/</a>
+            <p>Với hệ thống đặt phòng trực tuyến tại website: <a href="http://shareroom.vn/">http://shareroom.vn/</a>
                 cùng
                 các chức năng hỗ trợ khách hàng lựa
                 chọn như: Tìm kiếm phòng trống, Tìm phòng có giá rẻ, Tìm kiếm theo địa điểm và đội ngũ nhân viên Hỗ trợ
