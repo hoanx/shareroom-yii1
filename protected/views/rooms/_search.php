@@ -229,7 +229,7 @@
             var locations = <?php echo json_encode($location) ?>;
 
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 10,
+                zoom: 11,
                 center: new google.maps.LatLng(<?php echo $_GET['lat']?>, <?php echo $_GET['long']?>),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
