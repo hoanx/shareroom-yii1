@@ -337,6 +337,7 @@ class RoomAddress extends CActiveRecord
     
     public static function getRooms($data) {
         $earthRadius = '3963.0';
+        $bk_search = 0.16;
         $latitude = $data['lat'];
         $longitude = $data['long'];
     
@@ -346,15 +347,15 @@ class RoomAddress extends CActiveRecord
         $criteria->condition = 't.del_flg = :del_flg AND t.status_flg = 1';
 
         if(isset($latitude) && $latitude) {
-            $maxLat = $latitude + 0.2;
-            $minLat = $latitude - 0.2;
+            $maxLat = $latitude + $bk_search;
+            $minLat = $latitude - $bk_search;
             $criteria->condition .= ' AND t.lat < ' . $maxLat;
             $criteria->condition .= ' AND t.lat > ' . $minLat;
         }
         
         if(isset($longitude) && $longitude) {
-            $maxLong = $longitude + 0.2;
-            $minLong = $longitude - 0.2;
+            $maxLong = $longitude + $bk_search;
+            $minLong = $longitude - $bk_search;
             $criteria->condition .= ' AND t.long < ' . $maxLong;
             $criteria->condition .= ' AND t.long > ' . $minLong;
         }
