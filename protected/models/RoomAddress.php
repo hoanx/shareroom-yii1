@@ -76,7 +76,7 @@ class RoomAddress extends CActiveRecord
      * @param $params
      * @return bool
      */
-    public function validateEnable($attribute_name, $params)
+    public function validateEnable($attribute_name)
     {
         $checkErr = false;
         if ($this->$attribute_name) {
@@ -346,15 +346,15 @@ class RoomAddress extends CActiveRecord
         $criteria->condition = 't.del_flg = :del_flg AND t.status_flg = 1';
 
         if(isset($latitude) && $latitude) {
-            $maxLat = $latitude + 0.4;
-            $minLat = $latitude - 0.4;
+            $maxLat = $latitude + 0.2;
+            $minLat = $latitude - 0.2;
             $criteria->condition .= ' AND t.lat < ' . $maxLat;
             $criteria->condition .= ' AND t.lat > ' . $minLat;
         }
         
         if(isset($longitude) && $longitude) {
-            $maxLong = $longitude + 0.4;
-            $minLong = $longitude - 0.4;
+            $maxLong = $longitude + 0.2;
+            $minLong = $longitude - 0.2;
             $criteria->condition .= ' AND t.long < ' . $maxLong;
             $criteria->condition .= ' AND t.long > ' . $minLong;
         }
