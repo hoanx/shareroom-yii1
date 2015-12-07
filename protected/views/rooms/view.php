@@ -135,7 +135,7 @@
                     )); ?>
 
                     <div style="margin-top: 20px">
-                        <button type="submit" class="btn btn-danger btn-block">đặt phòng</button>
+                        <button type="submit" class="btn btn-danger btn-block">Đặt phòng</button>
                     </div>
                     <?php $this->endWidget(); ?>
                     <div style="margin-top: 20px">
@@ -170,7 +170,7 @@
     </div>            
 </div>
 <div class="row visible-xs modal-booked">
-<button class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#myModal">đặt phòng</button>
+<button class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#myModal">Đặt phòng</button>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
@@ -185,9 +185,10 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="myModalLabel">đặt phòng</h4>
+				<h3><?php if(isset($room->RoomPrice->price)) echo number_format($room->RoomPrice->price) . ' VND' ?><span style="font-size: 10px;float: right;line-height: 26px;">Giá trung bình theo đêm</span></h3>
 			</div>
 			<div class="modal-body">
+			    
                 <?php $this->renderPartial('_form_booking', array(
                     'paymentForm' => $paymentForm,
                     'form' => $form,
@@ -198,7 +199,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng lại</button>
-				<button type="submit" class="btn btn-primary">đặt phòng</button>
+				<button type="submit" class="btn btn-primary">Đặt phòng</button>
 			</div>
             <?php $this->endWidget(); ?>
 		</div>
