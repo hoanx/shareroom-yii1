@@ -23,7 +23,7 @@
     $clientScript->registerCssFile($baseUrl . '/css/responsive.css');
     $clientScript->registerCssFile($baseUrl . '/css/normalize.css');
     $clientScript->registerCssFile($baseUrl . '/css/ion.rangeSlider.css');
-    $clientScript->registerCssFile($baseUrl . '/css/ion.rangeSlider.skinFlat.css');
+    $clientScript->registerCssFile($baseUrl . '/css/ion.rangeSlider.skinHTML5.css');
     //JS
     $clientScript->registerScriptFile($baseUrl . '/js/jquery-1.10.2.min.js');
     $clientScript->registerScriptFile($baseUrl . '/js/jquery.form.min.js');

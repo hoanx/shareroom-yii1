@@ -1,6 +1,6 @@
 <div id="change-view">
     <?php if(isset($_GET['show']) && $_GET['show'] == 'map') :  ?>
-        <?php echo $this->renderPartial('_filter', array('model' => $model), true, true);?>
+        <?php echo $this->renderPartial('_filter', array('model' => $model, 'ajax' => isset($ajax) ? $ajax : false), true, true);?>
     <?php endif; ?>
 	<div class="btn-group pull-right" role="group" aria-label="">
         <a href="<?php echo $this->createUrl('', array_merge($_GET, array('show' => 'list'))) ?>" class="btn btn-default <?php RoomAddress::checkShow('list') ?>">Lựa chọn</a>
@@ -10,21 +10,7 @@
 </div>
 <hr>
 <div class="row">
-    <div class="col-md-8">
-        <div>
-            <label style="margin-right: 20px;">Sắp xếp theo:</label>
-            <div class="btn-group" role="group" aria-label="...">
-                <a href="<?php echo $this->createUrl('', array_merge($_GET, array('sort' => 'review'))) ?>" class="btn btn-default <?php RoomAddress::checkSort('review') ?>">Lượng giới thiệu</a>
-                <?php if(isset($_GET['sort']) && $_GET['sort'] == 'price_desc') : ?>
-                    <a href="<?php echo $this->createUrl('', array_merge($_GET, array('sort' => 'price_asc'))) ?>" class="btn btn-default <?php RoomAddress::checkSort('price_desc') ?>">Giá <i class="fa fa-arrow-down"></i></a>
-                <?php elseif(isset($_GET['sort']) && $_GET['sort'] == 'price_asc'): ?>
-                    <a href="<?php echo $this->createUrl('', array_merge($_GET, array('sort' => 'price_desc'))) ?>" class="btn btn-default <?php RoomAddress::checkSort('price_asc') ?>">Giá <i class="fa fa-arrow-up"></i></a>
-                <?php else: ?>
-                    <a href="<?php echo $this->createUrl('', array_merge($_GET, array('sort' => 'price_desc'))) ?>" class="btn btn-default">Giá <i class="fa fa-arrow-up"></i></a>
-                <?php endif; ?>
-            </div>
-		</div>
-        <hr>
+    <div class="col-md-4" id="map-image">
         <div class="row">
         <?php 
             $location = array();
@@ -58,13 +44,13 @@
                 }
             ?>
             <?php $location[] = array($content, $room->lat, $room->long, $room->id) ; ?>
-            <div class="room-search col-md-6" id="room_<?php echo $room->id?>">
+            <div class="room-search col-md-12" id="room_<?php echo $room->id?>" style="min-height: 220px">
                 <div class="img-room" data-room='<?php echo $i ?>'>
                     <?php 
                         $images = $room->RoomImages; 
                         if (!empty($images)) {
                             $image = $images[0];
-                            echo CHtml::link(CHtml::image(Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $image->image_name, '', array('class' => 'img-responsive img-show')), array('rooms/view', 'id' => $room->id));
+                            echo CHtml::link(CHtml::image(Yii::app()->baseUrl . Constant::PATH_UPLOAD_PICTURE . $image->image_name, '', array('class' => 'img-responsive img-show', 'style' => 'height: 170px !important;')), array('rooms/view', 'id' => $room->id));
                         }
                     ?>
                     <div class="money-room">
@@ -89,84 +75,16 @@
         <?php endforeach; ?>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8 hidden-xs">
         <div class="search-form">
-            <h4>Tìm kiếm</h4>
-            <div id="map" style="height: 350px;margin-bottom: 10px;"></div>
-			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-info <?php echo RoomAddress::checkRoomtype('entire_home') ?>"><input type="checkbox" autocomplete="off" value="entire_home" name="room_type" <?php echo RoomAddress::checkRoomtype('entire_home', true) ?>> <i class="fa fa-building"></i><br>Cả căn hộ</label> 
-				<label class="btn btn-info <?php echo RoomAddress::checkRoomtype('private_room') ?>"> <input type="checkbox" autocomplete="off" value="private_room" name="room_type" <?php echo RoomAddress::checkRoomtype('private_room', true) ?>> <i class="fa fa-home"></i><br>Phòng riêng</label>
-				<label class="btn btn-info <?php echo RoomAddress::checkRoomtype('share_room') ?>"> <input type="checkbox"autocomplete="off" value="share_room" name="room_type" <?php echo RoomAddress::checkRoomtype('share_room', true) ?>> <i class="fa fa-share-alt"></i><br>Phòng chia sẻ</label>
-			</div>
-			<?php /* 
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title"><?php echo Yii::t('app', 'Diện tích') ?></h3>
-				</div>
-				<div class="panel-body">
-	    		    <div class="row">
-        			    <div class="col-md-6">
-        			        <label><?php echo Yii::t('app', 'Phòng ngủ') ?></label>
-        			        <?php echo CHtml::dropDownList('bedrooms', isset($_GET['bedrooms']) ? $_GET['bedrooms'] : null, Constant::listBedRooms(), array('id' => 'bedrooms', 'class' => 'form-control', 'empty' => Yii::t('app', 'Bất kỳ')))?>
-        			    </div>
-        			    <div class="col-md-6">
-        			        <label><?php echo Yii::t('app', 'Giường') ?></label>
-        			        <?php echo CHtml::dropDownList('beds', isset($_GET['beds']) ? $_GET['beds'] : null, Constant::listBeds(), array('id' => 'beds','class' => 'form-control', 'empty' => Yii::t('app', 'Bất kỳ')))?>
-        			    </div>
-        			</div>
-				</div>
-			</div>
-			*/?>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title"><?php echo Yii::t('app', 'Giá') ?></h3>
-				</div>
-				<div class="panel-body">
-	    		    <div class="row">
-        			    <div class="col-md-12">
-        			        <?php 
-            			        if(isset($_GET['price']) && $_GET['price']) {
-            			            $price = explode(",", $_GET['price']);
-            			        } else {
-            			            $price = array($minprice, $maxprice);
-            			        }
-        			        ?>
-        			        <input type="text" id="range" value="" name="range" />
-        			    </div>
-        			</div>
-				</div>
-			</div>
-			
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title"><?php echo Yii::t('app', 'Tiện nghi') ?></h3>
-				</div>
-				<div class="panel-body">
-	    		    <div class="row">
-        			    <?php 
-        			        if(isset($_GET['amenities']) && $_GET['amenities']) {
-        			            $amenities = explode(",", $_GET['amenities']);
-        			        } else {
-        			            $amenities = array();
-        			        }
-        			        
-        			        $arrayAmenities = Constant::getAmenities();
-        			        foreach ($arrayAmenities as $k => $v) :
-    			        ?>
-        			        <div class="col-md-6">
-        			            <div class="checkbox">
-        			                <label>
-        			                    <input value="<?php echo $k ?>" type="checkbox" name="amenities" <?php if($countAm[$k] == 0) echo 'disabled' ?> <?php if(in_array( $k, $amenities)) echo 'checked' ?>>
-        			                    <?php echo $v ?> (<?php echo $countAm[$k] ?>) 
-    			                    </label>
-    			                </div>
-    			            </div>
-    			        <?php 
-        			        endforeach;
-        			    ?>
-        			</div>
-				</div>
-			</div>
+            <div id="map" style="height: 900px;margin-bottom: 10px;"></div>
+	        <?php 
+		        if(isset($_GET['price']) && $_GET['price']) {
+		            $price = explode(",", $_GET['price']);
+		        } else {
+		            $price = array($minprice, $maxprice);
+		        }
+	        ?>
 		</div>
     </div>
 </div>
@@ -174,6 +92,25 @@
 <?php Yii::app()->clientScript->beginScript('custom-script'); ?>
     <script type="text/javascript">
         jQuery(document).ready(function() {
+        	jQuery(function() {
+        	    var $sidebar   = jQuery(".search-form"), 
+        	        $window    = jQuery(window),
+        	        $divheight = jQuery("#map-image").height(),
+        	        offset     = $sidebar.offset(),
+        	        topPadding = 15;
+        	    $window.scroll(function() {
+            	    console.log();
+        	        if ($window.scrollTop() > offset.top) {
+            	        if(($window.scrollTop() + offset.top + topPadding) < $divheight) {
+            	        	$sidebar.css('margin-top', $window.scrollTop() - offset.top + topPadding);
+            	        }
+        	        } else {
+            	        $sidebar.css('margin-top', 0);
+        	        }
+        	    });
+        	    
+        	});
+        	
         	jQuery("input[name='room_type']").change(function() {
             	var room_type = [];
         	    jQuery("input[name='room_type']").each(function () {
@@ -240,7 +177,7 @@
             var locations = <?php echo json_encode($location) ?>;
 
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 11,
+                zoom: 15,
                 center: new google.maps.LatLng(<?php echo $_GET['lat']?>, <?php echo $_GET['long']?>),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });

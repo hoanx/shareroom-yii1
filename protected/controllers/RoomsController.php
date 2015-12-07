@@ -20,7 +20,11 @@ class RoomsController extends Controller
             $model = RoomAddress::getRooms($data);
             
             if(Yii::app()->request->isAjaxRequest) {
-                echo $this->renderPartial('_search', array('model' => $model), true, true);
+                if(isset($_GET['show']) && $_GET['show'] == 'map') {
+                    echo $this->renderPartial('_search_map', array('model' => $model, 'ajax' => true), true, true);
+                } else {
+                    echo $this->renderPartial('_search', array('model' => $model), true, true);
+                }
             } else {
                 $this->render('index', array(
                     'model' => $model,

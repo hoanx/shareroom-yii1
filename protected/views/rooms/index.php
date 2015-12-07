@@ -3,7 +3,11 @@
 </div>
 <hr>
 <div id="data">
-    <?php echo $this->renderPartial('_search', array('model' => $model), true, true);?>
+    <?php if(isset($_GET['show']) && $_GET['show'] == 'map') :  ?>
+        <?php echo $this->renderPartial('_search_map', array('model' => $model), true, true);?>
+    <?php else : ?>
+        <?php echo $this->renderPartial('_search', array('model' => $model), true, true);?>
+    <?php endif; ?>
 </div>
 <script type="text/javascript">
     jQuery(document).ready(function () {

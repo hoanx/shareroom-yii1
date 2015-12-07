@@ -329,6 +329,11 @@ class RoomAddress extends CActiveRecord
         
     }
     
+    public static function checkShow($data = null) {
+        if(isset($_GET['show']) && $_GET['show'] == $data) echo 'active';
+    
+    }
+    
     public static function checkRoomtype($data = null, $checkbox = false) {
         if(isset($_GET['room_type']) && strpos($_GET['room_type'], $data) !== false) {
             echo ($checkbox) ?  'checked' : 'active'; 
