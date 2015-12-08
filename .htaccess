@@ -15,5 +15,5 @@ RewriteRule . index.php
 #RewriteCond %{HTTP_HOST} ^112.78.1.111
 #RewriteRule (.*) http://www.shareroom.vn/$1 [R=301,L]
 
-ServerSignature Off
-ServerTokens Prod
+#ServerSignature Off
+#ServerTokens Prod
