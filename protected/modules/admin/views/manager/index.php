@@ -15,6 +15,15 @@
             'id',
             'username',
             'email',
+            array(
+                'name' => 'role',
+                'value' => function($data){
+                    if($data->role && is_string(Constant::listRoles($data->role))){
+                        return Constant::listRoles($data->role);
+                    }
+                    return '';
+                }
+            ),
             'created',
             array(
                 'class' => 'CButtonColumn',

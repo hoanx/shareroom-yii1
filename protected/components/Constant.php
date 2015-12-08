@@ -58,6 +58,17 @@ class Constant {
 
     const COUPON_LENGHT = 14;
 
+    const ROLE_ADMIN = 1;
+    const ROLE_CTV = 2;
+
+    static function listRoles($id = null) {
+        $base = array(
+            '' => Yii::t('app', ''),
+            self::ROLE_ADMIN => Yii::t('app', 'Quản trị'),
+            self::ROLE_CTV=> Yii::t('app', 'Cộng tác viên')
+        );
+        return !empty($base[$id]) ? $base[$id] : $base;
+    }
 
     static function deleteFlag($status = null) {
         $base = array(

@@ -33,6 +33,14 @@
             </div>
 
             <div class="form-group">
+                <?php echo $form->labelEx($model, 'role'); ?>
+                <?php echo $form->dropDownList($model, 'role', Constant::listRoles(), array(
+                    'class' => 'form-control'
+                )); ?>
+                <?php echo $form->error($model, 'role'); ?>
+            </div>
+
+            <div class="form-group">
                 <?php echo $form->labelEx($model, 'password'); ?>
                 <?php echo $form->textField($model, 'password', array(
                     'size' => 60,
