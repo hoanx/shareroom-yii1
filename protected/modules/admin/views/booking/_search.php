@@ -98,6 +98,10 @@
                         <?php echo CHtml::activeTextField($model, '[Search]end_price', array('class' => 'form-control')) ?>
                     </div>
                     <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]room_type') ?>
+                        <?php echo CHtml::activeDropDownList($model, '[Search]room_type', Constant::getRoomType(), array('class' => 'form-control', 'empty' => '')) ?>
+                    </div>
+                    <div class="form-group col-lg-3">
                         <?php echo CHtml::activeLabel($model, '[Search]payment_status') ?>
                         <?php echo CHtml::activeDropDownList($model, '[Search]payment_status',
                             Booking::_getStatus(),

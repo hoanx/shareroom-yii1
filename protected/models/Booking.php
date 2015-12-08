@@ -55,7 +55,7 @@ class Booking extends CActiveRecord
     public $end_date;
     public $start_price;
     public $end_price;
-
+    public $room_type;
     /**
      * @return string the associated database table name
      */
@@ -82,7 +82,7 @@ class Booking extends CActiveRecord
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, room_address_id, time_check_in, time_check_out, check_in, check_out, number_of_guests, room_price, cleaning_fees,
 			    additional_guests, coupon_code, discount, total_amount, payment_method, payment_status, booking_status, invoice_date, refund_date, created,
-			    updated, del_flg, price_additional_guests, email, name, address_detail, user_email, user_phone, start_date, end_date, start_price, end_price, phone', 'safe', 'on' => 'search'),
+			    updated, del_flg, price_additional_guests, email, name, address_detail, user_email, user_phone, start_date, end_date, start_price, end_price, phone, room_type', 'safe', 'on' => 'search'),
             array('coupon_code', 'checkCoupon'),
         );
     }
@@ -164,6 +164,7 @@ class Booking extends CActiveRecord
             'end_date' => 'Đến ngày',
             'start_price' => 'Giá từ',
             'end_price' => 'Giá đến',
+            'room_type' => 'Loại phòng'
         );
     }
 
@@ -225,12 +226,12 @@ class Booking extends CActiveRecord
         }
         
         if ($this->start_date) {
-            $criteria->addCondition("DATE_FORMAT(t.check_in, '%Y-%d-%m') >= :start_date");
+            $criteria->addCondition("DATE_FORMAT(STR_TO_DATE(t.check_in, '%d-%m-%Y'), '%Y-%m-%d') >= :start_date");
             $criteria->params += array('start_date' => date('Y-m-d', strtotime($this->start_date)));
         }
         
         if ($this->end_date) {
-            $criteria->addCondition("DATE_FORMAT(t.check_in, '%Y-%d-%m') <= :end_date");
+            $criteria->addCondition("DATE_FORMAT(STR_TO_DATE(t.check_out, '%d-%m-%Y'), '%Y-%m-%d') <= :end_date");
             $criteria->params += array('end_date' => date('Y-m-d', strtotime($this->end_date)));
         }
         
@@ -242,6 +243,10 @@ class Booking extends CActiveRecord
         if ($this->end_price) {
             $criteria->addCondition("t.total_amount <= :end_price");
             $criteria->params += array('end_price' => $this->end_price);
+        }
+        
+        if ($this->room_type) {
+            $criteria->compare('RoomAddress.room_type', $this->room_type, true);
         }
         
         $sort = new CSort;
