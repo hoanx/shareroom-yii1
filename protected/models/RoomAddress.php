@@ -33,7 +33,7 @@ class RoomAddress extends CActiveRecord
     public $first_name;
     public $last_name;
     public $price;
-
+    
     const STATUS_ENABLE = 1;
     const STATUS_DISABLE = 0;
 	/**
@@ -201,7 +201,7 @@ class RoomAddress extends CActiveRecord
             $criteria->compare('Users.first_name',$this->first_name,true);
             $criteria->compare('Users.last_name',$this->last_name,true);
             $criteria->compare('RoomPrice.price',$this->price,true);
-        }else{
+        } else {
             $criteria->compare('t.id',$this->keyword, true, 'OR');
             $criteria->compare('t.address_detail',$this->keyword,true, 'OR');
             $criteria->compare('t.address',$this->keyword,true, 'OR');
@@ -212,6 +212,8 @@ class RoomAddress extends CActiveRecord
             $criteria->compare('Users.email',$this->keyword,true, 'OR');
             $criteria->compare('Users.first_name',$this->keyword,true, 'OR');
             $criteria->compare('Users.last_name',$this->keyword,true);
+            
+            
         }
         
         $criteria->compare('t.del_flg',Constant::DEL_FALSE);

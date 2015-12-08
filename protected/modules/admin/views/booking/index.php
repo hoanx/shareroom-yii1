@@ -11,6 +11,28 @@
         'dataProvider' => $model->search(),
         'columns' => array(
             'id',
+            'check_in',
+            'check_out',
+            array(
+                'name'=>'name',
+                'value'=>function($data){
+                    return $data->BookingHistory->room_name;
+                }
+            ),
+            array(
+                'name'=>'address_detail',
+                'value'=>function($data){
+                    return $data->BookingHistory->room_address_detail;
+                }
+            ),
+            'number_of_guests',
+            array(
+                'name'=>'discount',
+                'type'=> 'raw',
+                'value'=>function($data){
+                    if(isset($data->discount)) return number_format($data->discount);
+                }
+            ),
             array(
                 'name'=>'email',
                 'value'=>function($data){
@@ -18,16 +40,10 @@
                 },
             ),
             array(
-                'name'=>'room_price',
+                'name'=>'phone',
                 'value'=>function($data){
-                    return number_format($data->room_price);
-                }
-            ),
-            array(
-                'name'=>'name',
-                'value'=>function($data){
-                    return $data->BookingHistory->room_name;
-                }
+                    return $data->BookingUser->phone_number;
+                },
             ),
             array(
                 'name'=>'user_email',
@@ -42,21 +58,12 @@
                 }
             ),
             array(
-                'name'=>'address_detail',
-                'value'=>function($data){
-                    return $data->BookingHistory->room_address_detail;
-                }
-            ),
-            array(
                 'name'=>'total_amount',
                 'type'=> 'raw',
                 'value'=>function($data){
                     return number_format($data->total_amount);
                 }
             ),
-            'check_in',
-            'check_out',
-            'number_of_guests',
             array(
                 'name'=>'payment_status',
                 'value'=>function($data){
@@ -69,6 +76,7 @@
                     return !empty($data->booking_status) ? Booking::_getBookingStatus($data->booking_status) : '';
                 }
             ),
+            'note',
             array(
                 'class' => 'CButtonColumn',
                 'template' => '{view}{delete}',

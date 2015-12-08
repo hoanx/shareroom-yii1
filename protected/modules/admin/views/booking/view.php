@@ -70,5 +70,22 @@ table.table-custom th {
             <th>Ngày hủy</th>
             <td><?php if(!empty($model->refund_date)) echo date('Y-m-d', strtotime($model->refund_date)) ?></td>
         </tr>
+        <tr>
+             <th>Ghi chú</th>
+            <td>
+                <?php $form=$this->beginWidget('CActiveForm', array(
+                    'htmlOptions' => array(
+                        'class' => 'form-horizontal'
+                    ),
+                )); ?>
+                    <?php echo $form->textArea($model, 'note', array('class' => 'form-control', 'rows' => 5)); ?>
+                    <br>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-success"><?php echo(Yii::t('app', 'Xác nhận')) ?>&nbsp;&nbsp;<i class="fa fa-play"></i></button>
+                    </div>
+                <?php $this->endWidget(); ?>
+            </td>
+        </tr>
+        
     </table>
 </div>

@@ -46,10 +46,15 @@ class Booking extends CActiveRecord
 
     public $keyword;
     public $email;
+    public $phone;
     public $name;
     public $address_detail;
     public $user_email;
     public $user_phone;
+    public $start_date;
+    public $end_date;
+    public $start_price;
+    public $end_price;
 
     /**
      * @return string the associated database table name
@@ -72,12 +77,12 @@ class Booking extends CActiveRecord
             array('user_id, room_address_id, number_of_guests, total_amount, payment_status, booking_status, del_flg', 'numerical', 'integerOnly' => true),
             array('room_price, cleaning_fees, additional_guests, price_additional_guests, discount', 'numerical'),
             array('check_in, check_out, coupon_code, payment_method', 'length', 'max' => 255),
-            array('time_check_in, time_check_out, invoice_date, refund_date, created, updated', 'safe'),
+            array('time_check_in, time_check_out, invoice_date, refund_date, created, updated, note', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, room_address_id, time_check_in, time_check_out, check_in, check_out, number_of_guests, room_price, cleaning_fees,
 			    additional_guests, coupon_code, discount, total_amount, payment_method, payment_status, booking_status, invoice_date, refund_date, created,
-			    updated, del_flg, price_additional_guests, email, name, address_detail, user_email, user_phone', 'safe', 'on' => 'search'),
+			    updated, del_flg, price_additional_guests, email, name, address_detail, user_email, user_phone, start_date, end_date, start_price, end_price, phone', 'safe', 'on' => 'search'),
             array('coupon_code', 'checkCoupon'),
         );
     }
@@ -137,8 +142,8 @@ class Booking extends CActiveRecord
             'additional_guests' => Yii::t('app', 'Số khách thêm'),
             'price_additional_guests' => Yii::t('app', 'Giá cho khách thêm'),
             'coupon_code' => Yii::t('app', 'Mã khuyến mãi'),
-            'discount' => Yii::t('app', 'Giảm giá'),
-            'total_amount' => Yii::t('app', 'Tổng'),
+            'discount' => Yii::t('app', 'Chiết khấu'),
+            'total_amount' => Yii::t('app', 'Tổng tiền'),
             'payment_method' => Yii::t('app', 'Phương thức thanh toán'),
             'payment_status' => Yii::t('app', 'Trạng thái thanh toán'),
             'booking_status' => Yii::t('app', 'Trạng thái'),
@@ -150,8 +155,15 @@ class Booking extends CActiveRecord
             'name' => 'Tên phòng',
             'address_detail' => 'Địa chỉ phòng',
             'email' => 'Email của người đặt phòng',
+            'phone' => 'Số điện thoại của người đặt phòng',
             'user_email' => 'Email của chủ nhà',
             'user_phone' => 'Số điện thoại của chủ nhà',
+            'note' => 'Ghi chú',
+            'keyword' => 'Từ khóa',
+            'start_date' => 'Từ ngày',
+            'end_date' => 'Đến ngày',
+            'start_price' => 'Giá từ',
+            'end_price' => 'Giá đến',
         );
     }
 
@@ -211,12 +223,37 @@ class Booking extends CActiveRecord
             $criteria->compare('BookingHistory.room_name', $this->keyword, true, 'OR');
             $criteria->compare('BookingHistory.room_address_detail', $this->keyword, true, 'OR');
         }
+        
+        if ($this->start_date) {
+            $criteria->addCondition("DATE_FORMAT(t.check_in, '%Y-%d-%m') >= :start_date");
+            $criteria->params += array('start_date' => date('Y-m-d', strtotime($this->start_date)));
+        }
+        
+        if ($this->end_date) {
+            $criteria->addCondition("DATE_FORMAT(t.check_in, '%Y-%d-%m') <= :end_date");
+            $criteria->params += array('end_date' => date('Y-m-d', strtotime($this->end_date)));
+        }
+        
+        if ($this->start_price) {
+            $criteria->addCondition("t.total_amount >= :start_price");
+            $criteria->params += array('start_price' => $this->start_price);
+        }
+        
+        if ($this->end_price) {
+            $criteria->addCondition("t.total_amount <= :end_price");
+            $criteria->params += array('end_price' => $this->end_price);
+        }
+        
         $sort = new CSort;
         $sort->attributes = array(
             '*',
             'email' => array(
                 'asc' => 'BookingUser.email ASC',
                 'desc' => 'BookingUser.email DESC',
+            ),
+            'phone' => array(
+                'asc' => 'BookingUser.phone_number ASC',
+                'desc' => 'BookingUser.phone_number DESC',
             ),
             'name' => array(
                 'asc' => 'BookingHistory.room_name ASC',

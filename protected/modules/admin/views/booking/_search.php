@@ -9,16 +9,55 @@
         <div id="collapseOne"
              class="panel-collapse collapse <?php if (!empty($_GET['Search']) || empty($_GET)) echo 'in' ?>">
             <?php echo CHtml::form(array('booking/index'), 'get') ?>
-            <div class="panel-body row">
-                <div class="col-md-3">
-                    <?php echo CHtml::activeTextField($model, 'keyword', array(
-                        'class' => 'form-control inline-block',
+            <div class="panel-body ">
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]keyword') ?>
+                        <?php echo CHtml::activeTextField($model, 'keyword', array(
+                            'class' => 'form-control inline-block',
+                        ))?>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]start_date') ?>
+                        <?php
+                        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                            'model' => $model,
+                            'attribute' => 'start_date',
+                            'language'=>'vi',
+                            'options' => array(
+                                'showAnim' => 'slideDown',
+                                'dateFormat' => 'yy-mm-dd',
+                            ),
+                            'htmlOptions' => array(
+                                'class' => 'form-control',
+                            ),
+                        ));
+                        ?>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]end_date') ?>
+                        <?php
+                        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                            'model' => $model,
+                            'attribute' => 'end_date',
+                            'language'=>'vi',
+                            'options' => array(
+                                'showAnim' => 'slideDown',
+                                'dateFormat' => 'yy-mm-dd',
+                            ),
+                            'htmlOptions' => array(
+                                'class' => 'form-control',
+                            ),
+                        ));
+                        ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php echo CHtml::submitButton(Yii::t('app', 'Tìm kiếm'), array(
+                        'class' => 'btn btn-default pull-right',
+                        'name' => 'Search'
                     ))?>
                 </div>
-                <?php echo CHtml::submitButton(Yii::t('app', 'Tìm kiếm'), array(
-                    'class' => 'btn btn-default',
-                    'name' => 'Search'
-                ))?>
             </div>
             <?php echo CHtml::endForm(); ?>
         </div>
@@ -51,8 +90,12 @@
                         <?php echo CHtml::activeTextField($model, '[Search]address_detail', array('class' => 'form-control')) ?>
                     </div>
                     <div class="form-group col-lg-3">
-                        <?php echo CHtml::activeLabel($model, '[Search]room_price') ?>
-                        <?php echo CHtml::activeTextField($model, '[Search]room_price', array('class' => 'form-control')) ?>
+                        <?php echo CHtml::activeLabel($model, '[Search]start_price') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]start_price', array('class' => 'form-control')) ?>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <?php echo CHtml::activeLabel($model, '[Search]end_price') ?>
+                        <?php echo CHtml::activeTextField($model, '[Search]end_price', array('class' => 'form-control')) ?>
                     </div>
                     <div class="form-group col-lg-3">
                         <?php echo CHtml::activeLabel($model, '[Search]payment_status') ?>

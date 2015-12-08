@@ -47,6 +47,14 @@ class BookingController extends AdminController
 	        Yii::app()->user->setFlash('error', 'Invalid record.');
 	        $this->redirect(Yii::app()->homeUrl);
 	    }
+	    
+	    if(isset($_POST['Booking'])) {
+	        $model->attributes  = $_POST['Booking'];
+
+	        if($model->save()) {
+	            $this->redirect(array('booking/index'));
+	        }
+	    }
 	
 	    $this->render('view', array(
             'model' => $model,
