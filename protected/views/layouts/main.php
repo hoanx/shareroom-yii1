@@ -4,8 +4,21 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="language" content="en">
+    <meta name="language" content="vi">
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+
+    <meta name="description" content="<?php echo $this->descriptions ?> - Shareroom">
+    <meta name="keywords" content="Shareroom, <?php echo $this->keywords ?>">
+    <meta name="robots" content="noodp,index,follow">
+    <meta name="author" content="shareroom.vn">
+
+    <meta property="og:title" content="<?php echo CHtml::encode($this->pageTitle); ?>" />
+    <meta property="og:description"
+          content="<?php echo $this->descriptions ?> - Shareroom, shareroom" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<?php echo Yii::app()->getRequest()->getUrl()  ?>" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="fb:app_id" content="<?php echo Yii::app()->facebook->appId ?>">
 
 
     <?php
@@ -123,6 +136,17 @@
 var product_name = ''; if(_h1){product_name= _h1.textContent || _h1.innerText;}var ga = document.createElement('script'); ga.type = 'text/javascript';
 ga.src = '//live.vnpgroup.net/js/web_client_box.php?hash=6b2fc79afc4ff04101b4b26a07f0b5ba&data=eyJoYXNoIjoiODkzNDg2ODhlYTQyMGRhYzAyMTcxZjEzNDUyMTYzMWEiLCJzc29faWQiOjcwMzI2OX0-&pname='+product_name;
 var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();
-</script><noscript><a href="http://www.vatgia.com" title="vatgia.com" target="_blank">Tài trợ bởi vatgia.com</a></noscript><noscript><a href="http://vchat.vn" title="vchat.vn" target="_blank">Phát triển bởi vchat.vn</a></noscript>	
+</script><noscript><a href="http://www.vatgia.com" title="vatgia.com" target="_blank">Tài trợ bởi vatgia.com</a></noscript><noscript><a href="http://vchat.vn" title="vchat.vn" target="_blank">Phát triển bởi vchat.vn</a></noscript>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-71186603-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
 </body>
 </html>

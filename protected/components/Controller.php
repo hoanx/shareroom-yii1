@@ -24,6 +24,9 @@ class Controller extends CController
     public $loginFormModel;
     public $userRegisterModel;
 
+    public $descriptions = 'Đặt phòng du lịch với giá tốt nhất, Phòng sinh viên, Phòng sinh hoạt chung, phòng chia sẻ';
+    public $keywords = 'Phòng chia sẻ,thuê phòng,phòng trọ,khách sạn, nhà nghỉ,du lịch,nghỉ trọ';
+
 
     protected function afterRender($view, &$output) {
         parent::afterRender($view,$output);
