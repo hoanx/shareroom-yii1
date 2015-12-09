@@ -12,6 +12,7 @@ class AdminIdentity extends CUserIdentity {
             $this->id=$adminObj->id;
             $this->setState('id', $adminObj->id);
             $this->setState('name', $adminObj->username);
+            $this->setState('role', $adminObj->role);
 
             $this->errorCode=self::ERROR_NONE;
         }

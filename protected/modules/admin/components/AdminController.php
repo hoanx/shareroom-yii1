@@ -22,6 +22,8 @@ class AdminController extends CController
 	 */
 	public $breadcrumbs=array();
 
+    public $role;
+
     /**
      * @param CAction $action
      * @return bool
@@ -29,6 +31,9 @@ class AdminController extends CController
     public function beforeAction($action) {
         if (Yii::app()->getModule('admin')->user->hasState('language')) {
             Yii::app()->setLanguage(Yii::app()->getModule('admin')->user->getState('language')) ;
+        }
+        if (Yii::app()->getModule('admin')->user->hasState('role')) {
+            $this->role = Yii::app()->getModule('admin')->user->getState('role');
         }
         
         return parent::beforeAction($action);

@@ -4,7 +4,10 @@
 ?>
 
 <section class="table-data">
-    <?php echo CHtml::link('<i class="fa fa-plus"></i> ' . Yii::t('admin', 'Thêm mới'), array('coupon/create'), array('class' => 'btn btn-success new-record-link')); ?>
+    <?php
+    if($this->role==Constant::ROLE_ADMIN)
+        echo CHtml::link('<i class="fa fa-plus"></i> ' . Yii::t('admin', 'Thêm mới'), array('coupon/create'), array('class' => 'btn btn-success new-record-link'));
+    ?>
     <?php $this->renderPartial('_search', array(
         'model'=>$model,
     )) ?>
@@ -25,6 +28,7 @@
             'updated',
             array(
                 'class' => 'CButtonColumn',
+                'template' => $this->role==Constant::ROLE_ADMIN ? '{view} {update} {delete}' : '{view}',
             ),
         ),
     )); ?>

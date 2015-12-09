@@ -8,6 +8,7 @@
  * @property string $username
  * @property string $password
  * @property string $email
+ * @property integer $role
  * @property string $created
  * @property string $updated
  * @property integer $del_flg
@@ -33,17 +34,17 @@ class Admin extends CActiveRecord
 		// will receive user inputs.
 		return array(
             array('email, username','unique'),
-            array('email, username','required'),
+            array('email, username, role','required'),
             array('password', 'required', 'on'=>'register'),
             array('email', 'email'),
-			array('del_flg, sent_pass_to_email', 'numerical', 'integerOnly'=>true),
+			array('del_flg, sent_pass_to_email, role', 'numerical', 'integerOnly'=>true),
 			array('username', 'length', 'max'=>50),
 			array('password, email', 'length', 'max'=>255),
 			array('password', 'length', 'min'=>8),
 			array('created, updated, keyword, sent_pass_to_email', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, email, created, updated, del_flg, keyword', 'safe', 'on'=>'search'),
+			array('id, username, password, email, created, updated, del_flg, keyword, role', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,6 +69,7 @@ class Admin extends CActiveRecord
 			'username' => Yii::t('app', 'Tài khoản'),
 			'password' => Yii::t('app', 'Mật khẩu'),
 			'email' => Yii::t('app', 'Email'),
+			'role' => Yii::t('app', 'Vai trò'),
             'keyword' => Yii::t('app', 'Từ khoá'),
             'sent_pass_to_email' => Yii::t('app', 'Gửi mật khẩu vào email'),
 		);
@@ -94,6 +96,7 @@ class Admin extends CActiveRecord
 
         if (!isset($this->keyword)) {
             $criteria->compare('t.id',$this->id);
+            $criteria->compare('t.role',$this->role);
             $criteria->compare('t.email',$this->email,true);
             $criteria->compare('t.username',$this->username,true);
         }else{

@@ -65,7 +65,7 @@
             ),
             array(
                 'class' => 'CButtonColumn',
-                'template' => '{view}{delete}',
+                'template' => $this->role==Constant::ROLE_ADMIN ? '{view} {delete}' : '{view}',
             ),
         ),
     )); ?>
