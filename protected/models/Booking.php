@@ -39,6 +39,7 @@ class Booking extends CActiveRecord
     const STATUS_PAID = 2;
     const STATUS_FAILS = 3;
     const STATUS_CANCEL = 4;
+    const STATUS_PAID_USER = 5;
     const BOOKING_STATUS_PENDING = 1;
     const BOOKING_STATUS_UNACCEPT = 2;
     const BOOKING_STATUS_ACCEPT = 3;
@@ -334,6 +335,18 @@ class Booking extends CActiveRecord
             self::STATUS_PAID => Yii::t('app', 'Đã thanh toán'),
             self::STATUS_FAILS => Yii::t('app', 'Thanh toán lỗi'),
             self::STATUS_CANCEL => Yii::t('app', 'Đã từ chối'),
+        );
+        return !empty($result[$method]) ? $result[$method] : $result;
+    }
+    
+    public static function _getStatusAdmin($method = null)
+    {
+        $result = array(
+                self::STATUS_UNPAID => Yii::t('app', 'Chưa thanh toán'),
+                self::STATUS_PAID => Yii::t('app', 'Đã thanh toán'),
+                self::STATUS_FAILS => Yii::t('app', 'Thanh toán lỗi'),
+                self::STATUS_CANCEL => Yii::t('app', 'Đã từ chối'),
+                self::STATUS_PAID_USER => Yii::t('app', 'Đã thanh toán cho chủ phòng'),
         );
         return !empty($result[$method]) ? $result[$method] : $result;
     }

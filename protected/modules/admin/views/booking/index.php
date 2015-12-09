@@ -67,7 +67,7 @@
             array(
                 'name'=>'payment_status',
                 'value'=>function($data){
-                    return !empty($data->payment_status) ? Booking::_getStatus($data->payment_status) : '';
+                    return !empty($data->payment_status) ? Booking::_getStatusAdmin($data->payment_status) : '';
                 }
             ),
             array(
