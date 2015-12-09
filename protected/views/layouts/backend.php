@@ -71,6 +71,7 @@
                 <?php echo CHtml::link('<i class="fa fa-dashboard"></i>' . Yii::t('admin', 'Dashboard'), array('default/index'), array('class' => 'sidebar-item')) ?>
             </li>
 
+            <?php if($this->role==Constant::ROLE_ADMIN): ?>
             <li class="<?php Common::checkActive(array('manager')) ?>">
                 <?php echo CHtml::link('<i class="fa fa-briefcase"></i>' . Yii::t('admin', 'Administrator') . '<span class="arrow"></span>', 'javascript:void(0)', array('class' => 'sidebar-item')) ?>
                 <ul class="nav-custom">
@@ -78,6 +79,7 @@
                     <li><?php echo CHtml::link('<i class="fa fa-plus"></i>' . Yii::t('admin', 'Thêm mới'), array('manager/create')) ?></li>
                 </ul>
             </li>
+            <?php endif ?>
 
             <li class="<?php Common::checkActive(array('user')) ?>">
                 <?php echo CHtml::link('<i class="fa fa-user"></i>' . Yii::t('admin', 'Thành viên') . '<span class="arrow"></span>', 'javascript:void(0)', array('class' => 'sidebar-item')) ?>
@@ -99,9 +101,12 @@
                     <li><?php echo CHtml::link('<i class="fa fa-list-ul"></i>' . Yii::t('admin', 'Danh sách'), array('booking/index')) ?></li>
                 </ul>
             </li>
+
+            <?php if($this->role==Constant::ROLE_ADMIN): ?>
             <li class="<?php Common::checkActive('coupon') ?>">
                 <?php echo CHtml::link('<i class="fa fa-barcode"></i>' . Yii::t('admin', 'Mã giảm giá'), array('coupon/index'), array('class' => 'sidebar-item')) ?>
             </li>
+            <?php endif ?>
 
         </ul>
     </div>

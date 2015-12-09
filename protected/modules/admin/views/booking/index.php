@@ -80,6 +80,11 @@
             array(
                 'class' => 'CButtonColumn',
                 'template' => '{view}{delete}',
+                'buttons'=>array(
+                    'delete' => array(
+                        'visible'=> 'Yii::app()->getModule(\'admin\')->user->getState(\'role\')==Constant::ROLE_ADMIN',
+                    ),
+                )
             ),
         ),
     )); ?>

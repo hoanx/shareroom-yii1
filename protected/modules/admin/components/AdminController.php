@@ -35,6 +35,13 @@ class AdminController extends CController
         if (Yii::app()->getModule('admin')->user->hasState('role')) {
             $this->role = Yii::app()->getModule('admin')->user->getState('role');
         }
+
+        $controller_name = $this->getId();
+        $action_name = $action->id;
+        if($this->role==Constant::ROLE_CTV && in_array($controller_name, array('manager', 'coupon'))){
+            $this->render('/default/accessdenied');
+            Yii::app()->end();
+        }
         
         return parent::beforeAction($action);
     }
