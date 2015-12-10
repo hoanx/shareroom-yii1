@@ -32,20 +32,24 @@
             'options' => array(
                 'minDate' => 0,
                 'dateFormat' => 'dd-mm-yy',
+                'onSelect' => "js:function(selectedDate) {
+                    jQuery('#InputCheckout1').datepicker('option', 'minDate', selectedDate);
+                    jQuery('#InputCheckout0').datepicker('option', 'minDate', selectedDate);
+                }",
                 'beforeShowDay' => 'js:function( date ) {
-                                        var highlight = eventDates_' . $room->id . '[date];
-                                        if( highlight ) {
-                                             return [false, "checked"];
-                                        } else {
-                                             return [true, ""];
-                                        }
-                                     }',
+                    var highlight = eventDates_' . $room->id . '[date];
+                    if( highlight ) {
+                         return [false, "checked"];
+                    } else {
+                         return [true, ""];
+                    }
+                 }',
 
             ),
             'htmlOptions' => array(
                 'class' => 'form-control date-picker ui-datepicker-target',
                 'maxlength' => 10,
-                'placeholder' => Constant::DATE_FORMAT
+                'placeholder' => Constant::DATE_FORMAT,
             ),
         ));
         ?>
@@ -72,38 +76,40 @@
                                 }
                              }',
                 'onSelect' => 'js:function(dateText, inst) {
-                                var oneDay = 24*60*60*1000;
-                                var min_night = jQuery("#PaymentForm_min_night").val();
-                                var max_night = jQuery("#PaymentForm_max_night").val();
-                                var checkin_date = jQuery("#' . $id_input_checkin . '").val().split("-");
-                                var checkout_date = dateText.split("-");
+                    jQuery("#InputCheckin1").datepicker("option", "maxDate", dateText);
+                    jQuery("#InputCheckin0").datepicker("option", "maxDate", dateText);
+                    var oneDay = 24*60*60*1000;
+                    var min_night = jQuery("#PaymentForm_min_night").val();
+                    var max_night = jQuery("#PaymentForm_max_night").val();
+                    var checkin_date = jQuery("#' . $id_input_checkin . '").val().split("-");
+                    var checkout_date = dateText.split("-");
 
-                                var checkin = new Date(checkin_date[2],checkin_date[1],checkin_date[0]);
-                                var checkout = new Date(checkout_date[2],checkout_date[1],checkout_date[0]);
+                    var checkin = new Date(checkin_date[2],checkin_date[1],checkin_date[0]);
+                    var checkout = new Date(checkout_date[2],checkout_date[1],checkout_date[0]);
 
-                                var diffDays = Math.round(((checkout.getTime() - checkin.getTime())/(oneDay)));
+                    var diffDays = Math.round(((checkout.getTime() - checkin.getTime())/(oneDay)));
 
-                                jQuery("#PaymentForm_number_night").val(diffDays);
+                    jQuery("#PaymentForm_number_night").val(diffDays);
 
-                                if(diffDays > max_night){
-                                    //loi so dem toi thieu
-                                    jQuery("#'.$id_error.'").html(\'<div class="alert alert-danger alert-dismissable fade in">Số đêm tối đa \'+max_night+ \' Đêm</div>\');
-                                }else{
-                                    if(diffDays < min_night){
-                                        //loi so dem toi thieu
-                                        jQuery("#'.$id_error.'").html(\'<div class="alert alert-danger alert-dismissable fade in">Số đêm tối thiểu \'+min_night+ \' Đêm</div>\');
-                                    }else{
-                                        jQuery("#'.$id_error.'").empty();
-                                    }
-                                }
+                    if(diffDays > max_night){
+                        //loi so dem toi thieu
+                        jQuery("#'.$id_error.'").html(\'<div class="alert alert-danger alert-dismissable fade in">Số đêm tối đa \'+max_night+ \' Đêm</div>\');
+                    }else{
+                        if(diffDays < min_night){
+                            //loi so dem toi thieu
+                            jQuery("#'.$id_error.'").html(\'<div class="alert alert-danger alert-dismissable fade in">Số đêm tối thiểu \'+min_night+ \' Đêm</div>\');
+                        }else{
+                            jQuery("#'.$id_error.'").empty();
+                        }
+                    }
 
-                                console.log(diffDays);
-                            }',
+                    console.log(diffDays);
+                }',
             ),
             'htmlOptions' => array(
                 'class' => 'form-control date-picker ui-datepicker-target',
                 'maxlength' => 10,
-                'placeholder' => Constant::DATE_FORMAT
+                'placeholder' => Constant::DATE_FORMAT,
             ),
         ));
         ?>

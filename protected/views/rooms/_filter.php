@@ -1,3 +1,26 @@
+    <?php 
+        $minprice = 0;
+        $maxprice = 0;
+        $countAm = RoomAddress::listAmenities();
+        
+        foreach($model as $room) {
+            if(isset($room->RoomPrice->price)) {
+                if($minprice == 0) {
+                    $minprice =  $room->RoomPrice->price;
+                }
+            
+                if($room->RoomPrice->price > $maxprice) $maxprice = $room->RoomPrice->price;
+                if($room->RoomPrice->price < $minprice) $minprice = $room->RoomPrice->price;
+            }
+            
+            $ams = unserialize($room->amenities);
+            if(!empty($ams)) {
+                foreach($ams as $am) {
+                    $countAm[$am]++;
+                }
+            }
+        }
+    ?>    
 	<button type="button" class="btn btn-default hidden-xs" data-toggle="modal" data-target="#myModal">Bộ lọc</button>
 
 	<!-- Modal -->
@@ -50,15 +73,6 @@
                 			            $amenities = array();
                 			        }
                 			        $countAm = RoomAddress::listAmenities();
-                			        
-                			        foreach($model as $room) {
-                			            $ams = unserialize($room->amenities);
-                			            if(!empty($ams)) {
-                			                foreach($ams as $am) {
-                			                    $countAm[$am]++;
-                			                }
-                			            }
-                			        }
                 			        
                 			        $arrayAmenities = Constant::getAmenities();
                 			        foreach ($arrayAmenities as $k => $v) :

@@ -76,7 +76,7 @@
                         </a>
                     </div>
                 </div>
-                <h4 style="color: #398fd1;"><?php echo CHtml::link($room->name, array('rooms/view', 'id' => $room->id))?></h4>
+                <h4 style="color: #398fd1;"><?php echo CHtml::link($room->name, array('rooms/view', 'id' => $room->id, 'name' => $room->name))?></h4>
                 <h5>
                 <?php 
                     $room_type_title = Constant::getRoomType($room->room_type);
