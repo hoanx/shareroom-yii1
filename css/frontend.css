@@ -1324,6 +1324,10 @@ table.table-booking a.unaccept{
     line-height: 30px;
 }
 
+.page-static p{
+    line-height: 26.888px;
+}
+
 .search-form .btn-info.active {
 	background-color: #d9534f !important;
     border-color: #d43f3a !important;
