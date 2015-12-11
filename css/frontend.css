@@ -1361,3 +1361,7 @@ table.table-booking a.unaccept{
     padding-left: 10px;
     display: none;
 }
+
+.info-company{
+    font-size: 11px;
+}
