@@ -404,4 +404,14 @@ class SiteController extends Controller
         $this->pageTitle = Yii::t('app', 'Điều khoản & Điều kiện');
         $this->render('policy');
     }
+
+    public function actionBaomat(){
+        $this->pageTitle = Yii::t('app', 'Chính sách bảo mật');
+        $this->render('baomat');
+    }
+
+    public function actionHoatdong(){
+        $this->pageTitle = Yii::t('app', 'Quy chế hoạt động');
+        $this->render('hoatdong');
+    }
 }
