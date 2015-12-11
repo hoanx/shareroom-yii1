@@ -1,5 +1,11 @@
 <h1><?php echo($this->getPageTitle()) ?></h1>
 <hr>
+<style>
+    .page-static p {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+</style>
 <div class="page-static">
     <p>
         Cám ơn quý khách đã truy cập vào website Shareroom.vn được vận hành bởi Công ty cổ phần Share Room. Chúng tôi
@@ -152,27 +158,29 @@
         chi tiết cá nhân của bạn trên máy chủ an toàn. Chúng tôi dùng tường lửa cho máy chủ. Chúng tôi duy trì các biện
         pháp bảo vệ vật lý và điện tử trong mối liên kết với thu thập, lưu trữ và tiết lộ thông tin của bạn. Các thủ tục
         an toàn của chúng tôi nghĩa là chúng tôi có thể đôi khi yêu cầu giấy tờ chứng minh trước khi tiết lộ thông tin
-        cá nhân cho bạn. Chúng tôi khuyên quý khách rằng quý khách không nên đưa thông tin chi tiết về việc thanh toán
+        cá nhân cho bạn. 
+    </p>
+    
+    <p>
+        Chúng tôi khuyên quý khách rằng quý khách không nên đưa thông tin chi tiết về việc thanh toán
         với bất kỳ ai bằng e-mail, chúng tôi không chịu trách nhiệm về những mất mát quý khách có thể gánh chịu trong
         việc trao đổi thông tin của quý khách qua internet hoặc email.
     </p>
 
-    <p>Quý khách tuyệt đối không sử dụng bất kỳ chương trình, công cụ hay hình thức nào khác để can thiệp vào hệ thống
-        hay làm thay đổi cấu trúc dữ liệu. Nghiêm cấm việc phát tán, truyền bá hay cổ vũ cho bất kỳ hoạt động nào nhằm
-        can thiệp, phá hoại hay xâm nhập vào dữ liệu của hệ thống website. Mọi vi phạm sẽ bị tước bỏ mọi quyền lợi cũng
-        như sẽ bị truy tố trước pháp luật nếu cần thiết.</p>
+    <p>Quý khách tuyệt đối không sử dụng bất kỳ chương trình, công cụ hay hình thức nào khác để can 
+        thiệp vào hệ thống hay làm thay đổi cấu trúc dữ liệu. Nghiêm cấm việc phát tán, truyền bá hay cổ 
+        vũ cho bất kỳ hoạt động nào nhằm can thiệp, phá hoại hay xâm nhập vào dữ liệu của hệ thống 
+        website. Mọi vi phạm sẽ bị tước bỏ mọi quyền lợi cũng như sẽ bị truy tố trước pháp luật nếu cần thiết.
+    </p>
 
-    <p>Mọi thông tin giao dịch sẽ được bảo mật nhưng trong trường hợp cơ quan pháp luật yêu cầu, chúng tôi sẽ buộc phải
-        cung cấp những thông tin này cho các cơ quan pháp luật.</p>
+    <p>Mọi thông tin giao dịch sẽ được bảo mật nhưng trong trường hợp cơ quan pháp luật yêu cầu, chúng tôi sẽ buộc phải cung cấp những thông tin này cho các cơ quan pháp luật.</p>
 
-    <p>Các điều kiện, điều khoản và nội dung của trang web này được điều chỉnh bởi luật pháp Việt Nam và tòa án Việt Nam
-        có thẩm quyền xem xét.</p>
+    <p>Các điều kiện, điều khoản và nội dung của trang web này được điều chỉnh bởi luật pháp Việt Nam và tòa án Việt Nam có thẩm quyền xem xét.</p>
 
     <h2>4. Quyền lợi khách hàng</h2>
 
-    <p>Quý khách có quyền yêu cầu truy cập vào dữ liệu cá nhân của mình, có quyền yêu cầu chúng tôi sửa lại những sai
-        sót trong dữ liệu của bạn mà không mất phí. Bất cứ lúc nào bạn cũng có quyền yêu cầu chúng tôi ngưng sử dụng dữ
-        liệu cá nhân của bạn cho mục đích tiếp thị.</p>
+    <p>Quý khách có quyền yêu cầu truy cập vào dữ liệu cá nhân của mình, có quyền yêu cầu chúng tôi sửa lại những sai sót 
+    trong dữ liệu của bạn mà không mất phí. Bất cứ lúc nào bạn cũng có quyền yêu cầu chúng tôi ngưng sử dụng dữ liệu cá nhân của bạn cho mục đích tiếp thị.</p>
 
 
 </div>
