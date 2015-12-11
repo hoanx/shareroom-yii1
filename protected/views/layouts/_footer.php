@@ -8,7 +8,7 @@
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-md-4 col-sm-6">
                 <h5><?= Yii::t('app', 'Thông tin công ty') ?></h5>
                 <ul>
                     <li><a href="<?php echo(Yii::app()->createUrl('site/about')) ?>"><?php echo(Yii::t('app', 'Giới thiệu shareroom')) ?></a></li>
@@ -18,7 +18,7 @@
                     <li><a href="<?php echo(Yii::app()->createUrl('site/contact')) ?>"><?php echo(Yii::t('app', 'Liên hệ')) ?></a></li>
                 </ul>
             </div>
-            <div class="col-sm-4">
+            <div class="col-md-4 col-sm-6">
 
                 <div class="fb-page" data-href="https://www.facebook.com/shareroom.vn" data-hide-cover="false"
                      data-show-facepile="true" data-show-posts="false">
@@ -37,9 +37,16 @@
                         fjs.parentNode.insertBefore(js, fjs);
                     }(document, 'script', 'facebook-jssdk'));</script>
                     
-
             </div>
-            <div class="col-sm-4">
+            <div class="col-md-4 col-sm-6 info-company">
+                <p>Tên đơn vị: Công ty cổ phần SHARE ROOM</p>
+                <p>Người đại diện: <strong>Mạc Ngọc Tuấn</strong></p>
+                <p>Địa chỉ: BT02 khu đô thị Vân Canh - Hoài Đức - Hà Nội</p>
+                <p>Điện thoại 0931.68.78.66</p>
+                <p>Email: <a href="mailto:admin@shareroom.vn">admin@shareroom.vn</a></p>
+                <p>Số đăng ký kinh doanh: 0106919643</p>
+                <p>Ngày cấp: 30/7/2015</p>
+                <p>Nơi cấp: Sở Kế hoạch và Đầu tư Thành phố Hà Nội</p>
                 <?php /*
                 <h5><?= Yii::t('app', 'Được chứng nhận') ?></h5>
                 <div class="col-xs-6">
