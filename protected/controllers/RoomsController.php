@@ -148,6 +148,9 @@ class RoomsController extends Controller
             $this->redirect(Yii::app()->homeUrl);
         }
         
+        $this->title = $room->name;
+        $this->descriptions = $room->address_detail;
+        
         $room->amenities = unserialize($room->amenities);
         
         $this->breadcrumbs = array(

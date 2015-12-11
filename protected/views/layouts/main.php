@@ -7,6 +7,7 @@
     <meta name="language" content="vi">
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
+    <meta name="title" content="<?php echo $this->title ?> - Shareroom">
     <meta name="description" content="<?php echo $this->descriptions ?> - Shareroom">
     <meta name="keywords" content="Shareroom, <?php echo $this->keywords ?>">
     <meta name="robots" content="noodp,index,follow">
