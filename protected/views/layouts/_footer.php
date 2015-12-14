@@ -15,6 +15,7 @@
                     <li><a href="<?php echo(Yii::app()->createUrl('site/baomat')) ?>"><?php echo(Yii::t('app', 'Chính sách bảo mật')) ?></a></li>
                     <li><a href="<?php echo(Yii::app()->createUrl('site/privacy_policies')) ?>"><?php echo(Yii::t('app', 'Chính sách riêng tư')) ?></a></li>
                     <li><a href="<?php echo(Yii::app()->createUrl('site/policy')) ?>"><?php echo(Yii::t('app', 'Điều kiện & điều khoản')) ?></a></li>
+                    <li><a href="<?php echo(Yii::app()->createUrl('site/hoatdong')) ?>"><?php echo(Yii::t('app', 'Hoạt động')) ?></a></li>
                     <li><a href="<?php echo(Yii::app()->createUrl('site/contact')) ?>"><?php echo(Yii::t('app', 'Liên hệ')) ?></a></li>
                 </ul>
             </div>
