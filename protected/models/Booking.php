@@ -313,7 +313,7 @@ class Booking extends CActiveRecord
                     'item_count' => $this->number_of_guests,
                     'category_code' => 'Booking Shareroom',
                     'price' => $this->total_amount,
-                    'product_name' => $this->BookingHistory->room_name,
+                    'product_name' => '#'.$this->room_address_id,
                 )
             );
             $order_code = '#'.$this->id;
