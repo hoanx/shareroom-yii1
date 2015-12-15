@@ -4,6 +4,8 @@
 		$r1 = mt_rand(0, 63);
 		$r2 = substr($pad, $r1, 1);
 		$pad = substr($pad, $r1).substr($pad, 0, $r1);
+        $rst = '';
+        $v1 = $v2 = $v3 = $v4 = 0;
 
 		for ($i = 0 ; $i < strlen($src) / 3; $i++)
 		{

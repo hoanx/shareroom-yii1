@@ -14,6 +14,14 @@ class RoomsController extends Controller
     }
     
     public function actionIndex(){
+
+        //Debug encode adpia
+        /*$adpia_url = 'http://purchase.adpia.vn/purchase.php?a_id=A100TEST|0000|0000|1|1&m_id=shareroom&mbr_id=shareroom(Mac Ngoc Tuan)&o_cd=#49&p_cd=#715-2&it_cnt=2&sales=300000&c_cd=Booking Shareroom&p_nm=#715&remote_addr=222.254.10.60';
+        $code = "00054";
+        $pad = "SBz*drMbZeQCuDxpNjqsAImkHaEYoLG7X4163FOf0Ji.Pnh9yRwgWK52tTVlUc8v";
+        $adpia_url = ADPia::ap_url_trt($adpia_url, $code, $pad);
+        Common::debugdie($adpia_url);*/
+
         if(!empty($_GET['lat']) && !empty($_GET['long'])) {
             $data = $_GET;
             
