@@ -27,6 +27,7 @@
  * @property string $created
  * @property string $updated
  * @property integer $del_flg
+ * @property integer $sent_to_adpia
  *
  * @todo: 2 trường $additional_guests và $price_additional_guests hiện tại chưa sử dụng vì ko chọn được nhiều hơn số khách tối đa
  */
@@ -75,7 +76,9 @@ class Booking extends CActiveRecord
         return array(
             array('user_id, room_address_id, check_in, check_out, number_of_guests, room_price, cleaning_fees,
 			    total_amount, payment_method', 'required'),
-            array('user_id, room_address_id, number_of_guests, total_amount, payment_status, booking_status, del_flg', 'numerical', 'integerOnly' => true),
+            array('user_id, room_address_id, number_of_guests, total_amount, payment_status, booking_status, del_flg,
+                sent_to_adpia',
+                'numerical', 'integerOnly' => true),
             array('room_price, cleaning_fees, additional_guests, price_additional_guests, discount', 'numerical'),
             array('check_in, check_out, coupon_code, payment_method', 'length', 'max' => 255),
             array('time_check_in, time_check_out, invoice_date, refund_date, created, updated, note', 'safe'),
@@ -83,7 +86,9 @@ class Booking extends CActiveRecord
             // @todo Please remove those attributes that should not be searched.
             array('id, user_id, room_address_id, time_check_in, time_check_out, check_in, check_out, number_of_guests, room_price, cleaning_fees,
 			    additional_guests, coupon_code, discount, total_amount, payment_method, payment_status, booking_status, invoice_date, refund_date, created,
-			    updated, del_flg, price_additional_guests, email, name, address_detail, user_email, user_phone, start_date, end_date, start_price, end_price, phone, room_type', 'safe', 'on' => 'search'),
+			    updated, del_flg, price_additional_guests, email, name, address_detail, user_email, user_phone, start_date,
+			    end_date, start_price, end_price, phone, room_type, sent_to_adpia',
+                'safe', 'on' => 'search'),
             array('coupon_code', 'checkCoupon'),
         );
     }
@@ -299,6 +304,26 @@ class Booking extends CActiveRecord
             $this->created = $now;
         }
         $this->updated = $now;
+
+        if($this->sent_to_adpia==0 && $this->payment_status==Self::STATUS_PAID && !$this->isNewRecord){
+            //sent to adpia
+            $cartData = array(
+                array(
+                    'product_code' => '#'.$this->room_address_id.'-'.$this->user_id, //#RoomID-USERID
+                    'item_count' => $this->number_of_guests,
+                    'category_code' => 'Booking Shareroom',
+                    'price' => $this->total_amount,
+                    'product_name' => $this->BookingHistory->room_name,
+                )
+            );
+            $order_code = '#'.$this->id;
+            $id = 'shareroom';
+            $name = 'Mac Ngoc Tuan';
+
+            ADPia::adpia_cps($cartData, $order_code, $id, $name);
+
+            $this->sent_to_adpia==1;
+        }
         return parent::beforeSave();
     }
 
