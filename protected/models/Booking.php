@@ -305,7 +305,7 @@ class Booking extends CActiveRecord
         }
         $this->updated = $now;
 
-        if($this->sent_to_adpia==0 && $this->payment_status==Self::STATUS_PAID && !$this->isNewRecord){
+        if($this->sent_to_adpia==0 && $this->payment_status==self::STATUS_PAID && !$this->isNewRecord){
             //sent to adpia
             $cartData = array(
                 array(
