@@ -21,7 +21,7 @@
                     <div class="col-md-8">
                         <?php echo $form->textField($model, 'coupon_code', array(
                             'class' => 'form-control',
-                            'readonly'=>true
+                            'readonly'=>false
                         )); ?>
                     </div>
                     <div class="col-md-4">
