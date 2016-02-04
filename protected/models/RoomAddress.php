@@ -344,7 +344,7 @@ class RoomAddress extends CActiveRecord
     
     public static function getRooms($data) {
         $earthRadius = '3963.0';
-        $bk_search = 0.14;
+        $bk_search = 0.12; //@todo: Thay doi ban kinh tim kiem
         $latitude = $data['lat'];
         $longitude = $data['long'];
     
