@@ -51,13 +51,13 @@
                     }
                 }
                     
-                
+                $text = $room->name;
                 $content = CHtml::link($room->name, array('rooms/view', 'id' => $room->id), array('class' => 'marker-link'));
                 if(isset($room->RoomPrice->price)) {
                     $content .= '<div>' . number_format($room->RoomPrice->price) . 'VND</div>';
                 }
             ?>
-            <?php $location[] = array($content, $room->lat, $room->long, $room->id) ; ?>
+            <?php $location[] = array($content, $room->lat, $room->long, $room->id, $text) ; ?>
             <div class="room-search col-md-6" id="room_<?php echo $room->id?>">
                 <div class="img-room" data-room='<?php echo $i ?>'>
                     <?php 
@@ -250,10 +250,11 @@
             var marker, i;
             var markers = new Array();
 
-            for (i = 0; i < locations.length; i++) {  
+            for (i = 0; i < locations.length; i++) {
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    map: map
+                    map: map,
+                    title: locations[i][4]
                 });
 
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
