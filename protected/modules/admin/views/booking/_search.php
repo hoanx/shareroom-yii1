@@ -51,13 +51,21 @@
                         ));
                         ?>
                     </div>
+
+                    <div class="form-group col-md-3">
+                        <label style="color: #ffffff">Tim Kiem</label>
+                        <?php echo CHtml::submitButton(Yii::t('app', 'Tìm kiếm'), array(
+                            'class' => 'btn btn-default form-control',
+                            'name' => 'Search'
+                        ))?>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <?php echo CHtml::submitButton(Yii::t('app', 'Tìm kiếm'), array(
+                <!--<div class="form-group">
+                    <?php /*echo CHtml::submitButton(Yii::t('app', 'Tìm kiếm'), array(
                         'class' => 'btn btn-default pull-right',
                         'name' => 'Search'
-                    ))?>
-                </div>
+                    ))*/?>
+                </div>-->
             </div>
             <?php echo CHtml::endForm(); ?>
         </div>
