@@ -35,20 +35,20 @@
     </div>
     <div class="navbar-header notify-row pull-right">
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
+            <!--<li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-envelope"></i>
                     <?php
-                    //$countContact = UserThread::getCountContactNew();
+/*                    //$countContact = UserThread::getCountContactNew();
                     $countContact = 10;
                     if (!empty($countContact)) :
-                        ?>
+                        */?>
                         <span class="badge bg-warning">
-        				            <?php echo $countContact; ?>
+        				            <?php /*echo $countContact; */?>
     				            </span>
-                    <?php endif; ?>
+                    <?php /*endif; */?>
                 </a>
-            </li>
+            </li>-->
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-user"></i>
