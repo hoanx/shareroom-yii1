@@ -147,14 +147,15 @@ class RoomsController extends Controller
     }
     
     public function actionView($id = null) {
-        $this->setPageTitle(Yii::t('app', 'Xem địa điểm'));
-    
+
         $room = RoomAddress::model()->findByAttributes(array('id' => $id, 'del_flg' => 0));
     
         if(!$room) {
             Yii::app()->user->setFlash('error', 'Invalid record.');
             $this->redirect(Yii::app()->homeUrl);
         }
+
+        $this->setPageTitle(Yii::t('app', $room->name . ' - Shareroom.vn'));
         
         $this->title = $room->name;
         $this->descriptions = $room->address_detail;
