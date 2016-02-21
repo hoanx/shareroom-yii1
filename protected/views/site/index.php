@@ -1,7 +1,7 @@
 <?php
 /* @var $this SiteController */
 
-$this->pageTitle = Yii::app()->name;
+//$this->pageTitle = Yii::app()->name;
 ?>
 
 <?php //$this->widget('ext.widgets.hybridAuth.SocialLoginButtonWidget', array(

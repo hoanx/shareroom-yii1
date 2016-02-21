@@ -21,6 +21,7 @@ class RoomsController extends Controller
         $pad = "SBz*drMbZeQCuDxpNjqsAImkHaEYoLG7X4163FOf0Ji.Pnh9yRwgWK52tTVlUc8v";
         $adpia_url = ADPia::ap_url_trt($adpia_url, $code, $pad);
         Common::debugdie($adpia_url);*/
+        $this->setPageTitle('Cho thuê nhà nghỉ, căn hộ, biệt thự và hơn thế nữa');
 
         if(!empty($_GET['lat']) && !empty($_GET['long'])) {
             $data = $_GET;

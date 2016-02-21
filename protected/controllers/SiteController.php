@@ -61,6 +61,7 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
+        $this->setPageTitle('Cho thuê nhà nghỉ, căn hộ, biệt thự và hơn thế nữa');
 		$this->render('index');
 	}
 
