@@ -5,6 +5,7 @@
     $listDateBooking = RoomSet::getDateBookingByRoomAddress($room->id);
     $id_input_checkin = 'InputCheckin' . $mobile;
     $id_input_checkout = 'InputCheckout' . $mobile;
+    $id_number_night = 'NumberNight' . $mobile;
     $id_error = 'msg' . $mobile;
     ?>
     <?php Yii::app()->clientScript->beginScript('custom-script-' . $room->id); ?>
@@ -18,7 +19,7 @@
     <?php Yii::app()->clientScript->endScript(); ?>
 
     <?php echo $form->hiddenField($paymentForm, 'room_address_id'); ?>
-    <?php echo $form->hiddenField($paymentForm, 'number_night'); ?>
+    <?php echo $form->hiddenField($paymentForm, 'number_night', array('id'=>$id_number_night)); ?>
     <?php echo $form->hiddenField($paymentForm, 'min_night'); ?>
     <?php echo $form->hiddenField($paymentForm, 'max_night'); ?>
     <div class="col-lg-5 frm-checkin">
@@ -89,7 +90,7 @@
 
                     var diffDays = Math.round(((checkout.getTime() - checkin.getTime())/(oneDay)));
 
-                    jQuery("#PaymentForm_number_night").val(diffDays);
+                    jQuery("#'.$id_number_night.'").val(diffDays);
 
                     if(diffDays > max_night){
                         //loi so dem toi thieu
